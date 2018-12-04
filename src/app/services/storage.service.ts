@@ -16,6 +16,9 @@ export class StorageService {
     localStorage.setItem('cmsAppToken', appToken);
   }
 
+  getToken(){
+    return localStorage.getItem("cmsAppToken");
+  }
   
 
 }

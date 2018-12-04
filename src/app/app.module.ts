@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { BannerAddComponent } from './banner-add/banner-add.component';
 //import {LocalStorageModule} from 'angular-local-storage';
 
 
@@ -27,7 +30,17 @@ const routes: Routes =[
         },
         {
           path : 'main',
-          component : MainPageComponent
+          component : MainPageComponent,
+          children : [
+            {
+               path: "add-banner",
+               component : BannerAddComponent
+            }
+          ]
+        },
+        {
+          path: "add-banner",
+          component : BannerAddComponent
         }
       ]
   }
@@ -39,7 +52,10 @@ const routes: Routes =[
     LoginComponent,
     ForgotPasswordComponent,
     SidemenuComponent,
-    MainPageComponent
+    MainPageComponent,
+    HeaderComponent,
+    FooterComponent,
+    BannerAddComponent
   ],
   imports: [
     BrowserModule,
