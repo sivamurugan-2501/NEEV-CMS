@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BannerServiceService } from './../services/banner-service.service';
 
 @Component({
   selector: 'app-banner-add',
@@ -15,6 +16,9 @@ export class BannerAddComponent implements OnInit {
   bannerData = {
     caption : null,
     type : 1,
+    path: null,
+    file: null,
+    hasLink : 0,
     linkedTo : 0    
   }
 
@@ -31,9 +35,44 @@ export class BannerAddComponent implements OnInit {
   }
      
   
-  constructor() { }
+  constructor(private bannerService : BannerServiceService) { }
 
   ngOnInit() {
+
+  }
+
+  saveBanner(){
+      var banner = new FormData();
+      
+      let keys = Object.keys(this.bannerData);
+    
+      for(let i=0;i<keys.length;i++){
+        //alert(this.bannerData[keys[i]]);
+        if(keys[i] == "file"){
+          if(this.bannerData["type"]==1){
+            
+            let file = this.bannerData[keys[i]];
+            banner.append(keys[i], file, file["name"]);
+          
+          }else{
+
+            banner.append(keys[i], null);
+
+          }
+        }else{
+          banner.append(keys[i], this.bannerData[keys[i]]);
+        }
+        
+      }
+      this.bannerService.postNewBanner(banner).subscribe(response => {
+          alert(response);
+      });
+      
+  }
+
+  onFileChange(event){
+    const file = this.bannerData.file = event.target.files[0];
+    
   }
 
 }

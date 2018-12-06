@@ -49,7 +49,7 @@
        <div class="box-body">
          <div class="row">
            <div class="col">
-             <form novalidate>
+             <form (submit)="saveBanner()" enctype="multipart/form-data" method="post">
          <div class="row">
          <div class="col-12">	
 
@@ -64,7 +64,7 @@
             <div class="form-group">
                 <h5>Upload Type<span class="text-danger">*</span></h5>
                 <div class="controls">
-                  <select name="uploadType" id="uploadType" required class="form-control" [(ngModel)]="bannerData.type">
+                  <select name="uploadType" id="uploadType" required class="form-control" [(ngModel)]="bannerData.type" >
                       <option *ngFor="let t of typeOptions" value="{{t.value}}">{{t.name}}</option>
                   </select>
                 </div>
@@ -73,7 +73,7 @@
               <div *ngIf="bannerData.type==1" class="form-group">
                 <h5>Upload file<span class="text-danger">*</span></h5>
                 <div class="controls">
-                  <input type="file" name="file" class="form-control" required> </div>
+                  <input type="file" name="file" class="form-control" required (change)="onFileChange($event)"> </div>
               </div>
 
            <div *ngIf="bannerData.type==2" class="form-group">
