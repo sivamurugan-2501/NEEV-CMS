@@ -30,4 +30,8 @@ export class AuthService {
 
   }
 
+  loginUserData(){
+     return this.storageService.getUserData();
+  }
+
 }

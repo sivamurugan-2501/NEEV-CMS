@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+.action-icon{
+    display :inline-block;
+    padding: 2px 4px;
+}
+
+.action-icon.edit{
+    color : blue;
+}
+
+.action-icon.delete{
+    color: red;
+}
+

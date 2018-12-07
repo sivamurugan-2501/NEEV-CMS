@@ -20,5 +20,8 @@ export class StorageService {
     return localStorage.getItem("cmsAppToken");
   }
   
+  getUserData(){
+    return localStorage.getItem("cmsUserData");
+  }
 
 }

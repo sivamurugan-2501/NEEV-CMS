@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     alert(JSON.stringify(this.loginForm));
     this.authService.checkCredentials(this.loginForm).subscribe( (response : AuthResponse) => {
        if(response.status == "200" && response.authentication == true){
-          this.strService.storeUserData(response.userData);
+          this.strService.storeUserData(JSON.stringify(response.userData));
           this.strService.setToken(response.appToken);
           alert("Login Successful.");
        }
