@@ -14,6 +14,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { BannerAddComponent } from './banner-add/banner-add.component';
 import { BannerListComponent } from './banner-list/banner-list.component';
+import { AddVideoComponent } from './add-video/add-video.component';
+import { VideoAddComponent } from './video-add/video-add.component';
 //import {LocalStorageModule} from 'angular-local-storage';
 
 
@@ -40,6 +42,10 @@ const routes: Routes =[
             {
               path : 'banner-list',
               component : BannerListComponent
+            },
+            {
+              path : "add-video",
+              component : VideoAddComponent
             }
           ]
         },
@@ -61,7 +67,9 @@ const routes: Routes =[
     HeaderComponent,
     FooterComponent,
     BannerAddComponent,
-    BannerListComponent
+    BannerListComponent,
+    AddVideoComponent,
+    VideoAddComponent
   ],
   imports: [
     BrowserModule,
