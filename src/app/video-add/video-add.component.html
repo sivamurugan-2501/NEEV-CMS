@@ -49,10 +49,22 @@
          <div class="box-body">
            <div class="row">
              <div class="col">
-               <form (submit)="saveBanner()" enctype="multipart/form-data" method="post">
+          <form (submit)="saveVideo()" enctype="multipart/form-data" method="post">
            <div class="row">
            <div class="col-12">	
-  
+            
+             <div *ngIf="actionStatus==1" class="alert alert-success">
+                <div>
+                  <span class="fa fa-check">&nbsp;</span> {{successMessage}}
+                </div>
+             </div>
+
+             <div *ngIf="actionStatus==2" class="alert alert-error">
+                <div>
+                  <span class="fa fa-times">&nbsp;</span> {{errorMessage}}
+                </div>
+             </div>
+
              <div class="form-group">
                <h5>Title <span class="text-danger">*</span></h5>
                <div class="controls">
@@ -83,24 +95,24 @@
                 <div *ngIf="videoData.type==1" class="form-group">
                   <h5>Upload file<span class="text-danger">*</span></h5>
                   <div class="controls">
-                    <input type="file" name="file" class="form-control" required (change)="onFileChange($event)"> </div>
+                    <input type="file" name="videFile" class="form-control" required (change)="onFileChange($event)"> </div>
                 </div>
   
              <div *ngIf="videoData.type==2" class="form-group">
                <h5>URL<span class="text-danger">*</span></h5>
                <div class="controls">
-                 <input type="url" name="path" class="form-control" required data-validation-required-message="This field is required" [(ngModel)]="videoData.path"> </div>
+                 <input type="url" name="path" class="form-control" required data-validation-required-message="This field is required" [(ngModel)]="videoData.urlx"> </div>
              </div>
   
              <div class="form-group">
                 <h5>Downloadable<span class="text-danger">*</span></h5>
                 <div class="controls">
                   <fieldset>
-                    <input name="linkTo" type="radio" id="downloadable1" value="1" required [(ngModel)]="videoData.downloadable" >
+                    <input name="linkTo" type="radio" id="downloadable1" value=1 required [(ngModel)]="videoData.downloadable" >
                     <label for="downloadable1">Yes</label>
                   </fieldset>
                   <fieldset>
-                    <input name="linkTo" type="radio" id="downloadable2" value="0" [(ngModel)]="videoData.downloadable" >
+                    <input name="linkTo" type="radio" id="downloadable2" value=0 [(ngModel)]="videoData.downloadable" >
                     <label for="downloadable2">No</label>
                   </fieldset>
     

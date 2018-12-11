@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { VideoService } from '../services/video.service';
+import {Response} from './../model/response';
 
 @Component({
   selector: 'app-video-add',
@@ -20,18 +22,71 @@ export class VideoAddComponent implements OnInit {
     {name :"URL", value: 2}
  ]
 
- videoData = {
+ 
+  
+  videoData = {
    title : null,
    type : 1,
    videoFile: null,
-   file: null,
    downloadable : 0,
    category :0,
+   language: 1,
+   url: null
  }
 
-  constructor() { }
+actionStatus = 0;
+successMessage:String = "Success";
+errorMessage = "Something went wrong.";
+
+  constructor(private videoService : VideoService) { }
 
   ngOnInit() {
+    
+  }
+
+  saveVideo(){
+    alert("submit");
+      var video = new FormData();  
+      let keys = Object.keys(this.videoData);
+    
+      for(let i=0;i<keys.length;i++){
+        //alert(this.videoData[keys[i]]);
+        if(keys[i] == "videoFile"){
+          if(this.videoData["type"]==1){
+            
+            let file = this.videoData[keys[i]];
+            video.append(keys[i], file, file["name"]);
+          
+          }else{
+
+            video.append(keys[i], null);
+
+          }
+        }else{
+          video.append(keys[i], this.videoData[keys[i]]);
+        }
+        
+      }
+      this.videoService.postVideo(video).subscribe(
+        //on success
+        (response:Response)  => {
+          alert(response);
+          this.actionStatus = 1;
+          this.successMessage = response.message;
+        },
+        // on error
+        errorResponse => {
+          this.actionStatus = 2;
+          console.log(errorResponse.error);
+        }
+      );
+      return false;
+
+  }
+
+  onFileChange(event){
+    const file = this.videoData.videoFile = event.target.files[0]; 
+    alert(event.target.files);
   }
 
 }

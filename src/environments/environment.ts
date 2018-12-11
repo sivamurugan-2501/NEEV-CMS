@@ -13,3 +13,12 @@ export const environment = {
  * because it will have performance impact when throw error
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+export const apiConfigs = {
+  "apiBaseURL" : "http://localhost:8000/cms",
+  "apiURLs" : {
+    "video" : {
+       "add" : "/video/add"
+    }
+  }
+};
