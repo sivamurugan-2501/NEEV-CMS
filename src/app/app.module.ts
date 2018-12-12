@@ -15,6 +15,8 @@ import { FooterComponent } from './footer/footer.component';
 import { BannerAddComponent } from './banner-add/banner-add.component';
 import { BannerListComponent } from './banner-list/banner-list.component';
 import { VideoAddComponent } from './video-add/video-add.component';
+import { CookieService } from 'ngx-cookie-service';
+
 //import {LocalStorageModule} from 'angular-local-storage';
 
 
@@ -79,7 +81,7 @@ const routes: Routes =[
       { enableTracing: true } // <-- debugging purposes only
     )
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

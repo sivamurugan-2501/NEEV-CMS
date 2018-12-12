@@ -19,6 +19,8 @@ export const apiConfigs = {
   "apiURLs" : {
     "video" : {
        "add" : "/video/add"
-    }
+    },
+    "authenticate" : "/authenticate"
+    
   }
 };
