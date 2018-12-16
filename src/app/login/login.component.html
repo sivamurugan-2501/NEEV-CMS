@@ -1,4 +1,149 @@
 
+    <div class="auth-2-outer row align-items-center h-p100 m-0">
+
+      <div class="auth-2">
+
+        <div class="auth-logo font-size-40">
+
+          <a href="../index.html" class="text-white"><b>NEEV</b> MITRA</a>
+
+        </div>
+
+        <!-- /.login-logo -->
+
+        <div class="auth-body">
+
+          <p class="auth-msg">Login to start your session</p>
+
+          <div class="alert alert-success" *ngIf="actionStatus==1" >
+            <div> <span class="fa fa-check">&nbsp;</span>{{successMessage}}</div>
+          </div>
+
+          <div class="alert alert-error" *ngIf="actionStatus==2" >
+              <div> <span class="fa fa-times">&nbsp;</span>{{errorMessage}}</div>
+            </div>
+
+          <form action="" method="post" class="form-element" name="loginForm" id="loginForm" (submit)="checkCredentials()">
+
+            <div class="form-group has-feedback">
+
+              <input type="text" class="form-control pl-15" placeholder="Username" [(ngModel)] ="loginForm.username" name="username" id="username" > 
+
+              <span class="ion ion-email form-control-feedback"></span>
+
+            </div>
+
+            <div class="form-group has-feedback">
+
+              <input type="password" class="form-control pl-15" placeholder="Password" [(ngModel)] ="loginForm.password" name="plainPasswordText" id="plainPasswordText"> 
+
+
+              <span class="ion ion-locked form-control-feedback"></span>
+
+            </div>
+
+            
+
+             <!--div class="form-group has-feedback">
+
+             <span><img src="../../images/user2-280x90.jpg" height="30px" width="100px" alt="captcha"></span>
+
+            
+
+              <input
+
+                type="text"
+
+                class="form-control"
+
+                placeholder="Enter Captcha"
+
+              />
+
+              <span class="ti ti-reload form-control-feedback"></span>
+
+            </div-->
+
+            
+
+            
+
+            <div class="row">
+
+              <div class="col-6">
+
+                <div class="checkbox">
+
+                  <input type="checkbox" id="basic_checkbox_1" />
+
+                  <label for="basic_checkbox_1">Remember Me</label>
+
+                </div>
+
+              </div>
+
+              <!--div class="col-6 fog-pwd text-right">
+                <a href="javascript:void(0)" [routerLink]='["../forgot-password"]'><i class="ion ion-locked"></i> Forgot Password?</a><br>
+                </div-->
+
+              <!-- /.col -->
+
+<!--
+
+              <div class="col-6">
+
+                <div class="fog-pwd">
+
+                  <a href="javascript:void(0)" class="text-white"
+
+                    ><i class="ion ion-locked"></i> Forgot password?</a
+
+                  ><br />
+
+                </div>
+
+              </div>
+
+-->
+
+              <!-- /.col -->
+
+              <div class="col-12 text-center">
+
+                <button type="submit" class="btn btn-block mt-10 btn-nblue">
+
+                  SIGN IN
+
+                </button>
+
+              </div>
+
+              <!-- /.col -->
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+<!--div class="auth-2-outer row align-items-center h-p100 m-0">
+
+  <div class="auth-2">
+
+    <div class="auth-logo font-size-40">
+
+      <a href="../index.html" class="text-white"><b>NEEV</b> MITRA</a>
+
+    </div>
+
+    <!-- /.login-logo -->
+
+    <!--div class="auth-body">
+
   <div class="container h-p100">
       <div class="row align-items-center justify-content-md-center h-p100">			
         <div class="col-12">
@@ -47,17 +192,17 @@
                       </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-6">
+                    <!--div class="col-6">
                      <div class="fog-pwd text-right">
                       <a href="javascript:void(0)" [routerLink]='["../forgot-password"]'><i class="ion ion-locked"></i> Forgot pwd?</a><br>
                       </div>
                     </div>
                     <!-- /.col -->
-                    <div class="col-12 text-center">
+                    <!--div class="col-12 text-center">
                       <button type="submit" class="btn btn-info btn-block margin-top-10">SIGN IN</button>
                     </div>
                     <!-- /.col -->
-                    </div>
+                    <!--/div>
                 </form>		
   
                 <div class="text-center">
@@ -68,5 +213,5 @@
           </div>
         </div>
       </div>
-    </div>
+    </div-->
   

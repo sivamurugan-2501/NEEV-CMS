@@ -690,11 +690,11 @@ pre code {
     text-align: center;
 
     text-rendering: auto;
-    
+    speak: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: auto;
- 
+    speak: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -1926,8 +1926,8 @@ input::-ms-clear
 {
     color: #fff;
     border-color: transparent;
-    border-bottom-color: #214098; 
-    background-color: #214098;
+    border-bottom-color: #69cce0; 
+    background-color: #69cce0;
 }
 
 .nav-tabs .dropup .dropdown-menu
@@ -4708,7 +4708,10 @@ a .badge-pill:focus
     border-bottom: none;
 }
 
-
+.media-body
+{
+    
+}
 
 .media-meta
 {

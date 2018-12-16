@@ -35,7 +35,7 @@
      
     <!-- Basic Forms -->
      <div class="box">
-       <div class="box-header with-border">
+       <!--div class="box-header with-border">
          <h4 class="box-title">Form Validation</h4>
          <h6 class="box-subtitle">Bootstrap Form Validation check the <a class="text-warning" href="http://reactiveraven.github.io/jqBootstrapValidation/">official website </a></h6>
      
@@ -44,21 +44,32 @@
        <li><a class="box-btn-slide" href="#"></a></li>	
        <li><a class="box-btn-fullscreen" href="#"></a></li>
      </ul>
-       </div>
+       </div-->
        <!-- /.box-header -->
        <div class="box-body">
          <div class="row">
            <div class="col">
-             <form (submit)="saveBanner()" enctype="multipart/form-data" method="post">
+         <form (submit)="saveBanner()" enctype="multipart/form-data" method="post" #bannerForm="ngForm">
          <div class="row">
          <div class="col-12">	
+          
+          <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+          </app-action-message>
+
+          <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+            </app-action-message>
 
            <div class="form-group">
              <h5>Caption <span class="text-danger">*</span></h5>
              <div class="controls">
-               <input type="text" name="caption"  [(ngModel)]="bannerData.caption" class="form-control" required data-validation-required-message="This field is required"> </div>
-             <!---div class="form-control-feedback"><small>Add <code>required</code> attribute to field for required validation.</small></div>
-             -->
+               
+               <input type="text" name="caption" #caption="ngModel" minlength="4" maxlength="255"  [(ngModel)]="bannerData.caption" class="form-control" required data-validation-required-message="This field is required"> </div>
+  
+               <div class="form-control-feedback" *ngIf="caption.invalid && (caption.dirty || caption.touched)">
+                  <code *ngIf="caption.errors.required">Missing caption field</code>
+                 <code *ngIf="caption.errors.minlength || caption.errors.maxlength">Invalid caption maxlength:4, minlength:255</code>
+               </div>
+             
             </div>
 
             <div class="form-group">
@@ -73,14 +84,22 @@
               <div *ngIf="bannerData.type==1" class="form-group">
                 <h5>Upload file<span class="text-danger">*</span></h5>
                 <div class="controls">
-                  <input type="file" name="file" class="form-control" required (change)="onFileChange($event)"> </div>
+                  <input type="file" name="file" #bannerfile="ngModel" class="form-control" [(ngModel)]="bannerData.file" required (change)="onFileChange($event)"> </div>
+                  <div class="form-control-feedback" *ngIf="bannerfile.invalid && (bannerfile.dirty || bannerfile.touched)">
+                      <code *ngIf="bannerfile.errors.required">Missing banner image</code>
+                   </div>
               </div>
 
            <div *ngIf="bannerData.type==2" class="form-group">
              <h5>URL<span class="text-danger">*</span></h5>
              <div class="controls">
-               <input type="url" name="path" class="form-control" required data-validation-required-message="This field is required" [(ngModel)]="bannerData.path"> </div>
-           </div>
+               <input type="url" name="url" #bannerURL="ngModel" class="form-control" required data-validation-required-message="This field is required" [(ngModel)]="bannerData.path"> </div>
+              
+               <div class="form-control-feedback" *ngIf="bannerURL.invalid && (bannerURL.dirty || bannerURL.touched)">
+                  <code *ngIf="bannerURL.errors.required">Missing banner URL</code>
+               </div>
+
+            </div>
 
            <div class="form-group">
               <h5>Link To<span class="text-danger">*</span></h5>
@@ -126,7 +145,7 @@
          
          
          <div class="text-xs-right">
-           <button type="submit" class="btn btn-info">Submit</button>
+           <button type="submit" class="btn btn-info" [disabled]="!bannerForm.valid" >Submit</button>
          </div>
        </form>
              

@@ -1,0 +1,174 @@
+
+  <!-- Content Wrapper. Contains page content -->
+  
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="d-flex align-items-center">
+          <div class="mr-auto">
+            <h3 class="page-title">Product</h3>
+            <div class="d-inline-block align-items-center">
+              <nav>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                  <li class="breadcrumb-item" aria-current="page">Product</li>
+                  <li class="breadcrumb-item active" aria-current="page">Add</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+          <!--div class="right-title">
+            <div class="dropdown">
+              <button class="btn btn-outline dropdown-toggle no-caret" type="button" data-toggle="dropdown"><i class="mdi mdi-dots-horizontal"></i></button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="#"><i class="mdi mdi-share"></i>Activity</a>
+                <a class="dropdown-item" href="#"><i class="mdi mdi-email"></i>Messages</a>
+                <a class="dropdown-item" href="#"><i class="mdi mdi-help-circle-outline"></i>FAQ</a>
+                <a class="dropdown-item" href="#"><i class="mdi mdi-settings"></i>Support</a>
+                <div class="dropdown-divider"></div>
+                <button type="button" class="btn btn-success">Submit</button>
+              </div>
+              </div>
+          </div-->
+        </div>
+      </div>
+  <section class="content">
+       
+      <!-- Basic Forms -->
+       <div class="box">
+         <!--div class="box-header with-border">
+           <h4 class="box-title">Form Validation</h4>
+           <h6 class="box-subtitle">Bootstrap Form Validation check the <a class="text-warning" href="http://reactiveraven.github.io/jqBootstrapValidation/">official website </a></h6>
+       
+       <ul class="box-controls pull-right">
+         <li><a class="box-btn-close" href="#"></a></li>
+         <li><a class="box-btn-slide" href="#"></a></li>	
+         <li><a class="box-btn-fullscreen" href="#"></a></li>
+       </ul>
+         </div-->
+         <!-- /.box-header -->
+         <div class="box-body">
+           <div class="row">
+             <div class="col">
+          <form (submit)="saveProduct()" enctype="multipart/form-data" method="post" name="productForm" #productForm="ngForm">
+           <div class="row">
+           <div class="col-12">	
+            
+             <div *ngIf="actionStatus==1" class="alert alert-success">
+                <div>
+                  <span class="fa fa-check">&nbsp;</span> {{successMessage}}
+                </div>
+             </div>
+
+             <div *ngIf="actionStatus==2" class="alert alert-error">
+                <div>
+                  <span class="fa fa-times">&nbsp;</span> {{errorMessage}}
+                </div>
+             </div>
+
+             <div class="form-group">
+                <h5>Language<span class="text-danger">*</span></h5>
+                <div class="controls">
+                  <select name="language" id="language" required class="form-control" [(ngModel)]="productData.language" >
+                      <option value="0">Select</option>
+                      <option *ngFor="let l of languages" value="{{l.id}}">{{l.name}}</option>
+                  </select>
+                </div>
+              </div>
+
+             <div class="form-group">
+               <h5>Name <span class="text-danger">*</span></h5>
+               <div class="controls">
+                 <input type="text" name="title"  [(ngModel)]="productData.title" class="form-control" required data-validation-required-message="This field is required"> </div>
+               <!---div class="form-control-feedback"><small>Add <code>required</code> attribute to field for required validation.</small></div>
+               -->
+              </div>
+
+
+              <div class="form-group">
+                <h5>Category<span class="text-danger">*</span></h5>
+                <div class="controls">
+                  <select name="category" id="category" required class="form-control" [(ngModel)]="productData.category" >
+                      <option *ngFor="let t of CATEGORY_OPTIONS;" value="{{t.value}}">{{t.name}}</option>
+                  </select>
+                </div>
+              </div>
+  
+          
+              
+                <div class="form-group">
+
+                    <h5>Upload Images<span class="text-danger">*</span></h5>
+                    <div class="controls">
+                      <input type="file"  name="file" #productImages="ngModel" multiple class="form-control" [(ngModel)]="productData.images" required (change)="onFileChange($event)"> 
+                      
+                      <div class="form-control-feedback" *ngIf="productImages.invalid && (productImages.dirty || productImages.touched)">
+                          <code *ngIf="!productData.allImageList">Missing product images</code>
+                          <code *ngIf="imageError">{{imageError}}</code>
+                       </div>
+                    </div>
+
+                    <div>
+                      <div *ngIf="imagePreview" class="row imagePreview">
+                        <div *ngFor="let dataUrl of imagePreview; let i = index" class="col-md-2 thumbnail">
+                          
+                          <img src='{{dataUrl}}' style="width:100px; height:100px;">
+                          <div class="remove" (click)="removeFile(i)"> <code> Remove </code></div>
+                        </div>
+                      </div>
+                  </div>
+
+                </div>
+  
+                <div class="form-group">
+                  <h5>Upload Brochure</h5>
+                  <div class="controls">
+                      <input type="file" name="brochureFile" #productBrochureFile="ngModel" class="form-control" [(ngModel)]="productData.brochureFile" required (change)="validateBrochure($event)"> 
+                      
+                      <div class="form-control-feedback" *ngIf="productBrochureFile.invalid && (productBrochureFile.dirty || productBrochureFile.touched)">
+                          <code *ngIf="productData.brochureFile">Missing product brochure</code>
+                       </div>
+
+                       <div class="form-control-feedback" *ngIf="(productBrochureFile.dirty || productBrochureFile.touched)">
+                          <code *ngIf="brochureError">{{brochureError}}</code>
+                       </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <h5>Specification</h5>
+                  <div>
+                  <app-ngx-editor [placeholder]="Specification" [spellcheck]="true" name="specification" [(ngModel)]="productData.specification"></app-ngx-editor>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <h5>Features</h5>
+                    <div>
+                    <app-ngx-editor [placeholder]="Features" [spellcheck]="true" name="features" [(ngModel)]="productData.features"></app-ngx-editor>
+                    </div>
+                  </div>
+
+             
+            </div>
+  
+          </div>
+           
+           
+           
+           <div class="text-xs-right">
+             <button type="submit" class="btn btn-info">Submit</button>
+           </div>
+         </form>
+               
+             </div>
+             <!-- /.col -->
+           </div>
+           <!-- /.row -->
+         </div>
+         <!-- /.box-body -->
+       </div>
+       <!-- /.box -->
+       
+     </section>
+     <!-- /.content -->
+  

@@ -1,0 +1,14 @@
+.imagePreview{
+    padding: 10px;
+}
+
+.imagePreview .thumbnail{
+
+    padding: 5px;
+    text-align: center;
+}
+
+.thumbnail .remove{
+    text-align: center;
+    cursor: pointer;
+}

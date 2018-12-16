@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { BannerServiceService } from './../services/banner-service.service';
+import { Title } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-banner-add',
@@ -8,6 +11,7 @@ import { BannerServiceService } from './../services/banner-service.service';
 })
 export class BannerAddComponent implements OnInit {
 
+  title = "Banner : Add";
   typeOptions = [
      {name :"File", value: 1},
      {name :"URL", value: 2}
@@ -33,12 +37,15 @@ export class BannerAddComponent implements OnInit {
       ]
 
   }
-     
+
+  actionStatus: number = -1;
+  successMessage = "Success";
+  errorMessage = "Something went wrong.";
   
-  constructor(private bannerService : BannerServiceService) { }
+  constructor(private bannerService : BannerServiceService, private titleService: Title) { }
 
   ngOnInit() {
-
+    this.titleService.setTitle(this.title);
   }
 
   saveBanner(){
@@ -64,9 +71,18 @@ export class BannerAddComponent implements OnInit {
         }
         
       }
-      this.bannerService.postNewBanner(banner).subscribe(response => {
+      this.bannerService.postNewBanner(banner).subscribe(
+        response => {
+          this.actionStatus=1;
+          this.successMessage = "New banner added successfully";
           alert(response);
-      });
+        },
+        error => {
+          this.actionStatus = 2;
+          this.errorMessage = "Something went wrong";
+        }
+      
+      );
       
   }
 

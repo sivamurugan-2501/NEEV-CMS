@@ -18,9 +18,17 @@ export const apiConfigs = {
   "apiBaseURL" : "http://localhost:8000/cms",
   "apiURLs" : {
     "video" : {
-       "add" : "/video/add"
+       "add" : "/video/add",
+       "list" : "/video/list"
     },
-    "authenticate" : "/authenticate"
+    "product" : {
+      "add" : "/product/add",
+      "list" : "/product/list"
+   },
+    "authenticate" : "/authenticate",
+    "configs" : {
+        "language" : "/config/languages"
+    }
     
   }
 };
