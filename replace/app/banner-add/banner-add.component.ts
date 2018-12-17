@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { BannerServiceService } from './../services/banner-service.service';
 import { Title } from '@angular/platform-browser';
-import { elementStyleProp } from '@angular/core/src/render3/instructions';
-import { timeout } from 'q';
-import { Router, Event } from '@angular/router';
 
 
 @Component({
@@ -44,9 +41,8 @@ export class BannerAddComponent implements OnInit {
   actionStatus: number = -1;
   successMessage = "Success";
   errorMessage = "Something went wrong.";
-  imageError = null;
-
-  constructor(private bannerService : BannerServiceService, private titleService: Title, private route: Router) { }
+  
+  constructor(private bannerService : BannerServiceService, private titleService: Title) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.title);
@@ -75,15 +71,11 @@ export class BannerAddComponent implements OnInit {
         }
         
       }
-      const __this = this;
       this.bannerService.postNewBanner(banner).subscribe(
         response => {
           this.actionStatus=1;
           this.successMessage = "New banner added successfully";
-          const redirect = function(){ __this.route.navigate(["main", "banner-list"]); };
-          setTimeout(function(){
-            redirect();
-          }, 4000);
+          alert(response);
         },
         error => {
           this.actionStatus = 2;
@@ -95,22 +87,8 @@ export class BannerAddComponent implements OnInit {
   }
 
   onFileChange(event){
+    const file = this.bannerData.file = event.target.files[0];
     
-    this.bannerData.file = null;
-    this.imageError = null;
-    const file: File  = event.target.files[0];
-    const type = file.type;
-    try{
-      const extension = type.split("/")[1];
-      if(["png", "jpeg", "jpg"].indexOf(extension.toLocaleLowerCase()) > -1){
-        this.bannerData.file = file;
-      }else{
-        this.imageError = "Invalid image file, only .png, .jpg and  .jpeg are accepted.";
-        return false;
-      }
-    }catch(e){
-      console.log(e);
-    }
   }
 
 }

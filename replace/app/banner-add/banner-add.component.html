@@ -88,11 +88,6 @@
                   <div class="form-control-feedback" *ngIf="bannerfile.invalid && (bannerfile.dirty || bannerfile.touched)">
                       <code *ngIf="bannerfile.errors.required">Missing banner image</code>
                    </div>
-
-                   imageError
-                   <div class="form-control-feedback" *ngIf="imageError && (bannerfile.dirty || bannerfile.touched)">
-                    <code *ngIf="imageError">{{imageError}}</code>
-                 </div>
               </div>
 
            <div *ngIf="bannerData.type==2" class="form-group">
@@ -150,7 +145,7 @@
          
          
          <div class="text-xs-right">
-           <button type="submit" class="btn btn-info" [disabled]="!bannerForm.valid || !bannerData.file" >Submit</button>
+           <button type="submit" class="btn btn-info" [disabled]="!bannerForm.valid" >Submit</button>
          </div>
        </form>
              
