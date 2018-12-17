@@ -2,7 +2,7 @@
 //import { environment } from 'src/environments/environment.prod';
 
 export const CONFIGS = {
-  "apiBaseURL" : "http://localhost:8000/cms",
+  "apiBaseURL" : "http://heartcode.co/CMS/public/cms/",
   "apiURLs" : {
     "video" : {
        "add" : "/video/add",
