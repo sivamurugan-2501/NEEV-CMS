@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import {  Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { CONFIGS } from './../config';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ import { AuthService } from './auth.service';
 export class BannerServiceService {
 
     userData;
-    userId;
+    userId ;
     
 
    httpHeaders:HttpHeaders = new HttpHeaders({
@@ -23,13 +25,31 @@ export class BannerServiceService {
   }
 
   postNewBanner(bannerData){
-    //alert("post");
-    return this.http.post("http://localhost/NEEV/CMS/public/cms/banner/add", bannerData);
+    //alert(CONFIGS);
+    const url = CONFIGS["apiBaseURL"] + CONFIGS["apiURLs"]["banner"]["add"];
+    return this.http.post(url, bannerData);
   }
 
   getBannerList(payload){
 
-      return this.http.post("http://localhost/NEEV/CMS/public/cms/banner/list", payload);
+      const url = CONFIGS.apiBaseURL+CONFIGS.apiURLs["banner"]["list"]; 
+      return this.http.post(url, payload);
   }
 
+  deleteBanner(id){
+
+    const url = CONFIGS.apiBaseURL+CONFIGS.apiURLs["banner"]["delete"];
+    return this.http.delete(url+"/"+id);
+
+  }
+
+
+  getBannerById(id){
+
+    const url = CONFIGS.apiBaseURL+CONFIGS.apiURLs["banner"]["get"];
+    return this.http.get(url+"/"+id);
+
+  }
+
+  
 }

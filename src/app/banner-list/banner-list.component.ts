@@ -3,6 +3,8 @@ import { AuthService } from '../services/auth.service';
 import { BannerServiceService } from '../services/banner-service.service';
 import { BannerlistRequest } from '../model/bannerlist-request';
 import { BannerlistResponse, BannerData } from '../model/bannerlist-response';
+import {ConstantsData} from './../constants-data';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-banner-list',
@@ -21,9 +23,14 @@ export class BannerListComponent implements OnInit {
     status : null
   };
 
-  bannerData;
+  bannerData: Array<Object>;
 
-  constructor(private authService:AuthService, private bannerService: BannerServiceService) { 
+  actionStatus: number = -1;
+  successMessage = "Success";
+  errorMessage = "Something went wrong.";
+  noRecordMessage = ConstantsData.noBannerMessage;
+  
+  constructor(private authService:AuthService, private bannerService: BannerServiceService, private route:Router) { 
 
     this.userData  = authService.loginUserData();
 
@@ -54,6 +61,27 @@ export class BannerListComponent implements OnInit {
           this.bannerData = response.banners;
         }
     });
+  }
+
+  deleteThis(id, index) {
+
+    this.bannerService.deleteBanner(id).subscribe(
+      (response:Response) => {
+        if(response.status == 200){
+          this.actionStatus=1;
+          this.successMessage = "Banner deleted successfully";
+          this.bannerData.splice(index,1);
+        }
+      },
+      (error) => {
+          this.actionStatus = 2;
+          this.errorMessage = "Something went wrong";
+      }
+    );
+  }
+
+  editThis(id){
+    this.route.navigate(["main", "edit-banner"], {"queryParams" : {"id": id} });
   }
 
 }

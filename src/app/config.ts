@@ -7,6 +7,14 @@ const apiBaseURL = (window.location.origin == "http://localhost:4200") ? "http:/
 export const CONFIGS = {
   "apiBaseURL" : apiBaseURL,
   "apiURLs" : {
+
+    "banner" : {
+      "add" : "/banner/add",
+      "list" : "/banner/list",
+      "delete" : "/banner/delete",
+      "get" : "/banner"
+   },
+
     "video" : {
        "add" : "/video/add",
        "list" : "/video/list"

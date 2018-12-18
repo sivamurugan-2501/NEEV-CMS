@@ -21,14 +21,19 @@
   <div class="row">
     <div class="col-12">
         <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Hover Export Data Table</h3>
-              <h6 class="box-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
-            </div>
+          
             <!-- /.box-header -->
-            <div class="box-body">
+          <div class="box-body">
 				<div class="table-responsive">
-				  <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+            <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+              </app-action-message>
+    
+              <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+                </app-action-message>
+
+                <app-action-message *ngIf="!bannerData || bannerData.length==0" [type]="3" [message]="noRecordMessage" >
+                </app-action-message>
+				  <table *ngIf="bannerData && bannerData.length>0" id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
 					<thead>
 						<tr>
 							<th>Caption</th>
@@ -38,7 +43,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr *ngFor="let data of this.bannerData">
+						<tr *ngFor="let data of this.bannerData; let i=index">
               <td>{{data.caption}}</td>
               
               <td *ngIf="data.type==1"> File </td>
@@ -48,8 +53,8 @@
               <td *ngIf="data.type==2"> <img src='{{data.path}}' style="width:75px;"> </td>
 
 							<td>
-                <span class="action-icon edit fa fa-times" alt="Edit" title="Edit"> </span>
-                <span class="action-icon delete fa fa-trash-o" alt="Delete" title="Delete"> </span>
+                <span class="action-icon edit fa fa-times" alt="Edit" title="Edit" (click)="editThis(data.id, i)"> </span>
+                <span class="action-icon delete fa fa-trash-o" alt="Delete" title="Delete" (click)="deleteThis(data.id, i)"> </span>
               </td>
 						</tr>
 					</tbody>				  
