@@ -25,7 +25,8 @@ export class BannerEditComponent implements OnInit {
     path: null,
     file: null,
     hasLink : 0,
-    linkedTo : 0    
+    linkedTo : 0,
+    status: null
   }
 
   linkToList = {
