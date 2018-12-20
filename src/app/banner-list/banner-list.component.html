@@ -23,6 +23,24 @@
         <div class="box">
           
             <!-- /.box-header -->
+            <div class="box-header with-border">
+
+              <h4 class="box-title">Manage Banners</h4>
+
+              <h6 class="box-subtitle">List of banners uploaded by NEEV Mitra</h6>
+
+              <span class="box-controls pull-right">
+
+                <a href="javascript:void()" [routerLink]="['../add-banner']" class="btn btn-md btn-nblue btn-block my-10">
+
+                  <i class="ti-plus"></i> Add New Banner
+
+                </a>
+
+              </span>
+
+            </div>
+             <!-- /.box-header -->
           <div class="box-body">
 				<div class="table-responsive">
             <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
@@ -33,9 +51,9 @@
 
                 <app-action-message *ngIf="!bannerData || bannerData.length==0" [type]="3" [message]="noRecordMessage" >
                 </app-action-message>
-				  <table *ngIf="bannerData && bannerData.length>0" id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+				  <table *ngIf="bannerData && bannerData.length>0" id="example" class="table table-hover no-wrap product-order" >
 					<thead>
-						<tr>
+						<tr  class="bg-secondary">
 							<th>Caption</th>
 							<th>Type</th>
 							<th>Image</th>
@@ -53,7 +71,7 @@
               <td *ngIf="data.type==2"> <img src='{{data.path}}' style="width:75px;"> </td>
 
 							<td>
-                <span class="action-icon edit fa fa-times" alt="Edit" title="Edit" (click)="editThis(data.id, i)"> </span>
+                <span class="action-icon edit fa fa-edit" alt="Edit" title="Edit" (click)="editThis(data.id, i)"> </span>
                 <span class="action-icon delete fa fa-trash-o" alt="Delete" title="Delete" (click)="deleteThis(data.id, i)"> </span>
               </td>
 						</tr>

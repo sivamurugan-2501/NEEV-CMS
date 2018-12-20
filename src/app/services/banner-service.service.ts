@@ -30,6 +30,14 @@ export class BannerServiceService {
     return this.http.post(url, bannerData);
   }
 
+
+  editBanner(bannerData, id){
+    //alert(CONFIGS);
+    const url = CONFIGS["apiBaseURL"] + CONFIGS["apiURLs"]["banner"]["edit"]+"/"+id;
+    return this.http.post(url, bannerData);
+  }
+
+  
   getBannerList(payload){
 
       const url = CONFIGS.apiBaseURL+CONFIGS.apiURLs["banner"]["list"]; 

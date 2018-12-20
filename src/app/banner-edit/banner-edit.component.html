@@ -16,36 +16,22 @@
               </nav>
             </div>
           </div>
-          <!--div class="right-title">
-            <div class="dropdown">
-              <button class="btn btn-outline dropdown-toggle no-caret" type="button" data-toggle="dropdown"><i class="mdi mdi-dots-horizontal"></i></button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#"><i class="mdi mdi-share"></i>Activity</a>
-                <a class="dropdown-item" href="#"><i class="mdi mdi-email"></i>Messages</a>
-                <a class="dropdown-item" href="#"><i class="mdi mdi-help-circle-outline"></i>FAQ</a>
-                <a class="dropdown-item" href="#"><i class="mdi mdi-settings"></i>Support</a>
-                <div class="dropdown-divider"></div>
-                <button type="button" class="btn btn-success">Submit</button>
-              </div>
-              </div>
-          </div-->
         </div>
       </div>
   <section class="content">
        
       <!-- Basic Forms -->
        <div class="box">
-         <!--div class="box-header with-border">
-           <h4 class="box-title">Form Validation</h4>
-           <h6 class="box-subtitle">Bootstrap Form Validation check the <a class="text-warning" href="http://reactiveraven.github.io/jqBootstrapValidation/">official website </a></h6>
-       
-       <ul class="box-controls pull-right">
-         <li><a class="box-btn-close" href="#"></a></li>
-         <li><a class="box-btn-slide" href="#"></a></li>	
-         <li><a class="box-btn-fullscreen" href="#"></a></li>
-       </ul>
-         </div-->
-         <!-- /.box-header -->
+        
+          <!-- /.box-header -->
+          <div class="box-header with-border">
+  
+            <h4 class="box-title">Edit Banner</h4>
+  
+          </div>
+           <!-- /.box-header -->
+  
+  
          <div class="box-body">
            <div class="row">
              <div class="col">
@@ -60,7 +46,7 @@
               </app-action-message>
   
              <div class="form-group">
-               <h5>Caption <span class="text-danger">*</span></h5>
+              <label class="text-info">Caption <span class="text-danger">*</span></label>
                <div class="controls">
                  
                  <input type="text" name="caption" #caption="ngModel" minlength="4" maxlength="255"  [(ngModel)]="bannerData.caption" class="form-control" required data-validation-required-message="This field is required"> </div>
@@ -73,7 +59,7 @@
               </div>
   
               <div class="form-group">
-                  <h5>Upload Type<span class="text-danger">*</span></h5>
+                <label class="text-info">Upload Type <span class="text-danger">*</span></label>
                   <div class="controls">
                     <select name="uploadType" id="uploadType" required class="form-control" [(ngModel)]="bannerData.type" >
                         <option *ngFor="let t of typeOptions" value="{{t.value}}">{{t.name}}</option>
@@ -81,33 +67,47 @@
                   </div>
                 </div>
               
-                <div *ngIf="bannerData.type==1" class="form-group">
-                  <h5>Upload file<span class="text-danger">*</span></h5>
+                <div *ngIf="(bannerData.type==1 && !bannerData.file_id) || imageRemoved==1" class="form-group">
+                  <label class="text-info">Upload File<span class="text-danger">*</span></label>
                   <div class="controls">
                     <input type="file" name="file" #bannerfile="ngModel" class="form-control" [(ngModel)]="bannerData.file" required (change)="onFileChange($event)"> </div>
                     <div class="form-control-feedback" *ngIf="bannerfile.invalid && (bannerfile.dirty || bannerfile.touched)">
                         <code *ngIf="bannerfile.errors.required">Missing banner image</code>
                      </div>
-  
-                     imageError
                      <div class="form-control-feedback" *ngIf="imageError && (bannerfile.dirty || bannerfile.touched)">
                       <code *ngIf="imageError">{{imageError}}</code>
                    </div>
                 </div>
+
+                <div *ngIf="bannerData.type==1 && bannerData.file_id>0 && imageRemoved==0" class="form-group">
+                    <label class="text-info">Uploaded File<span class="text-danger">*</span></label>
+                    <div *ngIf="bannerData.type==1 && previewImage" class="col-md-2">
+                        <div>
+                          <img src="{{previewImage}}" style="width:100%"> 
+                          <div class="remove" (click)="removeFile()"> <code> Remove </code></div>
+                        </div>
+                     </div>
+                </div>
+
+                <div *ngIf="bannerData.type==1 &&  imageRemoved==1" class="form-group">
+                  <div class="remove" (click)="undoRemoved()"> <code> Undo Deleted Image </code></div>
+                 </div>
   
              <div *ngIf="bannerData.type==2" class="form-group">
-               <h5>URL<span class="text-danger">*</span></h5>
+              <label class="text-info">URL <span class="text-danger">*</span></label>
                <div class="controls">
                  <input type="url" name="url" #bannerURL="ngModel" class="form-control" required data-validation-required-message="This field is required" [(ngModel)]="bannerData.path"> </div>
                 
                  <div class="form-control-feedback" *ngIf="bannerURL.invalid && (bannerURL.dirty || bannerURL.touched)">
                     <code *ngIf="bannerURL.errors.required">Missing banner URL</code>
                  </div>
+
+               
   
               </div>
   
              <div class="form-group">
-                <h5>Link To<span class="text-danger">*</span></h5>
+                <label class="text-info">Link To <span class="text-danger">*</span></label>
                 <div class="controls">
                   <fieldset>
                     <input name="linkTo" type="radio" id="linkTo1" value="0" required [(ngModel)]="bannerData.linkedTo" >
@@ -125,7 +125,7 @@
               </div>
   
               <div *ngIf =  "bannerData.linkedTo==1" class="form-group">
-                  <h5>Select Product<span class="text-danger">*</span></h5>
+                <label class="text-info">Select Product <span class="text-danger">*</span></label>
                   <div class="controls">
                     <select name="productSel" id="productSel" required class="form-control">
                         <option *ngFor="let p of linkToList['products']" value="{{p}}">{{p}}</option>
@@ -134,23 +134,19 @@
                 </div>
   
                 <div *ngIf =  "bannerData.linkedTo==2" class="form-group">
-                    <h5>Select Events<span class="text-danger">*</span></h5>
+                  <label class="text-info">Select Event <span class="text-danger">*</span></label>
                     <div class="controls">
                       <select name="eventSel" id="eventSel" required class="form-control" >
                           <option *ngFor="let e of linkToList['events']" value="{{e}}">{{e}}</option>
                       </select>
                     </div>
                   </div>
-               
-             
             </div>
-  
           </div>
            
-           
-           
            <div class="text-xs-right">
-             <button type="submit" class="btn btn-info" [disabled]="!bannerForm.valid || !bannerData.file" >Submit</button>
+            <button *ngIf="bannerData.type==1" type="submit" class="btn btn-info" [disabled]="!bannerForm.valid || !bannerData.file" >Submit</button>
+            <button *ngIf="bannerData.type==2" type="submit" class="btn btn-info" [disabled]="!bannerForm.valid" >Submit</button>
            </div>
          </form>
                

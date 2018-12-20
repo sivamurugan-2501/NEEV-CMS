@@ -13,20 +13,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class BannerEditComponent implements OnInit {
 
-  title = "Banner : Add";
+  title = "Banner : Edit";
   typeOptions = [
      {name :"File", value: 1},
      {name :"URL", value: 2}
   ]
 
-  bannerData = {
+  bannerData:any = {
     caption : null,
     type : 1,
     path: null,
     file: null,
     hasLink : 0,
     linkedTo : 0,
-    status: null
+    status: null,
+    file_to_delete: null
   }
 
   linkToList = {
@@ -41,6 +42,7 @@ export class BannerEditComponent implements OnInit {
 
   }
 
+
   actionStatus: number = -1;
   successMessage = "Success";
   errorMessage = "Something went wrong.";
@@ -49,11 +51,16 @@ export class BannerEditComponent implements OnInit {
   instanceId :number;
   error = 0;
 
+  previewImage = null;
+  imageRemoved=0;
+  file_id;
+  file_to_delete:Array<Object> = new Array();
+
   constructor(private bannerService : BannerServiceService, private titleService: Title, private route: Router, private aRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.titleService.setTitle(this.title);
-    alert(JSON.stringify(this.aRoute.queryParams));
+    //alert(JSON.stringify(this.aRoute.queryParams));
     this.aRoute.queryParams.subscribe(
       (params) => {
         this.instanceId = params["id"];
@@ -61,6 +68,7 @@ export class BannerEditComponent implements OnInit {
           this.error =1;
         }else{
           this.loadData();
+          
         }
       }
     );
@@ -72,6 +80,7 @@ export class BannerEditComponent implements OnInit {
       (response: any) =>{
         if(response.status == 200){
             this.bannerData = response.data;
+            this.createPreview(response["baseURL"]);
         }
       } 
     );
@@ -95,13 +104,19 @@ export class BannerEditComponent implements OnInit {
             banner.append(keys[i], null);
 
           }
-        }else{
+        }else if(keys[i]!=="status" )
+        {
           banner.append(keys[i], this.bannerData[keys[i]]);
         }
-        
+        const file_del_id: any = (this.file_to_delete[0]) ? this.file_to_delete[0] :null ;
+        banner.append("file_to_delete", file_del_id);
+        //console.log(banner);
       }
+      //console.log(banner);
+
+      //return false;
       const __this = this;
-      this.bannerService.postNewBanner(banner).subscribe(
+      this.bannerService.editBanner(banner, this.instanceId).subscribe(
         response => {
           this.actionStatus=1;
           this.successMessage = "New banner added successfully";
@@ -116,7 +131,6 @@ export class BannerEditComponent implements OnInit {
         }
       
       );
-      
   }
 
   onFileChange(event){
@@ -136,6 +150,25 @@ export class BannerEditComponent implements OnInit {
     }catch(e){
       console.log(e);
     }
+  }
+
+
+  createPreview(baseURL){
+    const image = baseURL+""+ this.bannerData.file;
+    this.previewImage = image;
+  }
+
+  removeFile(){
+      this.imageRemoved =1;
+      this.file_id = this.bannerData.file_id;
+      this.bannerData.file_id = null;
+      this.file_to_delete.push(this.bannerData.file_id);
+  }
+
+  undoRemoved(){
+    this.imageRemoved=0;
+    this.file_to_delete.pop();
+    this.bannerData.file_id = this.file_id;
   }
 
 

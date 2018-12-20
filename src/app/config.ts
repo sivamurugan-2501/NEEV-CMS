@@ -12,6 +12,7 @@ export const CONFIGS = {
       "add" : "/banner/add",
       "list" : "/banner/list",
       "delete" : "/banner/delete",
+      "edit" : "/banner/edit",
       "get" : "/banner"
    },
 

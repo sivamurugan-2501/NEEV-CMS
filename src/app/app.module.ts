@@ -29,6 +29,7 @@ import { ProductAddComponent } from './product-add/product-add.component';
 import { VideoListComponent } from './video-list/video-list.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { BannerEditComponent } from './banner-edit/banner-edit.component';
+import { FaqAddComponent } from './faq-add/faq-add.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -107,7 +108,7 @@ const routes: Routes =[
     FooterComponent,
     BannerAddComponent,
     BannerListComponent,  
-    VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, ProductListComponent, BannerEditComponent
+    VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, ProductListComponent, BannerEditComponent, FaqAddComponent
   ],
   imports: [
     BrowserModule,
