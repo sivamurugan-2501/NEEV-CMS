@@ -29,6 +29,8 @@ import { ProductAddComponent } from './product-add/product-add.component';
 import { VideoListComponent } from './video-list/video-list.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { BannerEditComponent } from './banner-edit/banner-edit.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UserUplaodsComponent } from './user-uplaods/user-uplaods.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -85,12 +87,16 @@ const routes: Routes =[
             {
               path : "product-list",
               component : ProductListComponent
+            },
+            {
+              path: "user-uploads",
+              component: UserUplaodsComponent
             }
           ]
         },
         {
-          path: "add-banner",
-          component : BannerAddComponent
+          path: "**",
+          component : PageNotFoundComponent
         }
       ]
   }
@@ -107,7 +113,7 @@ const routes: Routes =[
     FooterComponent,
     BannerAddComponent,
     BannerListComponent,  
-    VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, ProductListComponent, BannerEditComponent
+    VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, ProductListComponent, BannerEditComponent, PageNotFoundComponent, UserUplaodsComponent
   ],
   imports: [
     BrowserModule,
