@@ -51,4 +51,12 @@ export class StorageService {
 
   }
 
+  setCustomData(key, value){
+    localStorage.setItem(key, value);
+  }
+
+  getCustomData(key){
+    return localStorage.getItem(key);
+  }
+
 }

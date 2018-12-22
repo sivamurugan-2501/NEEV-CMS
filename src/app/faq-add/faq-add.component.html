@@ -1,3 +1,102 @@
-<p>
-  faq-add works!
-</p>
+
+  <!-- Content Wrapper. Contains page content -->
+  
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="d-flex align-items-center">
+          <div class="mr-auto">
+            <h3 class="page-title">FAQ</h3>
+            <div class="d-inline-block align-items-center">
+              <nav>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                  <li class="breadcrumb-item" aria-current="page">FAQ</li>
+                  <li class="breadcrumb-item active" aria-current="page">Add</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+  <section class="content">
+       
+      <!-- Basic Forms -->
+       <div class="box">
+        
+          <!-- /.box-header -->
+          <div class="box-header with-border">
+  
+            <h4 class="box-title">Add FAQ</h4>
+  
+          </div>
+           <!-- /.box-header -->
+  
+  
+         <div class="box-body">
+           <div class="row">
+             <div class="col">
+           <form (submit)="saveFAQ()" method="post" #faqForm="ngForm">
+           <div class="row">
+           <div class="col-12">	
+            
+            <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+            </app-action-message>
+  
+            <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+              </app-action-message>
+
+              <div class="form-group">
+                <label class="text-info">Language<span class="text-danger">*</span></label>
+                  <div class="controls">
+                    <select name="language" id="language" #language="ngModel"  required class="form-control" [(ngModel)]="faqData.language">
+                        <option *ngFor="let l of languages" value="{{l.id}}">{{l.name}}</option>
+                    </select>
+                  </div>
+                </div>
+  
+             <div class="form-group">
+              <label class="text-info">Question <span class="text-danger">*</span></label>
+               <div class="controls">
+                 
+                 <textarea name="question" #question="ngModel" minlength="10" maxlength="500"  [(ngModel)]="faqData.question" class="form-control" required data-validation-required-message="This field is required"></textarea>
+                 </div>
+                  
+                 <div class="form-control-feedback" *ngIf="question.invalid && (question.dirty || question.touched)">
+                    <code *ngIf="question.errors.required">Missing question</code>
+                   <code *ngIf="question.errors.minlength || question.errors.maxlength">Invalid question maxlength:10, minlength:500</code>
+                 </div>
+              </div>
+
+              <div class="form-group">
+                <label class="text-info">Answer <span class="text-danger">*</span></label>
+                 <div class="controls">
+                   
+                   <textarea name="answer" #answer="ngModel" minlength="10" maxlength="500"  [(ngModel)]="faqData.answer" class="form-control" required data-validation-required-message="This field is required"></textarea>
+                   </div>
+                    
+                   <div class="form-control-feedback" *ngIf="answer.invalid && (answer.dirty || answer.touched)">
+                      <code *ngIf="answer.errors.required">Missing question</code>
+                     <code *ngIf="answer.errors.minlength || answer.errors.maxlength">Invalid question maxlength:10, minlength:500</code>
+                   </div>
+                </div>
+  
+            </div>
+          </div>
+           
+           <div class="text-xs-right">
+            <button type="submit" class="btn btn-info" [disabled]="!faqForm.valid" >Submit</button>
+           </div>
+         </form>
+               
+             </div>
+             <!-- /.col -->
+           </div>
+           <!-- /.row -->
+         </div>
+         <!-- /.box-body -->
+       </div>
+       <!-- /.box -->
+       
+     </section>
+     <!-- /.content -->
+  

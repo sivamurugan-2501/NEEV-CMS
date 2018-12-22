@@ -1,0 +1,397 @@
+
+            <!-- Content Header (Page header) -->
+
+            <div class="content-header">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="mr-auto">
+
+                        <h3 class="page-title">Add User page</h3>
+
+                        <div class="d-inline-block align-items-center">
+
+                            <nav>
+
+                                <ol class="breadcrumb">
+
+                                    <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+
+                                    <li class="breadcrumb-item" aria-current="page">Add User</li>
+
+                                    <li class="breadcrumb-item active" aria-current="page">Select user options</li>
+
+                                </ol>
+
+                            </nav>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Main content -->
+
+            <section class="content">
+
+                <!-- Validation wizard -->
+
+                <div class="box">
+
+                    <div class="box-header with-border">
+
+                        <h4 class="box-title">User Form</h4>
+
+                    </div>
+
+                    <!-- /.box-header -->
+
+                    <form class="form" name="userForm" (submit)="addUser()" #userForm="ngForm">
+
+                        <div class="box-body">
+
+                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i>Mapping</h4>
+
+                            <hr class="my-15">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Role</label>
+
+                                        <select class="form-control"  name="role" id="role" #role="ngModel" [(ngModel)]= "userData.mapping" required>
+
+                                            <option value=0>Select Role</option>
+                                            <option *ngFor="let r of roles" id="{{r.id}}" > {{r.name}} ({{r.code}}) </option>
+
+                                        </select>
+
+                                        <div class="form-control-feedback" *ngIf="mapTSM.invalid && (mapTSM.dirty || mapTSM.touched)">
+                                            <code *ngIf="mapTSM.errors.required">Required mappping to  a TSM</code>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <label>Map To TSM</label>
+
+                                        <select class="form-control"  name="mapTSM" id="mapTSM" #mapTSM="ngModel" [(ngModel)]= "userData.mapping" required>
+
+                                            <option value=0>Select TSM</option>
+                                            <option value=1>TSM 1</option>
+                                            <option value=2>TSM 2</option>
+
+                                        </select>
+
+                                        <div class="form-control-feedback" *ngIf="mapTSM.invalid && (mapTSM.dirty || mapTSM.touched)">
+                                            <code *ngIf="mapTSM.errors.required">Required mappping to  a TSM</code>
+                                        </div>
+
+                                    </div>
+
+                                    
+
+                                </div>
+                              </div>
+
+
+                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Personal Info</h4>
+
+                            <hr class="my-15">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>First Name</label>
+
+                                        <input type="text" class="form-control" name="firtname" id="firstname" required placeholder="First Name" #firstname="ngModel" [(ngModel)]= "userData.first_name" minlength="2" maxlength="255">
+
+                                        <div class="form-control-feedback" *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">
+                                            <code *ngIf="firstname.errors.required">Missing first name field</code>
+                                           <code *ngIf="firstname.errors.minlength || caption.errors.maxlength">Invalid first name maxlength:4, minlength:255</code>
+                                         </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Last Name</label>
+
+                                        <input type="text" class="form-control" name="lastname" id="lastname"  placeholder="Last Name" #lastname="ngModel" [(ngModel)]= "userData.last_name">
+                                        
+                                        <div class="form-control-feedback" *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+                                            <code *ngIf="lastname.errors.required">Missing last name field</code>
+                                           <code *ngIf="lastname.errors.minlength || caption.errors.maxlength">Invalid last name maxlength:4, minlength:255</code>
+                                         </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>E-mail</label>
+
+                                        <input type="email" class="form-control" name="email" id="email" required placeholder="E-mail" #email="ngModel" [(ngModel)]= "userData.email">
+                                  
+                                        <div class="form-control-feedback" *ngIf="email.invalid && (email.dirty || email.touched)">
+                                            <code *ngIf="email.errors.required">Missing email field</code>
+                                           <code *ngIf="email.invalid || !email.errors.email">Invalid email id</code>
+                                         </div>
+                                        
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Contact Number</label>
+
+                                        <input type="text" class="form-control" name="mobile" id="mobile" minlength="10" maxlength="10"  placeholder="Mobile" pattern="\d{10}" #mobile="ngModel" [(ngModel)]= "userData.mobile">
+                                        
+                                        <div class="form-control-feedback" *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)">
+                                            <code *ngIf="mobile.errors.required">Missing mobile field</code>
+                                           <code *ngIf="mobile.invalid || mobile.errors.minlength || mobile.errors.maxlength">Invalid mobile number</code>
+                                          
+                                         </div>
+                                        
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Date of Birth</label>
+
+                                        <input type="text" class="form-control" name="birthdate" id="birthdate"  data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="" #birthDate="ngModel" [(ngModel)]= "userData.birth_date">
+                                      
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Anniversary</label>
+
+                                        <input type="text" name="anniversary" id="anniversary"  ngbDatepicker #anniversary="ngModel" [(ngModel)]= "userData.anniversary" >
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <h4 class="box-title text-info"><i class="ti-location-pin mr-15"></i> Address</h4>
+
+                            <hr class="my-15">
+
+                            <div class="form-group">
+
+                                <label>Office</label>
+
+                                <textarea rows="5" name="address" id="address" minlength="4" maxlength="255"  class="form-control" placeholder="Correspondance / Permanent Address" #address="ngModel" [(ngModel)]= "userData.address" ></textarea>
+                                  
+                                <div class="form-control-feedback" *ngIf="address.invalid && (address.dirty || address.touched)">
+                                    
+                                   <code *ngIf="address.invalid || address.errors.minlength || address.errors.maxlength">Address should be of minimum 4 characters and max of 255</code>
+                                   <code *ngIf="address.invalid">Invalid address</code>
+                                 </div>
+                            </div>
+
+
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>City</label>
+
+                                        <select class="form-control"  name="region" id="region" #region="ngModel" [(ngModel)]= "userData.region" required>
+
+                                            <option>Pune</option>
+
+                                            <option>Mumbai</option>
+
+                                            <option>Delhi</option>
+
+                                        </select>
+
+                                        <div class="form-control-feedback" *ngIf="region.invalid && (region.dirty || region.touched)">
+                                            <code *ngIf="region.errors.required">Missing region</code>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>State</label>
+
+                                        <select class="form-control" name="state" id="state" #state="ngModel" [(ngModel)]= "userData.state" required>
+
+                                            <option>Maharashtra</option>
+
+                                            <option>Uttar Pradesh</option>
+
+                                            <option>Madhya Pradesh</option>
+
+                                        </select>
+                                       <div class="form-control-feedback" *ngIf="state.invalid && (state.dirty || state.touched)">
+                                            <code *ngIf="state.errors.required">Missing state</code>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <!-- <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Country</label>
+
+                                        <select class="form-control">
+
+                                            <option>India</option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div> -->
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Pin</label>
+
+                                        <input type="text" class="form-control" name="pincode" id="pincode" required placeholder="PIN" #pincode="ngModel" [(ngModel)]= "userData.pincode"> 
+
+                                        <div class="form-control-feedback" *ngIf="pincode.invalid && (pincode.dirty || pincode.touched)">
+                                    
+                                            <code *ngIf="pincode.invalid || pincode.errors.minlength || pincode.errors.maxlength">Invalid pincode</code>
+                                            <code *ngIf="pincode.errors.required">Pincode required</code>
+                                          </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Select Profile</label>
+
+                                        <label class="file">
+
+                                            <input type="file" id="file"name="profilepic" #profilepic="ngModel" [(ngModel)]= "userData.profile_pic">
+
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+                               <!--  <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Add social profile links</label>
+
+                                        <h6>You can add facebook twiitter google+ profiles <code>like @twitter handle</code> to your profile.</h6>
+
+                                        <div class="input-group">
+
+                                            <input type="text" value="@Lorem,@Ipsum,@Amet" data-role="tagsinput" placeholder="add tags">
+
+                                        </div>
+
+                                    </div>
+
+                                </div> -->
+
+                            </div>
+
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+
+                                <button type="submit" class="btn btn-nblue btn-outline mr-1">
+
+                                    <i class="ti-save-alt"></i> Save
+
+                                </button>
+
+                                <button type="button" class="btn btn-danger btn-outline">
+
+                                    <i class="ti-trash"></i> Cancel
+
+                                </button>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </form>
+
+
+
+                    <!-- /.box -->
+
+
+
+                </div>
+
+
+
+            </section>
+
+            <!-- /.content -->

@@ -11,7 +11,7 @@ import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 
 import { NgxEditorModule } from 'ngx-editor';
 
-
+import { DatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 import { AppComponent } from './app.component';
@@ -34,6 +34,11 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { UserUplaodsComponent } from './user-uplaods/user-uplaods.component';
 
 import { FaqAddComponent } from './faq-add/faq-add.component';
+import { FaqListComponent } from './faq-list/faq-list.component';
+import { UserAddComponent } from './user-add/user-add.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { TgmAddComponent } from './tgm-add/tgm-add.component';
+import { DealerAddComponent } from './dealer-add/dealer-add.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -94,6 +99,26 @@ const routes: Routes =[
             {
               path: "user-uploads",
               component: UserUplaodsComponent
+            },
+            {
+              path: "add-faq",
+              component : FaqAddComponent
+            },
+            {
+              path : "faq-list",
+              component : FaqListComponent
+            },
+            {
+              path : "add-user",
+              component : UserAddComponent
+            },
+            {
+              path : "add-tgm",
+              component : TgmAddComponent
+            },
+            {
+              path : "add-dealer",
+              component : DealerAddComponent
             }
           ]
         },
@@ -116,7 +141,8 @@ const routes: Routes =[
     FooterComponent,
     BannerAddComponent,
     BannerListComponent,  
-    VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, ProductListComponent, BannerEditComponent, FaqAddComponent
+    VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, 
+    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent
   ],
   imports: [
     BrowserModule,
@@ -124,6 +150,8 @@ const routes: Routes =[
     FormsModule,
     DropzoneModule,
     NgxEditorModule,
+   // BsDatepickerModule.forRoot(),
+    DatepickerModule.forRoot(),
     RouterModule.forRoot(
       routes,
       { enableTracing: true } // <-- debugging purposes only

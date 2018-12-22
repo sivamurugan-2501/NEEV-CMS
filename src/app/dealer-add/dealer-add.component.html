@@ -1,0 +1,343 @@
+
+            <!-- Content Header (Page header) -->
+
+            <div class="content-header">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="mr-auto">
+
+                        <h3 class="page-title">Add Dealer</h3>
+
+                        <div class="d-inline-block align-items-center">
+
+                            <nav>
+
+                                <ol class="breadcrumb">
+
+                                    <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+
+                                    <li class="breadcrumb-item" aria-current="page">Dealer</li>
+
+                                    <li class="breadcrumb-item active" aria-current="page">Add</li>
+
+                                </ol>
+
+                            </nav>
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Main content -->
+
+            <section class="content">
+
+                <!-- Validation wizard -->
+
+                <div class="box">
+
+                    <div class="box-header with-border">
+
+                        <h4 class="box-title">Dealer Form</h4>
+
+                    </div>
+
+                       
+                  
+
+                    <!-- /.box-header -->
+
+                    <form class="form" name="dealerForm" (submit)="addUser()" #dealerForm="ngForm">
+
+                        <div class="box-body">
+
+                            <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+                              </app-action-message>
+                      
+                              <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+                              </app-action-message>
+
+                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i>Mapping</h4>
+
+                            <hr class="my-15">
+
+                            <!-- <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Map To TSM</label>
+
+                                        <select class="form-control"  name="mapTSM" id="mapTSM" #mapTSM="ngModel" [(ngModel)]= "dealerData.mapping" required>
+
+                                            <option value=0>Select TSM</option>
+                                            <option value=1>TSM 1</option>
+                                            <option value=2>TSM 2</option>
+
+                                        </select>
+
+                                        <div class="form-control-feedback" *ngIf="mapTSM.invalid && (mapTSM.dirty || mapTSM.touched)">
+                                            <code *ngIf="mapTSM.errors.required">Required mappping to  a TSM</code>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                              </div> -->
+
+
+                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Dealer Info</h4>
+
+                            <hr class="my-15">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>First Name</label>
+
+                                        <input type="text" class="form-control" name="name" id="name" required placeholder="Name" #name="ngModel" [(ngModel)]= "dealerData.name" minlength="2" maxlength="255">
+
+                                        <div class="form-control-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">
+                                            <code *ngIf="name.errors.required">Missing  name field</code>
+                                           <code *ngIf="name.errors.minlength || name.errors.maxlength">Invalid  name maxlength:4, minlength:255</code>
+                                         </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Dealer Code</label>
+
+                                        <input type="text" class="form-control" name="code" id="code" required placeholder="Code" #code="ngModel" [(ngModel)]= "dealerData.code">
+                                        
+                                        <div class="form-control-feedback" *ngIf="code.invalid && (code.dirty || code.touched)">
+                                            <code *ngIf="code.errors.required">Dealer code required</code>
+                                           <code *ngIf="code.errors.minlength || code.errors.maxlength">Invalid dealer code</code>
+                                         </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!--div v class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>E-mail</label>
+
+                                        <input type="email" class="form-control" name="email" id="email" required placeholder="E-mail" #email="ngModel" [(ngModel)]= "dealerData.email">
+                                   {{email.errors|json}}
+                                        <div class="form-control-feedback" *ngIf="email.invalid && (email.dirty || email.touched)">
+                                            <code *ngIf="email.errors.required">Missing email field</code>
+                                           <code *ngIf="email.invalid || !email.errors.email">Invalid email id</code>
+                                         </div>
+                                        
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Contact Number</label>
+
+                                        <input type="text" class="form-control" name="mobile" id="mobile" minlength="10" maxlength="10"  placeholder="Mobile" pattern="\d{10}" #mobile="ngModel" [(ngModel)]= "dealerData.mobile">
+                                        
+                                        <div class="form-control-feedback" *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)">
+                                            <code *ngIf="mobile.errors.required">Missing mobile field</code>
+                                           <code *ngIf="mobile.invalid || mobile.errors.minlength || mobile.errors.maxlength">Invalid mobile number</code>
+                                          
+                                         </div>
+                                        
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Date of Birth</label>
+
+                                        <input type="text" class="form-control" name="birthdate" id="birthdate"  data-inputmask="'alias': 'mm/dd/yyyy'" data-mask="" #birthDate="ngModel" [(ngModel)]= "dealerData.birth_date">
+                                      
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Anniversary</label>
+
+                                        <input type="text" name="anniversary" id="anniversary"  ngbDatepicker #anniversary="ngModel" [(ngModel)]= "dealerData.anniversary" >
+
+                                    </div>
+
+                                </div>
+
+
+
+                            </div> -->
+
+                            <h4 class="box-title text-info"><i class="ti-location-pin mr-15"></i> Address</h4>
+
+                            <hr class="my-15">
+
+                            <div class="form-group">
+
+                                <label>Address</label>
+
+                                <textarea rows="5" name="address" id="address" minlength="4" maxlength="255"  class="form-control" placeholder="Correspondance / Permanent Address" #address="ngModel" [(ngModel)]= "dealerData.address" ></textarea>
+                                  
+                                <div class="form-control-feedback" *ngIf="address.invalid && (address.dirty || address.touched)">
+                                    
+                                   <code *ngIf="address.invalid || address.errors.minlength || address.errors.maxlength">Address should be of minimum 4 characters and max of 255</code>
+                                   <code *ngIf="address.invalid">Invalid address</code>
+                                 </div>
+                            </div>
+
+
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Taluka</label>
+
+                                        <input type="text" class="form-control" name="taluka" id="taluka" required  placeholder="Taluka" #taluka="ngModel" [(ngModel)]= "dealerData.taluka">
+
+
+                                        <div class="form-control-feedback" *ngIf="taluka.invalid && (taluka.dirty || taluka.touched)">
+                                            <code *ngIf="taluka.errors.required">Missing taluka</code>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>State</label>
+
+                                        <select class="form-control" name="state" id="state" #state="ngModel" [(ngModel)]= "dealerData.state" required>
+
+                                            <option value=1>Maharashtra</option>
+
+                                            <option value=2>Uttar Pradesh</option>
+
+                                            <option value=3>Madhya Pradesh</option>
+
+                                        </select>
+                                       <div class="form-control-feedback" *ngIf="state.invalid && (state.dirty || state.touched)">
+                                            <code *ngIf="state.errors.required">Missing state</code>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <!-- <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Country</label>
+
+                                        <select class="form-control">
+
+                                            <option>India</option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div> -->
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+
+                                        <label>Pin</label>
+
+                                        <input type="text" class="form-control" name="pincode" id="pincode" required placeholder="PIN" #pincode="ngModel" [(ngModel)]= "dealerData.pincode"> 
+
+                                        <div class="form-control-feedback" *ngIf="pincode.invalid && (pincode.dirty || pincode.touched)">
+                                    
+                                            <code *ngIf="pincode.invalid || pincode.errors.minlength || pincode.errors.maxlength">Invalid pincode</code>
+                                            <code *ngIf="pincode.errors.required">Pincode required</code>
+                                          </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                           
+
+                            <!-- /.box-body -->
+
+                            <div class="box-footer">
+
+                                <button type="submit" class="btn btn-nblue btn-outline mr-1" [disabled]="dealerForm.invalid" > 
+
+                                    <i class="ti-save-alt"></i> Save
+
+                                </button>
+
+                                <button type="button" class="btn btn-danger btn-outline">
+
+                                    <i class="ti-trash"></i> Cancel
+
+                                </button>
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+                    </form>
+
+
+
+                    <!-- /.box -->
+
+
+
+                </div>
+
+
+
+            </section>
+
+            <!-- /.content -->

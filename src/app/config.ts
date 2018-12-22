@@ -26,7 +26,17 @@ export const CONFIGS = {
    },
     "authenticate" : "/authenticate",
     "configs" : {
-        "language" : "/config/languages"
+        "language" : "/config/languages",
+        "roles" : "/config/roles",
+        "states" : "/config/states",
+        "regions" : "/config/regions"
+    },
+    "faq":{
+      "add" : "/faq/add",
+      "list" : "/faq/list"
+    },
+    "tgm":{
+      "add" : "/tgm/add"
     }
     
   }
