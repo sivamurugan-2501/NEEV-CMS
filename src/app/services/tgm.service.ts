@@ -11,8 +11,19 @@ export class TgmService {
 
   addTGM(tgmData){
 
-    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["tgm"]["add"];
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["user"]["add"];
     return this.http.post(url, tgmData);
+
+  }
+
+  getUsers(role){
+
+    let queryString="";
+    if(role!==undefined && role!="" && role!=null ){
+      queryString = "?role="+role;
+    }
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["user"]["list"];
+    return this.http.get(url+queryString);
 
   }
 

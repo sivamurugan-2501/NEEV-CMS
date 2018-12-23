@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserAddRequest } from '../model/user-add-request';
 import { TgmService } from '../services/tgm.service';
 import { ConfigsDataService } from 'replace/app/services/configs-data.service';
+import { StorageService } from '../services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tgm-add',
@@ -17,7 +19,7 @@ export class TgmAddComponent implements OnInit {
     "last_name":null,
     "mobile": null,
     "email": null,
-    "role": null,
+    "role": 0,
     "address": null,
     "state": null,
     "region": null,
@@ -31,28 +33,46 @@ export class TgmAddComponent implements OnInit {
   imageError= null;
   errorStatus=0;
   actionStatus=0;
-  successMessage = "New TGM added successfully";
+  successMessage = "New user successfully";
   errorMessage = "Something went wrong.";
   
   langauges :any;
-  region:any;
-  state:any;
+  regions:any;
+  states:any;
+  roles:any;
 
-  constructor(private tgmService:TgmService, private configService:ConfigsDataService) { }
+
+  constructor(private tgmService:TgmService, private configService:ConfigsDataService, private storageService:StorageService, private route:Router) { }
 
   ngOnInit() {
 
-    this.configService.getLanguages().subscribe(
 
-      (response:any) =>{
 
-        if(response.status == 200){
-            this.langauges = response.data;
-        }
+    const roles:any = this.storageService.getCustomData("ROLES");
+   
+    try{
+      this.roles = JSON.parse(roles);
+    }catch(e){
+      this.roles = roles;
+    }
 
-      }
 
-    );
+    const region = this.storageService.getCustomData("REGIONS");
+
+    try{
+      this.regions = JSON.parse(region);
+    }catch(e){
+      this.regions = region;
+    }
+
+    const states = this.storageService.getCustomData("STATES");
+
+    try{
+      this.states = JSON.parse(states);
+    }catch(e){
+      this.states = states;
+    }
+  
 
   }
 
@@ -84,6 +104,10 @@ export class TgmAddComponent implements OnInit {
         (response: Response) =>{
          if(response.status == 200){
            this.actionStatus =1;
+           const __this = this;
+           setTimeout(function(){
+            __this.route.navigate(["main","user-list"]);
+           },3000);
          }else{
           this.actionStatus =2;
            this.errorStatus =1;
@@ -91,9 +115,15 @@ export class TgmAddComponent implements OnInit {
         },
 
         (error:any) =>{
+
           this.errorStatus =1;
           this.actionStatus =2;
-          this.errorMessage = JSON.stringify(error);
+          if(error.status = 422){
+            this.errorMessage = JSON.stringify(error.error);
+          }else{
+            this.errorMessage = "Soemthing went wrong.";
+          }
+          
         }
       );
 

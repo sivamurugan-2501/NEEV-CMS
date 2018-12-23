@@ -56,7 +56,7 @@
 
                     <!-- /.box-header -->
 
-                    <form class="form" name="dealerForm" (submit)="addUser()" #dealerForm="ngForm">
+                    <form class="form" name="dealerForm" (submit)="addDealer()" #dealerForm="ngForm">
 
                         <div class="box-body">
 
@@ -66,9 +66,6 @@
                               <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
                               </app-action-message>
 
-                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i>Mapping</h4>
-
-                            <hr class="my-15">
 
                             <!-- <div class="row">
 
@@ -106,7 +103,7 @@
 
                                     <div class="form-group">
 
-                                        <label>First Name</label>
+                                        <label>Dealer Name</label>
 
                                         <input type="text" class="form-control" name="name" id="name" required placeholder="Name" #name="ngModel" [(ngModel)]= "dealerData.name" minlength="2" maxlength="255">
 
@@ -124,7 +121,7 @@
 
                                         <label>Dealer Code</label>
 
-                                        <input type="text" class="form-control" name="code" id="code" required placeholder="Code" #code="ngModel" [(ngModel)]= "dealerData.code">
+                                        <input type="text" class="form-control" name="code" id="code" required placeholder="Code" #code="ngModel" [(ngModel)]= "dealerData.dealer_code">
                                         
                                         <div class="form-control-feedback" *ngIf="code.invalid && (code.dirty || code.touched)">
                                             <code *ngIf="code.errors.required">Dealer code required</code>
@@ -247,11 +244,10 @@
 
                                         <select class="form-control" name="state" id="state" #state="ngModel" [(ngModel)]= "dealerData.state" required>
 
-                                            <option value=1>Maharashtra</option>
+                                            <option value=0>Select State</option>
 
-                                            <option value=2>Uttar Pradesh</option>
+                                            <option *ngFor="let st of states" value={{st.id}}>{{st.name}}</option>
 
-                                            <option value=3>Madhya Pradesh</option>
 
                                         </select>
                                        <div class="form-control-feedback" *ngIf="state.invalid && (state.dirty || state.touched)">
@@ -265,21 +261,27 @@
 
                             <div class="row">
 
-                                <!-- <div class="col-md-6">
+                                <div class="col-md-6">
 
                                     <div class="form-group">
 
-                                        <label>Country</label>
+                                        <label>Region</label>
 
-                                        <select class="form-control">
+                                        <select class="form-control" name="region" id="region" #region="ngModel" [(ngModel)]= "dealerData.region" required>
 
-                                            <option>India</option>
+                                            <option value=0>Select Region</option>
+
+                                            <option *ngFor="let rg of regions" value={{rg.id}}>{{rg.name}}</option>
+
 
                                         </select>
-
+                                       <div class="form-control-feedback" *ngIf="region.invalid && (region.dirty || region.touched)">
+                                            <code *ngIf="region.errors.required">Missing region</code>
+                                        </div>
                                     </div>
 
-                                </div> -->
+                                </div>
+
 
                                 <div class="col-md-6">
 
@@ -287,7 +289,7 @@
 
                                         <label>Pin</label>
 
-                                        <input type="text" class="form-control" name="pincode" id="pincode" required placeholder="PIN" #pincode="ngModel" [(ngModel)]= "dealerData.pincode"> 
+                                        <input type="text" class="form-control" name="pincode" id="pincode" maxlength="10" required placeholder="PIN" #pincode="ngModel" [(ngModel)]= "dealerData.pincode"> 
 
                                         <div class="form-control-feedback" *ngIf="pincode.invalid && (pincode.dirty || pincode.touched)">
                                     

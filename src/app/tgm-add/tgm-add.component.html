@@ -66,34 +66,58 @@
                               <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
                               </app-action-message>
 
-                            <h4 class="box-title text-info"><i class="ti-user mr-15"></i>Mapping</h4>
+                              <h4 class="box-title text-info"><i class="ti-user mr-15"></i>Role</h4>
 
-                            <hr class="my-15">
+                              <hr class="my-15">
+  
+                              <div class="row">
+  
+                                  <div class="col-md-6">
+  
+                                      <div class="form-group">
+  
+                                          <label>Role</label>
+  
+                                          <select class="form-control"  name="role" id="role" #role="ngModel" [(ngModel)]= "userData.role" required>
+  
+                                              <option value=0>Select Role</option>
+                                              <option *ngFor="let r of roles" value="{{r.id}}" > {{r.name}} ({{r.code}}) </option>
+  
+                                          </select>
+  
+                                          <div class="form-control-feedback" *ngIf="role.invalid && (role.dirty || role.touched)">
+                                              <code *ngIf="role.errors.required || userData.role==0">Please select a role</code>
+                                          </div>
 
-                            <div class="row">
-
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-
-                                        <label>Map To TSM</label>
-
-                                        <select class="form-control"  name="mapTSM" id="mapTSM" #mapTSM="ngModel" [(ngModel)]= "userData.mapping" required>
-
-                                            <option value=0>Select TSM</option>
-                                            <option value=1>TSM 1</option>
-                                            <option value=2>TSM 2</option>
-
-                                        </select>
-
-                                        <div class="form-control-feedback" *ngIf="mapTSM.invalid && (mapTSM.dirty || mapTSM.touched)">
-                                            <code *ngIf="mapTSM.errors.required">Required mappping to  a TSM</code>
-                                        </div>
-
-                                    </div>
-
+                                          <div class="form-control-feedback" *ngIf="(role.dirty || role.touched)">
+                                                <code *ngIf="userData.role==0">Please select a role</code>
+                                            </div>
+  
+                                      </div>
+                                  </div>
+                                 <!--  <div class="col-md-6">
+                                      <div class="form-group">
+  
+                                          <label>Map To TSM</label>
+  
+                                          <select class="form-control"  name="mapTSM" id="mapTSM" #mapTSM="ngModel" [(ngModel)]= "userData.mapping" required>
+  
+                                              <option value=0>Select TSM</option>
+                                              <option value=1>TSM 1</option>
+                                              <option value=2>TSM 2</option>
+  
+                                          </select>
+  
+                                          <div class="form-control-feedback" *ngIf="mapTSM.invalid && (mapTSM.dirty || mapTSM.touched)">
+                                              <code *ngIf="mapTSM.errors.required">Required mappping to  a TSM</code>
+                                          </div>
+  
+                                      </div>
+  
+                                      
+  
+                                  </div> -->
                                 </div>
-                              </div>
 
 
                             <h4 class="box-title text-info"><i class="ti-user mr-15"></i> Personal Info</h4>
@@ -185,7 +209,7 @@
 
                                 </div>
 
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
 
                                     <div class="form-group">
 
@@ -195,7 +219,7 @@
 
                                     </div>
 
-                                </div>
+                                </div> -->
 
 
 
@@ -230,11 +254,9 @@
 
                                         <select class="form-control"  name="region" id="region" #region="ngModel" [(ngModel)]= "userData.region" required>
 
-                                            <option value=1>Pune</option>
+                                                <option value=0>Select Region</option>
 
-                                            <option value=2>Mumbai</option>
-
-                                            <option value=3>Delhi</option>
+                                                <option *ngFor="let rg of regions" value={{rg.id}}>{{rg.name}}</option>
 
                                         </select>
 
@@ -254,11 +276,9 @@
 
                                         <select class="form-control" name="state" id="state" #state="ngModel" [(ngModel)]= "userData.state" required>
 
-                                            <option value=1>Maharashtra</option>
+                                                <option value=0>Select State</option>
 
-                                            <option value=2>Uttar Pradesh</option>
-
-                                            <option value=3>Madhya Pradesh</option>
+                                                <option *ngFor="let st of states" value={{st.id}}>{{st.name}}</option>
 
                                         </select>
                                        <div class="form-control-feedback" *ngIf="state.invalid && (state.dirty || state.touched)">
@@ -351,7 +371,7 @@
 
                             <div class="box-footer">
 
-                                <button type="submit" class="btn btn-nblue btn-outline mr-1" [disabled]="userForm.invalid" > 
+                                <button type="submit" class="btn btn-nblue btn-outline mr-1" [disabled]="userForm.invalid || userData.role==0" > 
 
                                     <i class="ti-save-alt"></i> Save
 

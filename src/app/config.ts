@@ -35,8 +35,26 @@ export const CONFIGS = {
       "add" : "/faq/add",
       "list" : "/faq/list"
     },
+
     "tgm":{
       "add" : "/tgm/add"
+    },
+    "dealer":{
+      "add" : "/dealer/add"
+    },
+
+    "user":{
+      "add" : "/other_user/add",
+      "list" : "/other_user/list"
+    },
+
+    "event":{
+      "add" : "/news_board/add"
+    },
+
+    "notification":{
+      "send" : "/notification/add",
+      "list" : "notification/list"
     }
     
   }

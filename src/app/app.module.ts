@@ -39,6 +39,10 @@ import { UserAddComponent } from './user-add/user-add.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { TgmAddComponent } from './tgm-add/tgm-add.component';
 import { DealerAddComponent } from './dealer-add/dealer-add.component';
+import { TgmListComponent } from './tgm-list/tgm-list.component';
+import { SendNotificationComponent } from './send-notification/send-notification.component';
+import { EventAddComponent } from './event-add/event-add.component';
+import { NotificationListComponent } from './notification-list/notification-list.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -117,8 +121,24 @@ const routes: Routes =[
               component : TgmAddComponent
             },
             {
+              path : "user-list",
+              component : UserListComponent
+            },
+            {
               path : "add-dealer",
               component : DealerAddComponent
+            },
+            {
+              path : "add-event",
+              component : EventAddComponent
+            },
+            {
+              path : 'create-notification',
+              component : SendNotificationComponent
+            },
+            {
+              path : 'notification-list',
+              component : NotificationListComponent
             }
           ]
         },
@@ -142,7 +162,7 @@ const routes: Routes =[
     BannerAddComponent,
     BannerListComponent,  
     VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, 
-    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent
+    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent
   ],
   imports: [
     BrowserModule,

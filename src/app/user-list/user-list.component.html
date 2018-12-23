@@ -1,3 +1,339 @@
-<p>
-  user-list works!
-</p>
+
+
+<!-- Content Header (Page header) -->
+
+<div class="content-header">
+
+  <div class="d-flex align-items-center">
+
+      <div class="mr-auto">
+
+          <h3 class="page-title">NEEV MITRA Users</h3>
+
+          <div class="d-inline-block align-items-center">
+
+              <nav>
+
+                  <ol class="breadcrumb">
+
+                      <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+
+                      <li class="breadcrumb-item" aria-current="page">Users</li>
+
+                      <li class="breadcrumb-item active" aria-current="page">Users Management</li>
+
+                  </ol>
+
+              </nav>
+
+          </div>
+
+      </div>
+
+
+
+  </div>
+
+</div>
+
+
+
+<!-- Main content -->
+
+<section class="content">
+
+  <div class="row">
+
+      <div class="box">
+
+          <div class="box-body p-0">
+
+              <div class="flexbox align-items-center p-15">
+
+                  <div class="flexbox align-items-center">
+
+                      <div class="custom-control pl-0">
+
+                          <a href="javascript:void(0)">Total Users <span>
+                            {{tgmUsers.length + tsmUsers.length}}
+                          </span></a>
+
+                      </div>
+
+
+
+                      <span class="divider-line mx-1"></span>
+
+
+
+                      <div class="dropdown">
+
+                          <a class="text-info" href="javascript:void(0)">TGM Users <span class="text-info">{{tgmUsers.length}}</span></a>
+
+                      </div>
+
+                      <span class="divider-line mx-1"></span>
+
+                      <div class="dropdown d-none d-sm-block">
+
+                          <a class="text-success" href="javascript:void(0)">TSM Users <span class="text-success">{{tsmUsers.length}}</span></a>
+
+                      </div>
+
+                  </div>
+
+
+
+                  <div>
+
+                      <a href="user-add.html" class="btn btn-nblue btn-block btn-lg mt-10">+ Add New User</a>
+
+                  </div>
+
+              </div>
+
+          </div>
+
+          <!-- /.box-body -->
+
+      </div>
+
+  </div>
+
+
+
+  <div class="row">
+
+
+
+      <div class="col-md-6 connectedSortable ui-sortable">
+
+          <!-- Default box -->
+
+          <div class="box">
+
+              <div class="box-header with-border ui-sortable-handle" style="cursor: move;">
+
+                  <h4 class="box-title">TGM Users</h4>
+
+
+
+                  <ul class="box-controls pull-right">
+
+                      <li><a class="box-btn-slide" href="#"></a></li>
+
+                  </ul>
+
+              </div>
+
+              <div class="box-body p-0">
+
+                  <ul class="todo-list ui-sortable">
+
+                      <li class="p-15" *ngFor="let user of tgmUsers">
+
+                          <div class="media align-items-center">
+
+                              <a class="avatar avatar-lg status-success" href="#">
+
+                                  <img src="./../assets/images/avatar/1.jpg" alt="...">
+
+                              </a>
+
+
+
+                              <div class="media-body">
+
+                                  <p>
+
+                                      <a href="#"><strong>{{user.first_name}}</strong></a>
+
+                                      <small *ngIf="user.status==1" class="sidetitle">Active</small>
+                                      <small *ngIf="user.status==0" class="sidetitle">Deleted</small>
+
+                                  </p>
+
+
+
+                                  <!-- x -->
+
+                              </div>
+
+
+
+                              <div class="media-right gap-items">
+
+                                  <a class="media-action lead" href="#" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-pencil-alt"></i></a>
+
+                                  <a class="media-action lead" href="#" data-toggle="tooltip" title="" data-original-title="Settings"><i class="ti-settings"></i></a>
+
+
+
+                                  <div class="btn-group">
+
+                                      <a class="media-action lead" href="#" data-toggle="dropdown"><i class="ion-android-more-vertical"></i></a>
+
+                                      <div class="dropdown-menu dropdown-menu-right">
+
+                                          <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+
+                                          <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+
+                                          <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+
+                                          <div class="dropdown-divider"></div>
+
+                                          <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+
+                                      </div>
+
+                                  </div>
+
+
+
+                              </div>
+
+                          </div>
+
+                      </li>
+                  </ul>
+
+              </div>
+
+              <!-- /.box-body -->
+
+          </div>
+
+          <!-- /.box -->
+
+      </div>
+
+      <div class="col-md-6 connectedSortable ui-sortable">
+
+          <!-- Default box -->
+
+          <div class="box">
+
+              <div class="box-header with-border ui-sortable-handle" style="cursor: move;">
+
+                  <h4 class="box-title">TSM Users</h4>
+
+
+
+                  <ul class="box-controls pull-right">
+
+                      <li><a class="box-btn-slide" href="#"></a></li>
+
+                  </ul>
+
+              </div>
+
+              <div class="box-body p-0">
+
+                  <ul class="todo-list ui-sortable">
+
+                      <li class="p-15" *ngFor="let user of tsmUsers">
+
+                          <div class="media align-items-center">
+
+
+
+                              <a class="avatar avatar-lg status-success" href="#">
+
+                                  <img src="./../assets//images/avatar/1.jpg" alt="...">
+
+                              </a>
+
+
+
+                              <div class="media-body">
+
+                                  <p>
+
+                                      <a href="#"><strong>{{user.first_name}}</strong></a>
+
+                                      <small *ngIf="user.status==1" class="sidetitle">Active</small>
+                                      <small *ngIf="user.status==0" class="sidetitle">Deleted</small>
+
+                                  </p>
+
+                                  <p>Designer</p>
+
+
+
+                                 <!--  <nav class="nav mt-2">
+
+                                      <a class="nav-link" href="#"><i class="fa fa-facebook"></i></a>
+
+                                      <a class="nav-link" href="#"><i class="fa fa-twitter"></i></a>
+
+                                      <a class="nav-link" href="#"><i class="fa fa-github"></i></a>
+
+                                      <a class="nav-link" href="#"><i class="fa fa-linkedin"></i></a>
+
+                                  </nav>
+ -->
+                              </div>
+
+
+
+                              <div class="media-right gap-items">
+
+                                  <a class="media-action lead" href="#" data-toggle="tooltip" title="" data-original-title="Edit"><i class="ti-pencil-alt"></i></a>
+
+                                  <a class="media-action lead" href="#" data-toggle="tooltip" title="" data-original-title="Settings"><i class="ti-settings"></i></a>
+
+
+
+                                  <div class="btn-group">
+
+                                      <a class="media-action lead" href="#" data-toggle="dropdown"><i class="ion-android-more-vertical"></i></a>
+
+                                      <div class="dropdown-menu dropdown-menu-right">
+
+                                          <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+
+                                          <a class="dropdown-item" href="#"><i class="fa fa-fw fa-comments"></i> Messages</a>
+
+                                          <a class="dropdown-item" href="#"><i class="fa fa-fw fa-phone"></i> Call</a>
+
+                                          <div class="dropdown-divider"></div>
+
+                                          <a class="dropdown-item" href="#"><i class="fa fa-fw fa-remove"></i> Remove</a>
+
+                                      </div>
+
+                                  </div>
+
+
+
+                              </div>
+
+                          </div>
+
+                      </li>
+
+
+
+                      
+
+
+
+                  </ul>
+
+              </div>
+
+              <!-- /.box-body -->
+
+          </div>
+
+          <!-- /.box -->
+
+      </div>
+
+  </div>
+
+
+
+</section>
+

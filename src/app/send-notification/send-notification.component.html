@@ -1,0 +1,130 @@
+
+  <!-- Content Wrapper. Contains page content -->
+  
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="d-flex align-items-center">
+          <div class="mr-auto">
+            <h3 class="page-title">Send Notification</h3>
+            <div class="d-inline-block align-items-center">
+              <nav>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                  <li class="breadcrumb-item" aria-current="page">Send Notification</li>
+                  <li class="breadcrumb-item active" aria-current="page">New</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+  <section class="content">
+       
+      <!-- Basic Forms -->
+       <div class="box">
+        
+          <!-- /.box-header -->
+          <div class="box-header with-border">
+  
+            <h4 class="box-title">Send Notification</h4>
+  
+          </div>
+           <!-- /.box-header -->
+  
+  
+         <div class="box-body">
+           <div class="row">
+             <div class="col">
+           <form (submit)="sendNotification()" method="post" #notificationForm="ngForm">
+           <div class="row">
+           <div class="col-12">	
+            
+            <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+            </app-action-message>
+  
+            <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+              </app-action-message>
+
+             
+              <div class="form-group">
+                <label class="text-info">Language<span class="text-danger">*</span></label>
+                  <div class="controls">
+                    <select name="language" id="language" #language="ngModel"  required class="form-control" [(ngModel)]="notification.language">
+                        <option *ngFor="let l of languages" value="{{l.id}}">{{l.name}}</option>
+                    </select>
+                  </div>
+                </div>
+
+             <div class="form-group">
+              <label class="text-info">Title <span class="text-danger">*</span></label>
+               <div class="controls">
+                 
+                 <input type="text" class="form-control" id="title" name="title" minlength="10" maxlength="255" #title="ngModel" [(ngModel)]="notification.title" >
+                 </div>
+                  
+                 <div class="form-control-feedback" *ngIf="title.invalid && (title.dirty || title.touched)">
+                    <code *ngIf="title.errors.required">Missing title</code>
+                   <code *ngIf="title.errors.minlength || title.errors.maxlength">Invalid title maxlength:10, minlength:255</code>
+                 </div>
+              </div>
+
+              <div class="form-group">
+                <label class="text-info">Message <span class="text-danger">*</span></label>
+                 <div class="controls">
+                   
+                   <textarea name="answer" #message="ngModel" minlength="10" maxlength="500"  [(ngModel)]="notification.message" class="form-control" required data-validation-required-message="This field is required"></textarea>
+                   </div>
+                    
+                   <div class="form-control-feedback" *ngIf="message.invalid && (message.dirty || message.touched)">
+                      <code *ngIf="message.errors.required">Missing message</code>
+                     <code *ngIf="message.errors.minlength || message.errors.maxlength">Invalid message maxlength:10, minlength:500</code>
+                   </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="text-info">Send to<span class="text-danger">*</span></label>
+                    <div class="controls">
+                      <select name="send_to" id="send_to" #send_to="ngModel"  required class="form-control" [(ngModel)]="notification.recipient_group">
+                          <option value="1">All TGMs</option>
+                          <option value="2">Selected TSMs</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group" *ngIf="notification.recipient_group==2" >
+                    <label class="text-info">Select TGMs<span class="text-danger">*</span></label>
+                      <div class="controls">
+                        {{notification.recipients}}
+                        <select name="recipients" multiple id="recipients" #recipients="ngModel"  required class="form-control" [(ngModel)]="notification.recipients">
+                            <option value="0">Select TGMs</option>
+                            <option *ngFor="let tgm of tgmList" value="{{tgm.id}}">{{tgm.first_name}}</option>
+                        </select>
+                      </div>
+                      <div class="form-control-feedback" *ngIf="recipients.invalid && (recipients.dirty || recipients.touched)">
+                        <code *ngIf="recipients.errors.required">Missing recipients</code>
+                     </div>
+                     <div class="form-control-feedback" *ngIf="(recipients.dirty || recipients.touched)">
+                      <code *ngIf="notification.recipients.length==0 || !notification.recipients.length">Missing recipients</code>
+                   </div>
+                    </div>
+  
+            </div>
+          </div>
+           
+           <div class="text-xs-right">
+            <button type="submit" class="btn btn-info" [disabled]="!notificationForm.valid || actionStatus==1" >Submit</button>
+           </div>
+         </form>
+               
+             </div>
+             <!-- /.col -->
+           </div>
+           <!-- /.row -->
+         </div>
+         <!-- /.box-body -->
+       </div>
+       <!-- /.box -->
+       
+     </section>
+     <!-- /.content -->
+  

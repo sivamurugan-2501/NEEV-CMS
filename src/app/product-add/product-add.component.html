@@ -68,42 +68,48 @@
              <div class="form-group">
                 <h5>Language<span class="text-danger">*</span></h5>
                 <div class="controls">
-                  <select name="language" id="language" required class="form-control" [(ngModel)]="productData.language" >
+                  <select name="language" id="language" required class="form-control" #language="ngModel" [(ngModel)]="productData_1.language" >
                       <option value="0">Select</option>
                       <option *ngFor="let l of languages" value="{{l.id}}">{{l.name}}</option>
                   </select>
                 </div>
+                <div class="form-control-feedback" *ngIf="language.invalid && (language.dirty || language.touched)">
+                  <code *ngIf="language.errors.required"> Select language </code>
+                </div>
+                <div class="form-control-feedback" *ngIf="(language.dirty || language.touched)">
+                    <code *ngIf="!productData_1.language>0"> Select language </code>
+                  </div>
               </div>
 
              <div class="form-group">
                <h5>Name <span class="text-danger">*</span></h5>
                <div class="controls">
-                 <input type="text" name="title"  [(ngModel)]="productData.title" class="form-control" required data-validation-required-message="This field is required"> </div>
+                 <input type="text" name="title"  [(ngModel)]="productData_1.title" class="form-control" required data-validation-required-message="This field is required"> </div>
                <!---div class="form-control-feedback"><small>Add <code>required</code> attribute to field for required validation.</small></div>
                -->
               </div>
 
 
               <div class="form-group">
-                <h5>Category<span class="text-danger">*</span></h5>
+                <label class="text-info">Select Category<span class="text-danger">*</span></label>
                 <div class="controls">
-                  <select name="category" id="category" required class="form-control" [(ngModel)]="productData.category" >
+                  <select name="category" id="category"  data-placeholder="Choose a Category" required class="form-control" [(ngModel)]="productData_1.category" >
                       <option *ngFor="let t of CATEGORY_OPTIONS;" value="{{t.value}}">{{t.name}}</option>
                   </select>
                 </div>
               </div>
   
-          
+            
               
                 <div class="form-group">
 
-                    <h5>Upload Images<span class="text-danger">*</span></h5>
+                    <label class="text-info">Upload Logo<span class="text-danger">*</span></label>
                     <div class="controls">
-                      <input type="file"  name="file" #productImages="ngModel" multiple class="form-control" [(ngModel)]="productData.images" required (change)="onFileChange($event)"> 
+                      <input type="file"  name="file" #logo="ngModel"  class="form-control" [(ngModel)]="productData_1.logo" required (change)="onImageSelect($event, false, 1)"> 
                       
-                      <div class="form-control-feedback" *ngIf="productImages.invalid && (productImages.dirty || productImages.touched)">
-                          <code *ngIf="!productData.allImageList">Missing product images</code>
-                          <code *ngIf="imageError">{{imageError}}</code>
+                      <div class="form-control-feedback" *ngIf="logo.invalid && (logo.dirty || logo.touched)">
+                          <code *ngIf="!productData_1.logo">Missing product logo</code>
+                          <code *ngIf="logoError">{{logoError}}</code>
                        </div>
                     </div>
 
@@ -119,13 +125,13 @@
 
                 </div>
   
-                <div class="form-group">
+                <!-- <div class="form-group">
                   <h5>Upload Brochure</h5>
                   <div class="controls">
-                      <input type="file" name="brochureFile" #productBrochureFile="ngModel" class="form-control" [(ngModel)]="productData.brochureFile" required (change)="validateBrochure($event)"> 
+                      <input type="file" name="brochureFile" #productBrochureFile="ngModel" class="form-control" [(ngModel)]="productData_1.brochureFile" required (change)="validateBrochure($event)"> 
                       
                       <div class="form-control-feedback" *ngIf="productBrochureFile.invalid && (productBrochureFile.dirty || productBrochureFile.touched)">
-                          <code *ngIf="productData.brochureFile">Missing product brochure</code>
+                          <code *ngIf="productData_1.brochureFile">Missing product brochure</code>
                        </div>
 
                        <div class="form-control-feedback" *ngIf="(productBrochureFile.dirty || productBrochureFile.touched)">
@@ -137,16 +143,864 @@
                 <div class="form-group">
                   <h5>Specification</h5>
                   <div>
-                  <app-ngx-editor [placeholder]="" [spellcheck]="true" name="specification" [(ngModel)]="productData.specification"></app-ngx-editor>
+                  <app-ngx-editor [placeholder]="" [spellcheck]="true" name="specification" [(ngModel)]="productData_1.specification"></app-ngx-editor>
                   </div>
                 </div>
 
                 <div class="form-group">
                     <h5>Features</h5>
                     <div>
-                    <app-ngx-editor [placeholder]="" [spellcheck]="true" name="features" [(ngModel)]="productData.features"></app-ngx-editor>
+                    <app-ngx-editor [placeholder]="" [spellcheck]="true" name="features" [(ngModel)]="productData_1.features"></app-ngx-editor>
                     </div>
-                  </div>
+                  </div> -->
+
+                  <hr />
+
+                                        <h4 class="box-title mb-15">Product Description</h4>
+
+                                        <!-- Nav tabs -->
+
+                                        <ul class="nav nav-tabs" role="tablist">
+
+                                            <li class="nav-item">
+
+                                                <a class="nav-link active" data-toggle="tab" href="#description" role="tab"><span><i class="fa  fa-file-text"></i> Features</span></a>
+
+                                            </li>
+
+                                            <li class="nav-item">
+
+                                                <a class="nav-link" data-toggle="tab" href="#gallery" role="tab"><span><i class="fa fa-file-image-o"></i> Gallery</span></a>
+
+                                            </li>
+
+                                            <li class="nav-item">
+
+                                                <a class="nav-link" data-toggle="tab" href="#videos" role="tab"><span><i class="fa fa-file-video-o"></i> Videos</span></a>
+
+                                            </li>
+
+                                            <li class="nav-item">
+
+                                                <a class="nav-link" data-toggle="tab" href="#specification" role="tab"><span><i class="fa fa-file-code-o"></i>
+
+                                                        Specification</span></a>
+
+                                            </li>
+
+                                            <li class="nav-item">
+
+                                                <a class="nav-link" data-toggle="tab" href="#brochure" role="tab"><span><i class="fa  fa-file-pdf-o"></i> Brochure</span></a>
+
+                                            </li>
+
+                                        </ul>
+
+
+
+                                        <!-- Tab panes -->
+
+                                        <div class="tab-content tabcontent-border">
+
+                                            <div class="tab-pane active show" id="description" role="tabpanel">
+
+                                                <div class="pad">
+
+                                                    <div class="row">
+
+                                                        <div class="col-12">
+
+                                                            <div class="box">
+
+                                                                <div class="box-header with-border">
+
+                                                                    <h4 class="box-title">Product Details<span class="text-danger">*</span></h4>
+
+                                                                </div>
+
+                                                                <div class="box-body pb-0">
+
+                                                                    <div class="row fx-element-overlay">
+
+                                                                    </div>
+
+                                                                    <form action="#" class="form-element">
+
+                                                                        <div class="form-body">
+
+                                                                            <!-- /row -->
+
+                                                                            <div class="form-group">
+
+                                                                                <label class="text-info">Feature Image<span class="text-danger">*</span></label>
+
+                                                                                <div class="input-group input-group-sm">
+
+                                                                                    <input type="file" class="form-control" #feature_image="ngModel"  class="form-control" [(ngModel)]="productData_feature.image" required (change)="onImageSelect($event, false, 2)"> 
+
+                                                                                    <!--span class="input-group-btn">
+
+                                                                                        <button type="button" class="btn btn-default fa fa-plus"> Add</button>
+
+                                                                                    </span-->
+
+                                                                                    <div class="form-control-feedback" *ngIf="feature_image.invalid && (feature_image.dirty || feature_image.touched)">
+                                                                                        <code *ngIf="productData_feature.image">Missing product brochure</code>
+                                                                                     </div>
+                                                              
+                                                                                     <div class="form-control-feedback" *ngIf="(feature_image.dirty || feature_image.touched)">
+                                                                                        <code *ngIf="imageError[2]">{{imageError[2]}}</code>
+                                                                                     </div>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <div class="form-group">
+                                                                                <div *ngIf="featureImagePreview" class=" imagePreview">
+                                                                                    <div *ngFor="let dataUrl of featureImagePreview; let i = index" class="col-md-2 thumbnail">
+                                                                                    
+                                                                                    <img src='{{dataUrl}}' style="width:100px; height:100px;">
+                                                                                    <div class="remove" (click)="removeFile(i)"> <code> Remove </code></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group">
+
+                                                                                <label class="text-info"> Title</label>
+
+                                                                                <input type="text" class="form-control" placeholder="Title" minlength="4" maxlength="255" #featureTitle="ngModel" [(ngModel)]="productData_feature.title" required />
+                                                                                <div class="form-control-feedback" *ngIf="featureTitle.invalid && (featureTitle.dirty || featureTitle.touched)">
+                                                                                    <code *ngIf="featureTitle.errors.required"> Title missing</code>
+                                                                                    <code *ngIf="featureTitle.errors.minlength || featureTitle.errors.maxlength"> Title shpuld be minimum 4 letters</code>
+                                                                                  </div>
+                                                                            </div>
+
+                                                                            <!-- textarea -->
+
+                                                                            <div class="form-group">
+
+                                                                                <label>Add Description</label>
+
+                                                                                <textarea class="form-control" rows="3" minlength="4" maxlength="500" placeholder="Enter ..." #featureDesc="ngModel" [(ngModel)]="productData_feature.description" required></textarea>
+                                                                                <div class="form-control-feedback" *ngIf="featureDesc.invalid && (featureDesc.dirty || featureDesc.touched)">
+                                                                                    <code *ngIf="featureDesc.errors.required"> Provide feature description</code>
+                                                                                    <code *ngIf="featureDesc.errors.minlength || featureTitle.errors.maxlength"> Title shpuld be minimum 4 letters</code>
+                                                                                  </div>
+                                                                            </div>
+
+
+
+                                                                        </div>
+
+                                                                    </form>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="tab-pane show" id="gallery" role="tabpanel">
+
+                                                <div class="pad">
+
+                                                    <div class="row">
+
+                                                        <div class="col-12">
+
+                                                            <div class="box">
+
+                                                                <div class="box-header with-border">
+
+                                                                    <h4 class="box-title">Upload Images<span class="text-danger">*</span></h4>
+
+                                                                </div>
+
+                                                                <div class="box-body">
+
+                                                                    <form action="#" class="form-element">
+
+                                                                        <div class="form-body">
+
+                                                                            <!-- /row -->
+
+                                                                            <div class="form-group">
+
+                                                                                <label class="text-info">Product Gallery Title</label>
+
+                                                                                <input type="text" class="form-control" minlength="4" maxlength="500" placeholder="Gallery title" #featureDesc="ngModel" [(ngModel)]="productData_feature.description" required />
+
+                                                                            </div>
+
+
+
+                                                                            <div class="form-group">
+
+                                                                                <label class="text-info">Product Images.<span class="text-danger">*</span></label>
+
+                                                                                <div class="input-group input-group-sm">
+
+                                                                                    <input type="file" class="form-control" #gallery_images="ngModel"   [(ngModel)]="productData_gallery.images" required (change)="onImageSelect($event, false,3)">
+                                                                                    
+                                                                                    <div class="form-control-feedback" *ngIf="gallery_images.invalid && (gallery_images.dirty || gallery_images.touched)">
+                                                                                        <code *ngIf="!productData_gallery.images">Missing gallery images</code>
+                                                                                     </div>
+                                                              
+                                                                                     <div class="form-control-feedback" *ngIf="imageError[3]">
+                                                                                        <code *ngIf="imageError[3]">{{imageError[3]}}</code>
+                                                                                     </div>
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                            <div *ngIf="galleryImagesPreview" class="imagePreview">
+                                                                                    <div *ngFor="let dataUrl of galleryImagesPreview; let i = index" class="col-md-2 thumbnail">
+                                                                                      
+                                                                                      <img src='{{dataUrl}}' style="width:100px; height:100px;">
+                                                                                      <div class="remove" (click)="removeFile(i)"> <code> Remove </code></div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div>
+                                                                        </div>
+
+                                                                    </form>
+
+                                                                    <div class="row fx-element-overlay">
+
+                                                                        <div class="form-group">
+
+                                                                            <div class="media">
+
+                                                                                <div class="fx-card-item pb-0">
+
+                                                                                    <div class="fx-card-avatar fx-overlay-1 mb-0"> <img class="align-self-start w-160" src="../images/music/a-1.jpg" alt="user">
+
+                                                                                        <div class="fx-overlay">
+
+                                                                                            <ul class="fx-info">
+
+                                                                                                <li><a class="btn default btn-outline" href="#"><i class="ion-image"></i></a></li>
+
+                                                                                            </ul>
+
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                                <!-- <div class="media-body">
+
+
+
+                                                                                    <button type="button" class="btn btn-default mb-5"><i class="fa fa-upload"></i> upload</button>
+
+                                                                                </div> -->
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!--<div class="tab-pane show" id="videos" role="tabpanel">
+
+                                                <div class="pad">
+
+                                                    <div class="row">
+
+                                                        <div class="col-12">
+
+                                                            <div class="box">
+
+                                                                <div class="box-header with-border">
+
+                                                                    <h4 class="box-title">Upload videos<span class="text-danger">*</span></h4>
+
+                                                                </div>
+
+                                                                <div class="box-body">
+
+                                                                    <div class="form-body">
+
+                                                                        
+
+                                                                        <div class="form-group">
+
+                                                                            <label class="text-info">Product Video Title</label>
+
+                                                                            <input type="text" class="form-control" placeholder="Product Video Title" required #videoTitle="ngModel" [(ngModel)]= "productData_video.title" />
+
+                                                                            <div class="form-control-feedback" *ngIf="videoTitle.invalid && (videoTitle.dirty || videoTitle.touched)">
+                                                                                <code *ngIf="videoTitle.errors.required">Missing video title</code>
+                                                                               <code *ngIf="videoTitle.errors.minlength || videoTitle.errors.maxlength">Invalid video Title maxlength:4, minlength:255</code>
+                                                                             </div>
+                                                                        </div>
+
+
+
+                                                                        <div class="form-group">
+
+                                                                            <label class="text-info">Product Video Link</label>
+
+                                                                            <div class="input-group input-group-sm">
+
+                                                                                <input type="text" class="form-control" required #videoLink="ngModel" [(ngModel)]= "productData_video.link">
+
+                                                                                <div class="form-control-feedback" *ngIf="videoLink.invalid && (videoLink.dirty || videoLink.touched)">
+                                                                                    <code *ngIf="videoLink.errors.required">Missing video link</code>
+                                                                                   
+                                                                                 </div>
+                                                                                
+
+                                                                            </div>
+
+
+
+                                                                        </div>
+
+                                                                        <div class="form-group">
+
+                                                                            <label class="text-info">Product Video<span class="text-danger">*</span></label>
+
+                                                                            <div class="input-group input-group-sm">
+
+                                                                                <input type="file" class="form-control" required #videoFile="ngModel" [(ngModel)]= "productData_video.videoFile">
+                                                                                <div class="form-control-feedback" *ngIf="videoLink.invalid && (videoLink.dirty || videoLink.touched)">
+                                                                                    <code *ngIf="videoLink.errors.required">Missing video link</code>
+                                                                                   
+                                                                                 </div>
+
+                                                                                
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="row fx-element-overlay">
+
+                                                                        <div class="form-group">
+
+                                                                            <div class="media">
+
+                                                                                <div class="fx-card-item pb-0">
+
+                                                                                    <div class="fx-card-avatar fx-overlay-1 mb-0"> <img class="align-self-start w-160" src="../images/music/a-1.jpg" alt="user">
+
+                                                                                        <div class="fx-overlay">
+
+                                                                                            <ul class="fx-info">
+
+                                                                                                <li><a class="popup-youtube btn default btn-outline" href="www.youtube.com/watch?v=sK7riqg2mr4"><i class="ion-play"></i></a></li>
+
+                                                                                            </ul>
+
+                                                                                        </div>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                                <div class="media-body">
+
+
+
+                                                                                    <button type="button" class="btn btn-default mb-5"><i class="fa fa-upload"></i> upload</button>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+
+
+                                                        </div>
+
+
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div> -->
+
+                                            <div class="tab-pane show" id="specification" role="tabpanel">
+
+                                                <div class="pad">
+
+                                                    <div class="row">
+
+                                                        <div class="col-12">
+
+                                                            <div class="box">
+
+                                                                <div class="box-header with-border">
+
+                                                                    <h4 class="box-title">Product Specification<span class="text-danger">*</span></h4>
+
+                                                                </div>
+
+                                                                <div class="box-body pb-0">
+
+                                                                    <div class="col-12">
+
+                                                                       <!--  <div class="form-group">
+
+                                                                            <label class="text-info">Specification List</label>
+
+                                                                            <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
+
+                                                                                <option value="Specification 1">Specification 1 </option>
+
+                                                                                <option value="Specification 2">Specification 2</option>
+
+                                                                                <option value="Specification 3">Specification 3</option>
+
+                                                                                <option value="Specification n">Specification n</option>
+
+                                                                            </select>
+
+
+
+                                                                        </div> -->
+
+                                                                        <div class="form-group">
+
+                                                                            <label class="text-info">Engine Specification</label>
+
+                                                                            <input type="text" readonly class="form-control" placeholder="Specification Name" value="Engine" />
+
+                                                                        </div>
+
+
+
+
+
+                                                                        <!-- <div class="form-group">
+
+                                                                            <label class="text-info">Specification icon<span class="text-danger">*</span></label>
+
+                                                                            <div class="input-group input-group-sm">
+
+                                                                                <input type="file" class="form-control">
+
+                                                                                <span class="input-group-btn">
+
+                                                                                    <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
+
+                                                                                </span>
+
+                                                                            </div>
+
+                                                                        </div> -->
+
+                                                                        <div class="form-group">
+
+                                                                            <textarea rows="10" cols="120" placeholder="&#x0a;Enter Engine specification here in muliple lines, separated by : (collon) e.g 
+                                                                            &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
+                                                                            &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_engine="ngModel" [(ngModel)]="productData_specification.engine" ></textarea>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="col-12">
+
+                                                                       <!--  <div class="form-group">
+
+                                                                            <label class="text-info">Specification List</label>
+
+                                                                            <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
+
+                                                                                <option value="Specification 1">Specification 1 </option>
+
+                                                                                <option value="Specification 2">Specification 2</option>
+
+                                                                                <option value="Specification 3">Specification 3</option>
+
+                                                                                <option value="Specification n">Specification n</option>
+
+                                                                            </select>
+
+
+
+                                                                        </div> -->
+
+                                                                        <div class="form-group">
+
+                                                                            <label class="text-info">Clutch Specification</label>
+
+                                                                            <input type="text" readonly class="form-control" placeholder="Specification Name" value="Clutch" />
+
+                                                                        </div>
+
+
+
+
+
+                                                                        <!-- <div class="form-group">
+
+                                                                            <label class="text-info">Specification icon<span class="text-danger">*</span></label>
+
+                                                                            <div class="input-group input-group-sm">
+
+                                                                                <input type="file" class="form-control">
+
+                                                                                <span class="input-group-btn">
+
+                                                                                    <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
+
+                                                                                </span>
+
+                                                                            </div>
+
+                                                                        </div> -->
+
+                                                                        <div class="form-group">
+
+                                                                            <textarea rows="10" cols="120" placeholder="&#x0a;Enter Clutch specification here in muliple lines, separated by : (collon) e.g 
+                                                                            &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
+                                                                            &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_clutch="ngModel" [(ngModel)]="productData_specification.clutch" ></textarea>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="col-12">
+
+                                                                            <!--  <div class="form-group">
+     
+                                                                                 <label class="text-info">Specification List</label>
+     
+                                                                                 <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
+     
+                                                                                     <option value="Specification 1">Specification 1 </option>
+     
+                                                                                     <option value="Specification 2">Specification 2</option>
+     
+                                                                                     <option value="Specification 3">Specification 3</option>
+     
+                                                                                     <option value="Specification n">Specification n</option>
+     
+                                                                                 </select>
+     
+     
+     
+                                                                             </div> -->
+     
+                                                                             <div class="form-group">
+     
+                                                                                 <label class="text-info">Suspension Specification</label>
+     
+                                                                                 <input type="text" readonly class="form-control" placeholder="Specification Name" value="Suspension" />
+     
+                                                                             </div>
+     
+     
+     
+     
+     
+                                                                             <!-- <div class="form-group">
+     
+                                                                                 <label class="text-info">Specification icon<span class="text-danger">*</span></label>
+     
+                                                                                 <div class="input-group input-group-sm">
+     
+                                                                                     <input type="file" class="form-control">
+     
+                                                                                     <span class="input-group-btn">
+     
+                                                                                         <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
+     
+                                                                                     </span>
+     
+                                                                                 </div>
+     
+                                                                             </div> -->
+     
+                                                                             <div class="form-group">
+     
+                                                                                 <textarea rows="10" cols="120" placeholder="&#x0a;Enter Suspension specification here in muliple lines, separated by : (collon) e.g 
+                                                                                 &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
+                                                                                 &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_suspension="ngModel" [(ngModel)]="productData_specification.suspension" ></textarea>
+     
+                                                                             </div>
+     
+                                                                         </div>
+
+                                                                         <div class="col-12">
+
+                                                                                <!--  <div class="form-group">
+         
+                                                                                     <label class="text-info">Specification List</label>
+         
+                                                                                     <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
+         
+                                                                                         <option value="Specification 1">Specification 1 </option>
+         
+                                                                                         <option value="Specification 2">Specification 2</option>
+         
+                                                                                         <option value="Specification 3">Specification 3</option>
+         
+                                                                                         <option value="Specification n">Specification n</option>
+         
+                                                                                     </select>
+         
+         
+         
+                                                                                 </div> -->
+         
+                                                                                 <div class="form-group">
+         
+                                                                                     <label class="text-info">Tyres Specification</label>
+         
+                                                                                     <input type="text" readonly class="form-control" placeholder="Specification Name" value="Tyres" />
+         
+                                                                                 </div>
+         
+         
+         
+         
+         
+                                                                                 <!-- <div class="form-group">
+         
+                                                                                     <label class="text-info">Specification icon<span class="text-danger">*</span></label>
+         
+                                                                                     <div class="input-group input-group-sm">
+         
+                                                                                         <input type="file" class="form-control">
+         
+                                                                                         <span class="input-group-btn">
+         
+                                                                                             <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
+         
+                                                                                         </span>
+         
+                                                                                     </div>
+         
+                                                                                 </div> -->
+         
+                                                                                 <div class="form-group">
+         
+                                                                                     <textarea rows="10" cols="120" placeholder="&#x0a;Enter tyres specification here in muliple lines, separated by : (collon) e.g 
+                                                                                     &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
+                                                                                     &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_tyres="ngModel" [(ngModel)]="productData_specification.tyres" ></textarea>
+         
+                                                                                 </div>
+         
+                                                                             </div>
+
+                                                                             <div class="col-12">
+
+                                                                                    <!--  <div class="form-group">
+             
+                                                                                         <label class="text-info">Specification List</label>
+             
+                                                                                         <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
+             
+                                                                                             <option value="Specification 1">Specification 1 </option>
+             
+                                                                                             <option value="Specification 2">Specification 2</option>
+             
+                                                                                             <option value="Specification 3">Specification 3</option>
+             
+                                                                                             <option value="Specification n">Specification n</option>
+             
+                                                                                         </select>
+             
+             
+             
+                                                                                     </div> -->
+             
+                                                                                     <div class="form-group">
+             
+                                                                                         <label class="text-info">Steering Specification</label>
+             
+                                                                                         <input type="text" readonly class="form-control" placeholder="Specification Name" value="Steering" />
+             
+                                                                                     </div>
+             
+             
+             
+             
+             
+                                                                                     <!-- <div class="form-group">
+             
+                                                                                         <label class="text-info">Specification icon<span class="text-danger">*</span></label>
+             
+                                                                                         <div class="input-group input-group-sm">
+             
+                                                                                             <input type="file" class="form-control">
+             
+                                                                                             <span class="input-group-btn">
+             
+                                                                                                 <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
+             
+                                                                                             </span>
+             
+                                                                                         </div>
+             
+                                                                                     </div> -->
+             
+                                                                                     <div class="form-group">
+             
+                                                                                         <textarea rows="10" cols="120" placeholder="&#x0a;Enter steering specification here in muliple lines, separated by : (collon) e.g 
+                                                                                         &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
+                                                                                         &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_steering="ngModel" [(ngModel)]="productData_specification.steering" ></textarea>
+             
+                                                                                     </div>
+             
+                                                                                 </div>
+
+
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="tab-pane show" id="brochure" role="tabpanel">
+
+                                                <div class="pad">
+
+                                                    <div class="row">
+
+                                                        <div class="col-12">
+
+                                                            <div class="box-body">
+
+                                                                <form action="#" class="form-element">
+
+                                                                    <div class="form-body">
+
+                                                                        <!-- /row -->
+
+                                                                        <div class="form-group">
+
+                                                                            <label class="text-info">Brochure Title</label>
+
+                                                                            <input type="text" class="form-control" placeholder="Brochure Name" />
+
+                                                                        </div>
+
+                                                                        <div class="form-group">
+
+                                                                            <label class="text-info">Document File.<span class="text-danger">*</span></label>
+
+                                                                            <div class="input-group input-group-sm">
+
+                                                                                <input type="file" class="form-control">
+
+                                                                                <!--  <span class="input-group-btn">
+
+                                                                                    <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
+
+                                                                                </span> -->
+
+                                                                            </div>
+
+                                                                        </div>
+
+
+
+
+
+                                                                    </div>
+
+                                                                </form>
+
+                                                                <div class="row fx-element-overlay">
+
+                                                                    <div class="form-group">
+
+                                                                        <div class="media">
+
+                                                                            <div class="fx-card-item pb-0">
+
+                                                                                <div class="fx-card-avatar fx-overlay-1 mb-0"> <img class="align-self-start w-160" src="../images/music/a-1.jpg" alt="user">
+
+                                                                                    <div class="fx-overlay">
+
+                                                                                        <ul class="fx-info">
+
+                                                                                            <li><a class="btn default btn-outline" href="#"><i class="fa fa-file-pdf-o"></i></a></li>
+
+                                                                                        </ul>
+
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                            <!-- <div class="media-body">
+
+
+
+                                                                                <button type="button" class="btn btn-default mb-5"><i class="fa fa-upload"></i> upload</button>
+
+                                                                            </div> -->
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
 
              
             </div>
