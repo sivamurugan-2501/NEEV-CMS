@@ -225,8 +225,8 @@
             </li>
 
             <li>
-
-              <a href="javascript:void()" [routerLink]="['event-list']"
+<!--[routerLink]="['event-list']"-->
+              <a href="javascript:void()" 
 
                 ><i class="mdi mdi-toggle-switch-off"></i>View
 
@@ -450,17 +450,67 @@
 
 
 
-        <li>
+         <li>
 
-          <a href="faqs.html">
+          <a href="javascript:void()" [routerLink]="['create-notification']">
 
-            <i><img src="../assets/images/faqs.svg" alt="FAQ's" width="23px"/></i>
+            <i><img src="../assets/images/faqs.svg" alt="Send Notifications" width="23px"/></i>
 
-            <span>FAQ's</span>
+            <span>Send Notifications</span>
 
           </a>
 
         </li>
+
+        <li class="treeview">
+
+        <a href="javascript:void()" [routerLink]="['add-faq']" >
+
+          <i
+
+            ><img
+
+            src="../assets/images/faqs.svg" alt="FAQ's"
+
+              width="20px"
+
+          /></i>
+
+          <span>FAQs Manager</span>
+
+          <span class="pull-right-container">
+
+            <i class="fa fa-angle-right pull-right"></i>
+
+          </span>
+
+        </a>
+
+        <ul class="treeview-menu">
+
+          <li>
+
+            <a href="javascript:void()" [routerLink]="['add-faq']"
+
+              ><i class="mdi mdi-toggle-switch-off"></i>Add FAQ</a
+
+            >
+
+          </li>
+
+          <li>
+
+            <a href="javascript:void()" [routerLink]="['faq-list']"
+
+              ><i class="mdi mdi-toggle-switch-off"></i>View FAQs</a
+
+            >
+
+          </li>
+
+        </ul>
+
+      </li>
 
 
 

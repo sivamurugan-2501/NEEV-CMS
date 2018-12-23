@@ -240,11 +240,15 @@ export class ProductAddComponent implements OnInit {
         }
         
       }
-      this.productService.addProduct(product).subscribe(
-        response => {
-          this.actionStatus=1;
-          this.successMessage = "New banner added successfully";
-          alert(response);
+      this.productService.addProduct(this.productData_1).subscribe(
+        (response:any) => {
+          //this.actionStatus=1;
+         // this.successMessage = "New banner added successfully";
+          //alert(response);
+          if(response.id){
+            const id = response.id;
+
+          }
         },
         error => {
           this.actionStatus = 2;
@@ -257,4 +261,8 @@ export class ProductAddComponent implements OnInit {
   }
 
   
+  generateProductData_1(){
+      //var 
+  }
+
 }

@@ -17,7 +17,9 @@ export class DealerAddComponent implements OnInit {
     state: 0,
     region : 0,
     taluka: null,
-    source:1
+    source:1,
+    pincode: null
+ 
   }
 
   states:any;

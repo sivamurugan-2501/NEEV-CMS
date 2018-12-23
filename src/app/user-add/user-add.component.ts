@@ -26,7 +26,7 @@ export class UserAddComponent implements OnInit {
     "pincode": null,
     "birth_date" :null,
     "profile_pic" : null,
-    "mapping": 0
+    "mapping": 0,
   }
 
   imageError= null;

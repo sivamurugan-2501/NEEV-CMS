@@ -8,6 +8,8 @@ import { NotificationService } from '../services/notification.service';
 })
 export class NotificationListComponent implements OnInit {
 
+  notifications:any;
+  
   constructor(private notificationService: NotificationService) { }
 
   ngOnInit() {

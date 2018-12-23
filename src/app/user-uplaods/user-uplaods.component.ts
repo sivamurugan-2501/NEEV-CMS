@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserUplaodsComponent implements OnInit {
 
+  actionStatus=0;
+  userUploadData;
+  successMessage;
+  errorMessage;
+
   constructor() { }
 
   ngOnInit() {

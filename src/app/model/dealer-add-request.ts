@@ -7,5 +7,6 @@ export interface DealerAddRequest{
     taluka:string;
     source:number;
     address: string;
+    pincode: string;
 
 }
