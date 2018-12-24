@@ -646,7 +646,7 @@
                                                                         <div class="form-group">
                                                                                 <div class="">
                                                                                         <span class="input-group-btn">
-                                                                                                <button type="button" class="btn btn-md btn-nblue btn-block my-10" (click)="addSpecColumn(0)"> Add Columns</button>
+                                                                                                <button type="button" class="btn btn-md btn-nblue btn-block my-10" [disabled] = "productData_specification['engine'].length >= max_specs_columns"  (click)="addSpecColumn(0)"> Add Columns</button>
                                                                                         </span>
                                                                                 </div>
                                                                             </div>
@@ -1039,7 +1039,7 @@
                                                                                         <div class="form-group">
                                                                                                 <div class="">
                                                                                                         <span class="input-group-btn">
-                                                                                                                <button type="button" class="btn btn-md btn-nblue btn-block my-10" (click)="addSpecColumn(3)"> Add Columns</button>
+                                                                                                                <button type="button" class="btn btn-md btn-nblue btn-block my-10" [disabled] = "productData_specification['steering'].length >= max_specs_columns" (click)="addSpecColumn(3)"> Add Columns</button>
                                                                                                         </span>
                                                                                                 </div>
                                                                                             </div>
