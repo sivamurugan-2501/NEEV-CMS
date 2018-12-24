@@ -40,7 +40,9 @@ export class LoginComponent implements OnInit {
               this.strService.setToken(response.appToken);
               this.actionStatus = 1;
               this.successMessage = response.message;
-              this.route.navigate(["main", "add-banner"]);
+              //this.route.navigate(["main", "add-banner"]);
+              
+               window.location.href = "/main/add-banner";
 
           }else if(response.authentication == false){
 

@@ -6,10 +6,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <meta charset="utf-8">
-  <title>UserWeb</title>
+  <title>Tata Motors: NEEV Mitra Admin Panel</title>
   <base href="/">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
   
 	<!-- Bootstrap 4.0-->
 	<link rel="stylesheet" href="assets/vendor_components/bootstrap/dist/css/bootstrap.min.css">
@@ -28,7 +27,7 @@
      <link rel="stylesheet" type="text/css" href="assets/vendor_components/datatable/datatables.min.css" />
 
 </head>
-<body class="hold-transition bg-img" style="background-image: url(assets/images/dots-bg.png)" data-overlay="4">
+<body class="hold-transition bg-img" style="background-image: url(assets/images/dots-bg.png)">
   <app-root></app-root>
 </body>
 
@@ -73,19 +72,18 @@
 <!--script src="assets/js/template.js"></script-->
 
 <!-- Admin dashboard demo (This is only for demo purposes) -->
-<!--script src="assets/js/pages/dashboard.js"></script-->
+<script src="assets/js/pages/dashboard.js"></script>
 
 <!-- Admin for demo purposes -->
-<!--script src="assets/js/demo.js"></script-->	
+<script src="assets/js/demo.js"></script>
 
 <!-- Admin App -->
 
 <script src="assets/js/template.js"></script>
 
 <!-- Admin for demo purposes -->
-<!--
+
 <script src="assets/js/demo.js"></script>
--->
 
 <!-- This is data table -->
 
@@ -93,14 +91,17 @@
 
 
 <!-- Admin for Data Table -->
-<!--
+
 <script src="assets/js/pages/data-table.js"></script>
--->
+
 
 <script>
    if(window.location.pathname != "/login"){
       document.body.className = "skin-black-light sidebar-mini";
    }
+
+   $("button[type='submit']").addClass("btn btn-outline btn-info mr-10");
+
 </script>
 
 </html>

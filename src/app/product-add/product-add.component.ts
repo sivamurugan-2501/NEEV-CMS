@@ -39,11 +39,12 @@ export class ProductAddComponent implements OnInit {
    // features : null
   }
 
-  productData_feature = {
+  feature_json =  {
     title : null,
     image :  null,
     description : null
   };
+  productData_feature =  this.feature_json; //new Array(); 
 
   productData_gallery = {
     title : null,
@@ -67,11 +68,13 @@ export class ProductAddComponent implements OnInit {
   errorMessage = "Error";
 
   featureImageError = null;
+  max_features =5;
 
   constructor(private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService) { }
 
   ngOnInit() {
     this.loadLanguageList();
+    //this.addNewFeature();
   }
 
 
@@ -185,11 +188,17 @@ export class ProductAddComponent implements OnInit {
   }
 
   loadLanguageList(){
-    this.configService.getLanguages().subscribe( (response:any) => {
+    /*this.configService.getLanguages().subscribe( (response:any) => {
       if(response.status = "200"){
         this.languages = response.data;
       }
-    });
+    });*/
+    const languages = this.storageService.getCustomData("LANGUAGES");
+    try{
+      this.languages= JSON.parse(languages);
+    }catch(e){
+      this.languages = languages;
+    }
   }
 
 
@@ -263,6 +272,12 @@ export class ProductAddComponent implements OnInit {
   
   generateProductData_1(){
       //var 
+  }
+
+  addNewFeature(){
+
+    //this.productData_feature.push(this.feature_json);
+
   }
 
 }

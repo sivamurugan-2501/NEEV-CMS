@@ -43,6 +43,8 @@ import { TgmListComponent } from './tgm-list/tgm-list.component';
 import { SendNotificationComponent } from './send-notification/send-notification.component';
 import { EventAddComponent } from './event-add/event-add.component';
 import { NotificationListComponent } from './notification-list/notification-list.component';
+import { EventListComponent } from './event-list/event-list.component';
+import { VideoEditComponent } from './video-edit/video-edit.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -91,6 +93,10 @@ const routes: Routes =[
             {
               path : "video-list",
               component : VideoListComponent
+            },
+            {
+              path : "edit-video",
+              component : VideoEditComponent
             },
             {
               path : "add-product",
@@ -162,7 +168,7 @@ const routes: Routes =[
     BannerAddComponent,
     BannerListComponent,  
     VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, 
-    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent
+    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent, EventListComponent, VideoEditComponent
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,7 @@ import { Route, Router } from '@angular/router';
 export class FaqAddComponent implements OnInit {
 
   faqData:FAQAddRequest = {
-    language: null,
+    language: 0,
     question: null,
     answer: null
   }

@@ -65,19 +65,24 @@ export class BannerListComponent implements OnInit {
 
   deleteThis(id, index) {
 
-    this.bannerService.deleteBanner(id).subscribe(
-      (response:Response) => {
-        if(response.status == 200){
-          this.actionStatus=1;
-          this.successMessage = "Banner deleted successfully";
-          this.bannerData.splice(index,1);
+    const confirmation = confirm("Are you sure, that you want to delete this banner ?");
+
+
+    if(confirmation){
+      this.bannerService.deleteBanner(id).subscribe(
+        (response:Response) => {
+          if(response.status == 200){
+            this.actionStatus=1;
+            this.successMessage = "Banner deleted successfully";
+            this.bannerData.splice(index,1);
+          }
+        },
+        (error) => {
+            this.actionStatus = 2;
+            this.errorMessage = "Something went wrong";
         }
-      },
-      (error) => {
-          this.actionStatus = 2;
-          this.errorMessage = "Something went wrong";
-      }
-    );
+      );
+    }
   }
 
   editThis(id){

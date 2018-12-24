@@ -9,8 +9,12 @@ import { ConfigsDataService } from 'replace/app/services/configs-data.service';
 })
 export class FaqListComponent implements OnInit {
 
-  faqs: any;
+  faqs: Array<Object>;
   languages : any;
+  actionStatus;
+  successMessage="FAQ deleted successfully.";
+  errorMessage;
+  loadingStatus=1;
 
   constructor(private faqService : FaqService, private configService: ConfigsDataService) { }
 
@@ -22,17 +26,36 @@ export class FaqListComponent implements OnInit {
   }
 
   load(){
+    this.loadingStatus=1;
     this.faqService.getFAQs(0).subscribe(
 
       (response:any) => {
           if(response.status== 200){
-            alert
+            
             this.faqs = response.faqs;
+            this.loadingStatus=0;
           }
       }
 
 
     );
+  }
+
+  deleteFAQ(id, index){
+
+    const confirmation= confirm("Are you sure that you want to delete this FAQ ?");
+
+    if(confirmation){
+      this.faqService.deleteById(id).subscribe(
+        (response:any) => {
+            if(response.status == 200){
+              this.actionStatus = 1;
+              this.faqs.splice(index,1);
+            }
+        }
+      );
+    }
+    
   }
 
 }

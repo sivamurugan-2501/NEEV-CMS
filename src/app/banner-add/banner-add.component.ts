@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { elementStyleProp } from '@angular/core/src/render3/instructions';
 import { timeout } from 'q';
 import { Router, Event } from '@angular/router';
+import { StorageService } from '../services/storage.service';
 
 
 @Component({
@@ -26,7 +27,9 @@ export class BannerAddComponent implements OnInit {
     path: null,
     file: null,
     hasLink : 0,
-    linkedTo : 0    
+    linkedTo : 0,
+    region:0,
+    language:0
   }
 
   linkToList = {
@@ -45,11 +48,28 @@ export class BannerAddComponent implements OnInit {
   successMessage = "Success";
   errorMessage = "Something went wrong.";
   imageError = null;
+  regions;
+  languages;
 
-  constructor(private bannerService : BannerServiceService, private titleService: Title, private route: Router) { }
+  constructor(private storageService: StorageService , private bannerService : BannerServiceService, private titleService: Title, private route: Router) { }
 
   ngOnInit() {
-    this.titleService.setTitle(this.title);
+
+    const region = this.storageService.getCustomData("REGIONS");
+
+    try{
+      this.regions = JSON.parse(region);
+    }catch(e){
+      this.regions = region;
+    }
+
+    const languages = this.storageService.getCustomData("LANGUAGES");
+    try{
+      this.languages = JSON.parse(languages);
+    }catch(e){
+      this.languages = languages;
+    }
+    //this.titleService.setTitle(this.title);
   }
 
   saveBanner(){

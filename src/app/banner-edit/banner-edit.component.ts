@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { elementStyleProp } from '@angular/core/src/render3/instructions';
 import { timeout } from 'q';
 import { Router, ActivatedRoute } from '@angular/router';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-banner-edit',
@@ -25,9 +26,11 @@ export class BannerEditComponent implements OnInit {
     path: null,
     file: null,
     hasLink : 0,
-    linkedTo : 0,
+    linkedTo : 1,
     status: null,
-    file_to_delete: null
+    file_to_delete: null,
+    region:0,
+    language:0
   }
 
   linkToList = {
@@ -56,9 +59,27 @@ export class BannerEditComponent implements OnInit {
   file_id;
   file_to_delete:Array<Object> = new Array();
 
-  constructor(private bannerService : BannerServiceService, private titleService: Title, private route: Router, private aRoute: ActivatedRoute) { }
+  regions;
+  languages;
+
+  constructor(private storageService: StorageService, private bannerService : BannerServiceService, private titleService: Title, private route: Router, private aRoute: ActivatedRoute) { }
 
   ngOnInit() {
+
+    const region = this.storageService.getCustomData("REGIONS");
+
+    try{
+      this.regions = JSON.parse(region);
+    }catch(e){
+      this.regions = region;
+    }
+
+    const languages = this.storageService.getCustomData("LANGUAGES");
+    try{
+      this.languages = JSON.parse(languages);
+    }catch(e){
+      this.languages = languages;
+    }
     this.titleService.setTitle(this.title);
     //alert(JSON.stringify(this.aRoute.queryParams));
     this.aRoute.queryParams.subscribe(

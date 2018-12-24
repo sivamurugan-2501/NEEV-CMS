@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { ConfigsDataService } from './services/configs-data.service';
 import { StorageService } from './services/storage.service';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +11,12 @@ import { StorageService } from './services/storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  baseTitle = 'Tata Motors : NEEV Admin Panel';
 
-  public constructor(private authService: AuthService, private configService: ConfigsDataService, private sotrageService: StorageService){
+  public constructor(private titleService: Title, private route: Router, private actvRoute: ActivatedRoute, private authService: AuthService, private configService: ConfigsDataService, private sotrageService: StorageService){
     authService.checkIfLoggedIn();
 
-   
+    
     this.configService.getLanguages().subscribe(
       (response:any) =>{
         if(response.status == 200){
@@ -47,6 +49,17 @@ export class AppComponent {
       }
     );
 
+
+  }
+
+  changeTitle(){
+    
+    this.route.events.subscribe(
+      (val) => {
+        const data = this.actvRoute.data;
+       // const title = (data && data["title"]) ?  
+      }
+    );
   }
 
 }

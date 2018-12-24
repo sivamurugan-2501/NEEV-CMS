@@ -18,7 +18,10 @@ export const CONFIGS = {
 
     "video" : {
        "add" : "/video/add",
-       "list" : "/video/list"
+       "list" : "/video/list",
+       "delete" : "/video/delete",
+       "get" : "/video/get",
+       "update" : "/video/update"
     },
     "product" : {
       "add" : "/product/add",
@@ -33,7 +36,8 @@ export const CONFIGS = {
     },
     "faq":{
       "add" : "/faq/add",
-      "list" : "/faq/list"
+      "list" : "/faq/list",
+      "delete" : "/faq/delete"
     },
 
     "tgm":{

@@ -21,5 +21,18 @@ export class VideoService {
     return this.http.post(CONFIGS.apiBaseURL+CONFIGS.apiURLs["video"]["list"],payload);
   }
 
+  deleteVideo(id){
+
+       return this.http.delete(CONFIGS.apiBaseURL+CONFIGS.apiURLs["video"]["delete"]+"/"+id);
+
+  }
+
+  getVideoById(id){
+      return this.http.get(CONFIGS.apiBaseURL+CONFIGS.apiURLs["video"]["get"]+"/"+id);
+  }
+
+  updateVideo(id:number, videoData){
+    return this.http.post(CONFIGS.apiBaseURL+CONFIGS.apiURLs["video"]["update"]+"/"+id, videoData);
+  }
 
 }

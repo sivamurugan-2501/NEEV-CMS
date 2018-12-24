@@ -65,6 +65,23 @@
                 </div>
              </div>
 
+
+             <div class="form-group">
+                  <h5>Language<span class="text-danger">*</span></h5>
+                  <div class="controls">
+                    <select name="language" id="language" required class="form-control" #language="ngModel" [(ngModel)]="videoData.language" >
+                        <option value="0">Select</option>
+                        <option *ngFor="let l of languages" value="{{l.id}}">{{l.name}}</option>
+                    </select>
+                  </div>
+                  <div class="form-control-feedback" *ngIf="language.invalid && (language.dirty || language.touched)">
+                    <code *ngIf="language.errors.required"> Select language </code>
+                  </div>
+                  <div class="form-control-feedback" *ngIf="(language.dirty || language.touched)">
+                      <code *ngIf="!videoData.language>0"> Select language </code>
+                    </div>
+                </div>
+
              <div class="form-group">
                <h5>Title <span class="text-danger">*</span></h5>
                <div class="controls">
@@ -101,7 +118,7 @@
              <div *ngIf="videoData.type==2" class="form-group">
                <h5>URL<span class="text-danger">*</span></h5>
                <div class="controls">
-                 <input type="url" name="path" class="form-control" required data-validation-required-message="This field is required" [(ngModel)]="videoData.urlx"> </div>
+                 <input type="url" name="path" class="form-control" required data-validation-required-message="This field is required" [(ngModel)]="videoData.url"> </div>
              </div>
   
              <div class="form-group">

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { BannerlistRequest } from '../model/bannerlist-request';
-import { BannerlistResponse, BannerData } from '../model/bannerlist-response';
 import { VideoService } from '../services/video.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-video-list',
@@ -21,9 +21,13 @@ export class VideoListComponent implements OnInit {
     status : null
   };
 
-  videoData;
+  noRecordMessage = "No video(s) found."
+
+  videoData :Array<Object>;
+  actionStatus;
+  successMessage;
   
-  constructor(private authService:AuthService, private videoService: VideoService) {
+  constructor(private authService:AuthService, private videoService: VideoService, private route: Router) {
     this.userData  = authService.loginUserData();
 
     try{
@@ -53,6 +57,31 @@ export class VideoListComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+  }
+
+  deletVideo(id, index){
+
+    const confirmation = confirm("Are you sure, that you want to delete this video ?");
+
+    if(confirmation){
+      this.videoService.deleteVideo(id).subscribe(
+        (response:Response) => {
+
+          if(response.status==200){
+              this.actionStatus =1;
+              this.successMessage = "Video deleted successfully.";
+              this.videoData.splice(index,1);
+          }
+
+        }
+      );
+    }
+  }
+
+  editVideo(id:number,i){
+    if(id>0){
+      this.route.navigate(["main", "edit-video"], {queryParams : {"id" : id}});
+    }
   }
 
 }

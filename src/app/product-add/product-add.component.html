@@ -164,7 +164,7 @@
 
                                             <li class="nav-item">
 
-                                                <a class="nav-link active" data-toggle="tab" href="#description" role="tab"><span><i class="fa  fa-file-text"></i> Features</span></a>
+                                                <a class="nav-link active" data-toggle="tab" href="#description" role="tab"><span><i class="fa  fa-file-text"></i>Features</span></a>
 
                                             </li>
 
@@ -224,8 +224,8 @@
 
                                                                     </div>
 
-                                                                    <form action="#" class="form-element">
-
+                                                                    
+1
                                                                         <div class="form-body">
 
                                                                             <!-- /row -->
@@ -236,16 +236,16 @@
 
                                                                                 <div class="input-group input-group-sm">
 
-                                                                                    <input type="file" class="form-control" #feature_image="ngModel"  class="form-control" [(ngModel)]="productData_feature.image" required (change)="onImageSelect($event, false, 2)"> 
+                                                                                    <input type="file" class="form-control" #feature_image="ngModel" name="feautre_images"  class="form-control" [(ngModel)]="productData_feature.image" required (change)="onImageSelect($event, false, 2)"> 
 
-                                                                                    <!--span class="input-group-btn">
+                                                                                    <span class="input-group-btn">
 
                                                                                         <button type="button" class="btn btn-default fa fa-plus"> Add</button>
 
-                                                                                    </span-->
+                                                                                    </span>
 
                                                                                     <div class="form-control-feedback" *ngIf="feature_image.invalid && (feature_image.dirty || feature_image.touched)">
-                                                                                        <code *ngIf="productData_feature.image">Missing product brochure</code>
+                                                                                        <code *ngIf="productData_feature[i].image">Missing product brochure</code>
                                                                                      </div>
                                                               
                                                                                      <div class="form-control-feedback" *ngIf="(feature_image.dirty || feature_image.touched)">
@@ -269,7 +269,7 @@
 
                                                                                 <label class="text-info"> Title</label>
 
-                                                                                <input type="text" class="form-control" placeholder="Title" minlength="4" maxlength="255" #featureTitle="ngModel" [(ngModel)]="productData_feature.title" required />
+                                                                                <input type="text" name="title" class="form-control" placeholder="Title" minlength="4" maxlength="255" #featureTitle="ngModel" [(ngModel)]="productData_feature.title" required />
                                                                                 <div class="form-control-feedback" *ngIf="featureTitle.invalid && (featureTitle.dirty || featureTitle.touched)">
                                                                                     <code *ngIf="featureTitle.errors.required"> Title missing</code>
                                                                                     <code *ngIf="featureTitle.errors.minlength || featureTitle.errors.maxlength"> Title shpuld be minimum 4 letters</code>
@@ -282,7 +282,7 @@
 
                                                                                 <label>Add Description</label>
 
-                                                                                <textarea class="form-control" rows="3" minlength="4" maxlength="500" placeholder="Enter ..." #featureDesc="ngModel" [(ngModel)]="productData_feature.description" required></textarea>
+                                                                                <textarea name="featureDesc" class="form-control" rows="3" minlength="4" maxlength="500" placeholder="Enter ..." #featureDesc="ngModel" [(ngModel)]="productData_feature.description" required></textarea>
                                                                                 <div class="form-control-feedback" *ngIf="featureDesc.invalid && (featureDesc.dirty || featureDesc.touched)">
                                                                                     <code *ngIf="featureDesc.errors.required"> Provide feature description</code>
                                                                                     <code *ngIf="featureDesc.errors.minlength || featureTitle.errors.maxlength"> Title shpuld be minimum 4 letters</code>
@@ -292,8 +292,6 @@
 
 
                                                                         </div>
-
-                                                                    </form>
 
                                                                 </div>
 
@@ -337,7 +335,7 @@
 
                                                                                 <label class="text-info">Product Gallery Title</label>
 
-                                                                                <input type="text" class="form-control" minlength="4" maxlength="500" placeholder="Gallery title" #featureDesc="ngModel" [(ngModel)]="productData_feature.description" required />
+                                                                                <input type="text" class="form-control" name="gall_title" minlength="4" maxlength="500" placeholder="Gallery title" #featureDesc="ngModel" [(ngModel)]="productData_gallery.title" required />
 
                                                                             </div>
 
@@ -349,7 +347,7 @@
 
                                                                                 <div class="input-group input-group-sm">
 
-                                                                                    <input type="file" class="form-control" #gallery_images="ngModel"   [(ngModel)]="productData_gallery.images" required (change)="onImageSelect($event, false,3)">
+                                                                                    <input type="file" class="form-control" name="gall_images" #gallery_images="ngModel"   [(ngModel)]="productData_gallery.images" required (change)="onImageSelect($event, false,3)">
                                                                                     
                                                                                     <div class="form-control-feedback" *ngIf="gallery_images.invalid && (gallery_images.dirty || gallery_images.touched)">
                                                                                         <code *ngIf="!productData_gallery.images">Missing gallery images</code>
@@ -691,7 +689,7 @@
 
                                                                         <div class="form-group">
 
-                                                                            <textarea rows="10" cols="120" placeholder="&#x0a;Enter Clutch specification here in muliple lines, separated by : (collon) e.g 
+                                                                            <textarea name="specs[]" rows="10" cols="120" name="specs[]" placeholder="&#x0a;Enter Clutch specification here in muliple lines, separated by : (collon) e.g 
                                                                             &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                             &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_clutch="ngModel" [(ngModel)]="productData_specification.clutch" ></textarea>
 
@@ -753,7 +751,7 @@
      
                                                                              <div class="form-group">
      
-                                                                                 <textarea rows="10" cols="120" placeholder="&#x0a;Enter Suspension specification here in muliple lines, separated by : (collon) e.g 
+                                                                                 <textarea name="specs[]" rows="10" cols="120" placeholder="&#x0a;Enter Suspension specification here in muliple lines, separated by : (collon) e.g 
                                                                                  &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                                  &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_suspension="ngModel" [(ngModel)]="productData_specification.suspension" ></textarea>
      
@@ -815,7 +813,7 @@
          
                                                                                  <div class="form-group">
          
-                                                                                     <textarea rows="10" cols="120" placeholder="&#x0a;Enter tyres specification here in muliple lines, separated by : (collon) e.g 
+                                                                                     <textarea  name="specs[]" rows="10" cols="120" name="specs" placeholder="&#x0a;Enter tyres specification here in muliple lines, separated by : (collon) e.g 
                                                                                      &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                                      &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_tyres="ngModel" [(ngModel)]="productData_specification.tyres" ></textarea>
          
@@ -877,7 +875,7 @@
              
                                                                                      <div class="form-group">
              
-                                                                                         <textarea rows="10" cols="120" placeholder="&#x0a;Enter steering specification here in muliple lines, separated by : (collon) e.g 
+                                                                                         <textarea name="specs[]" rows="10" cols="120" placeholder="&#x0a;Enter steering specification here in muliple lines, separated by : (collon) e.g 
                                                                                          &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                                          &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_steering="ngModel" [(ngModel)]="productData_specification.steering" ></textarea>
              

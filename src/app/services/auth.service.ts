@@ -35,4 +35,9 @@ export class AuthService {
      return this.storageService.getUserData();
   }
 
+  logout(){
+    this.storageService.clearAll();
+    
+  }
+
 }

@@ -45,6 +45,32 @@
             <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
               </app-action-message>
   
+              <div class="form-group">
+                  <label>Region</label>
+                  <div class="controls">
+                    <select class="form-control"  name="region" id="region" #region="ngModel" [(ngModel)]= "bannerData.region" required>
+                            <option value=0>Select Region</option>
+                            <option *ngFor="let rg of regions" value={{rg.id}}>{{rg.name}}</option>
+                    </select>
+                    <div class="form-control-feedback" *ngIf="region.invalid && (region.dirty || region.touched)">
+                        <code *ngIf="region.errors.required">Missing region</code>
+                    </div>
+                  </div>
+              </div>
+  
+              <div class="form-group">
+                  <label>Language</label>
+                  <div class="controls">
+                    <select class="form-control"  name="language" id="language" #language="ngModel" [(ngModel)]= "bannerData.language" required>
+                            <option value=0>Select language</option>
+                            <option *ngFor="let lg of languages" value={{lg.id}}>{{lg.name}}</option>
+                    </select>
+                    <div class="form-control-feedback" *ngIf="language.invalid && (language.dirty || language.touched)">
+                        <code *ngIf="language.errors.required">Missing region</code>
+                    </div>
+                  </div>
+              </div>
+
              <div class="form-group">
               <label class="text-info">Caption <span class="text-danger">*</span></label>
                <div class="controls">
@@ -111,20 +137,20 @@
                 <div class="controls">
                   <fieldset>
                     <input name="linkTo" type="radio" id="linkTo1" value="0" required [(ngModel)]="bannerData.linkedTo" >
-                    <label for="linkTo1">None</label>
+                    <label for="linkTo1">Video</label>
                   </fieldset>
                   <fieldset>
                     <input name="linkTo" type="radio" id="linkTo2" value="1" [(ngModel)]="bannerData.linkedTo" >
-                    <label for="linkTo2">Product</label>
+                    <label for="linkTo2">Text</label>
                   </fieldset>
                   <fieldset>
                       <input name="linkTo" type="radio" id="linkTo3" value="2" [(ngModel)]="bannerData.linkedTo">
-                      <label for="linkTo3">Event</label>
+                      <label for="linkTo3">Image</label>
                     </fieldset>
                 </div>
               </div>
   
-              <div *ngIf =  "bannerData.linkedTo==1" class="form-group">
+              <!-- <div *ngIf =  "bannerData.linkedTo==1" class="form-group">
                 <label class="text-info">Select Product <span class="text-danger">*</span></label>
                   <div class="controls">
                     <select name="productSel" id="productSel" required class="form-control">
@@ -140,13 +166,21 @@
                           <option *ngFor="let e of linkToList['events']" value="{{e}}">{{e}}</option>
                       </select>
                     </div>
-                  </div>
+                  </div> -->
             </div>
           </div>
            
            <div class="text-xs-right">
-            <button *ngIf="bannerData.type==1" type="submit" class="btn btn-info" [disabled]="!bannerForm.valid || !bannerData.file" >Submit</button>
-            <button *ngIf="bannerData.type==2" type="submit" class="btn btn-info" [disabled]="!bannerForm.valid" >Submit</button>
+              <!-- <button type="submit" class="btn btn-outline btn-info mr-10">
+                  <i class="fa fa-check"></i> Submit
+              </button>
+
+              <button type="button" class="btn btn-outline btn-danger">
+                  <i class="fa fa-close"></i> Cancel
+              </button> -->
+
+            <button *ngIf="bannerData.type==1" type="submit" class="btn btn-outline btn-info mr-10" [disabled]="!bannerForm.valid || !bannerData.file" ><i class="fa fa-check"></i> Submit</button>
+            <button *ngIf="bannerData.type==2" type="submit" class="btn btn-outline btn-info mr-10" [disabled]="!bannerForm.valid" ><i class="fa fa-check"></i> Submit</button>
            </div>
          </form>
                

@@ -12,3 +12,9 @@
     color: red;
 }
 
+.alert-warning/* , .bg-warning, .callout.callout-warning, .label-warning, .modal-warning .modal-body  */{
+    background-color: #ddeefd !important;
+    color: #214098 !important;
+    border: 1px solid #a8bfff;
+}
+

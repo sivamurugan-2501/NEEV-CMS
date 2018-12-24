@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { VideoService } from '../services/video.service';
-import {Response} from './../model/response';
+import { Response } from '../model/response';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-video-add',
-  templateUrl: './video-add.component.html',
-  styleUrls: ['./video-add.component.css']
+  selector: 'app-video-edit',
+  templateUrl: './video-edit.component.html',
+  styleUrls: ['./video-edit.component.css']
 })
-export class VideoAddComponent implements OnInit {
+export class VideoEditComponent implements OnInit {
 
   categoryOptions = [
     {name :"Select", value: 0},
@@ -34,17 +34,18 @@ export class VideoAddComponent implements OnInit {
    category :0,
    language: 1,
    url: null
- }
+ };
 
 actionStatus = 0;
 successMessage:String = "Success";
 errorMessage = "Something went wrong.";
+instanceId=0;
 languages:any;
 
-  constructor(private storageService:StorageService, private videoService : VideoService, private route:Router) { }
+  constructor(private storageService:StorageService, private videoService: VideoService, private aRoute: ActivatedRoute, private route: Router) { }
 
   ngOnInit() {
-      
+
     const languages = this.storageService.getCustomData("LANGUAGES");
 
     try{
@@ -52,9 +53,40 @@ languages:any;
     }catch(e){
       this.languages = languages;
     }
+
+    this.aRoute.queryParams.subscribe(
+      (params) => {
+        this.instanceId = params["id"];
+        if(isNaN(this.instanceId)){
+          this.actionStatus =2;
+        }else{
+          this.loadVideo();
+          
+        }
+      }
+    );
+
+
   }
 
-  saveVideo(){
+  loadVideo(){
+
+    const id = this.instanceId;
+
+    this.videoService.getVideoById(id).subscribe(
+        (response:any) => {
+
+          if(response.status == 200){
+            this.videoData = response.videos;
+          }
+
+        }
+    );
+   
+  }
+
+  updateVideo(){
+      
     //alert("submit");
       var video = new FormData();  
       let keys = Object.keys(this.videoData);
@@ -72,17 +104,18 @@ languages:any;
             video.append(keys[i], null);
 
           }
-        }else{
+        }else if(keys[i]!="id"){
           video.append(keys[i], this.videoData[keys[i]]);
         }
         
       }
-      this.videoService.postVideo(video).subscribe(
+      this.videoService.updateVideo(this.instanceId ,video).subscribe(
         //on success
         (response:Response)  => {
-          alert(response);
+          //alert(response);
           this.actionStatus = 1;
           this.successMessage = response.message;
+
           const __this= this;
           setTimeout(function(){
             __this.route.navigate(["main","video-list"]);
@@ -96,11 +129,6 @@ languages:any;
       );
       return false;
 
-  }
-
-  onFileChange(event){
-    const file = this.videoData.videoFile = event.target.files[0]; 
-    alert(event.target.files);
   }
 
 }

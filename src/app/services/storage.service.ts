@@ -59,4 +59,8 @@ export class StorageService {
     return localStorage.getItem(key);
   }
 
+  clearAll(){
+    localStorage.clear();
+  }
+
 }

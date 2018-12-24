@@ -49,6 +49,7 @@
                 <label class="text-info">Language<span class="text-danger">*</span></label>
                   <div class="controls">
                     <select name="language" id="language" #language="ngModel"  required class="form-control" [(ngModel)]="faqData.language">
+                        <option  value="0">Select Language</option>
                         <option *ngFor="let l of languages" value="{{l.id}}">{{l.name}}</option>
                     </select>
                   </div>

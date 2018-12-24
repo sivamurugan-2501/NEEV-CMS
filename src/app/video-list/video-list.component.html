@@ -23,9 +23,36 @@
           <div class="box">
               
               <!-- /.box-header -->
+              <div class="box-header with-border">
+
+                  <h4 class="box-title">Manage Videos</h4>
+
+                  <h6 class="box-subtitle">List of Videos added by NEEV MITRA</h6>
+
+                  <span class="box-controls pull-right">
+
+                      <a href="javascript:void(0)" [routerLink]="['../add-video']" class="btn btn-md btn-nblue btn-block my-10">
+
+                          <i class="ti-plus"></i> Add New Video
+
+                      </a>
+
+                  </span>
+
+              </div>
+              <!-- /.box-header -->
               <div class="box-body">
           <div class="table-responsive">
-            <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+              <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+                </app-action-message>
+      
+                <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+                  </app-action-message>
+  
+                  <app-action-message *ngIf="!videoData || videoData.length==0" [type]="3" [message]="noRecordMessage" >
+                  </app-action-message>
+
+            <table id="example" *ngIf="videoData && videoData.length>0" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
             <thead>
               <tr>
                 <th>Title</th>
@@ -35,18 +62,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let data of this.videoData">
+              <tr *ngFor="let data of this.videoData; let i=index">
                 <td>{{data.title}}</td>
                 
                 <td *ngIf="data.type==1"> File </td>
                 <td *ngIf="data.type==2"> URL </td>
   
                 <td *ngIf="data.type==1"> {{serverBaseURL}}{{data.video_path}}</td>
-                <td *ngIf="data.type==2"> {{data.path}}</td>
+                <td *ngIf="data.type==2"> {{data.url}}</td>
   
-                <td>
+                <!--td>
                   <span class="action-icon edit fa fa-times" alt="Edit" title="Edit"> </span>
                   <span class="action-icon delete fa fa-trash-o" alt="Delete" title="Delete"> </span>
+                </td-->
+                <td>
+                    <a href="javascript:void(0)" class="btn btn-icon-circle btn-nblue" data-toggle="tooltip" data-original-title="Edit" (click)="editVideo(data.id, i)"> 
+                        <i class="ti-marker-alt"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger" data-original-title="Delete" data-toggle="tooltip" (click)="deletVideo(data.id, i)">
+                        <i class="ti-trash"></i>
+                    </a>
                 </td>
               </tr>
             </tbody>				  

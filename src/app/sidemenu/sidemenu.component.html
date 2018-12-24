@@ -16,13 +16,13 @@
 
             <span>
 
-              <span class="d-block font-weight-600 font-size-16"
+              <span class="d-block font-weight-600 font-size-16" style="text-transform: uppercase">
+                {{user_first_name}} {{user_last_name}}
+              </span>
 
-                >Samuel Brus</span
-
-              >
-
-              <span class="email-id">samuel@gmail.com</span>
+              <span class="email-id" style="">
+                  {{user_email}}
+              </span>
 
             </span>
 
@@ -38,7 +38,7 @@
 
             <li>
 
-              <a href="javascript:void()"
+              <a href="javascript:void(0)"
 
                 ><i class="fa fa-user mr-5"></i>My Profile
 
@@ -48,7 +48,7 @@
 
             <li>
 
-              <a href="javascript:void()"
+              <a href="javascript:void(0)"
 
                 ><i class="fa fa-calendar-check-o mr-5"></i>My Events</a
 
@@ -58,7 +58,7 @@
 
             <li>
 
-              <a href="javascript:void()"
+              <a href="javascript:void(0)"
 
                 ><i class="fa fa-cog mr-5"></i>Account Setting</a
 
@@ -68,7 +68,7 @@
 
             <li>
 
-              <a href="javascript:void()"
+              <a href="javascript:void(0)" (click)="logout()"
 
                 ><i class="fa fa-power-off mr-5"></i>Logout</a
 
@@ -84,7 +84,7 @@
 
         <li class="treeview">
 
-          <a href="javascript:void()" >
+          <a href="javascript:void(0)" >
 
             <i
 
@@ -106,7 +106,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['add-banner']"
+              <a href="javascript:void(0)" [routerLink]="['add-banner']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>Add Banner</a
 
@@ -116,7 +116,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['banner-list']"
+              <a href="javascript:void(0)" [routerLink]="['banner-list']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>View Banner</a
 
@@ -132,7 +132,7 @@
 
         <li class="treeview">
 
-          <a href="javascript:void()" >
+          <a href="javascript:void(0)" >
 
             <i
 
@@ -160,7 +160,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['add-product']"
+              <a href="javascript:void(0)" [routerLink]="['add-product']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>Add Product</a
 
@@ -170,7 +170,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['product-list']"
+              <a href="javascript:void(0)" [routerLink]="['product-list']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>View Products</a
 
@@ -186,7 +186,7 @@
 
         <li class="treeview">
 
-          <a href="javascript:void()" >
+          <a href="javascript:void(0)" >
 
             <i
 
@@ -214,7 +214,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['add-event']"
+              <a href="javascript:void(0)" [routerLink]="['add-event']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>Add
 
@@ -226,7 +226,7 @@
 
             <li>
 <!--[routerLink]="['event-list']"-->
-              <a href="javascript:void()" 
+              <a href="javascript:void(0)" 
 
                 ><i class="mdi mdi-toggle-switch-off"></i>View
 
@@ -242,7 +242,7 @@
 
         <li class="treeview">
 
-          <a href="javascript:void()" >
+          <a href="javascript:void(0)" >
 
             <i
 
@@ -264,7 +264,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['add-video']"
+              <a href="javascript:void(0)" [routerLink]="['add-video']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>Add Video</a
 
@@ -274,7 +274,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['video-list']"
+              <a href="javascript:void(0)" [routerLink]="['video-list']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>View Video</a
 
@@ -290,7 +290,7 @@
 
         <li class="treeview">
 
-          <a href="javascript:void()" >
+          <a href="javascript:void(0)" >
 
             <i
 
@@ -318,7 +318,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['add-user']"
+              <a href="javascript:void(0)" [routerLink]="['add-user']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>Add User</a
 
@@ -328,7 +328,7 @@
 
             <li>
 
-              <a href="javascript:void()" [routerLink]="['user-list']"
+              <a href="javascript:void(0)" [routerLink]="['user-list']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>View Users</a
 
@@ -342,7 +342,7 @@
 
         <li class="treeview">
 
-          <a href="javascript:void()" >
+          <a href="javascript:void(0)" >
 
             <i
 
@@ -396,7 +396,7 @@
 
         <li class="treeview">
 
-          <a href="javascript:void()" >
+          <a href="javascript:void(0)" >
 
             <i
 
@@ -452,7 +452,7 @@
 
          <li>
 
-          <a href="javascript:void()" [routerLink]="['create-notification']">
+          <a href="javascript:void(0)" [routerLink]="['create-notification']">
 
             <i><img src="../assets/images/faqs.svg" alt="Send Notifications" width="23px"/></i>
 
@@ -464,7 +464,7 @@
 
         <li class="treeview">
 
-        <a href="javascript:void()" [routerLink]="['add-faq']" >
+        <a href="javascript:void(0)" [routerLink]="['add-faq']" >
 
           <i
 
@@ -490,7 +490,7 @@
 
           <li>
 
-            <a href="javascript:void()" [routerLink]="['add-faq']"
+            <a href="javascript:void(0)" [routerLink]="['add-faq']"
 
               ><i class="mdi mdi-toggle-switch-off"></i>Add FAQ</a
 
@@ -500,7 +500,7 @@
 
           <li>
 
-            <a href="javascript:void()" [routerLink]="['faq-list']"
+            <a href="javascript:void(0)" [routerLink]="['faq-list']"
 
               ><i class="mdi mdi-toggle-switch-off"></i>View FAQs</a
 
@@ -516,7 +516,7 @@
 
         <li>
 
-          <a href="login.html">
+          <a href="javascript:void(0)" (click)="logout()">
 
             <i
 

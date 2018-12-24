@@ -27,4 +27,11 @@ export class FaqService {
 
   }
 
+  deleteById(id){
+
+    const url = CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["faq"]["delete"]+"/"+id;
+    return this.http.delete(url);
+
+  } 
+
 }
