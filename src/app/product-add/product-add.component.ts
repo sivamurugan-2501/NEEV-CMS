@@ -307,6 +307,7 @@ export class ProductAddComponent implements OnInit {
       keys.forEach(function(k:string){
         features_schema[k] = null;
       });
+      alert(JSON.stringify(features_schema));
      // alert(JSON.stringify(features_schema));
       this.productData_feature.push(features_schema);
      // alert(JSON.stringify(this.productData_feature));
