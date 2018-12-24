@@ -118,7 +118,7 @@
                         <div *ngFor="let dataUrl of imagePreview; let i = index" class="col-md-2 thumbnail">
                           
                           <img src='{{dataUrl}}' style="width:100px; height:100px;">
-                          <div class="remove" (click)="removeFile(i)"> <code> Remove </code></div>
+                          <div class="remove" (click)="removeFile(i,1)"> <code> Remove </code></div>
                         </div>
                       </div>
                   </div>
@@ -218,15 +218,15 @@
 
                                                                 </div>
 
-                                                                <div class="box-body pb-0">
+                                                                <div class="box-body pb-0" *ngFor="let d of max_features_arr; let i=index">
 
                                                                     <div class="row fx-element-overlay">
 
                                                                     </div>
 
                                                                     
-1
-                                                                        <div class="form-body">
+
+                                                                        <div class="form-body" *ngIf="productData_feature[i]">
 
                                                                             <!-- /row -->
 
@@ -235,17 +235,17 @@
                                                                                 <label class="text-info">Feature Image<span class="text-danger">*</span></label>
 
                                                                                 <div class="input-group input-group-sm">
-
-                                                                                    <input type="file" class="form-control" #feature_image="ngModel" name="feautre_images"  class="form-control" [(ngModel)]="productData_feature.image" required (change)="onImageSelect($event, false, 2)"> 
+                                                                                  
+                                                                                    <input type="file" class="form-control" #feature_image="ngModel" name="feautre_images_{{i}}"  class="form-control" [(ngModel)]="productData_feature[i].image" required (change)="onImageSelect($event, false, 2)"> 
 
                                                                                     <span class="input-group-btn">
 
-                                                                                        <button type="button" class="btn btn-default fa fa-plus"> Add</button>
+                                                                                        <button type="button" class="btn btn-default fa fa-plus" (click)= "addNewFeature()"> Add</button>
 
                                                                                     </span>
 
                                                                                     <div class="form-control-feedback" *ngIf="feature_image.invalid && (feature_image.dirty || feature_image.touched)">
-                                                                                        <code *ngIf="productData_feature[i].image">Missing product brochure</code>
+                                                                                        <code *ngIf="productData_feature[i].image">Missing product image</code>
                                                                                      </div>
                                                               
                                                                                      <div class="form-control-feedback" *ngIf="(feature_image.dirty || feature_image.touched)">
@@ -254,8 +254,8 @@
                                                                                 </div>
 
                                                                             </div>
-
-                                                                            <div class="form-group">
+                                                                            
+                                                                            <!-- <div class="form-group">
                                                                                 <div *ngIf="featureImagePreview" class=" imagePreview">
                                                                                     <div *ngFor="let dataUrl of featureImagePreview; let i = index" class="col-md-2 thumbnail">
                                                                                     
@@ -263,17 +263,27 @@
                                                                                     <div class="remove" (click)="removeFile(i)"> <code> Remove </code></div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
+                                                                            </div> -->
+
+                                                                            <div class="form-group">
+                                                                                    <div *ngIf="featureImagePreview[i] && featureImagePreview[i]!==undefined" class=" imagePreview">
+                                                                                        <div  class="col-md-2 thumbnail">
+                                                                                        
+                                                                                        <img src='{{featureImagePreview[i]}}' style="width:100px; height:100px;">
+                                                                                        <div class="remove" (click)="removeFile(i,1)"> <code> Remove </code></div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
                                                                             <div class="form-group">
 
                                                                                 <label class="text-info"> Title</label>
-
-                                                                                <input type="text" name="title" class="form-control" placeholder="Title" minlength="4" maxlength="255" #featureTitle="ngModel" [(ngModel)]="productData_feature.title" required />
-                                                                                <div class="form-control-feedback" *ngIf="featureTitle.invalid && (featureTitle.dirty || featureTitle.touched)">
-                                                                                    <code *ngIf="featureTitle.errors.required"> Title missing</code>
-                                                                                    <code *ngIf="featureTitle.errors.minlength || featureTitle.errors.maxlength"> Title shpuld be minimum 4 letters</code>
-                                                                                  </div>
+                                                                                {{productData_feature[i].title}}
+                                                                                <input type="text" name="feature_title_{{i}}" class="form-control" placeholder="Title" minlength="4" maxlength="255" #featureTitle="ngModel" [(ngModel)]="productData_feature[i].title" required />
+                                                                              <!--   <div class="form-control-feedback" *ngIf="featureTitle{{i}}.invalid && (featureTitle{{i}}.dirty || featureTitle{{i}}.touched)">
+                                                                                    <code *ngIf="featureTitle{{i}}.errors.required"> Title missing</code>
+                                                                                    <code *ngIf="featureTitle{{i}}.errors.minlength || featureTitle{{i}}.errors.maxlength"> Title shpuld be minimum 4 letters</code>
+                                                                                  </div> -->
                                                                             </div>
 
                                                                             <!-- textarea -->
@@ -282,10 +292,10 @@
 
                                                                                 <label>Add Description</label>
 
-                                                                                <textarea name="featureDesc" class="form-control" rows="3" minlength="4" maxlength="500" placeholder="Enter ..." #featureDesc="ngModel" [(ngModel)]="productData_feature.description" required></textarea>
+                                                                                <textarea name="featureDesc_{{i}}" class="form-control" rows="3" minlength="4" maxlength="500" placeholder="Enter ..." #featureDesc="ngModel" [(ngModel)]="productData_feature[i].description" required></textarea>
                                                                                 <div class="form-control-feedback" *ngIf="featureDesc.invalid && (featureDesc.dirty || featureDesc.touched)">
                                                                                     <code *ngIf="featureDesc.errors.required"> Provide feature description</code>
-                                                                                    <code *ngIf="featureDesc.errors.minlength || featureTitle.errors.maxlength"> Title shpuld be minimum 4 letters</code>
+                                                                                    <code *ngIf="featureDesc.errors.minlength || featureTitle.errors.maxlength"> Title should be minimum 4 letters</code>
                                                                                   </div>
                                                                             </div>
 
@@ -365,7 +375,7 @@
                                                                                     <div *ngFor="let dataUrl of galleryImagesPreview; let i = index" class="col-md-2 thumbnail">
                                                                                       
                                                                                       <img src='{{dataUrl}}' style="width:100px; height:100px;">
-                                                                                      <div class="remove" (click)="removeFile(i)"> <code> Remove </code></div>
+                                                                                      <div class="remove" (click)="removeFile(i,3)"> <code> Remove </code></div>
                                                                                     </div>
                                                                                   </div>
                                                                                 </div>
@@ -599,14 +609,47 @@
 
                                                                             <label class="text-info">Engine Specification</label>
 
-                                                                            <input type="text" readonly class="form-control" placeholder="Specification Name" value="Engine" />
+                                                                            <input type="text" readonly class="form-control" name="spec_name_1" placeholder="Specification Name" value="Engine" />
 
                                                                         </div>
 
+                                                                        <div class="row" *ngFor="let d of max_specs_arr; let i=index" >
+                                                                            <div class="col-md-6" *ngIf="productData_specification['engine'][i]">
+                                                                                <div class="form-group">
 
+                                                                                        <label class="text-info">Name<span class="text-danger">*</span></label>
+            
+                                                                                        <div class="input-group input-group-sm">
+            
+                                                                                            <input type="text" placeholder="Name text" minlength=5 maxlength="50" class="form-control" name="engine_specs_name_engine{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['engine'][i]['name']"  >
+            
+                                                                                        </div>
+            
+                                                                                </div>
+                                                                            </div>
 
+                                                                            <div class="col-md-6" *ngIf="productData_specification['engine'][i]">
+                                                                                <div class="form-group">
+    
+                                                                                        <label class="text-info">Description<span class="text-danger">*</span></label>
+            
+                                                                                        <div class="input-group input-group-sm">
+            
+                                                                                            <input type="text" placeholder="Description" minlength=5 maxlength="200" class="form-control" name="engine_specs_name_engine{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['engine'][i]['value']"  >
+            
+                                                                                        </div>
+            
+                                                                                </div>
+                                                                            </div>
 
-
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                                <div class="">
+                                                                                        <span class="input-group-btn">
+                                                                                                <button type="button" class="btn btn-md btn-nblue btn-block my-10" (click)="addSpecColumn(0)"> Add Columns</button>
+                                                                                        </span>
+                                                                                </div>
+                                                                            </div>
                                                                         <!-- <div class="form-group">
 
                                                                             <label class="text-info">Specification icon<span class="text-danger">*</span></label>
@@ -625,13 +668,13 @@
 
                                                                         </div> -->
 
-                                                                        <div class="form-group">
+                                                                       <!--  <div class="form-group">
 
                                                                             <textarea rows="10" cols="120" placeholder="&#x0a;Enter Engine specification here in muliple lines, separated by : (collon) e.g 
                                                                             &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                             &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_engine="ngModel" [(ngModel)]="productData_specification.engine" ></textarea>
 
-                                                                        </div>
+                                                                        </div> -->
 
                                                                     </div>
 
@@ -665,7 +708,44 @@
 
                                                                         </div>
 
+                                                                        <div class="row" *ngFor="let d of max_specs_arr; let i=index" >
+                                                                                <div class="col-md-6" *ngIf="productData_specification['clutch'][i]">
+                                                                                    <div class="form-group">
+    
+                                                                                            <label class="text-info">Name<span class="text-danger">*</span></label>
+                
+                                                                                            <div class="input-group input-group-sm">
+                
+                                                                                                <input type="text" placeholder="Name text" minlength=5 maxlength="50" class="form-control" name="engine_specs_name_clutch{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['clutch'][i]['name']"  >
+                
+                                                                                            </div>
+                
+                                                                                    </div>
+                                                                                </div>
+    
+                                                                                <div class="col-md-6" *ngIf="productData_specification['clutch'][i]">
+                                                                                    <div class="form-group">
+        
+                                                                                            <label class="text-info">Description<span class="text-danger">*</span></label>
+                
+                                                                                            <div class="input-group input-group-sm">
+                
+                                                                                                <input type="text" placeholder="Description" minlength=5 maxlength="200" class="form-control" name="engine_specs_value_clutch{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['clutch'][i]['value']"  >
+                
+                                                                                            </div>
+                
+                                                                                    </div>
+                                                                                </div>
+    
+                                                                            </div>
 
+                                                                            <div class="form-group">
+                                                                                    <div class="">
+                                                                                            <span class="input-group-btn">
+                                                                                                    <button type="button" class="btn btn-md btn-nblue btn-block my-10" (click)="addSpecColumn(1)"> Add Columns</button>
+                                                                                            </span>
+                                                                                    </div>
+                                                                                </div>
 
 
 
@@ -686,14 +766,14 @@
                                                                             </div>
 
                                                                         </div> -->
-
+<!-- 
                                                                         <div class="form-group">
 
                                                                             <textarea name="specs[]" rows="10" cols="120" name="specs[]" placeholder="&#x0a;Enter Clutch specification here in muliple lines, separated by : (collon) e.g 
                                                                             &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                             &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_clutch="ngModel" [(ngModel)]="productData_specification.clutch" ></textarea>
 
-                                                                        </div>
+                                                                        </div> -->
 
                                                                     </div>
 
@@ -723,7 +803,7 @@
      
                                                                                  <label class="text-info">Suspension Specification</label>
      
-                                                                                 <input type="text" readonly class="form-control" placeholder="Specification Name" value="Suspension" />
+                                                                                 <input type="text" readonly class="form-control" name="spec_name_2" placeholder="Specification Name" value="Suspension" />
      
                                                                              </div>
      
@@ -748,14 +828,52 @@
                                                                                  </div>
      
                                                                              </div> -->
+
+                                                                             <div class="row" *ngFor="let d of max_specs_arr; let i=index" >
+                                                                                    <div class="col-md-6" *ngIf="productData_specification['suspension'][i]">
+                                                                                        <div class="form-group">
+        
+                                                                                                <label class="text-info">Name<span class="text-danger">*</span></label>
+                    
+                                                                                                <div class="input-group input-group-sm">
+                    
+                                                                                                    <input type="text" placeholder="Name text" minlength=5 maxlength="50" class="form-control" name="engine_specs_value_suspension{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['suspension'][i]['name']"  >
+                    
+                                                                                                </div>
+                    
+                                                                                        </div>
+                                                                                    </div>
+        
+                                                                                    <div class="col-md-6" *ngIf="productData_specification['suspension'][i]">
+                                                                                        <div class="form-group">
+            
+                                                                                                <label class="text-info">Description<span class="text-danger">*</span></label>
+                    
+                                                                                                <div class="input-group input-group-sm">
+                    
+                                                                                                    <input type="text" placeholder="Description" minlength=5 maxlength="200" class="form-control" name="engine_specs_value_suspension{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['suspension'][i]['value']"  >
+                    
+                                                                                                </div>
+                    
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <div class="">
+                                                                                            <span class="input-group-btn">
+                                                                                                    <button type="button" class="btn btn-md btn-nblue btn-block my-10" (click)="addSpecColumn(2)"> Add Columns</button>
+                                                                                            </span>
+                                                                                    </div>
+                                                                                </div>
      
-                                                                             <div class="form-group">
+                                                                             <!-- <div class="form-group">
      
                                                                                  <textarea name="specs[]" rows="10" cols="120" placeholder="&#x0a;Enter Suspension specification here in muliple lines, separated by : (collon) e.g 
                                                                                  &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                                  &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_suspension="ngModel" [(ngModel)]="productData_specification.suspension" ></textarea>
      
-                                                                             </div>
+                                                                             </div> -->
      
                                                                          </div>
 
@@ -785,12 +903,48 @@
          
                                                                                      <label class="text-info">Tyres Specification</label>
          
-                                                                                     <input type="text" readonly class="form-control" placeholder="Specification Name" value="Tyres" />
+                                                                                     <input type="text" name="spec_name_3" readonly class="form-control" placeholder="Specification Name" value="Tyres" />
          
                                                                                  </div>
          
-         
-         
+                                                                                 <div class="row" *ngFor="let d of max_specs_arr; let i=index" >
+                                                                                        <div class="col-md-6" *ngIf="productData_specification['tyres'][i]">
+                                                                                            <div class="form-group">
+            
+                                                                                                    <label class="text-info">Name<span class="text-danger">*</span></label>
+                        
+                                                                                                    <div class="input-group input-group-sm">
+                        
+                                                                                                        <input type="text" placeholder="Name text" minlength=5 maxlength="50" class="form-control" name="engine_specs_name_tyres{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['tyres'][i]['name']"  >
+                        
+                                                                                                    </div>
+                        
+                                                                                            </div>
+                                                                                        </div>
+            
+                                                                                        <div class="col-md-6" *ngIf="productData_specification['tyres'][i]">
+                                                                                            <div class="form-group">
+                
+                                                                                                    <label class="text-info">Description<span class="text-danger">*</span></label>
+                        
+                                                                                                    <div class="input-group input-group-sm">
+                        
+                                                                                                        <input type="text" placeholder="Description" minlength=5 maxlength="200" class="form-control" name="engine_specs_value_tyres{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['tyres'][i]['value']"  >
+                        
+                                                                                                    </div>
+                        
+                                                                                            </div>
+                                                                                        </div>
+            
+                                                                                    </div>
+                                                                                    
+                                                                                    <div class="form-group">
+                                                                                            <div class="">
+                                                                                                    <span class="input-group-btn">
+                                                                                                            <button type="button" class="btn btn-md btn-nblue btn-block my-10" (click)="addSpecColumn(4)"> Add Columns</button>
+                                                                                                    </span>
+                                                                                            </div>
+                                                                                        </div>
          
          
                                                                                  <!-- <div class="form-group">
@@ -811,13 +965,13 @@
          
                                                                                  </div> -->
          
-                                                                                 <div class="form-group">
+                                                                                <!--  <div class="form-group">
          
                                                                                      <textarea  name="specs[]" rows="10" cols="120" name="specs" placeholder="&#x0a;Enter tyres specification here in muliple lines, separated by : (collon) e.g 
                                                                                      &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                                      &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_tyres="ngModel" [(ngModel)]="productData_specification.tyres" ></textarea>
          
-                                                                                 </div>
+                                                                                 </div> -->
          
                                                                              </div>
 
@@ -850,8 +1004,45 @@
                                                                                          <input type="text" readonly class="form-control" placeholder="Specification Name" value="Steering" />
              
                                                                                      </div>
+
+                                                                                     <div class="row" *ngFor="let d of max_specs_arr; let i=index" >
+                                                                                            <div class="col-md-6" *ngIf="productData_specification['steering'][i]">
+                                                                                                <div class="form-group">
+                
+                                                                                                        <label class="text-info">Name<span class="text-danger">*</span></label>
+                            
+                                                                                                        <div class="input-group input-group-sm">
+                            
+                                                                                                            <input type="text" placeholder="Name text" minlength=5 maxlength="50" class="form-control" name="engine_specs_name_steering{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['steering'][i]['name']"  >
+                            
+                                                                                                        </div>
+                            
+                                                                                                </div>
+                                                                                            </div>
+                
+                                                                                            <div class="col-md-6" *ngIf="productData_specification['tyres'][i]">
+                                                                                                <div class="form-group">
+                    
+                                                                                                        <label class="text-info">Description<span class="text-danger">*</span></label>
+                            
+                                                                                                        <div class="input-group input-group-sm">
+                            
+                                                                                                            <input type="text" placeholder="Description" minlength=5 maxlength="200" class="form-control" name="engine_specs_value_steering{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['steering'][i]['value']"  >
+                            
+                                                                                                        </div>
+                            
+                                                                                                </div>
+                                                                                            </div>
+                
+                                                                                        </div>
              
-             
+                                                                                        <div class="form-group">
+                                                                                                <div class="">
+                                                                                                        <span class="input-group-btn">
+                                                                                                                <button type="button" class="btn btn-md btn-nblue btn-block my-10" (click)="addSpecColumn(3)"> Add Columns</button>
+                                                                                                        </span>
+                                                                                                </div>
+                                                                                            </div>
              
              
              
@@ -873,13 +1064,13 @@
              
                                                                                      </div> -->
              
-                                                                                     <div class="form-group">
+   <!--                                                                                   <div class="form-group">
              
                                                                                          <textarea name="specs[]" rows="10" cols="120" placeholder="&#x0a;Enter steering specification here in muliple lines, separated by : (collon) e.g 
                                                                                          &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
                                                                                          &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_steering="ngModel" [(ngModel)]="productData_specification.steering" ></textarea>
              
-                                                                                     </div>
+                                                                                     </div> -->
              
                                                                                  </div>
 

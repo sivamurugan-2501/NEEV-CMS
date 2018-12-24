@@ -44,7 +44,7 @@ export class ProductAddComponent implements OnInit {
     image :  null,
     description : null
   };
-  productData_feature =  this.feature_json; //new Array(); 
+  productData_feature:Array<Object> =  new Array(); 
 
   productData_gallery = {
     title : null,
@@ -56,11 +56,11 @@ export class ProductAddComponent implements OnInit {
   }
 
   productData_specification ={
-    engine:null,
-    clutch: null,
-    suspension: null,
-    steering : null,
-    tyres :null
+    engine: new Array(),
+    clutch: new Array(),
+    suspension: new Array(),
+    steering : new Array(),
+    tyres :new Array()
   }
 
   actionStatus =-1;
@@ -69,12 +69,27 @@ export class ProductAddComponent implements OnInit {
 
   featureImageError = null;
   max_features =5;
+  max_features_arr = new Array(this.max_features);
+ 
+
+  max_specs_columns = 10;
+  max_specs_arr = new Array(this.max_specs_columns);
+
+  product_specc_property_schema = {
+    name : null,
+    value : null
+  }
 
   constructor(private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService) { }
 
   ngOnInit() {
     this.loadLanguageList();
-    //this.addNewFeature();
+    this.addNewFeature();
+    this.addSpecColumn(0);
+    this.addSpecColumn(1);
+    this.addSpecColumn(2);
+    this.addSpecColumn(3);
+    this.addSpecColumn(4);
   }
 
 
@@ -148,7 +163,6 @@ export class ProductAddComponent implements OnInit {
         this.galleryImages.push(file);
       }
 
-
       if(file){
         fileReader.readAsDataURL(file);
       }
@@ -161,9 +175,18 @@ export class ProductAddComponent implements OnInit {
 
   }
 
-  removeFile(i){
+  removeFile(i, from ){
+
+    if(from == 1){
       this.imagePreview.splice(i,1);
       this.allImageList.splice(i,1);
+    }else if(from==2){
+      this.featureImagePreview.splice(i,1);
+      this.featureImage.splice(i,1);
+    }else if(from==3){
+      this.galleryImagesPreview.splice(i,1);
+      this.galleryImages.splice(i,1);
+    }
   }
 
   validateBrochure($event){
@@ -276,7 +299,46 @@ export class ProductAddComponent implements OnInit {
 
   addNewFeature(){
 
-    //this.productData_feature.push(this.feature_json);
+    if(this.productData_feature.length <= this.max_features ){
+
+      const keys:Array<Object> = Object.keys(this.feature_json);
+      var features_schema = {};
+
+      keys.forEach(function(k:string){
+        features_schema[k] = null;
+      });
+     // alert(JSON.stringify(features_schema));
+      this.productData_feature.push(features_schema);
+     // alert(JSON.stringify(this.productData_feature));
+    
+    }
+
+  }
+
+
+  // ctagory 1- engine , 2-clutch, 3- suspension, 4-steering, r-tyres
+  addSpecColumn(category){
+
+    const categoryList =[
+        "engine", "clutch", "suspension", "steering", "tyres"
+    ];
+
+    const categroy_name = categoryList[category];
+    //alert(categroy_name);
+
+    if(categroy_name!==undefined && this.productData_specification[categroy_name].length <= this.max_specs_columns ){
+
+      const keys:Array<Object> = Object.keys(this.product_specc_property_schema);
+      var specs_schema = {};
+
+      keys.forEach(function(k:string){
+        specs_schema[k] = null;
+      });
+     // alert(JSON.stringify(specs_schema));
+      this.productData_specification[categroy_name].push(specs_schema);
+      //alert(JSON.stringify(this.productData_specification[categroy_name]));
+    
+    }
 
   }
 
