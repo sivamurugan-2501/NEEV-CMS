@@ -54,7 +54,7 @@ export class ProductAddComponent implements OnInit {
 
   productData_brochure = {
     title: null,
-    file : null
+    brochureFile : null
   }
 
   productData_specification ={
@@ -68,9 +68,9 @@ export class ProductAddComponent implements OnInit {
   productData_video = {
     title : null,
     type: 1,
-    file : null,
+    videoFile : null,
     url : null,
-    language : null,
+    language : this.productData_1.language,
     thumbnailImage : null,
     downloadable : 0,
     category :  1
@@ -81,14 +81,13 @@ export class ProductAddComponent implements OnInit {
     {name :"URL", value: 2}
  ]
 
-  actionStatus =-1;
+  
   successMessage = "Success";
   errorMessage = "Error";
 
   featureImageError = null;
   max_features =5;
   max_features_arr = new Array(this.max_features);
- 
 
   max_specs_columns = 10;
   max_specs_arr = new Array(this.max_specs_columns);
@@ -96,7 +95,16 @@ export class ProductAddComponent implements OnInit {
   product_specc_property_schema = {
     name : null,
     value : null
-  }
+  };
+
+  videoValid = null;
+  videoError = null;
+
+  actionStatus = [-1,-1,-1,-1,-1];
+  successMessages = new Array(5);
+  errorMessages = new Array(5);
+
+  instanceId = false;
 
   constructor(private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService) { }
 
@@ -113,8 +121,9 @@ export class ProductAddComponent implements OnInit {
 
   onImageSelect(event, multiple, from){
     
+    //alert(from);
     const files : Array<File> = event.target.files;
-
+    //alert(files);
     if(multiple==true){
       if(this.allImageList.length >= 5 || (this.allImageList.length + files.length) >=5 ){
 
@@ -122,11 +131,11 @@ export class ProductAddComponent implements OnInit {
         return false;
       }
     }else{
-      if(this.allImageList.length >= 1 ){
+     /*  if(this.allImageList.length >= 1 ){
 
         this.logoError = "Maxmimum 1 image allowed.";
         return false;
-      }
+      } */
     }
 
     this.logoError=null;
@@ -158,11 +167,11 @@ export class ProductAddComponent implements OnInit {
 
       }
      
-    }, false);
-
+    });
+    
     //this.imagePreview = fileReader.readAsDataURL(event.target.files[0]);
     
-    
+    //alert(files.length);
     for(let i=0;i<files.length; i++){
 
       const file = files[i];
@@ -175,8 +184,10 @@ export class ProductAddComponent implements OnInit {
 
       if(from==1){
         this.allImageList.push(file);
-      }else  if(from==2){
+      }else if(from==2){
+       // alert(2);
         this.featureImage.push(file);
+        //alert(JSON.stringify(this.featureImage));
       }else if(from==3){
         this.galleryImages.push(file);
       }
@@ -215,11 +226,12 @@ export class ProductAddComponent implements OnInit {
     const file:File = $event.target.files[0];
 
     if(this.checkExtension(file, ["pdf"])){
-
+      
       if(file.size <=3000){
         this.brochureError = "File size cannot exceed 3 MB, "+ file.size / 1000+ " provided";
       }else{
-        this.productData_brochure.file = file;
+        alert("valid");
+        this.productData_brochure.brochureFile = file;
       }
 
     }else{
@@ -284,15 +296,21 @@ export class ProductAddComponent implements OnInit {
         }
         
       } */
-
+      //alert(this.featureImage);
+    
       const product = this.generateProductBasicData();
-      this.productService.addProduct(product).subscribe(
+      this.productService.addProduct(product, this.instanceId).subscribe(
         (response:any) => {
           //this.actionStatus=1;
          // this.successMessage = "New banner added successfully";
           //alert(response);
-          if(response.id){
-            const id = response.id;
+          if(response.status==200 && response.id){
+
+            this.actionStatus[0] = 1;
+            this.successMessages[0]= "Product created successfully.";
+
+
+            const id = this.instanceId = response.id;
 
             const productFeaturesPayload = this.generateProductFeatureData();
             this.updateFeatures(id, productFeaturesPayload);
@@ -303,10 +321,8 @@ export class ProductAddComponent implements OnInit {
             const productGalleryPayload = this.generateProductGalleryData();
             this.updateGallery(id, productGalleryPayload);
 
-            
-
-           // const productVideoPayload = this.generateProductVideoData();
-           // this.updateVideo(id, productVideoPayload);
+            const productVideoPayload = this.generateProductVideoData();
+            this.updateVideo(id, productVideoPayload);
 
             const productBrochurePayload = this.generateProductBrochureData();
             this.updateBrochure(id, productBrochurePayload);
@@ -314,8 +330,8 @@ export class ProductAddComponent implements OnInit {
           }
         },
         error => {
-          this.actionStatus = 2;
-          this.errorMessage = "Something went wrong";
+          this.actionStatus[0] = 2;
+          this.errorMessages[0] = "Something went wrong. Product creation failed..";
         }
       
       );
@@ -327,36 +343,78 @@ export class ProductAddComponent implements OnInit {
   updateFeatures(id, product_features_payload){
     this.productService.updateFeatures(id, product_features_payload).subscribe(
     (response:any) => {
+      this.actionStatus[1] = 1;
+      this.successMessages[1]= "Features created successfully.";
+    },
+    
+    (error) =>{
 
-    });
+      this.actionStatus[1] = 0;
+      this.successMessages[1]= "Features creation failed.";  
+
+    }
+
+    );
   }
 
   updateSpecs(id, product_specs_payload){
     this.productService.updateSpecs(id, product_specs_payload).subscribe(
-    (response:any) => {
-
-    });
+      (response:any) => {
+        this.actionStatus[2] = 1;
+        this.successMessages[1]= "Specifications added successfully.";
+      },
+      
+      (error) =>{
+  
+        this.actionStatus[2] = 0;
+        this.successMessages[2]= "Specifications creation failed.";  
+  
+      });
   }
 
   updateGallery(id, product_gallery_payload){
     this.productService.updateGallery(id, product_gallery_payload).subscribe(
-    (response:any) => {
-
-    });
+      (response:any) => {
+        this.actionStatus[3] = 1;
+        this.successMessages[3]= "Product image gallery created successfully.";
+      },
+      
+      (error) =>{
+  
+        this.actionStatus[3] = 0;
+        this.successMessages[3]= "Product image gallery creation failed.";  
+  
+      });
   }
 
   updateVideo(id, product_video_payload){
     this.productService.updateVideo(id, product_video_payload).subscribe(
-    (response:any) => {
-
-    });
+      (response:any) => {
+        this.actionStatus[4] = 1;
+        this.successMessages[4]= "Video uploaded successfully.";
+      },
+      
+      (error) =>{
+  
+        this.actionStatus[4] = 0;
+        this.successMessages[4]= "Video upload failed.";  
+  
+      });
   }
 
   updateBrochure(id, product_brochure_payload){
     this.productService.updateBrochure(id, product_brochure_payload).subscribe(
-    (response:any) => {
-
-    });
+      (response:any) => {
+        this.actionStatus[5] = 1;
+        this.successMessages[5]= "Brochure uploaded successfully.";
+      },
+      
+      (error) =>{
+  
+        this.actionStatus[5] = 0;
+        this.successMessages[5]= "Brochure upload failed.";  
+  
+      });
   }
 
   addNewFeature(){
@@ -418,7 +476,7 @@ export class ProductAddComponent implements OnInit {
 
         this.allImageList.forEach(function(file, index){
           const keyName = keys[i];//+"["+index+"]";
-          product.append( keyName, file, file["name"]);
+          product.append( keyName, file, file["nam  e"]);
         });
 
       }else{
@@ -436,23 +494,34 @@ export class ProductAddComponent implements OnInit {
 
     if(this.productData_feature.length>0){
 
-      const __this= this;
+      try{
+      const __this = this;
+      console.log(__this.featureImage);
       this.productData_feature.forEach(function(feature){
           const keys: Array<Object> = Object.keys(feature);
 
           keys.forEach(function(k:string){
 
-            const file= (__this.featureImage[0]) ? this.featureImage[0] : null;
-            const file_name = (file["name"]) ? file["name"] : k;
+            console.log(__this.featureImage);
+            const file= (__this.featureImage[0]) ? __this.featureImage[0] : null;
+            console.log(file);
+
+           
+           
             if(k == "image"){
-              productFeatures.append( k+"[]", file, file_name);
+              if(file && file!=null && file!=undefined){
+                const file_name = (file && file["name"]) ? file["name"] : k;
+                productFeatures.append( k+"[]", file, file_name);
+              }
             }else{
               productFeatures.append(k+"[]", feature[k]);
             }
 
           });
       });
-
+      }catch(e){
+        alert(e);
+      }
     }
 
     return productFeatures;
@@ -472,11 +541,12 @@ export class ProductAddComponent implements OnInit {
     
       if(keys[i] == "images"){
 
+        if(this.galleryImages.length>0){
         this.galleryImages.forEach(function(file, index){
           const keyName = keys[i]+"[]";
           product.append( keyName, file, file["name"]);
         });
-
+        }
       }else{
          product.append(keys[i], this.productData_gallery["title"] );
       }
@@ -488,11 +558,13 @@ export class ProductAddComponent implements OnInit {
 
   generateProductBrochureData(){
 
+      //alert(this.productData_brochure.file);
       var brochureData = new FormData();
 
       brochureData.append("title", this.productData_brochure.title);
-      brochureData.append("file", this.productData_brochure.file, this.productData_brochure.file["name"]);
-
+      if(this.productData_brochure.brochureFile && this.productData_brochure.brochureFile!==undefined){
+        brochureData.append("brochureFile", this.productData_brochure.brochureFile, this.productData_brochure.brochureFile["name"]);
+      }
       return brochureData;
   }
 
@@ -503,30 +575,50 @@ export class ProductAddComponent implements OnInit {
 
     if(this.productData_video){
 
-      this.productData_feature.forEach(function(feature){
-
-          const keys: Array<Object> = Object.keys(feature);
+      try{
+          const keys: Array<Object> = Object.keys(this.productData_video);
           const __this = this;
           keys.forEach(function(k:string){
-
-            const file= __this.productData_video.videoFile;
-
-            const file_name = (file["name"]) ? file["name"] : k;
+           
+            
             if(k == "videoFile"){
+
+              const file = __this.productData_video.videoFile;
+              const file_name = (file["name"]) ? file["name"] : k;
               productVideo.append( k, file, file_name);
             }else{
-              productVideo.append(k, feature[k]);
+              productVideo.append(k, __this.productData_video[k]);
             }
 
           });
-      });
-
+        }catch(e){
+          alert("error : "+e);
+        }
     }
 
+    alert(productVideo);
     return productVideo;
 
   }
 
+
+  videoHandler(event){
+
+      const file:File = event.target.files[0];
+      alert(file.type);
+      const extension = file.type.split("/")[1];
+      alert(extension);
+alert(["mp4", "mp3","avi"].indexOf(extension));
+      if(["mp4", "mp3","avi"].indexOf(extension)>-1){
+
+        this.productData_video.videoFile = file;
+        alert(this.productData_video.videoFile);
+
+      }else{
+        this.videoValid = 1;
+        this.videoError = "Invalid video selected";
+      }
+  }
 
 }
 

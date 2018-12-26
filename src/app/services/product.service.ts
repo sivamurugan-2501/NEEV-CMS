@@ -9,10 +9,13 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  addProduct(productData){
+  addProduct(productData, instanceId){
 
-    return this.http.post(CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["add"], productData);
-  
+    if(instanceId){
+      return this.http.post(CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["update"]+"/"+instanceId, productData);
+    }else{
+      return this.http.post(CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["add"], productData);
+    }
   }
 
   getProducts(){
@@ -42,6 +45,7 @@ export class ProductService {
 
   updateBrochure(product_id, brochure_data){
 
+    alert("brochure upload");
     const url= CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["brochure"]+"/"+product_id;
     return this.http.post(url, brochure_data);
 
@@ -49,6 +53,7 @@ export class ProductService {
 
   updateVideo(product_id, video_data){
 
+    alert("Video upload");
     const url= CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["video"]+"/"+product_id;
     return this.http.post(url, video_data);
 

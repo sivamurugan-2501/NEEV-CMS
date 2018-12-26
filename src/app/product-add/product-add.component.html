@@ -255,7 +255,7 @@
 
                                                                             </div>
                                                                             
-                                                                            <!-- <div class="form-group">
+                                                                            <div class="form-group">
                                                                                 <div *ngIf="featureImagePreview" class=" imagePreview">
                                                                                     <div *ngFor="let dataUrl of featureImagePreview; let i = index" class="col-md-2 thumbnail">
                                                                                     
@@ -263,7 +263,7 @@
                                                                                     <div class="remove" (click)="removeFile(i)"> <code> Remove </code></div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div> -->
+                                                                            </div> 
 
                                                                             <div class="form-group">
                                                                                     <div *ngIf="featureImagePreview[i] && featureImagePreview[i]!==undefined" class=" imagePreview">
@@ -461,7 +461,7 @@
 
                                                                             <label class="text-info">Title</label>
 
-                                                                            <input type="text" class="form-control" placeholder="Product Video Title" required #videoTitle="ngModel" [(ngModel)]= "productData_video.title" />
+                                                                            <input type="text" class="form-control" name="video_title" placeholder="Product Video Title" required #videoTitle="ngModel" [(ngModel)]= "productData_video.title" />
 
                                                                             <div class="form-control-feedback" *ngIf="videoTitle.invalid && (videoTitle.dirty || videoTitle.touched)">
                                                                                 <code *ngIf="videoTitle.errors.required">Missing video title</code>
@@ -476,7 +476,7 @@
 
                                                                             <div class="input-group input-group-sm">
 
-                                                                                <select class="form-control" required #videoType="ngModel" [(ngModel)]= "productData_video.type">
+                                                                                <select class="form-control" name="video_type" required #videoType="ngModel" [(ngModel)]= "productData_video.type">
                                                                                     <option *ngFor="let t of videoUploadTypeOptions" value=1>{{t.name}}</option>
                                                                                 </select>
 
@@ -510,8 +510,8 @@
 
                                                                             <div class="input-group input-group-sm">
 
-                                                                                <input type="file" class="form-control" required #videoFile="ngModel" [(ngModel)]= "productData_video.videoFile">
-                                                                                <div class="form-control-feedback" *ngIf="videoFile.invalid && (videoFile.dirty || videoLink.touched)">
+                                                                                <input type="file" class="form-control" name="videoFile" required  #videoFile="ngModel" [(ngModel)]= "productData_video.videoFile" (change)="videoHandler($event)" />
+                                                                                <div class="form-control-feedback" *ngIf="videoFile.invalid && (videoFile.dirty || videoFile.touched)">
                                                                                     <code *ngIf="videoFile.errors.required">Missing video link</code>
                                                                                    
                                                                                  </div>
@@ -1131,7 +1131,7 @@
 
                                                                             <div class="input-group input-group-sm">
 
-                                                                                <input type="file" class="form-control" name="brochure_file" #brochure_file="ngModel" [(ngModel)]="productData_brochure.file" >
+                                                                                <input type="file" class="form-control" name="brochure_file" #brochure_file="ngModel" [(ngModel)]="productData_brochure.file" (change)="validateBrochure($event)" >
 
                                                                                 <!--  <span class="input-group-btn">
 

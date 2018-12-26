@@ -58,7 +58,8 @@ export const CONFIGS = {
     },
 
     "event":{
-      "add" : "/news_board/add"
+      "add" : "/news_board/add",
+      "list" : "/news_board/list"
     },
 
     "notification":{
