@@ -25,7 +25,12 @@ export const CONFIGS = {
     },
     "product" : {
       "add" : "/product/add",
-      "list" : "/product/list"
+      "list" : "/product/list",
+      "features" : "/product/update/features",
+      "specifications" : "/product/update/specifications",
+      "gallery" : "/product/update/gallery",
+      "brochure" : "/product/update/brochure",
+      "video" : "/product/update/video",
    },
     "authenticate" : "/authenticate",
     "configs" : {

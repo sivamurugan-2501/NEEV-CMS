@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
                   <li class="breadcrumb-item" aria-current="page">Product</li>
-                  <li class="breadcrumb-item active" aria-current="page">Add</li>
+                  <li class="breadcrumb-item active" aria-current="page">Edit</li>
                 </ol>
               </nav>
             </div>
@@ -435,7 +435,7 @@
 
                                             </div>
 
-                                            <div class="tab-pane show" id="videos" role="tabpanel">
+                                            <!--<div class="tab-pane show" id="videos" role="tabpanel">
 
                                                 <div class="pad">
 
@@ -459,7 +459,7 @@
 
                                                                         <div class="form-group">
 
-                                                                            <label class="text-info">Title</label>
+                                                                            <label class="text-info">Product Video Title</label>
 
                                                                             <input type="text" class="form-control" placeholder="Product Video Title" required #videoTitle="ngModel" [(ngModel)]= "productData_video.title" />
 
@@ -470,26 +470,8 @@
                                                                         </div>
 
 
+
                                                                         <div class="form-group">
-
-                                                                            <label class="text-info">Upload Type</label>
-
-                                                                            <div class="input-group input-group-sm">
-
-                                                                                <select class="form-control" required #videoType="ngModel" [(ngModel)]= "productData_video.type">
-                                                                                    <option *ngFor="let t of videoUploadTypeOptions" value=1>{{t.name}}</option>
-                                                                                </select>
-
-                                                                                <div class="form-control-feedback" *ngIf="videoType.invalid && (videoType.dirty || videoType.touched)">
-                                                                                    <code *ngIf="videoType.errors.required">Missing video link</code>
-                                                                                   
-                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
-
-
-
-                                                                        <div class="form-group" *ngIf="productData_video.type==2" >
 
                                                                             <label class="text-info">Product Video Link</label>
 
@@ -501,18 +483,23 @@
                                                                                     <code *ngIf="videoLink.errors.required">Missing video link</code>
                                                                                    
                                                                                  </div>
+                                                                                
+
                                                                             </div>
+
+
+
                                                                         </div>
 
-                                                                        <div class="form-group" *ngIf="productData_video.type==1">
+                                                                        <div class="form-group">
 
                                                                             <label class="text-info">Product Video<span class="text-danger">*</span></label>
 
                                                                             <div class="input-group input-group-sm">
 
                                                                                 <input type="file" class="form-control" required #videoFile="ngModel" [(ngModel)]= "productData_video.videoFile">
-                                                                                <div class="form-control-feedback" *ngIf="videoFile.invalid && (videoFile.dirty || videoLink.touched)">
-                                                                                    <code *ngIf="videoFile.errors.required">Missing video link</code>
+                                                                                <div class="form-control-feedback" *ngIf="videoLink.invalid && (videoLink.dirty || videoLink.touched)">
+                                                                                    <code *ngIf="videoLink.errors.required">Missing video link</code>
                                                                                    
                                                                                  </div>
 
@@ -524,7 +511,7 @@
 
                                                                     </div>
 
-                                                                    <!-- <div class="row fx-element-overlay">
+                                                                    <div class="row fx-element-overlay">
 
                                                                         <div class="form-group">
 
@@ -560,7 +547,7 @@
 
                                                                         </div>
 
-                                                                    </div -->
+                                                                    </div>
 
                                                                 </div>
 
@@ -576,7 +563,7 @@
 
                                                 </div>
 
-                                            </div> 
+                                            </div> -->
 
                                             <div class="tab-pane show" id="specification" role="tabpanel">
 
@@ -1121,7 +1108,7 @@
 
                                                                             <label class="text-info">Brochure Title</label>
 
-                                                                            <input type="text" class="form-control" placeholder="Brochure Name" name="brochure_title" #brochure_file="ngModel" [(ngModel)]="productData_brochure.title"  />
+                                                                            <input type="text" class="form-control" placeholder="Brochure Name" />
 
                                                                         </div>
 
@@ -1131,7 +1118,7 @@
 
                                                                             <div class="input-group input-group-sm">
 
-                                                                                <input type="file" class="form-control" name="brochure_file" #brochure_file="ngModel" [(ngModel)]="productData_brochure.file" >
+                                                                                <input type="file" class="form-control">
 
                                                                                 <!--  <span class="input-group-btn">
 

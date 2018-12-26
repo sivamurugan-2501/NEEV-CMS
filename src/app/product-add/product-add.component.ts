@@ -44,6 +44,7 @@ export class ProductAddComponent implements OnInit {
     image :  null,
     description : null
   };
+
   productData_feature:Array<Object> =  new Array(); 
 
   productData_gallery = {
@@ -52,7 +53,8 @@ export class ProductAddComponent implements OnInit {
   };
 
   productData_brochure = {
-    brochureFile : null
+    title: null,
+    file : null
   }
 
   productData_specification ={
@@ -62,6 +64,22 @@ export class ProductAddComponent implements OnInit {
     steering : new Array(),
     tyres :new Array()
   }
+
+  productData_video = {
+    title : null,
+    type: 1,
+    file : null,
+    url : null,
+    language : null,
+    thumbnailImage : null,
+    downloadable : 0,
+    category :  1
+  }
+
+  videoUploadTypeOptions = [
+    {name :"File", value: 1},
+    {name :"URL", value: 2}
+ ]
 
   actionStatus =-1;
   successMessage = "Success";
@@ -201,7 +219,7 @@ export class ProductAddComponent implements OnInit {
       if(file.size <=3000){
         this.brochureError = "File size cannot exceed 3 MB, "+ file.size / 1000+ " provided";
       }else{
-        this.productData_brochure.brochureFile = file;
+        this.productData_brochure.file = file;
       }
 
     }else{
@@ -244,23 +262,17 @@ export class ProductAddComponent implements OnInit {
 
   saveProduct(){
      
-      var product = new FormData();
-      
+     /*  var product = new FormData();
       let keys = Object.keys(this.productData_1);
     
       for(let i=0;i<keys.length;i++){
-        //alert(this.bannerData[keys[i]]);
+      
         if(keys[i] == "images"){
-          alert(keys[i]);
-            
+
           this.allImageList.forEach(function(file, index){
             const keyName = keys[i]+"["+index+"]";
             product.append( keyName, file, file["name"]);
           });
-          //let file = this.allImageList[0] ;//this.productData_1[keys[i]];
-
-
-            
 
         }else if(keys[i] == "brochureFile"){
          
@@ -271,14 +283,33 @@ export class ProductAddComponent implements OnInit {
            product.append(keys[i], this.productData_1[keys[i]]);
         }
         
-      }
-      this.productService.addProduct(this.productData_1).subscribe(
+      } */
+
+      const product = this.generateProductBasicData();
+      this.productService.addProduct(product).subscribe(
         (response:any) => {
           //this.actionStatus=1;
          // this.successMessage = "New banner added successfully";
           //alert(response);
           if(response.id){
             const id = response.id;
+
+            const productFeaturesPayload = this.generateProductFeatureData();
+            this.updateFeatures(id, productFeaturesPayload);
+
+            const productSpecsPayload = this.generateProductSpecsData();
+            this.updateSpecs(id, productSpecsPayload);
+
+            const productGalleryPayload = this.generateProductGalleryData();
+            this.updateGallery(id, productGalleryPayload);
+
+            
+
+           // const productVideoPayload = this.generateProductVideoData();
+           // this.updateVideo(id, productVideoPayload);
+
+            const productBrochurePayload = this.generateProductBrochureData();
+            this.updateBrochure(id, productBrochurePayload);
 
           }
         },
@@ -293,8 +324,39 @@ export class ProductAddComponent implements OnInit {
   }
 
   
-  generateProductData_1(){
-      //var 
+  updateFeatures(id, product_features_payload){
+    this.productService.updateFeatures(id, product_features_payload).subscribe(
+    (response:any) => {
+
+    });
+  }
+
+  updateSpecs(id, product_specs_payload){
+    this.productService.updateSpecs(id, product_specs_payload).subscribe(
+    (response:any) => {
+
+    });
+  }
+
+  updateGallery(id, product_gallery_payload){
+    this.productService.updateGallery(id, product_gallery_payload).subscribe(
+    (response:any) => {
+
+    });
+  }
+
+  updateVideo(id, product_video_payload){
+    this.productService.updateVideo(id, product_video_payload).subscribe(
+    (response:any) => {
+
+    });
+  }
+
+  updateBrochure(id, product_brochure_payload){
+    this.productService.updateBrochure(id, product_brochure_payload).subscribe(
+    (response:any) => {
+
+    });
   }
 
   addNewFeature(){
@@ -317,7 +379,7 @@ export class ProductAddComponent implements OnInit {
   }
 
 
-  // ctagory 1- engine , 2-clutch, 3- suspension, 4-steering, r-tyres
+  // ctagory 1- engine , 2-clutch, 3- suspension, 4-steering, 5-tyres
   addSpecColumn(category){
 
     const categoryList =[
@@ -343,4 +405,129 @@ export class ProductAddComponent implements OnInit {
 
   }
 
+
+
+  generateProductBasicData(){
+      
+    var product = new FormData();
+    let keys = Object.keys(this.productData_1);
+  
+    for(let i=0;i<keys.length;i++){
+    
+      if(keys[i] == "logo"){
+
+        this.allImageList.forEach(function(file, index){
+          const keyName = keys[i];//+"["+index+"]";
+          product.append( keyName, file, file["name"]);
+        });
+
+      }else{
+         product.append(keys[i], this.productData_1[keys[i]]);
+      }
+      
+    }
+    return product;
+
+  }
+
+  generateProductFeatureData(){
+      
+    var productFeatures = new FormData();
+
+    if(this.productData_feature.length>0){
+
+      const __this= this;
+      this.productData_feature.forEach(function(feature){
+          const keys: Array<Object> = Object.keys(feature);
+
+          keys.forEach(function(k:string){
+
+            const file= (__this.featureImage[0]) ? this.featureImage[0] : null;
+            const file_name = (file["name"]) ? file["name"] : k;
+            if(k == "image"){
+              productFeatures.append( k+"[]", file, file_name);
+            }else{
+              productFeatures.append(k+"[]", feature[k]);
+            }
+
+          });
+      });
+
+    }
+
+    return productFeatures;
+  }
+
+
+  generateProductSpecsData(){
+    return this.productData_specification;
+  }
+
+  generateProductGalleryData(){
+      
+    var product = new FormData();
+    let keys = Object.keys(this.productData_gallery);
+  
+    for(let i=0;i<keys.length;i++){
+    
+      if(keys[i] == "images"){
+
+        this.galleryImages.forEach(function(file, index){
+          const keyName = keys[i]+"[]";
+          product.append( keyName, file, file["name"]);
+        });
+
+      }else{
+         product.append(keys[i], this.productData_gallery["title"] );
+      }
+      
+    }
+    return product;
+
+  }
+
+  generateProductBrochureData(){
+
+      var brochureData = new FormData();
+
+      brochureData.append("title", this.productData_brochure.title);
+      brochureData.append("file", this.productData_brochure.file, this.productData_brochure.file["name"]);
+
+      return brochureData;
+  }
+
+
+  generateProductVideoData(){
+
+    var productVideo = new FormData();
+
+    if(this.productData_video){
+
+      this.productData_feature.forEach(function(feature){
+
+          const keys: Array<Object> = Object.keys(feature);
+          const __this = this;
+          keys.forEach(function(k:string){
+
+            const file= __this.productData_video.videoFile;
+
+            const file_name = (file["name"]) ? file["name"] : k;
+            if(k == "videoFile"){
+              productVideo.append( k, file, file_name);
+            }else{
+              productVideo.append(k, feature[k]);
+            }
+
+          });
+      });
+
+    }
+
+    return productVideo;
+
+  }
+
+
 }
+
+

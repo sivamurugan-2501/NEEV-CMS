@@ -1,3 +1,105 @@
-<p>
-  product-list works!
-</p>
+<div class="content-header">
+  <div class="d-flex align-items-center">
+    <div class="mr-auto">
+      <h3 class="page-title">Product</h3>
+      <div class="d-inline-block align-items-center">
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+            <li class="breadcrumb-item" aria-current="page">Product</li>
+            <li class="breadcrumb-item active" aria-current="page">List</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-12">
+        <div class="box">
+            
+            <!-- /.box-header -->
+            <div class="box-header with-border">
+
+                <h4 class="box-title">Manage Products</h4>
+
+                <h6 class="box-subtitle">List of Products added by NEEV MITRA</h6>
+
+                <span class="box-controls pull-right">
+
+                    <a href="javascript:void(0)" [routerLink]="['../add-product']" class="btn btn-md btn-nblue btn-block my-10">
+
+                        <i class="ti-plus"></i> Add Product
+
+                    </a>
+
+                </span>
+
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+        <div class="table-responsive">
+            <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+              </app-action-message>
+    
+              <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+                </app-action-message>
+
+                <app-action-message *ngIf="loading==1 && (!products || products.length==0)" [type]="3" [message]="noRecordMessage" >
+                </app-action-message>
+
+          <table id="example" *ngIf="products && products.length>0" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Logo</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of products; let i=index">
+              <td>{{data.title}}</td>
+              
+              <td *ngIf="data.category==1"> Cargo </td>
+              <td *ngIf="data.category==2"> Passenger </td>
+
+              <td > {{serverBaseURL}}{{data.logo}}</td>
+
+              <!--td>
+                <span class="action-icon edit fa fa-times" alt="Edit" title="Edit"> </span>
+                <span class="action-icon delete fa fa-trash-o" alt="Delete" title="Delete"> </span>
+              </td-->
+              <td>
+                  <a href="javascript:void(0)" class="btn btn-icon-circle btn-nblue" data-toggle="tooltip" data-original-title="Edit" (click)="editVideo(data.id, i)"> 
+                      <i class="ti-marker-alt"></i>
+                  </a>
+                  <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger" data-original-title="Delete" data-toggle="tooltip" (click)="deletVideo(data.id, i)">
+                      <i class="ti-trash"></i>
+                  </a>
+              </td>
+            </tr>
+          </tbody>				  
+          <tfoot>
+            <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>URL</th>
+                <th>Action</th>
+              </tr>
+          </tfoot>
+        </table>
+        </div>              
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->  
+    </div>
+  </div>
+</section>
+
+

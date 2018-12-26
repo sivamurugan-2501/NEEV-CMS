@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from './../services/product.service';
+import { ConstantsData } from '../constants-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -7,9 +10,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductListComponent implements OnInit {
 
-  constructor() { }
+  products:any;
+  loading =0;
+  serverBaseURL;
+  noRecordMessage = ConstantsData.noBannerMessage;
+
+  constructor(private productService: ProductService, private route :Router) { }
 
   ngOnInit() {
+      this.load();
   }
 
+  load(){
+    this.productService.getProducts().subscribe(
+      (response:any) =>  {
+        this.loading=1;
+        if(response.status == 200){
+            
+            this.products = response.products;
+            this.serverBaseURL = response.baseURL;
+        }
+      }  
+    );
+  }
+
+  editVideo(id){
+    this.route.navigate(["main","edit-product"], {
+      'queryParams' : {  'id' : id }
+    });
+  }
 }
