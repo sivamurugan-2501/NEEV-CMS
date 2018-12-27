@@ -46,6 +46,9 @@ import { NotificationListComponent } from './notification-list/notification-list
 import { EventListComponent } from './event-list/event-list.component';
 import { VideoEditComponent } from './video-edit/video-edit.component';
 import { ProductEditComponent } from './product-edit/product-edit.component';
+import { EventEditComponent } from './event-edit/event-edit.component';
+import { CustomPopupsComponent, NgbdModalComponent} from './custom-popups/custom-popups.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -112,6 +115,14 @@ const routes: Routes =[
               component : ProductEditComponent
             },
             {
+              path : "event-list",
+              component : EventListComponent
+            },
+            {
+              path : "edit-event",
+              component : EventEditComponent
+            },
+            {
               path: "user-uploads",
               component: UserUplaodsComponent
             },
@@ -173,7 +184,10 @@ const routes: Routes =[
     BannerAddComponent,
     BannerListComponent,  
     VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, 
-    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent, EventListComponent, VideoEditComponent, ProductEditComponent
+    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent, EventListComponent, VideoEditComponent, ProductEditComponent, EventEditComponent, 
+    CustomPopupsComponent,
+    NgbdModalComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -183,6 +197,7 @@ const routes: Routes =[
     NgxEditorModule,
    // BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
+    NgbModule,
     RouterModule.forRoot(
       routes,
       { enableTracing: true } // <-- debugging purposes only
@@ -195,6 +210,7 @@ const routes: Routes =[
       useValue: DEFAULT_DROPZONE_CONFIG
     }
   ],
+  entryComponents : [CustomPopupsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -59,12 +59,16 @@ export const CONFIGS = {
 
     "event":{
       "add" : "/news_board/add",
-      "list" : "/news_board/list"
+      "list" : "/news_board/list",
+      "delete" : "/news_board/delete",
+      "get" : "/news_board",
+      "update" : "/news_board/update"
     },
 
     "notification":{
       "send" : "/notification/add",
-      "list" : "notification/list"
+      "list" : "/notification/list",
+      "delete" : "/notification/delete"
     }
     
   }

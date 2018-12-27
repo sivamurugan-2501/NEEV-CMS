@@ -16,10 +16,17 @@ export class NotificationService {
 
   }
 
-  activeNotifications(){
+  getActiveNotifications(){
 
     const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["notification"]["list"];
     return this.http.get(url);
+  }
+
+  deleteNotification(id){
+
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["notification"]["delete"]+"/"+id;
+    return this.http.delete(url);
+
   }
 
 

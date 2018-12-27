@@ -6,6 +6,9 @@ import { BannerlistResponse, BannerData } from '../model/bannerlist-response';
 import {ConstantsData} from './../constants-data';
 import { Route, Router } from '@angular/router';
 
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/custom-popups.component';
+
 @Component({
   selector: 'app-banner-list',
   templateUrl: './banner-list.component.html',
@@ -29,8 +32,12 @@ export class BannerListComponent implements OnInit {
   successMessage = "Success";
   errorMessage = "Something went wrong.";
   noRecordMessage = ConstantsData.noBannerMessage;
+
+  popUpObject : NgbdModalComponent;
   
-  constructor(private authService:AuthService, private bannerService: BannerServiceService, private route:Router) { 
+  constructor(private authService:AuthService, private bannerService: BannerServiceService, private route:Router,config: NgbModalConfig, private modalService: NgbModal) { 
+
+    this.popUpObject = new NgbdModalComponent(modalService);
 
     this.userData  = authService.loginUserData();
 
@@ -45,6 +52,7 @@ export class BannerListComponent implements OnInit {
 
   ngOnInit() {  
     this.loadData();
+    
   }
 
   loadData(){
@@ -65,6 +73,7 @@ export class BannerListComponent implements OnInit {
 
   deleteThis(id, index) {
 
+   // this.popUpObject.open();
     const confirmation = confirm("Are you sure, that you want to delete this banner ?");
 
 

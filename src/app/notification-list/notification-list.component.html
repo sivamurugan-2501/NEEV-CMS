@@ -102,9 +102,17 @@
                             <!-- table -->
   
                             <div class="table-responsive">
-  
+                              
+                                <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+                                  </app-action-message>
+                        
+                                  <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+                                    </app-action-message>
+                    
+                                    <app-action-message *ngIf="loaded==0 && (!notifications || notifications.length==0)" [type]="3" [message]="noRecordMessage" >
+                                    </app-action-message>
       <table id="productorder" class="table table-hover no-wrap product-order" data-page-size="10">
-  
+        
         <thead>
   
           <tr class="bg-secondary">
@@ -126,7 +134,7 @@
   
           <tr *ngFor="let data of notifications; let i=index">
   
-            <td>{{i}}</td>
+            <td>{{i+1}}</td>
   
             <td>
               {{data.title}}  
@@ -136,21 +144,22 @@
               {{data.message}}
             </td>                    
   
-            <td *ngIf="data.recipent_group==1">
+            <td *ngIf="data.recipient_group==1">
                <span class="label label-success">All TSMs</span>
             </td>
   
-            <td *ngIf="data.recipent_group==2">
-              Individual
+            <td *ngIf="data.recipient_group==2">
+              <span class="label label-success">Individual</span>
             </td>
   
-            <td><a href="javascript:void(0)" class="btn btn-icon-circle btn-nblue" data-toggle="tooltip" data-original-title="Edit">
+             <td>
+               <!-- <a href="javascript:void(0)" class="btn btn-icon-circle btn-nblue" data-toggle="tooltip" data-original-title="Edit">
   
                 <i class="ti-marker-alt"></i>
   
-              </a> 
+              </a>  -->
   
-              <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger" data-original-title="Delete" data-toggle="tooltip">
+              <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger " data-original-title="Delete" data-toggle="tooltip" (click)="deleteNotification(data.id, i)" >
   
                 <i class="ti-trash"></i>
   

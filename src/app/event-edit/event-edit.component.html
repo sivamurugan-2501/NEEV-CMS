@@ -1,0 +1,258 @@
+<div class="content-header">
+
+  <div class="d-flex align-items-center">
+
+      <div class="mr-auto">
+
+          <h3 class="page-title">Edit Event page</h3>
+
+          <div class="d-inline-block align-items-center">
+
+              <nav>
+
+                  <ol class="breadcrumb">
+
+                      <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+
+                      <li class="breadcrumb-item" aria-current="page">Event</li>
+
+                      <li class="breadcrumb-item active" aria-current="page">Edit</li>
+
+                  </ol>
+
+              </nav>
+
+          </div>
+
+      </div>
+
+
+
+  </div>
+
+</div>
+
+
+
+<!-- Main content -->
+
+<section class="content">
+
+
+<form name="eventForm" #eventForm="ngForm" (submit)="saveEvent()">
+  <!-- Default box -->
+
+  <div class="box">
+
+      <div class="box-header with-border">
+
+          <h3 class="box-title">Edit Event</h3>
+
+      </div>
+
+      <div class="box-body">
+
+          <!-- Select Events -->
+
+          <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+          </app-action-message>
+
+          <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+            </app-action-message>
+
+
+          
+          <div class="form-group">
+
+              <label class="text-info">Event Title</label>
+
+              <input type="text" class="form-control" name="title" placeholder="Enter Title" required minlength=4 maxlength=300 #title="ngModel" [(ngModel)]="eventData.title"  />
+
+              <div class="form-control-feedback" *ngIf="title.invalid && (title.dirty || title.touched)">
+                <code *ngIf="title.errors.required">Missing title field</code>
+               <code *ngIf="title.errors.minlength || title.errors.maxlength">Invalid title maxlength:4, minlength:255</code>
+             </div>
+          </div>
+
+
+
+          <div class="form-group">
+
+              <label class="text-info">Event Date:</label>
+
+              <div class="row">
+
+                  <div class="col-6">
+
+                      <div class="form-group">
+
+                          <label>Date</label>
+
+                          <small class="sidetitle">dd/mm/yyyy</small>
+
+                          <input class="form-control" name="when_date" type="date" required minlength=4 maxlength=300 #eData="ngModel" [(ngModel)]="when_date">
+                         
+                          <div class="form-control-feedback" *ngIf="eData.invalid && (eData.dirty || eData.touched)">
+                            <code *ngIf="eData.errors.required">Missing date</code>
+                          
+                         </div>
+                      </div>
+
+                  </div>
+
+                  <div class="col-6">
+
+                      <div class="form-group">
+
+                          <label>Time</label>
+
+                          <small class="sidetitle">hh:mm</small>
+
+                          <input class="form-control" type="time" name="time"  minlength=4 maxlength=6 #eTime="ngModel" [(ngModel)]="when_time">
+
+                      </div>
+
+                  </div>
+
+              </div>
+
+          </div>
+
+
+
+
+
+          <div class="form-group" *ngIf="!eventData.thumbnail_id || imageRemoved==1" >
+
+              <label class="text-info">Event Thumbnail<span class="text-danger">*</span></label>
+
+              <div class="controls">
+
+                  <input type="file" name="thumbnail" class="form-control" required="" aria-invalid="false" required minlength=4 maxlength=300 #image="ngModel" [(ngModel)]="eventData.thumbnail" (change)="onFileChange($event)">
+
+                  <p class="help-block text-red">Optimized image with proper size and extension.</p>
+
+                  <div class="help-block"></div>
+                  <div class="form-control-feedback" *ngIf="(image.dirty || image.touched)">
+                    <code *ngIf="imageError">{{imageError}}</code>
+                 </div>
+
+              </div>
+
+          </div>
+
+          <div *ngIf="eventData.thumbnail_id>0 && imageRemoved==0" class="form-group">
+              <label class="text-info">Uploaded Thumbnail<span class="text-danger">*</span></label>
+              <div *ngIf="previewImage" class="col-md-2">
+                  <div>
+                    <img src="{{previewImage}}" style="width:100%"> 
+                    <div class="remove" (click)="removeFile()"> <code> Remove </code></div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-group">
+
+              <label class="text-info">Venue</label>
+
+              <input type="text" class="form-control" name="venue" placeholder="Edit Event Address" minlength=4 maxlength=300 #venue="ngModel" [(ngModel)]="eventData.venue" />
+
+          </div>
+
+          <div class="form-group">
+
+              <label class="text-info">Edit Event Description<span class="text-danger">*</span></label>
+
+              <!-- Content Wrapper. Contains page content -->
+
+              <div class="form-group">
+
+                  <!-- Content Wrapper. Contains page content -->
+
+                  <textarea rows="4" class="form-control" name="description" placeholder="Edit Event Description" required minlength=4 maxlength=300 #desc="ngModel" [(ngModel)]="eventData.description"></textarea>
+                  
+                  <div class="form-control-feedback" *ngIf="desc.invalid && (desc.dirty || desc.touched)">
+                    <code *ngIf="desc.errors.required">Missing description</code>
+                  
+                 </div>
+              </div>
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Region</label>
+
+            <select class="form-control"  name="region" id="region" #region="ngModel" [(ngModel)]= "eventData.region">
+
+                    <option value=0>Select Region</option>
+
+                    <option *ngFor="let rg of regions" value={{rg.id}}>{{rg.name}}</option>
+
+            </select>
+
+            <div class="form-control-feedback" *ngIf="region.invalid && (region.dirty || region.touched)">
+                <code *ngIf="region.errors.required">Missing region</code>
+            </div>
+
+        </div>
+
+          <div class="form-group">
+
+            <label>State</label>
+
+            <select class="form-control" name="state" id="state" #state="ngModel" [(ngModel)]= "eventData.state">
+
+                    <option value=0>Select State</option>
+
+                    <option *ngFor="let st of states" value={{st.id}}>{{st.name}}</option>
+
+            </select>
+           <div class="form-control-feedback" *ngIf="state.invalid && (state.dirty || state.touched)">
+                <code *ngIf="state.errors.required">Missing state</code>
+            </div>
+        </div>
+
+
+
+      
+
+      </div>
+
+      <!-- /.box-body -->
+
+      <div class="box-footer">
+
+          <div class="form-actions m-10">
+
+              <button type="submit" class="btn btn-outline btn-info mr-10">
+
+                  <i class="fa fa-check"></i> Submit
+
+              </button>
+
+              <button type="button" class="btn btn-outline btn-danger">
+
+                  <i class="fa fa-close"></i> Cancel
+
+              </button>
+
+          </div>
+
+      </div>
+   
+      <!-- /.box-footer-->
+
+  </div>
+
+</form>
+
+  <!-- /.box -->
+
+
+
+
+
+  <!-- box -->
+
+</section>

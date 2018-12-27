@@ -81,12 +81,12 @@ export class EventAddComponent implements OnInit {
     
     const when_date = new Date(date);
     
-   alert(this.when_time);
+   //alert(this.when_time);
   
     this.eventData["when_date"] = when_date.getFullYear()+"-"+ (when_date.getMonth()+1)+"-"+when_date.getDate()+" "+
                                  ( (this.when_time!==undefined) ? this.when_time : "" );
 
-    alert(this.eventData["when_date"]);
+    //alert(this.eventData["when_date"]);
 
     let keys = Object.keys(this.eventData);
   
@@ -103,8 +103,8 @@ export class EventAddComponent implements OnInit {
     this.eventService.addEvent(event).subscribe(
       response => {
         this.actionStatus=1;
-        this.successMessage = "New banner added successfully";
-        const redirect = function(){ __this.route.navigate(["main", "banner-list"]); };
+        this.successMessage = "New event added successfully";
+        const redirect = function(){ __this.route.navigate(["main", "event-list"]); };
         setTimeout(function(){
           redirect();
         }, 3000);
