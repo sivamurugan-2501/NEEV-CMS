@@ -49,6 +49,7 @@ import { ProductEditComponent } from './product-edit/product-edit.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
 import { CustomPopupsComponent, NgbdModalComponent} from './custom-popups/custom-popups.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationEditComponent } from './notification-edit/notification-edit.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -186,7 +187,8 @@ const routes: Routes =[
     VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, 
     ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent, EventListComponent, VideoEditComponent, ProductEditComponent, EventEditComponent, 
     CustomPopupsComponent,
-    NgbdModalComponent
+    NgbdModalComponent,
+    NotificationEditComponent
     
   ],
   imports: [

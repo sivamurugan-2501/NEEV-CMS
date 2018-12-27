@@ -34,10 +34,10 @@ export class EventService {
 
   }
 
-  updateEvent(id){
+  updateEvent(id, eventData){
 
     const url = CONFIGS["apiBaseURL"]+ CONFIGS["apiURLs"]["event"]["update"]+"/"+id;
-    return this.http.get(url);
+    return this.http.post(url, eventData);
 
   }
 }

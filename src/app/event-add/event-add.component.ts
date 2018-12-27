@@ -93,7 +93,7 @@ export class EventAddComponent implements OnInit {
     for(let i=0;i<keys.length;i++){
       //alert(this.bannerData[keys[i]]);
       if(keys[i] == "thumbnail"){
-          event.append(keys[i], null);
+          event.append(keys[i], this.eventData.thumbnail, this.eventData.thumbnail["name"]);
       }else{
         event.append(keys[i], this.eventData[keys[i]]);
       }
@@ -113,7 +113,6 @@ export class EventAddComponent implements OnInit {
         this.actionStatus = 2;
         this.errorMessage = "Something went wrong";
       }
-    
     );
     
 }

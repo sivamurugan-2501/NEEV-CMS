@@ -153,18 +153,17 @@ export class ProductAddComponent implements OnInit {
       if(from ==1){
 
         this_c.imagePreview.push(image_data);
-        console.log(this_c.imagePreview);
+        //console.log(this_c.imagePreview);
 
       }else if(from == 2){
 
         this_c.featureImagePreview.push(image_data);
-        console.log(this_c.imagePreview);
+        //console.log(this_c.imagePreview);
 
       }else if(from ==3){
 
         this_c.galleryImagesPreview.push(image_data);
-        console.log(this_c.imagePreview);
-
+        //console.log(this_c.imagePreview);
       }
      
     });
@@ -230,7 +229,7 @@ export class ProductAddComponent implements OnInit {
       if(file.size <=3000){
         this.brochureError = "File size cannot exceed 3 MB, "+ file.size / 1000+ " provided";
       }else{
-        alert("valid");
+        //alert("valid");
         this.productData_brochure.brochureFile = file;
       }
 
@@ -349,7 +348,7 @@ export class ProductAddComponent implements OnInit {
     
     (error) =>{
 
-      this.actionStatus[1] = 0;
+      this.actionStatus[1] = 2;
       this.successMessages[1]= "Features creation failed.";  
 
     }
@@ -361,12 +360,12 @@ export class ProductAddComponent implements OnInit {
     this.productService.updateSpecs(id, product_specs_payload).subscribe(
       (response:any) => {
         this.actionStatus[2] = 1;
-        this.successMessages[1]= "Specifications added successfully.";
+        this.successMessages[2]= "Specifications added successfully.";
       },
       
       (error) =>{
   
-        this.actionStatus[2] = 0;
+        this.actionStatus[2] = 2;
         this.successMessages[2]= "Specifications creation failed.";  
   
       });
@@ -375,13 +374,15 @@ export class ProductAddComponent implements OnInit {
   updateGallery(id, product_gallery_payload){
     this.productService.updateGallery(id, product_gallery_payload).subscribe(
       (response:any) => {
+        
         this.actionStatus[3] = 1;
         this.successMessages[3]= "Product image gallery created successfully.";
+      
       },
       
       (error) =>{
   
-        this.actionStatus[3] = 0;
+        this.actionStatus[3] = 2;
         this.successMessages[3]= "Product image gallery creation failed.";  
   
       });
@@ -396,7 +397,7 @@ export class ProductAddComponent implements OnInit {
       
       (error) =>{
   
-        this.actionStatus[4] = 0;
+        this.actionStatus[4] = 2;
         this.successMessages[4]= "Video upload failed.";  
   
       });
@@ -411,7 +412,7 @@ export class ProductAddComponent implements OnInit {
       
       (error) =>{
   
-        this.actionStatus[5] = 0;
+        this.actionStatus[5] = 2;
         this.successMessages[5]= "Brochure upload failed.";  
   
       });
@@ -520,7 +521,7 @@ export class ProductAddComponent implements OnInit {
           });
       });
       }catch(e){
-        alert(e);
+       // alert(e);
       }
     }
 
@@ -592,11 +593,11 @@ export class ProductAddComponent implements OnInit {
 
           });
         }catch(e){
-          alert("error : "+e);
+          //alert("error : "+e);
         }
     }
 
-    alert(productVideo);
+    //alert(productVideo);
     return productVideo;
 
   }
@@ -605,14 +606,14 @@ export class ProductAddComponent implements OnInit {
   videoHandler(event){
 
       const file:File = event.target.files[0];
-      alert(file.type);
+      //alert(file.type);
       const extension = file.type.split("/")[1];
-      alert(extension);
-alert(["mp4", "mp3","avi"].indexOf(extension));
+      //alert(extension);
+      //alert(["mp4", "mp3","avi"].indexOf(extension));
       if(["mp4", "mp3","avi"].indexOf(extension)>-1){
 
         this.productData_video.videoFile = file;
-        alert(this.productData_video.videoFile);
+        //alert(this.productData_video.videoFile);
 
       }else{
         this.videoValid = 1;

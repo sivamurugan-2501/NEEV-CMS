@@ -39,7 +39,7 @@
 <section class="content">
 
 
-<form name="eventForm" #eventForm="ngForm" (submit)="saveEvent()">
+<form name="eventForm" #eventForm="ngForm" (submit)="saveEvent()" >
   <!-- Default box -->
 
   <div class="box">
@@ -64,7 +64,7 @@
           
           <div class="form-group">
 
-              <label class="text-info">Event Title</label>
+              <label class="text-info">Event Title<span class="text-danger">*</span></label>
 
               <input type="text" class="form-control" name="title" placeholder="Enter Title" required minlength=4 maxlength=300 #title="ngModel" [(ngModel)]="eventData.title"  />
 
@@ -78,7 +78,7 @@
 
           <div class="form-group">
 
-              <label class="text-info">Event Date:</label>
+              <label class="text-info">Event Date:<span class="text-danger">*</span></label>
 
               <div class="row">
 
@@ -91,7 +91,7 @@
                           <small class="sidetitle">dd/mm/yyyy</small>
 
                           <input class="form-control" name="when_date" type="date" required minlength=4 maxlength=300 #eData="ngModel" [(ngModel)]="when_date">
-                         
+                            
                           <div class="form-control-feedback" *ngIf="eData.invalid && (eData.dirty || eData.touched)">
                             <code *ngIf="eData.errors.required">Missing date</code>
                           
@@ -151,6 +151,18 @@
               </div>
           </div>
 
+
+          <div class="form-group">
+            <label class="text-info">Edit Event Description<span class="text-danger">*</span></label>
+            <!-- Content Wrapper. Contains page content -->
+            <!-- Content Wrapper. Contains page content -->
+            <textarea rows="4" class="form-control" name="description" placeholder="Edit Event Description" required minlength=4 maxlength=300 #desc="ngModel" [(ngModel)]="eventData.description"></textarea>
+            <div class="form-control-feedback" *ngIf="desc.invalid && (desc.dirty || desc.touched)">
+                <code *ngIf="desc.errors.required">Missing description</code>      
+            </div>
+          </div>
+
+
           <div class="form-group">
 
               <label class="text-info">Venue</label>
@@ -159,26 +171,7 @@
 
           </div>
 
-          <div class="form-group">
-
-              <label class="text-info">Edit Event Description<span class="text-danger">*</span></label>
-
-              <!-- Content Wrapper. Contains page content -->
-
-              <div class="form-group">
-
-                  <!-- Content Wrapper. Contains page content -->
-
-                  <textarea rows="4" class="form-control" name="description" placeholder="Edit Event Description" required minlength=4 maxlength=300 #desc="ngModel" [(ngModel)]="eventData.description"></textarea>
-                  
-                  <div class="form-control-feedback" *ngIf="desc.invalid && (desc.dirty || desc.touched)">
-                    <code *ngIf="desc.errors.required">Missing description</code>
-                  
-                 </div>
-              </div>
-
-          </div>
-
+          
           <div class="form-group">
 
             <label>Region</label>
@@ -225,7 +218,7 @@
 
           <div class="form-actions m-10">
 
-              <button type="submit" class="btn btn-outline btn-info mr-10">
+              <button type="submit" class="btn btn-outline btn-info mr-10" [disabled]="!eventForm.valid || !eventForm.touched || !eventForm.dirty">
 
                   <i class="fa fa-check"></i> Submit
 

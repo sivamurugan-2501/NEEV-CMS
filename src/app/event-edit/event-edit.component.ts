@@ -39,7 +39,7 @@ export class EventEditComponent implements OnInit {
 
   imageRemoved=0;
   file_id;
-  file_to_delete:Array<Object>;
+  file_to_delete:Array<any>;
   previewImage;
 
   months_array = ConstantsData.MONTHS;
@@ -111,21 +111,23 @@ export class EventEditComponent implements OnInit {
         for(let i=0;i<keys.length;i++){
           //alert(this.eventData[keys[i]]);
           if(keys[i] == "thumbnail"){
-              event.append(keys[i], null);
-          }else{
+              event.append(keys[i], this.eventData.thumbnail, this.eventData.thumbnail["name"]);
+          }else if(keys[i]!="thumbnail_id" && keys[i]!="created_by" && keys[i]!="id" && keys[i]!="city" ){
             event.append(keys[i], this.eventData[keys[i]]);
-          }
-          
+          }          
         }
+
+        event.append("filesToDelete", ( (this.file_to_delete && this.file_to_delete[0]) ? this.file_to_delete[0] : null ) );
+
         const __this = this;
-        this.eventService.addEvent(event).subscribe(
+        this.eventService.updateEvent(this.instanceId, event).subscribe(
             response => {
               this.actionStatus=1;
               this.successMessage = "New banner added successfully";
-              const redirect = function(){ __this.route.navigate(["main", "banner-list"]); };
+              const redirect = function(){ __this.route.navigate(["main", "event-list"]); };
               setTimeout(function(){
                 redirect();
-              }, 3000);
+              }, 1000);
             },
             error => {
               this.actionStatus = 2;
@@ -163,4 +165,24 @@ export class EventEditComponent implements OnInit {
 
     }
 
+
+    onFileChange(event){
+    
+      this.eventData.thumbnail = null;
+      this.imageError = null;
+      const file: File  = event.target.files[0];
+      const type = file.type;
+      try{
+        const extension = type.split("/")[1];
+        if(["png", "jpeg", "jpg"].indexOf(extension.toLocaleLowerCase()) > -1){
+          this.eventData.thumbnail = file;
+        }else{
+          this.imageError = "Invalid image file, only .png, .jpg and  .jpeg are accepted.";
+          return false;
+        }
+      }catch(e){
+        console.log(e);
+      }
+    }
+  
 }
