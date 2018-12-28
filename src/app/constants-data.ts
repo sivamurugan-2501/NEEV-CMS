@@ -17,5 +17,6 @@ export class ConstantsData{
       ];
 
     static ARE_YOU_SURE = "Are you sure ?";
-    static DELETE_BANNER_CONFIRMATION = "You will be not able to use the banner once deleted"
+    static DELETE_BANNER_CONFIRMATION = "You will be not able to use the banner once deleted";
+    static No_FAQ_MESSAGE = "Seems you have not yet added any FAQ(s)";
 }

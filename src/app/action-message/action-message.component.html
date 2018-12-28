@@ -1,18 +1,18 @@
-<div *ngIf="type==1" class="alert alert-success" >
+<div *ngIf="type==1 && hide==0" class="alert alert-success" >
   <div>
       <span class="fa fa-check">&nbsp;</span>
       {{message}}
   </div>
 </div>
 
-<div *ngIf="type==2" class="alert alert-error" >
+<div *ngIf="type==2 && hide==0" class="alert alert-error" >
   <div>
       <span class="fa fa-warning">&nbsp;</span>
         {{message}}
   </div>
 </div>
 
-<div *ngIf="type==3" class="alert alert-warning" >
+<div *ngIf="type==3 " class="alert alert-warning" >
   <div>
       <span class="fa fa-info">&nbsp;</span>
       {{message}}

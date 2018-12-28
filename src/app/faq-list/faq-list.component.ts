@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../services/faq.service';
 import { ConfigsDataService } from 'replace/app/services/configs-data.service';
+import { ConstantsData } from '../constants-data';
 
 @Component({
   selector: 'app-faq-list',
@@ -15,6 +16,7 @@ export class FaqListComponent implements OnInit {
   successMessage="FAQ deleted successfully.";
   errorMessage;
   loadingStatus=1;
+  noRecordMessage = ConstantsData.No_FAQ_MESSAGE;
 
   constructor(private faqService : FaqService, private configService: ConfigsDataService) { }
 
