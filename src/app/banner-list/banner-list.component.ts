@@ -73,13 +73,14 @@ export class BannerListComponent implements OnInit {
 
   deleteThis(id, index) {
 
-   // this.popUpObject.open();
+    //const response = this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.DELETE_BANNER_CONFIRMATION);
+    
     const confirmation = confirm("Are you sure, that you want to delete this banner ?");
 
 
     if(confirmation){
       this.bannerService.deleteBanner(id).subscribe(
-        (response:Response) => {
+        (response:Response) => {  
           if(response.status == 200){
             this.actionStatus=1;
             this.successMessage = "Banner deleted successfully";

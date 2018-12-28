@@ -15,4 +15,7 @@ export class ConstantsData{
         "August", "September", "October",
         "November", "December"
       ];
+
+    static ARE_YOU_SURE = "Are you sure ?";
+    static DELETE_BANNER_CONFIRMATION = "You will be not able to use the banner once deleted"
 }

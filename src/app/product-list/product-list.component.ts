@@ -14,6 +14,7 @@ export class ProductListComponent implements OnInit {
   loading =0;
   serverBaseURL;
   noRecordMessage = ConstantsData.noBannerMessage;
+  actionStatus;
 
   constructor(private productService: ProductService, private route :Router) { }
 

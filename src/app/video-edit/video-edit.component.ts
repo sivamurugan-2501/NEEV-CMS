@@ -33,7 +33,9 @@ export class VideoEditComponent implements OnInit {
    downloadable : 0,
    category :0,
    language: 1,
-   url: null
+   url: null,
+   product: 0,
+   event:0
  };
 
 actionStatus = 0;

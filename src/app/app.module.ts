@@ -45,7 +45,6 @@ import { EventAddComponent } from './event-add/event-add.component';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { VideoEditComponent } from './video-edit/video-edit.component';
-import { ProductEditComponent } from './product-edit/product-edit.component';
 import { EventEditComponent } from './event-edit/event-edit.component';
 import { CustomPopupsComponent, NgbdModalComponent} from './custom-popups/custom-popups.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -113,7 +112,7 @@ const routes: Routes =[
             },
             {
               path : "edit-product",
-              component : ProductEditComponent
+              component : ProductAddComponent
             },
             {
               path : "event-list",
@@ -185,7 +184,7 @@ const routes: Routes =[
     BannerAddComponent,
     BannerListComponent,  
     VideoAddComponent, ActionMessageComponent, ProductAddComponent, VideoListComponent, 
-    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent, EventListComponent, VideoEditComponent, ProductEditComponent, EventEditComponent, 
+    ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent, EventListComponent, VideoEditComponent, EventEditComponent, 
     CustomPopupsComponent,
     NgbdModalComponent,
     NotificationEditComponent
