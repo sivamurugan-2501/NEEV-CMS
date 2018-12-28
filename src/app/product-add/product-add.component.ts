@@ -5,6 +5,7 @@ import { ConfigsDataService } from '../services/configs-data.service';
 import { ProductService } from '../services/product.service';
 import { ConstantsData } from '../constants-data';
 import { StorageService } from '../services/storage.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-add',
@@ -106,7 +107,7 @@ export class ProductAddComponent implements OnInit {
 
   instanceId = false;
 
-  constructor(private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService) { }
+  constructor(private route : Router, private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService) { }
 
   ngOnInit() {
     this.loadLanguageList();
@@ -325,6 +326,11 @@ export class ProductAddComponent implements OnInit {
 
             const productBrochurePayload = this.generateProductBrochureData();
             this.updateBrochure(id, productBrochurePayload);
+
+            setTimeout(() => {
+              this.route.navigate(["main","product-list"]);
+            }, 2000);
+           
 
           }
         },

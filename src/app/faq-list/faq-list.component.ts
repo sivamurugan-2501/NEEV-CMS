@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../services/faq.service';
 import { ConfigsDataService } from 'replace/app/services/configs-data.service';
 import { ConstantsData } from '../constants-data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-faq-list',
@@ -18,7 +19,7 @@ export class FaqListComponent implements OnInit {
   loadingStatus=1;
   noRecordMessage = ConstantsData.No_FAQ_MESSAGE;
 
-  constructor(private faqService : FaqService, private configService: ConfigsDataService) { }
+  constructor(private faqService : FaqService, private configService: ConfigsDataService, private route: Router) { }
 
   ngOnInit() {
     this.load();
@@ -58,6 +59,14 @@ export class FaqListComponent implements OnInit {
       );
     }
     
+  }
+
+  editFAQ(id, index){
+      this.route.navigate(["main", "edit-faq"], {
+        queryParams : {
+          "id" : id
+        }
+      });
   }
 
 }

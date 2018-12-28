@@ -42,8 +42,10 @@ export const CONFIGS = {
     "faq":{
       "add" : "/faq/add",
       "list" : "/faq/list",
-      "delete" : "/faq/delete"
-    },
+      "delete" : "/faq/delete",
+      "update" : "/faq/update",
+      "get" : "/faq"
+    }, 
 
     "tgm":{
       "add" : "/tgm/add"

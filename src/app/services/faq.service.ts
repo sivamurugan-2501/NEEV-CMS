@@ -34,4 +34,16 @@ export class FaqService {
 
   } 
 
+  getFAQById(id){
+
+    const url = CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["faq"]["get"]+"/"+id;
+    return this.http.get(url);
+  }
+
+  updateFaq(faqData, id){
+
+    const url = CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["faq"]["update"]+"/"+id;
+    return this.http.post(url, faqData);
+  }
+
 }

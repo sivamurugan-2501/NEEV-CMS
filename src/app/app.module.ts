@@ -49,6 +49,7 @@ import { EventEditComponent } from './event-edit/event-edit.component';
 import { CustomPopupsComponent, NgbdModalComponent} from './custom-popups/custom-popups.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationEditComponent } from './notification-edit/notification-edit.component';
+import { FaqEditComponent } from './faq-edit/faq-edit.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -131,6 +132,11 @@ const routes: Routes =[
               component : FaqAddComponent
             },
             {
+              path : "edit-faq",
+              component : FaqEditComponent
+            },
+            
+            {
               path : "faq-list",
               component : FaqListComponent
             },
@@ -187,7 +193,8 @@ const routes: Routes =[
     ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent, EventListComponent, VideoEditComponent, EventEditComponent, 
     CustomPopupsComponent,
     NgbdModalComponent,
-    NotificationEditComponent
+    NotificationEditComponent,
+    FaqEditComponent
     
   ],
   imports: [
