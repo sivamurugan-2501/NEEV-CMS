@@ -8,6 +8,7 @@ import { Route, Router } from '@angular/router';
 
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-banner-list',
@@ -34,12 +35,17 @@ export class BannerListComponent implements OnInit {
   noRecordMessage = ConstantsData.noBannerMessage;
 
   popUpObject : NgbdModalComponent;
+
+  regions: any=0;
+  region_selected = 0;
   
-  constructor(private authService:AuthService, private bannerService: BannerServiceService, private route:Router,config: NgbModalConfig, private modalService: NgbModal) { 
+  constructor(private storageService: StorageService, private authService:AuthService, private bannerService: BannerServiceService, private route:Router,config: NgbModalConfig, private modalService: NgbModal) { 
 
     this.popUpObject = new NgbdModalComponent(modalService);
 
     this.userData  = authService.loginUserData();
+
+   
 
     try{
       this.userData = JSON.parse(this.userData);
@@ -52,6 +58,13 @@ export class BannerListComponent implements OnInit {
 
   ngOnInit() {  
     this.loadData();
+
+    const regions =this.storageService.getCustomData("REGIONS");
+    try{
+      this.regions = JSON.parse(regions);
+    }catch(e){
+      this.regions = regions;
+    }
     
   }
 
@@ -97,6 +110,16 @@ export class BannerListComponent implements OnInit {
 
   editThis(id){
     this.route.navigate(["main", "edit-banner"], {"queryParams" : {"id": id} });
+  }
+
+  filterData(){
+    //alert(this.region_selected);
+    const region = this.region_selected;
+    const data = this.bannerData.filter( (data:any, index, arr) => {
+       // alert(JSON.stringify(data));
+        return (data.region == region)
+    });
+    console.log(data);
   }
 
 }

@@ -26,7 +26,7 @@ export class VideoEditComponent implements OnInit {
 
  
   
-  videoData = {
+  videoData:any = {
    title : null,
    type : 1,
    videoFile: null,
@@ -35,7 +35,10 @@ export class VideoEditComponent implements OnInit {
    language: 1,
    url: null,
    product: 0,
-   event:0
+   event:0,
+   thumbnailImage : null,
+   file_to_delete: null,
+   videoLink: null
  };
 
 actionStatus = 0;
@@ -43,6 +46,15 @@ successMessage:String = "Success";
 errorMessage = "Something went wrong.";
 instanceId=0;
 languages:any;
+thumbnailId;
+previewImage = null;
+videoLink= null;
+imageRemoved=0;
+videoId=0;
+videoRemoved=0;
+imageError=null;
+
+file_to_delete:Array<Object> = new Array();
 
   constructor(private storageService:StorageService, private videoService: VideoService, private aRoute: ActivatedRoute, private route: Router) { }
 
@@ -80,6 +92,7 @@ languages:any;
 
           if(response.status == 200){
             this.videoData = response.videos;
+            this.createThumbnail(response.baseURL);
           }
 
         }
@@ -106,11 +119,25 @@ languages:any;
             video.append(keys[i], null);
 
           }
-        }else if(keys[i]!="id"){
+        }
+        else if(keys[i]=="thumbnailImage"){
+
+          let file = this.videoData[keys[i]];
+          video.append(keys[i], file, file["name"]);
+        
+        }
+        else if(keys[i]!="id" && keys[i]!="thumbnailId" && keys[i]!="videoId"){
           video.append(keys[i], this.videoData[keys[i]]);
         }
         
       }
+      const file_del_id: Array<any> = (this.file_to_delete) ? this.file_to_delete :null ;
+
+      file_del_id.forEach((element) =>{
+        video.append("file_to_delete[]", element);
+      });
+     
+
       this.videoService.updateVideo(this.instanceId ,video).subscribe(
         //on success
         (response:Response)  => {
@@ -131,6 +158,68 @@ languages:any;
       );
       return false;
 
+  }
+
+
+
+  createThumbnail(baseURL){
+    const image = baseURL+""+ this.videoData.thumbnailImage;
+    this.previewImage = image;
+    //alert(image);
+  }
+
+  removeThumbnail(){
+      this.imageRemoved =1;
+      this.thumbnailId = this.videoData.thumbnailId;
+      
+      this.file_to_delete.push(this.thumbnailId);
+      this.videoData.thumbnailId = null;
+     
+  }
+
+  undoRemovedThumbnail(){
+    this.imageRemoved=0;
+    this.file_to_delete.pop();
+    this.videoData.thumbnailId = this.thumbnailId;
+  }
+
+  createVideoLink(baseURL){
+    const videoLink = baseURL+""+ this.videoData.videoFile;
+    this.videoLink = videoLink;
+  }
+
+  removeVideo(){
+    this.videoRemoved =1;
+    this.videoId = this.videoData.videoId;
+    this.videoData.videoId = null;
+    this.file_to_delete.push(this.videoId);
+  } 
+
+  undoRemovedVideo(){
+    this.videoRemoved=0;
+    this.file_to_delete.pop();
+    this.videoData.videoId = this.videoId;
+  }
+
+
+  onImageChange(event){
+    
+    this.videoData.thumbnailImage = null;
+    this.imageError = null;
+    const file: File  = event.target.files[0];
+    const type = file.type;
+    try{
+      const extension = type.split("/")[1];
+      if(["png", "jpeg", "jpg"].indexOf(extension.toLocaleLowerCase()) > -1){
+        this.videoData.thumbnailImage = file;
+       // alert(this.videoData.thumbnailImage);
+      }else{
+        this.imageError = "Invalid image file, only .png, .jpg and  .jpeg are accepted.";
+        return false;
+      }
+    }catch(e){
+      console.log(e);
+    }
   }
 
 }

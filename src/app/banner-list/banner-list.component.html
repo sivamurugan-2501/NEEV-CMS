@@ -42,6 +42,31 @@
             </div>
              <!-- /.box-header -->
           <div class="box-body">
+            <!-- Select Region -->
+
+            <div class="row">
+
+                <div class="form-group ml-15">
+
+                    <label class="text-info">Region List</label>
+
+                    <div class="controls">
+
+                        <select name="select" id="region-list" required="" class="form-control" aria-invalid="false" (change)="filterData()" [(ngModel)]="region_selected" >
+
+                            <option value="0">Select region</option>
+                            <option *ngFor="let r of regions" value="{{r.id}}">{{r.name}}</option>
+
+                        </select>
+
+                        <div class="help-block"></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
 				<div class="table-responsive">
             <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
               </app-action-message>

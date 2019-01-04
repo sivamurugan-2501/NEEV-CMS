@@ -9,6 +9,7 @@ import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
 
+
 import { NgxEditorModule } from 'ngx-editor';
 
 import { DatepickerModule } from 'ngx-bootstrap/datepicker';

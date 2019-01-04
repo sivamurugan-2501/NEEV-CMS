@@ -18,6 +18,7 @@ export class FaqListComponent implements OnInit {
   errorMessage;
   loadingStatus=1;
   noRecordMessage = ConstantsData.No_FAQ_MESSAGE;
+  answerCol;
 
   constructor(private faqService : FaqService, private configService: ConfigsDataService, private route: Router) { }
 

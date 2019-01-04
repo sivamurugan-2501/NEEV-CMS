@@ -136,15 +136,15 @@
                 <label class="text-info">Link To <span class="text-danger">*</span></label>
                 <div class="controls">
                   <fieldset>
-                    <input name="linkTo" type="radio" id="linkTo1" value="0" required [(ngModel)]="bannerData.linkedTo" >
+                    <input name="linkTo" type="radio" id="linkTo1" [value]="1" required [(ngModel)]="bannerData.linkedTo" >
                     <label for="linkTo1">Video</label>
                   </fieldset>
                   <fieldset>
-                    <input name="linkTo" type="radio" id="linkTo2" value="1" [(ngModel)]="bannerData.linkedTo" >
+                    <input name="linkTo" type="radio" id="linkTo2" [value]="2" [(ngModel)]="bannerData.linkedTo" >
                     <label for="linkTo2">Text</label>
                   </fieldset>
                   <fieldset>
-                      <input name="linkTo" type="radio" id="linkTo3" value="2" [(ngModel)]="bannerData.linkedTo">
+                      <input name="linkTo" type="radio" id="linkTo3" [value]="3" [(ngModel)]="bannerData.linkedTo">
                       <label for="linkTo3">Image</label>
                     </fieldset>
                 </div>

@@ -22,7 +22,7 @@ export class FaqEditComponent implements OnInit {
 
   actionStatus= -1;
 
-  successMessage = "FAQ added successfully.";
+  successMessage = "FAQ updated successfully.";
   errorMessage = "Something went wrong.";
   instanceId=0;
 
@@ -68,7 +68,7 @@ export class FaqEditComponent implements OnInit {
            
             setTimeout(function(){
               __this.route.navigate(["main","faq-list"]);
-            },3000);
+            },1000);
         }
       },
 

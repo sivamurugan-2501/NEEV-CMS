@@ -14,9 +14,9 @@ export class VideoAddComponent implements OnInit {
   categoryOptions = [
     {name :"Select", value: 0},
     {name :"Product", value: 1},
-    {name :"Event", value: 2},
-    {name :"TV Commercials", value: 3},
-    {name :"Others", value: 4}
+   // {name :"Event", value: 2},
+    {name :"TV Commercials", value: 2},
+    {name :"Others", value: 3}
   ]
 
   typeOptions = [
@@ -35,8 +35,11 @@ export class VideoAddComponent implements OnInit {
    language: 1,
    url: null,
    product: 0,
-   event: 0
+   event: 0,
+   thumbnailImage: null
  }
+
+ imageError;
 
 actionStatus = 0;
 successMessage:String = "Success";
@@ -74,6 +77,9 @@ languages:any;
             video.append(keys[i], null);
 
           }
+        }else if(keys[i] == "thumbnailImage"){
+          let file = this.videoData[keys[i]];
+          video.append(keys[i], file, file["name"]);
         }else{
           video.append(keys[i], this.videoData[keys[i]]);
         }
@@ -102,7 +108,27 @@ languages:any;
 
   onFileChange(event){
     const file = this.videoData.videoFile = event.target.files[0]; 
-    alert(event.target.files);
+    //alert(event.target.files);
+  }
+
+
+  onImageChange(event){
+    
+    this.videoData.thumbnailImage = null;
+    this.imageError = null;
+    const file: File  = event.target.files[0];
+    const type = file.type;
+    try{
+      const extension = type.split("/")[1];
+      if(["png", "jpeg", "jpg"].indexOf(extension.toLocaleLowerCase()) > -1){
+        this.videoData.thumbnailImage = file;
+      }else{
+        this.imageError = "Invalid image file, only .png, .jpg and  .jpeg are accepted.";
+        return false;
+      }
+    }catch(e){
+      console.log(e);
+    }
   }
 
 }

@@ -123,9 +123,11 @@ export class EventEditComponent implements OnInit {
         const __this = this;
         this.eventService.updateEvent(this.instanceId, event).subscribe(
             response => {
+              window.scroll(0,0);
               this.actionStatus=1;
-              this.successMessage = "New banner added successfully";
+              this.successMessage = "Event updated successfully";
               const redirect = function(){ __this.route.navigate(["main", "event-list"]); };
+              
               setTimeout(function(){
                 redirect();
               }, 1000);

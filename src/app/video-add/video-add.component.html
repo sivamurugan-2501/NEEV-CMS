@@ -67,7 +67,8 @@
 
 
              <div class="form-group">
-                  <h5>Language<span class="text-danger">*</span></h5>
+                 
+                  <label class="text-info">Language<span class="text-danger">*</span></label>
                   <div class="controls">
                     <select name="language" id="language" required class="form-control" #language="ngModel" [(ngModel)]="videoData.language" >
                         <option value="0">Select</option>
@@ -83,7 +84,7 @@
                 </div>
 
              <div class="form-group">
-               <h5>Title <span class="text-danger">*</span></h5>
+                <label class="text-info">Title<span class="text-danger">*</span></label>
                <div class="controls">
                  <input type="text" name="title"  [(ngModel)]="videoData.title" class="form-control" required data-validation-required-message="This field is required"> </div>
                <!---div class="form-control-feedback"><small>Add <code>required</code> attribute to field for required validation.</small></div>
@@ -92,16 +93,29 @@
 
 
               <div class="form-group">
-                <h5>Category<span class="text-danger">*</span></h5>
+                  <label class="text-info">Category<span class="text-danger">*</span></label>
                 <div class="controls">
                   <select name="category" id="category" required class="form-control" [(ngModel)]="videoData.category" >
                       <option *ngFor="let t of categoryOptions" value="{{t.value}}">{{t.name}}</option>
                   </select>
                 </div>
               </div>
+
+              <div class="form-group">
+                  <label class="text-info">Upload Thumbnail Image<span class="text-danger">*</span></label>
+                  <div class="controls">
+                    <input type="file" name="file" #thumbnailFile="ngModel" class="form-control" [(ngModel)]="videoData.thumbnailImage" required (change)="onImageChange($event)"> </div>
+                    <div class="form-control-feedback" *ngIf="thumbnailFile.invalid && (thumbnailFile.dirty || thumbnailFile.touched)">
+                        <code *ngIf="thumbnailFile.errors.required">Missing video thumbnail</code>
+                     </div>
+                     <div class="form-control-feedback" *ngIf="thumbnailFile.invalid && (thumbnailFile.dirty || thumbnailFile.touched)">
+                        <code *ngIf="thumbnailFile.errors.invalid">{{imageError}}</code>
+                      <code *ngIf="imageError">{{imageError}}</code>
+                   </div>
+                </div>
   
               <div class="form-group">
-                  <h5>Upload Type<span class="text-danger">*</span></h5>
+                  <label class="text-info">Video Upload Type<span class="text-danger">*</span></label>
                   <div class="controls">
                     <select name="uploadType" id="uploadType" required class="form-control" [(ngModel)]="videoData.type" >
                         <option *ngFor="let t of typeOptions" value="{{t.value}}">{{t.name}}</option>
@@ -110,26 +124,26 @@
                 </div>
               
                 <div *ngIf="videoData.type==1" class="form-group">
-                  <h5>Upload file<span class="text-danger">*</span></h5>
+                    <label class="text-info">Upload File<span class="text-danger">*</span></label>
                   <div class="controls">
                     <input type="file" name="videFile" class="form-control" required (change)="onFileChange($event)"> </div>
                 </div>
   
              <div *ngIf="videoData.type==2" class="form-group">
-               <h5>URL<span class="text-danger">*</span></h5>
+                <label class="text-info">Video URL<span class="text-danger">*</span></label>
                <div class="controls">
                  <input type="url" name="path" class="form-control" required data-validation-required-message="This field is required" [(ngModel)]="videoData.url"> </div>
              </div>
   
              <div class="form-group">
-                <h5>Downloadable<span class="text-danger">*</span></h5>
+                <label class="text-info">Downloadable<span class="text-danger">*</span></label>
                 <div class="controls">
                   <fieldset>
-                    <input name="linkTo" type="radio" id="downloadable1" value=1 required [(ngModel)]="videoData.downloadable" >
+                    <input name="linkTo" type="radio" id="downloadable1" [value]=1 required [(ngModel)]="videoData.downloadable" >
                     <label for="downloadable1">Yes</label>
                   </fieldset>
                   <fieldset>
-                    <input name="linkTo" type="radio" id="downloadable2" value=0 [(ngModel)]="videoData.downloadable" >
+                    <input name="linkTo" type="radio" id="downloadable2" [value]=0 [(ngModel)]="videoData.downloadable" >
                     <label for="downloadable2">No</label>
                   </fieldset>
     

@@ -133,7 +133,8 @@
                   <p class="help-block text-red">Optimized image with proper size and extension.</p>
 
                   <div class="help-block"></div>
-                  <div class="form-control-feedback" *ngIf="(image.dirty || image.touched)">
+                  <div class="form-control-feedback" *ngIf="image.invalid">
+                    <code *ngIf="image.errors.required">Image required</code>
                     <code *ngIf="imageError">{{imageError}}</code>
                  </div>
 

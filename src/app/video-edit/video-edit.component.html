@@ -108,7 +108,38 @@
                       </select>
                     </div>
                   </div>
+
+                  <div class="form-group" *ngIf="!videoData.thumbnailId  || imageRemoved==1">
+                      <label class="text-info">Upload Thumbnail Image<span class="text-danger">*</span></label>
+                      <div class="controls">
+                        <input type="file" name="file" #thumbnailFile="ngModel" class="form-control" [(ngModel)]="videoData.thumbnailImage" required (change)="onImageChange($event)"> </div>
+                        <div class="form-control-feedback" *ngIf="thumbnailFile.invalid && (thumbnailFile.dirty || thumbnailFile.touched)">
+                            <code *ngIf="thumbnailFile.errors.required">Missing video thumbnail</code>
+                         </div>
+                         <div class="form-control-feedback" *ngIf="thumbnailFile.invalid ">
+                            <code *ngIf="thumbnailFile.errors.invalid">{{imageError}}</code>
+                            <code *ngIf="thumbnailFile.errors.required">Video thumbnail missing</code>
+                          <code *ngIf="imageError">{{imageError}}</code>
+                       </div>
+                    </div>
+
+
+                    
+                <div *ngIf="videoData.thumbnailId && videoData.thumbnailId>0 && imageRemoved==0" class="form-group">
+                    <label class="text-info">Uploaded Thumbnail Image<span class="text-danger">*</span></label>
+                    <div *ngIf="previewImage" class="col-md-2">
+                        <div>
+                          <img src="{{previewImage}}" style="width:100%"> 
+                          <div class="remove" (click)="removeThumbnail()"> <code> Remove </code></div>
+                        </div>
+                     </div>
+                </div>
                 
+                <div *ngIf=" imageRemoved==1" class="form-group">
+                    <div class="remove" (click)="undoRemovedThumbnail()"> <code> Undo Deleted Image </code></div>
+                </div>
+    
+
                   <div *ngIf="videoData.type==1" class="form-group">
                     <h5>Upload file<span class="text-danger">*</span></h5>
                     <div class="controls">

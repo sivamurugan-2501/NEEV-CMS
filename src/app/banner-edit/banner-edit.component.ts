@@ -129,10 +129,11 @@ export class BannerEditComponent implements OnInit {
         {
           banner.append(keys[i], this.bannerData[keys[i]]);
         }
-        const file_del_id: any = (this.file_to_delete[0]) ? this.file_to_delete[0] :null ;
-        banner.append("file_to_delete", file_del_id);
+        
         //console.log(banner);
       }
+      const file_del_id: any = (this.file_to_delete[0]) ? this.file_to_delete[0] :null ;
+      banner.append("file_to_delete", file_del_id);
       //console.log(banner);
 
       //return false;
@@ -140,11 +141,11 @@ export class BannerEditComponent implements OnInit {
       this.bannerService.editBanner(banner, this.instanceId).subscribe(
         response => {
           this.actionStatus=1;
-          this.successMessage = "New banner added successfully";
+          this.successMessage = "Banner updated successfully";
           const redirect = function(){ __this.route.navigate(["main", "banner-list"]); };
           setTimeout(function(){
             redirect();
-          }, 4000);
+          }, 1000);
         },
         error => {
           this.actionStatus = 2;
