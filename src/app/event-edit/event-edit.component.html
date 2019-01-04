@@ -90,7 +90,7 @@
 
                           <small class="sidetitle">dd/mm/yyyy</small>
 
-                          <input class="form-control" name="when_date" type="date" required minlength=4 maxlength=300 #eData="ngModel" [(ngModel)]="when_date">
+                          <input class="form-control" name="when_date" type="date" required  #eData="ngModel" [(ngModel)]="when_date">
                             
                           <div class="form-control-feedback" *ngIf="eData.invalid && (eData.dirty || eData.touched)">
                             <code *ngIf="eData.errors.required">Missing date</code>
@@ -108,7 +108,7 @@
 
                           <small class="sidetitle">hh:mm</small>
 
-                          <input class="form-control" type="time" name="time"  minlength=4 maxlength=6 #eTime="ngModel" [(ngModel)]="when_time">
+                          <input class="form-control" type="time" name="time"  #eTime="ngModel" [(ngModel)]="when_time">
 
                       </div>
 

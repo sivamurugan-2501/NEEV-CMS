@@ -81,6 +81,7 @@ export class EventEditComponent implements OnInit {
 
   loadData(id){
     //alert("load");
+    this.when_time = "02:05";
     this.eventService.getById(id).subscribe(
 
       (response:any) => {
@@ -159,9 +160,14 @@ export class EventEditComponent implements OnInit {
 
     formatWhenDate(when_date){
       
-      const when_date_formatted =  formatDate(when_date, "mm/dd/yyyy", "en-US");
+      let when_time = when_date.split(" ");
+      this.when_time = (when_time && when_time[1]) ? when_time[1] : null;
+
+      const when_date_formatted =  formatDate(when_date, "yyyy-MM-dd", "en-US");
       
-      this.eventData.when_date = "29/12/2018";when_date_formatted;
+      //alert(when_date_formatted);
+      this.eventData.when_date =   this.when_date = when_date_formatted;
+
 
     }
 
