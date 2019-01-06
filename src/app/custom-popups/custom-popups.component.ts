@@ -14,7 +14,10 @@ export class CustomPopupsComponent implements OnInit {
   @Input() subMessage = null;
   //@Input() buttons = null;
   @Output() userResponse = new EventEmitter();
-  userResponse1="no set";
+  @Input() userResponse1=-1;
+
+  callbackFunction:Function;
+  callbackFunctionParams:Array<Object>;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, public activeModal: NgbActiveModal  ) { 
     config.backdrop = 'static';
@@ -26,8 +29,13 @@ export class CustomPopupsComponent implements OnInit {
   }
 
   sendResponse(response){
-    this.userResponse.emit(response);
-    this.userResponse1 = "et";
+   
+    //this.userResponse1 = response;
+    if(response){
+      const params = this.callbackFunctionParams;
+      this.callbackFunction(...params);
+    }
+    
     this.activeModal.close();
   }
 }
@@ -39,13 +47,18 @@ export class CustomPopupsComponent implements OnInit {
 export class NgbdModalComponent {
   constructor(private modalService: NgbModal) {}
   modalRef;
-  open(mainMessage:string, subMessage:string) {
+  open(mainMessage:string, subMessage:string, funcs:any) {
 
     this.modalRef  = this.modalService.open(CustomPopupsComponent, { centered: true });
     this.modalRef.componentInstance.name = 'World';
     this.modalRef.componentInstance.mainMessage = mainMessage;
     this.modalRef.componentInstance.subMessage = subMessage;
+    this.modalRef.componentInstance.callbackFunction = funcs.callback;
+    this.modalRef.componentInstance.callbackFunctionParams = funcs.params;
+  
+  
     return this.modalRef;
+    
   }
 
   getResponse(){

@@ -696,6 +696,23 @@ export class ProductAddComponent implements OnInit {
 
   }
 
+  removeColumn(category,index){
+
+      const categoryList =[
+        "engine", "clutch", "suspension", "steering", "tyres"
+      ];
+
+      const categroy_name = categoryList[category];
+      //alert(categroy_name);
+
+      if(categroy_name!==undefined && this.productData_specification[categroy_name].length <= this.max_specs_columns ){
+
+        this.productData_specification[categroy_name].splice(index,1)
+      
+      }
+
+  }
+
 
 }
 

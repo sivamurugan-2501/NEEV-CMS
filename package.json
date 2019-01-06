@@ -26,6 +26,7 @@
     "@angular/router": "^6.0.3",
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "@ngx-pwa/local-storage": "^6.2.0",
+    "angular-6-datatable": "^0.8.0",
     "angular-local-storage": "^0.7.1",
     "core-js": "^2.5.4",
     "express": "^4.16.4",

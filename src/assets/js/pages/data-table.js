@@ -1,4 +1,4 @@
-//[Data Table Javascript]
+/* //[Data Table Javascript]
 
 
 
@@ -140,27 +140,8 @@ $(function () {
 
 	var table = $('#example6').DataTable();
 
-    $(document).on("ready", function(){
-        var table = $('#example6').DataTable();
-    });
- 
+    
 
-   /*  $('button').click( function() {
-
-        var data = table.$('input, select').serialize();
-
-        alert(
-
-            "The following data would have been submitted to the server: \n\n"+
-
-            data.substr( 0, 120 )+'...'
-
-        );
-
-        return false;
-
-    } );
- */
 	
 
 	
@@ -170,3 +151,33 @@ $(function () {
 	
 
   }); // End of use strict
+
+ */
+  function setDataTable(){
+      
+    $('.as-data-table').DataTable( {
+
+		dom: 'Bfrtip',
+
+		buttons: [
+
+			'copy', 'csv', 'excel', 'pdf', 'print'
+
+		]
+
+    } );
+    
+
+    $('.as-data-table-2').DataTable( {
+
+		dom: 'Bfrtip',
+
+		buttons: [
+
+			
+
+		]
+
+	} );
+
+  }

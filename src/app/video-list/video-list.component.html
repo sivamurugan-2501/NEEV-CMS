@@ -55,21 +55,34 @@
             <table id="example" *ngIf="videoData && videoData.length>0" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
             <thead>
               <tr>
+                <th>#</th>
                 <th>Title</th>
-                <th>Type</th>
+                <th>Category</th>
+                <th>Thumbnail</th>
                 <th>Video Link</th>
+                <th>Date</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let data of this.videoData; let i=index">
+                  <td>{{i+1}}</td>
                 <td>{{data.title}}</td>
                 
-                <td *ngIf="data.type==1"> File </td>
-                <td *ngIf="data.type==2"> URL </td>
+                <td *ngIf="data.category==0" >Product</td>
+                <td *ngIf="data.category==1" >TV Commercial</td>
+                <td *ngIf="data.category==2" >Others</td>
+
+                <td *ngIf="data.thumbnailFile"> <img src="{{serverBaseURL}}{{data.thumbnailFile}}" alt="Not Found" width="80">  </td>
+                <td *ngIf="!data.thumbnailFile">Not Available</td>
+
+                <td *ngIf="data.type==2"> {{data.url}} </td>
+                <td *ngIf="data.type==1"> 
+                  <a href="{{serverBaseURL}}{{data.videoPath }}" target="_blank"> {{data.actual_video_name}} </a>
+                </td>
   
-                <td *ngIf="data.type==1"> {{serverBaseURL}}{{data.video_path}}</td>
-                <td *ngIf="data.type==2"> {{data.url}}</td>
+                <td> {{data.created_at | date:medium }}   </td>
+
   
                 <!--td>
                   <span class="action-icon edit fa fa-times" alt="Edit" title="Edit"> </span>

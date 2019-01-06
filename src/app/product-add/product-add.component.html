@@ -332,7 +332,7 @@
 
                                                                             <!-- /row -->
 
-                                                                            <div class="form-group">
+                                                                            <!-- <div class="form-group">
 
                                                                                 <label class="text-info">Product Gallery Title</label>
 
@@ -341,7 +341,7 @@
                                                                                 <div class="form-control-feedback" *ngIf="galleryTitle.invalid &&  (galleryTitle.dirty || galleryTitle.touched) ">
                                                                                         <code *ngIf="galleryTitle.errors.required">Gallery title missing</code>
                                                                                      </div>
-                                                                            </div>
+                                                                            </div> -->
 
 
 
@@ -351,7 +351,7 @@
 
                                                                                 <div class="input-group input-group-sm">
 
-                                                                                    <input type="file" class="form-control" name="gall_images" #galleryimages="ngModel"   [(ngModel)]="productData_gallery.images" required (change)="onImageSelect($event, false,3)">
+                                                                                    <input type="file" class="form-control" multiple name="gall_images" #galleryimages="ngModel"   [(ngModel)]="productData_gallery.images" required (change)="onImageSelect($event, false,3)">
                                                                                     
                                                                                     <div class="form-control-feedback" *ngIf="galleryimages.dirty || galleryimages.touched">
                                                                                         <code *ngIf="!productData_gallery.images">Missing gallery images</code>
@@ -445,11 +445,11 @@
 
                                                                         
 
-                                                                        <div class="form-group">
+                                                                        <div class="form-group hide">
 
                                                                             <label class="text-info">Title</label>
 
-                                                                            <input type="text" class="form-control" name="video_title" placeholder="Product Video Title" required #videoTitle="ngModel" [(ngModel)]= "productData_video.title" />
+                                                                            <input type="text" class="form-control" name="video_title" placeholder="Product Video Title" required #videoTitle="ngModel" [(ngModel)]= "productData_video.title" value="{{productData_1.title}} video"/>
 
                                                                             <div class="form-control-feedback" *ngIf="videoTitle.invalid && (videoTitle.dirty || videoTitle.touched)">
                                                                                 <code *ngIf="videoTitle.errors.required">Missing video title</code>
@@ -643,6 +643,17 @@
                                                                                 </div>
                                                                             </div>
 
+                                                                            <div class="col-md-12" *ngIf="productData_specification['engine'].length>1 && productData_specification['engine'][i] && i>0">
+                                                                                    <div class="form-group">
+                                                                                            <div class="">
+                                                                                                <span class="input-group-btn">
+                                                                                                        <button type="button" class="btn btn-md btn-danger my-10 pull-right" (click)="removeColumn(0,i)"> Remove</button>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                
+                                                                                    </div>
+                                                                                </div>
+
                                                                         </div>
                                                                         <div class="form-group">
                                                                                 <div class="">
@@ -735,6 +746,17 @@
                 
                                                                                             </div>
                 
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-12" *ngIf="productData_specification['clutch'].length>1 && productData_specification['clutch'][i] && i>0">
+                                                                                    <div class="form-group">
+                                                                                            <div class="">
+                                                                                                <span class="input-group-btn">
+                                                                                                        <button type="button" class="btn btn-md btn-danger my-10 pull-right" (click)="removeColumn(1,i)"> Remove</button>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                
                                                                                     </div>
                                                                                 </div>
     
@@ -858,6 +880,17 @@
                     
                                                                                         </div>
                                                                                     </div>
+
+                                                                                    <div class="col-md-12" *ngIf="productData_specification['suspension'].length>1 && productData_specification['suspension'][i] && i>0">
+                                                                                            <div class="form-group">
+                                                                                                    <div class="">
+                                                                                                        <span class="input-group-btn">
+                                                                                                                <button type="button" class="btn btn-md btn-danger my-10 pull-right" (click)="removeColumn(2,i)"> Remove</button>
+                                                                                                        </span>
+                                                                                                    </div>
+                                                                                        
+                                                                                            </div>
+                                                                                        </div>
                                                                                     
                                                                                 </div>
                                                                                 <div class="form-group">
@@ -936,6 +969,17 @@
                         
                                                                                             </div>
                                                                                         </div>
+
+                                                                                        <div class="col-md-12" *ngIf="productData_specification['tyres'].length>1 && productData_specification['tyres'][i] && i>0">
+                                                                                                <div class="form-group">
+                                                                                                        <div class="">
+                                                                                                            <span class="input-group-btn">
+                                                                                                                    <button type="button" class="btn btn-md btn-danger my-10 pull-right" (click)="removeColumn(4,i)"> Remove</button>
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                            
+                                                                                                </div>
+                                                                                            </div>
             
                                                                                     </div>
                                                                                     
@@ -1034,6 +1078,18 @@
                             
                                                                                                 </div>
                                                                                             </div>
+
+                                                                                            <div class="col-md-12" *ngIf="productData_specification['steering'].length>1 && productData_specification['steering'][i] && i>0">
+                                                                                                    <div class="form-group">
+                                                                                                            <div class="">
+                                                                                                                <span class="input-group-btn">
+                                                                                                                        <button type="button" class="btn btn-md btn-danger my-10 pull-right" (click)="removeColumn(3,i)"> Remove</button>
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                
+                                                                                                    </div>
+                                                                                                </div>
+                
                 
                                                                                         </div>
              

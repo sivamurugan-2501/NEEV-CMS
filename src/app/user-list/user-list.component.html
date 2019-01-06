@@ -88,7 +88,7 @@
         
                         <app-action-message *ngIf="!allUserData || allUserData.length==0 && (loaded==1)" [type]="3" [message]="noRecordMessage" >
                         </app-action-message>
-				  <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+				  <table id="example" class="as-data-table table table-bordered table-hover display nowrap margin-top-10 w-p100">
 
 					<thead>
 
@@ -103,7 +103,7 @@
 							<th>Contact No</th>
 
                             <th>Date of Birth</th>
-                            <th>Status</th>
+                            <!-- <th>Status</th> -->
 
 							<th>Actions</th>
 
@@ -124,10 +124,10 @@
 							<td>{{user.mobile}}</td>
 
                             <td>{{user.birth_date}}</td>
-                            
+                            <!--
                             <td *ngIf="user.status ==1">Active</td>
                             <td *ngIf="user.status ==0">Suspended</td>
-
+                                -->
 							<td>
 
                                 <div class="media-right gap-items">

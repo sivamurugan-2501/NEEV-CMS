@@ -10,6 +10,8 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/custom-popups.component';
 import { StorageService } from '../services/storage.service';
 
+declare function setDataTable():any;
+
 @Component({
   selector: 'app-banner-list',
   templateUrl: './banner-list.component.html',
@@ -28,6 +30,7 @@ export class BannerListComponent implements OnInit {
   };
 
   bannerData: Array<Object>;
+  bannerData_actual : Array<Object>;
 
   actionStatus: number = -1;
   successMessage = "Success";
@@ -66,11 +69,12 @@ export class BannerListComponent implements OnInit {
       this.regions = regions;
     }
     
+    setDataTable();
   }
 
   loadData(){
     
-
+    
     this.payload.requestor = this.userId;
     this.payload.source =1;
     this.payload.maximum = null;
@@ -79,20 +83,26 @@ export class BannerListComponent implements OnInit {
     this.bannerService.getBannerList(this.payload).subscribe( (response: BannerlistResponse) => {
         if(response.status == 200){
           this.serverBaseURL =  response.baseURL;
-          this.bannerData = response.banners;
+          this.bannerData =  this.bannerData_actual = response.banners;
         }
     });
   }
 
+  testFn(id){
+    alert(id);
+  }
+
   deleteThis(id, index) {
 
-    //const response = this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.DELETE_BANNER_CONFIRMATION);
+    const response = this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.DELETE_BANNER_CONFIRMATION, {
+      "callback" : this.delete,
+      "params" : [id, index, this]});
     
-    const confirmation = confirm("Are you sure, that you want to delete this banner ?");
+    const confirmation = 1; //confirm("Are you sure, that you want to delete this banner ?");
 
 
     if(confirmation){
-      this.bannerService.deleteBanner(id).subscribe(
+      /* this.bannerService.deleteBanner(id).subscribe(
         (response:Response) => {  
           if(response.status == 200){
             this.actionStatus=1;
@@ -104,9 +114,30 @@ export class BannerListComponent implements OnInit {
             this.actionStatus = 2;
             this.errorMessage = "Something went wrong";
         }
-      );
-    }
+      );*/
+    } 
   }
+
+  // used as callback function in custompopup component
+  delete(id, index, __this){
+    alert(id);
+    alert(index);
+    __this.bannerService.deleteBanner(id).subscribe(
+      (response:Response) => {  
+        if(response.status == 200){
+          __this.actionStatus=1;
+          __this.successMessage = "Banner deleted successfully";
+          __this.bannerData.splice(index,1);
+        }
+      },
+      (error) => {
+        __this.actionStatus = 2;
+        __this.errorMessage = "Something went wrong";
+      }
+    );
+  }
+  
+
 
   editThis(id){
     this.route.navigate(["main", "edit-banner"], {"queryParams" : {"id": id} });
@@ -120,6 +151,19 @@ export class BannerListComponent implements OnInit {
         return (data.region == region)
     });
     console.log(data);
+  }
+
+  filterAsRegion(){
+    const region = this.region_selected;
+    if(region> 0 ){
+      this.bannerData = this.bannerData_actual.filter( (data:any) => {
+         //alert(JSON.stringify(data));
+         return (data.region == region );
+      });
+    }else{
+      this.bannerData = this.bannerData_actual;
+    }
+
   }
 
 }

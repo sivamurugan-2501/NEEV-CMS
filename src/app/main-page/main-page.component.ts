@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+declare function setDataTable():any;
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
+  
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

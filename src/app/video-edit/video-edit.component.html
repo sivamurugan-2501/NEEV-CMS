@@ -156,11 +156,11 @@
                   <h5>Downloadable<span class="text-danger">*</span></h5>
                   <div class="controls">
                     <fieldset>
-                      <input name="linkTo" type="radio" id="downloadable1" value=1 required [(ngModel)]="videoData.downloadable" >
+                      <input name="linkTo" type="radio" id="downloadable1" [value]=1 required [(ngModel)]="videoData.downloadable" >
                       <label for="downloadable1">Yes</label>
                     </fieldset>
                     <fieldset>
-                      <input name="linkTo" type="radio" id="downloadable2" value=0 [(ngModel)]="videoData.downloadable" >
+                      <input name="linkTo" type="radio" id="downloadable2" [value]=0 [(ngModel)]="videoData.downloadable" >
                       <label for="downloadable2">No</label>
                     </fieldset>
       

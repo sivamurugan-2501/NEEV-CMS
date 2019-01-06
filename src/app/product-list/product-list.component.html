@@ -42,6 +42,34 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+
+                <div class="row">
+
+                    <div class="form-group ml-15">
+
+                        <label class="text-info">Select Products</label>
+
+                        <div class="controls">
+
+                            <select name="select" id="category-list" name="category-list" required="" class="form-control" aria-invalid="false" [(ngModel)]="category_selected" (change)= "filterOnCategory()" > 
+
+                                <option value=0>ALL</option>
+
+                                <option value=1>Cargo</option>
+
+                                <option value=2>Passenger</option>
+
+
+
+                            </select>
+
+                            <div class="help-block"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
         <div class="table-responsive">
             <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
               </app-action-message>
@@ -52,23 +80,28 @@
                 <app-action-message *ngIf="loading==1 && (!products || products.length==0)" [type]="3" [message]="noRecordMessage" >
                 </app-action-message>
 
-          <table id="example" *ngIf="products && products.length>0" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+          <table id="example" *ngIf="products && products.length>0" class="as-data-table-2 table table-bordered table-hover display nowrap margin-top-10 w-p100">
           <thead>
             <tr class="bg-secondary">
+              <th>#</th>
+              <th>Logo</th>
               <th>Name</th>
               <th>Category</th>
-              <th>Logo</th>
+              <th>Date</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let data of products; let i=index">
+                <td>{{i+1}}</td>
+                <td ><img src="{{serverBaseURL}}{{data.logo}}" width="80"></td>
               <td>{{data.title}}</td>
               
               <td *ngIf="data.category==1"> Cargo </td>
               <td *ngIf="data.category==2"> Passenger </td>
 
-              <td ><img src="{{serverBaseURL}}{{data.logo}}" width="80"></td>
+              <td> {{data.created_at | date:medium}} </td>
+
 
               <!--td>
                 <span class="action-icon edit fa fa-times" alt="Edit" title="Edit"> </span>
@@ -84,14 +117,7 @@
               </td>
             </tr>
           </tbody>				  
-          <tfoot>
-            <tr>
-                <th>Title</th>
-                <th>Type</th>
-                <th>URL</th>
-                <th>Action</th>
-              </tr>
-          </tfoot>
+          
         </table>
         </div>              
             </div>

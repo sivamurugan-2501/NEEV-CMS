@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import { ConstantsData } from '../constants-data';
 
 @Component({
   selector: 'app-sidemenu',
@@ -10,12 +13,20 @@ import { Router } from '@angular/router';
 })
 export class SidemenuComponent implements OnInit {
 
-  constructor(private storageService: StorageService, private authService: AuthService, private route:Router) { }
 
   userData:any;
   user_first_name;
   user_last_name;
   user_email;
+
+  popUpObject : NgbdModalComponent;
+
+  constructor(private storageService: StorageService, private authService: AuthService, private route:Router, private modalService: NgbModal) {
+    this.popUpObject = new NgbdModalComponent(modalService);
+   }
+
+
+
 
   ngOnInit() {
 
@@ -34,11 +45,17 @@ export class SidemenuComponent implements OnInit {
 
   logout(){
 
-    const confirmation =confirm("Are you sure you want to logout ?");
-    if(confirmation){
-      this.authService.logout();
-      this.route.navigate(["login"]);
-    }
+
+    const response = this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.LOGOUT_CONFIRMATION, {
+      "callback" : this.logout_do,
+      "params" : [this]});
+      
+  }
+
+
+  logout_do(_this){
+    _this.authService.logout();
+    _this.route.navigate(["login"]);
   }
 
 }

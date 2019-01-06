@@ -60,7 +60,7 @@ export class SendNotificationComponent implements OnInit {
                 this.actionStatus=1;
                 const __this= this;
                 setTimeout(function(){
-                  __this.route.navigate(["main-add","notification-list"]);
+                  __this.route.navigate(["main","notification-list"]);
                 }, 3000);
 
             }else{

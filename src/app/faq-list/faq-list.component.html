@@ -8,7 +8,7 @@
 
           <div class="mr-auto">
 
-              <h3 class="page-title">FAQW </h3>
+              <h3 class="page-title">FAQ</h3>
 
               <div class="d-inline-block align-items-center">
 
@@ -124,7 +124,7 @@
                                 
                                         <div class="panel" *ngFor="let data of faqs; let i=index">
                                 
-                                          <div class="flexbox align-items-center panel-heading" id="question-{{i}}" role="tab">
+                                          <div class="flexbox align-items-center panel-heading " id="question-{{i}}" role="tab">
                                 
                                             <div><a class="panel-title font-weight-bold d-inline-block align-items-center" aria-controls="answerCol" aria-expanded="false" data-toggle="collapse" href="#answer-{{i}}" data-parent="#accordion2">
                                 
@@ -143,7 +143,7 @@
                                             </div>
                                           </div>
                                 
-                                          <div class="panel-collapse collapse show" id="answer-1" aria-labelledby="question-1" role="tabpanel">
+                                          <div class="panel-collapse collapse" id="answer-{{i}}" aria-labelledby="question-1" role="tabpanel">
                                 
                                             <div class="panel-body">
                                 

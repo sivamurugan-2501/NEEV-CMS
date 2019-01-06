@@ -52,9 +52,9 @@
 
                     <div class="controls">
 
-                        <select name="select" id="region-list" required="" class="form-control" aria-invalid="false" (change)="filterData()" [(ngModel)]="region_selected" >
+                        <select name="select" id="region-list" required="" class="form-control" aria-invalid="false" (change)="filterAsRegion()" [(ngModel)]="region_selected" >
 
-                            <option value="0">Select region</option>
+                            <option value="0">All</option>
                             <option *ngFor="let r of regions" value="{{r.id}}">{{r.name}}</option>
 
                         </select>
@@ -76,24 +76,28 @@
 
                 <app-action-message *ngIf="!bannerData || bannerData.length==0" [type]="3" [message]="noRecordMessage" >
                 </app-action-message>
-				  <table *ngIf="bannerData && bannerData.length>0" id="example" class="table table-hover no-wrap product-order" >
+				  <table *ngIf="bannerData && bannerData.length>0" id="example" class="as-data-table table table-hover no-wrap product-order" >
 					<thead>
 						<tr  class="bg-secondary">
-							<th>Caption</th>
-							<th>Type</th>
-							<th>Image</th>
+              <th> #</th>
+              <th>Image</th>
+              <th>Caption</th>
+							<th>Date</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr *ngFor="let data of this.bannerData; let i=index">
-              <td>{{data.caption}}</td>
-              
-              <td *ngIf="data.type==1"> File </td>
-              <td *ngIf="data.type==2"> URL </td>
-
+              <td> {{i+1}} </td>
               <td *ngIf="data.type==1"> <img src='{{serverBaseURL}}{{data.upload_path}}' style="width:75px;"> </td>
               <td *ngIf="data.type==2"> <img src='{{data.path}}' style="width:75px;"> </td>
+
+              <td>{{data.caption}}</td>
+              <td>{{data.created_at | date : medium}}</td>
+              <!-- <td *ngIf="data.type==1"> File </td>
+              <td *ngIf="data.type==2"> URL </td> -->
+
+             
 
 							<td>
                 <!-- <span class="action-icon edit fa fa-edit" alt="Edit" title="Edit" (click)="editThis(data.id, i)"> </span>
@@ -106,18 +110,23 @@
                 <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger" data-original-title="Delete" data-toggle="tooltip" (click)="deleteThis(data.id, i)">
                     <i class="ti-trash"></i>
                 </a>
+
+                <a href="{{serverBaseURL}}{{data.upload_path}}" target="_blank" class="btn btn-icon-circle btn-nblue" data-original-title="View" data-toggle="tooltip" >
+                    <i class="ti-eye"></i>
+                </a>
+
               </td>
 
 						</tr>
 					</tbody>				  
-					<tfoot>
+	<!-- 				<tfoot>
 						<tr>
                 <th>Caption</th>
                 <th>Type</th>
                 <th>Image</th>
                 <th>Action</th>
               </tr>
-					</tfoot>
+					</tfoot> -->
 				</table>
 				</div>              
             </div>
