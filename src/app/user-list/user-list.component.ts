@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TgmService } from '../services/tgm.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -8,10 +9,18 @@ import { TgmService } from '../services/tgm.service';
 })
 export class UserListComponent implements OnInit {
 
-  tgmUsers : any= new Array();
-  tsmUsers : any= new Array();
+  tgmUsers : Array<Object>= new Array();
+  tsmUsers : Array<Object>= new Array();
 
-  constructor(private userService: TgmService) { }
+  actionStatus =0;
+  successMessage = "User deleted successfully.";
+  errorMessage = "Somethig went wrong.";
+
+  allUserData: Array<Object>;
+  noRecordMessage = "No user available.";
+  loaded=0;
+
+  constructor(private userService: TgmService, private route: Router) { }
 
   ngOnInit() {
      this.load();
@@ -37,11 +46,50 @@ export class UserListComponent implements OnInit {
         
         if(response.status==200){
             this.tsmUsers = response.data;
+            this.allUserData = this.tgmUsers.concat(this.tsmUsers);
+            this.loaded=1;
+            console.log(this.allUserData);
         }
 
       },
       (error) => {
 
+      }
+    );
+  }
+
+
+
+  editUser(id){
+    this.route.navigate(["main","edit-user"], {
+      queryParams : {
+        "id" : id
+      }
+    });
+  }
+
+  deleteUser(id, index){
+
+    const confirmation = window.confirm("Are you sure, you want to delete ?");
+
+    if(!confirmation){
+      return false;
+    }
+
+    this.userService.deleteUser(id).subscribe(
+      (response:any) => {
+        if(response.status == 200){
+            this.actionStatus = 1;
+            //alert(index);
+            //alert(this.allUserData[index]);
+            this.allUserData[index]["status"] =0;
+        }else{
+          this.actionStatus = 2;
+        }
+      },
+
+      (error) => {
+          this.actionStatus = 2;
       }
     );
   }

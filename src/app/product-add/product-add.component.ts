@@ -5,7 +5,10 @@ import { ConfigsDataService } from '../services/configs-data.service';
 import { ProductService } from '../services/product.service';
 import { ConstantsData } from '../constants-data';
 import { StorageService } from '../services/storage.service';
-import { Route, Router } from '@angular/router';
+import { Route, Router, ActivatedRoute } from '@angular/router';
+import { Action } from 'ngx-bootstrap';
+
+import { ProductEdit } from './product-edit';
 
 @Component({
   selector: 'app-product-add',
@@ -41,6 +44,7 @@ export class ProductAddComponent implements OnInit {
   }
 
   feature_json =  {
+    id: null,
     title : null,
     image :  null,
     description : null
@@ -106,10 +110,24 @@ export class ProductAddComponent implements OnInit {
   errorMessages = new Array(5);
 
   instanceId = false;
+  productDetails:any= null;
 
-  constructor(private route : Router, private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService) { }
+  baseURL = "";
+
+  logoImage=null;
+  logoId=0;
+
+  constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService) { }
 
   ngOnInit() {
+
+    this.aRoute.queryParams.subscribe( (q) => {
+      if(q && q.id){
+        this.instanceId = q.id;
+        this.loadProductData(this.instanceId);
+      }
+    });
+
     this.loadLanguageList();
     this.addNewFeature();
     this.addSpecColumn(0);
@@ -118,6 +136,52 @@ export class ProductAddComponent implements OnInit {
     this.addSpecColumn(3);
     this.addSpecColumn(4);
   }
+
+
+  loadProductData(productId){
+    
+    this.productService.getProductById(productId).subscribe(
+        (response:any) => {
+            if(response.status == 200 && response.products){
+                const baseURL = this.baseURL = response.baseURL;
+                const productDetails = this.productDetails = response.products;
+                this.productData_1 = productDetails.basicData;
+                this.productData_gallery.title = productDetails.basicData.gallery_title;
+                this.logoId = productDetails.basicData.logoId;
+                if(productDetails.basicData.logo){
+                    const logoImage = this.logoImage = baseURL+"/"+productDetails.basicData.logo;
+                    //this.imagePreview.push(logoImage);
+                }
+
+                this.productData_feature = productDetails.features;
+
+                for(let i=0; i< productDetails.specifications.length; i++){
+
+                  const specs =  productDetails.specifications[i];
+                  
+                  const spec = {id: specs.id, name: specs.title, value: specs.description}
+
+                  if(specs["specification"]==1){
+                    this.productData_specification.engine.push(spec);
+                  }else if(specs["specification"]==2){
+                    this.productData_specification.clutch.push(spec);
+                  }else if(specs["specification"]==3){
+                    this.productData_specification.suspension.push(spec);
+                  }else if(specs["specification"]==4){
+                    this.productData_specification.steering.push(spec);
+                  }else if(specs["specification"]==5){
+                    this.productData_specification.tyres.push(spec);
+                  }
+
+                }
+                console.log( this.productData_specification);
+                
+                this.productData_brochure = productDetails.brochures;
+
+            }
+        }
+    );
+}
 
 
   onImageSelect(event, multiple, from){
@@ -626,6 +690,12 @@ export class ProductAddComponent implements OnInit {
         this.videoError = "Invalid video selected";
       }
   }
+
+
+  removeFiles(fileId){
+
+  }
+
 
 }
 

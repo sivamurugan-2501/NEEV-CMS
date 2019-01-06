@@ -31,6 +31,7 @@ export const CONFIGS = {
       "gallery" : "/product/update/gallery",
       "brochure" : "/product/update/brochure",
       "video" : "/product/update/video",
+      "get" : "/product"
    },
     "authenticate" : "/authenticate",
     "configs" : {
@@ -56,7 +57,10 @@ export const CONFIGS = {
 
     "user":{
       "add" : "/other_user/add",
-      "list" : "/other_user/list"
+      "list" : "/other_user/list",
+      "get" : "/other_user",
+      "update" : "/other_user/update",
+      "delete" : "/other_user/delete"
     },
 
     "event":{

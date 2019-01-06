@@ -27,7 +27,8 @@ export class TgmAddComponent implements OnInit {
     "pincode": null,
     "birth_date" :null,
     "profile_pic" : null,
-    "mapping": 0
+    "mapping": 0,
+    "file_to_delete" :null
   }
 
   imageError= null;
@@ -45,8 +46,6 @@ export class TgmAddComponent implements OnInit {
   constructor(private tgmService:TgmService, private configService:ConfigsDataService, private storageService:StorageService, private route:Router) { }
 
   ngOnInit() {
-
-
 
     const roles:any = this.storageService.getCustomData("ROLES");
    

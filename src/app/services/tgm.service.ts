@@ -27,4 +27,22 @@ export class TgmService {
 
   }
 
+  getUserById(userid){
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["user"]["get"];
+    return this.http.get(url+"/"+userid);
+  }
+
+  updateUser(userid, tgmData){
+
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["user"]["update"];
+    return this.http.post(url+"/"+userid,tgmData );
+
+  }
+
+  deleteUser(userid){
+    
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["user"]["delete"];
+    return this.http.delete(url+"/"+userid );
+  }
+
 }

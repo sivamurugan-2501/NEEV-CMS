@@ -3444,8 +3444,8 @@ input::-ms-clear
 .page-item.active .page-link
 {
     z-index: 3;
-	    background-color: #69cce0;
-    border-color: #69cce0;
+    background-color: #214098;
+    border-color: #214098;
 }
 
 .page-item.disabled > span,

@@ -24,6 +24,12 @@ export class ProductService {
     
   }
 
+  getProductById(product_id){
+
+    return this.http.get(CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["get"]+"/"+product_id);
+    
+  }
+
   updateFeatures(product_id, features){
 
     const url= CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["features"]+"/"+product_id;

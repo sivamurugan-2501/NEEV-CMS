@@ -51,6 +51,7 @@ import { CustomPopupsComponent, NgbdModalComponent} from './custom-popups/custom
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationEditComponent } from './notification-edit/notification-edit.component';
 import { FaqEditComponent } from './faq-edit/faq-edit.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -143,7 +144,11 @@ const routes: Routes =[
             },
             {
               path : "add-user",
-              component : UserAddComponent
+              component : TgmAddComponent
+            },
+            {
+              path : "edit-user",
+              component : UserEditComponent
             },
             {
               path : "add-tgm",
@@ -195,7 +200,8 @@ const routes: Routes =[
     CustomPopupsComponent,
     NgbdModalComponent,
     NotificationEditComponent,
-    FaqEditComponent
+    FaqEditComponent,
+    UserEditComponent
     
   ],
   imports: [

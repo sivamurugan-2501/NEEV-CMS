@@ -18,22 +18,23 @@ export class UserAddComponent implements OnInit {
     "last_name":null,
     "mobile": null,
     "email": null,
-    "role": null,
+    "role": 0,
     "address": null,
-    "state": null,
-    "region": null,
+    "state": "0",
+    "region": "0",
     "source": null,
     "pincode": null,
     "birth_date" :null,
     "profile_pic" : null,
     "mapping": 0,
+    "file_to_delete" :null
   }
 
   imageError= null;
 
   langauges :any;
-  region:any;
-  state:any;
+  regions:any;
+  states:any;
   roles:any;
 
   
@@ -41,17 +42,33 @@ export class UserAddComponent implements OnInit {
 
   ngOnInit() {
 
-    this.myDateValue = new Date();
-    this.langauges = this.storageService.getCustomData("LANGUAGES");
-    const roles:any = this.storageService.getCustomData("ROLES");
-    console.log(roles);
-    try{
-      this.roles = JSON.parse(roles);
-    }catch(e){}
-    console.log(this.roles);
+      this.myDateValue = new Date();
+      this.langauges = this.storageService.getCustomData("LANGUAGES");
 
-    this.region = this.storageService.getCustomData("REGIONS");
-    this.state = this.storageService.getCustomData("STATES");
+      const roles:any = this.storageService.getCustomData("ROLES");
+    
+      try{
+        this.roles = JSON.parse(roles);
+      }catch(e){
+        this.roles = roles;
+      }
+
+
+      const region = this.storageService.getCustomData("REGIONS");
+
+      try{
+        this.regions = JSON.parse(region);
+      }catch(e){
+        this.regions = region;
+      }
+
+      const states = this.storageService.getCustomData("STATES");
+
+      try{
+        this.states = JSON.parse(states);
+      }catch(e){
+        this.states = states;
+      }
 
   }
 

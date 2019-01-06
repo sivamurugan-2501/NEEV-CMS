@@ -12,4 +12,5 @@ export class UserAddRequest{
      birth_date:Date;
      profile_pic:File;
      mapping:any;
+     file_to_delete:any;
 }

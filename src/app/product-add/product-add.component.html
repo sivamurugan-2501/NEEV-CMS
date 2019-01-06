@@ -10,41 +10,20 @@
               <nav>
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-                  <li class="breadcrumb-item" aria-current="page">Product</li>
-                  <li class="breadcrumb-item active" aria-current="page">Add</li>
+                  <li class="breadcrumb-item"  aria-current="page">Product</li>
+                  <li class="breadcrumb-item active" *ngIf="!instanceId" aria-current="page">Add</li>
+                  <li class="breadcrumb-item active" *ngIf="instanceId" aria-current="page">Edit</li>
                 </ol>
               </nav>
             </div>
           </div>
-          <!--div class="right-title">
-            <div class="dropdown">
-              <button class="btn btn-outline dropdown-toggle no-caret" type="button" data-toggle="dropdown"><i class="mdi mdi-dots-horizontal"></i></button>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="#"><i class="mdi mdi-share"></i>Activity</a>
-                <a class="dropdown-item" href="#"><i class="mdi mdi-email"></i>Messages</a>
-                <a class="dropdown-item" href="#"><i class="mdi mdi-help-circle-outline"></i>FAQ</a>
-                <a class="dropdown-item" href="#"><i class="mdi mdi-settings"></i>Support</a>
-                <div class="dropdown-divider"></div>
-                <button type="button" class="btn btn-success">Submit</button>
-              </div>
-              </div>
-          </div-->
         </div>
       </div>
   <section class="content">
        
       <!-- Basic Forms -->
        <div class="box">
-         <!--div class="box-header with-border">
-           <h4 class="box-title">Form Validation</h4>
-           <h6 class="box-subtitle">Bootstrap Form Validation check the <a class="text-warning" href="http://reactiveraven.github.io/jqBootstrapValidation/">official website </a></h6>
-       
-       <ul class="box-controls pull-right">
-         <li><a class="box-btn-close" href="#"></a></li>
-         <li><a class="box-btn-slide" href="#"></a></li>	
-         <li><a class="box-btn-fullscreen" href="#"></a></li>
-       </ul>
-         </div-->
+  
          <!-- /.box-header -->
          <div class="box-body">
            <div class="row">
@@ -67,7 +46,7 @@
                 </div>
              </div>
              <div class="form-group">
-                <h5>Language<span class="text-danger">*</span></h5>
+                <label class="text-info">Language<span class="text-danger">*</span></label>
                 <div class="controls">
                   <select name="language" id="language" required class="form-control" #language="ngModel" [(ngModel)]="productData_1.language" >
                       <option value="0">Select</option>
@@ -83,7 +62,7 @@
               </div>
 
              <div class="form-group">
-               <h5>Name <span class="text-danger">*</span></h5>
+                <label class="text-info">Name<span class="text-danger">*</span></label>
                <div class="controls">
                  <input type="text" name="title" maxlength="100" #prodTitle="ngModel"  [(ngModel)]="productData_1.title" class="form-control" required data-validation-required-message="This field is required"> 
                </div>
@@ -109,8 +88,8 @@
   
             
               
-                <div class="form-group">
-
+                <div class="form-group" *ngIf="!logoImage && !instanceId">
+                    
                     <label class="text-info">Upload Logo<span class="text-danger">*</span></label>
                     <div class="controls">
                       <input type="file"  name="file" #logo="ngModel"  class="form-control" [(ngModel)]="productData_1.logo" required (change)="onImageSelect($event, false, 1)"> 
@@ -120,17 +99,26 @@
                           <code *ngIf="logoError">{{logoError}}</code>
                        </div>
                     </div>
+                </div>
 
-                    <div>
-                      <div *ngIf="imagePreview" class="row imagePreview">
-                        <div *ngFor="let dataUrl of imagePreview; let i = index" class="col-md-2 thumbnail">
-                          
-                          <img src='{{dataUrl}}' style="width:100px; height:100px;">
-                          <div class="remove" (click)="removeFile(i,1)"> <code> Remove </code></div>
-                        </div>
+                <div class="form-group">
+                    <div *ngIf="imagePreview" class="row imagePreview">
+                      <div *ngFor="let dataUrl of imagePreview; let i = index" class="col-md-2 thumbnail">
+                        
+                        <img src='{{dataUrl}}' style="width:100px; height:100px;">
+                        <div class="remove" (click)="removeFile(i,1)"> <code> Remove </code></div>
                       </div>
-                  </div>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label class="text-info">Logo Uploaded<span class="text-danger">*</span></label>
+                    <div *ngIf="logoImage" class="row imagePreview">
+                        <div  class="col-md-2 thumbnail">
+                        <img src='{{logoImage}}' style="width:100px; height:100px;">
+                        <div class="remove" (click)="removeFiles(logoId)"> <code> Remove </code></div>
+                        </div>
+                    </div>
                 </div>
   
                 <!-- <div class="form-group">
@@ -226,15 +214,13 @@
 
                                                                 </div>
 
-                                                                <div class="box-body pb-0" *ngFor="let d of max_features_arr; let i=index">
+                                                                <div *ngFor="let d of max_features_arr; let i=index">
+                                                                <div class="box-body pb-0" *ngIf="productData_feature[i]" >
 
-                                                                    <div class="row fx-element-overlay">
+                                                                    <!--div class="row fx-element-overlay">
 
-                                                                    </div>
-
-                                                                    
-
-                                                                        <div class="form-body" *ngIf="productData_feature[i]">
+                                                                    </div-->
+                                                                        <div class="form-body" >
 
                                                                             <!-- /row -->
 
@@ -246,11 +232,11 @@
                                                                                   
                                                                                     <input type="file" class="form-control" #featureimage="ngModel" name="feautre_images_{{i}}"  class="form-control" [(ngModel)]="productData_feature[i].image" required (change)="onImageSelect($event, false, 2)"> 
 
-                                                                                    <span class="input-group-btn">
+                                                                                    <!--span class="input-group-btn">
 
                                                                                         <button type="button" class="btn btn-default fa fa-plus" (click)= "addNewFeature()"> Add</button>
 
-                                                                                    </span>
+                                                                                    </span-->
 
                                                                                     <div class="form-control-feedback" *ngIf="featureimage.invalid && (featureimage.dirty || featureimage.touched)">
                                                                                         <code *ngIf="productData_feature[i].image">Missing Feature image</code>
@@ -298,14 +284,19 @@
                                                                                     <code *ngIf="featureDesc.errors.minlength || featureTitle.errors.maxlength"> Feature Description should be minimum 4 letters</code>
                                                                                   </div>
                                                                             </div>
-
-
-
                                                                         </div>
-
                                                                 </div>
-
                                                             </div>
+                                                                <div class="form-group">
+                                                                    <div class="">
+                                                                        <span class="input-group-btn">
+                                                                                <button type="button" class="btn btn-md btn-nblue my-10 pull-right"  (click)= "addNewFeature()"> Add Features</button>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                         
 
                                                         </div>
 

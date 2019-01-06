@@ -54,7 +54,7 @@
 
           <table id="example" *ngIf="products && products.length>0" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
           <thead>
-            <tr>
+            <tr class="bg-secondary">
               <th>Name</th>
               <th>Category</th>
               <th>Logo</th>
@@ -68,7 +68,7 @@
               <td *ngIf="data.category==1"> Cargo </td>
               <td *ngIf="data.category==2"> Passenger </td>
 
-              <td ><img src="{{serverBaseURL}}{{data.logo}}" style=""></td>
+              <td ><img src="{{serverBaseURL}}{{data.logo}}" width="80"></td>
 
               <!--td>
                 <span class="action-icon edit fa fa-times" alt="Edit" title="Edit"> </span>

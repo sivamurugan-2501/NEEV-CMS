@@ -69,20 +69,20 @@
 
                                         <label>Role</label>
 
-                                        <select class="form-control"  name="role" id="role" #role="ngModel" [(ngModel)]= "userData.mapping" required>
+                                        <select class="form-control"  name="role" id="role" #role="ngModel" [(ngModel)]= "userData.role" required>
 
                                             <option value=0>Select Role</option>
                                             <option *ngFor="let r of roles" id="{{r.id}}" > {{r.name}} ({{r.code}}) </option>
 
                                         </select>
 
-                                        <div class="form-control-feedback" *ngIf="mapTSM.invalid && (mapTSM.dirty || mapTSM.touched)">
-                                            <code *ngIf="mapTSM.errors.required">Required mappping to  a TSM</code>
+                                        <div class="form-control-feedback" *ngIf="!userData.role">
+                                            <code *ngIf="!userData.role">Select a role</code>
                                         </div>
 
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                               <!--  <div class="col-md-6">
                                     <div class="form-group">
 
                                         <label>Map To TSM</label>
@@ -103,7 +103,7 @@
 
                                     
 
-                                </div>
+                                </div> -->
                               </div>
 
 
@@ -233,51 +233,47 @@
 
                             <div class="row">
 
-                                <div class="col-md-6">
+                                    <div class="col-md-6">
 
-                                    <div class="form-group">
-
-                                        <label>City</label>
-
-                                        <select class="form-control"  name="region" id="region" #region="ngModel" [(ngModel)]= "userData.region" required>
-
-                                            <option>Pune</option>
-
-                                            <option>Mumbai</option>
-
-                                            <option>Delhi</option>
-
-                                        </select>
-
-                                        <div class="form-control-feedback" *ngIf="region.invalid && (region.dirty || region.touched)">
-                                            <code *ngIf="region.errors.required">Missing region</code>
+                                        <div class="form-group">
+    
+                                            <label>Region</label>
+    
+                                            <select class="form-control"  name="region" id="region" #region="ngModel" [(ngModel)]= "userData.region" required>
+    
+                                                    <option value=0>Select Region</option>
+    
+                                                    <option *ngFor="let rg of regions" value={{rg.id}}>{{rg.name}}</option>
+    
+                                            </select>
+    
+                                            <div class="form-control-feedback" *ngIf="region.invalid && (region.dirty || region.touched)">
+                                                <code *ngIf="region.errors.required">Missing region</code>
+                                            </div>
+    
                                         </div>
-
+    
                                     </div>
 
-                                </div>
+                                    <div class="col-md-6">
 
-                                <div class="col-md-6">
-
-                                    <div class="form-group">
-
-                                        <label>State</label>
-
-                                        <select class="form-control" name="state" id="state" #state="ngModel" [(ngModel)]= "userData.state" required>
-
-                                            <option>Maharashtra</option>
-
-                                            <option>Uttar Pradesh</option>
-
-                                            <option>Madhya Pradesh</option>
-
-                                        </select>
-                                       <div class="form-control-feedback" *ngIf="state.invalid && (state.dirty || state.touched)">
-                                            <code *ngIf="state.errors.required">Missing state</code>
+                                        <div class="form-group">
+    
+                                            <label>State</label>
+    
+                                            <select class="form-control" name="state" id="state" #state="ngModel" [(ngModel)]= "userData.state" required>
+    
+                                                    <option value=0>Select State</option>
+    
+                                                    <option *ngFor="let st of states" value={{st.id}}>{{st.name}}</option>
+    
+                                            </select>
+                                            <div class="form-control-feedback" *ngIf="state.invalid && (state.dirty || state.touched)">
+                                                <code *ngIf="state.errors.required">Missing state</code>
+                                            </div>
                                         </div>
+    
                                     </div>
-
-                                </div>
 
                             </div>
 
@@ -360,7 +356,7 @@
 
                             <div class="box-footer">
 
-                                <button type="submit" class="btn btn-nblue btn-outline mr-1">
+                                <button type="submit" class="btn btn-nblue btn-outline mr-1" [disabled] ="!userForm.valid || !userData.role" >
 
                                     <i class="ti-save-alt"></i> Save
 
