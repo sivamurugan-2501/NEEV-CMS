@@ -19,13 +19,13 @@
 
                                     <ul class="list-style-none font-size-16">
 
-                                        <li class="box-label"><a href="javascript:void(0)">All Users <span>{{tgmUsers.length + tsmUsers.length}}</span></a></li>
+                                        <li class="box-label"><a href="javascript:void(0)" (click)="showAll()" >All Users <span>{{tgmUsers.length + tsmUsers.length}}</span></a></li>
 
                                         <li class="divider"></li>
 
-                                        <li><a class="text-info" href="javascript:void(0)">TSM <span class="text-info">{{tsmUsers.length}}</span></a></li>
+                                        <li><a class="text-info" href="javascript:void(0)" (click)="showOnlyTSM()">TSM <span class="text-info">{{tsmUsers.length}}</span></a></li>
 
-                                        <li><a class="text-info" href="javascript:void(0)">TGM <span class="text-info">{{tgmUsers.length}}</span></a></li>
+                                        <li><a class="text-info" href="javascript:void(0)" (click)="showOnlyTGM()">TGM <span class="text-info">{{tgmUsers.length}}</span></a></li>
 
                                         <li class="box-label">
                                             <a href="javascript:void(0)" class="btn btn-nblue text-white mt-10" [routerLink]="['../add-user']">+ Add New User</a>
@@ -117,7 +117,7 @@
 
 							<td>{{user.first_name}}</td>
 
-							<td>TSM</td>
+							<td>{{user.role}}</td>
 
 							<td>-</td>
 

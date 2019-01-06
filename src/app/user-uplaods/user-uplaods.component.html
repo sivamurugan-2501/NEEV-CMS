@@ -1,78 +1,503 @@
-<div class="content-header">
-  <div class="d-flex align-items-center">
-    <div class="mr-auto">
-      <h3 class="page-title">User Uploads</h3>
-      <div class="d-inline-block align-items-center">
-        <nav>
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
-            <li class="breadcrumb-item" aria-current="page">User Uploads</li>
-            <li class="breadcrumb-item active" aria-current="page">List</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    
-  </div>
-</div>
 
-<!-- Main content -->
-<section class="content">
-  <div class="row">
-    <div class="col-12">
-        <div class="box">
-          
-            <!-- /.box-header -->
-          <div class="box-body">
-				<div class="table-responsive">
-            <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
-              </app-action-message>
-    
-              <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
-                </app-action-message>
 
-                <app-action-message *ngIf="!userUploadData || userUploadData.length==0" [type]="3" [message]="noRecordMessage" >
-                </app-action-message>
+          <!-- Content Header (Page header) -->
 
-                <div class="">
-                <div class="col-md-4 col-lg-4">		
-                  <div class="card">
-                    <div class="card-body">
-                    <h4 class="card-title">Special title treatment</h4>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
+          <div class="content-header">
+
+              <div class="d-flex align-items-center">
+
+                  <div class="mr-auto">
+
+                      <h3 class="page-title">User uploads</h3>
+
                   </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4 col-lg-4">
-                  <div class="card text-center">
-                    <div class="card-body">
-                    <h4 class="card-title">Special title treatment</h4>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4 col-lg-4">
-                  <div class="card text-right">
-                    <div class="card-body">
-                    <h4 class="card-title">Special title treatment</h4>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-                    </div>
-                    <!-- /.col -->
-                    </div>
-				</div>              
-            </div>
-            <!-- /.box-body -->
+
+              </div>
+
           </div>
-          <!-- /.box -->  
-    </div>
-  </div>
-</section>
 
 
+
+          <!-- Main content -->
+
+          <section class="content">
+
+            
+
+              <div class="row">              
+
+                  <div class="col-12">
+
+                      <div class="box">
+
+                          <div class="box-header">
+
+                           
+
+                            <div class="row">
+
+      <div class="col-md-3 col-12">
+
+        <div class="form-group">
+
+        <label>Select Files</label>
+
+        <div>
+
+        <a href="#" class="btn btn-nblue btn-outline">
+
+                                          <i class="ti-plus"></i> Add Media
+
+                                      </a>
+
+                  </div>
+
+        </div>
+
+        <!-- /.form-group -->
+
+      </div>
+
+      <!-- /.col -->
+
+      <div class="col-md-3 col-12">
+
+        <div class="form-group">
+
+        <label>Select Type</label>
+
+        <div class="dropdown">
+
+          <button class="btn btn-nblue btn-outline dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Type</button>
+
+          <div class="dropdown-menu">
+
+          <a class="dropdown-item" href="#">
+
+            <span class="icon fa fa-image"></span>
+
+            <span class="title">Images</span>
+
+          </a>
+
+          <a class="dropdown-item" href="#">
+
+            <span class="icon fa fa-play"></span>
+
+            <span class="title">Video</span>
+
+          </a>
+
+          <a class="dropdown-item" href="#">
+
+            <span class="icon fa fa-folder"></span>
+
+            <span class="title">Documents</span>
+
+          </a>
+
+          </div>
+
+        </div>
+
+        </div>
+
+        <!-- /.form-group -->
+
+      </div>
+
+      <!-- /.col -->
+
+      <div class="col-md-3 col-12">
+
+        <div class="form-group">
+
+        <label>Select TGM</label>
+
+        <div class="form-group">
+
+                      <select class="form-control select2" multiple="multiple" data-placeholder="Select a TGM">
+
+                            <option>TGM 2</option>
+
+                            <option>TGM 3</option>
+
+                            <option>TGM 4</option>
+
+                            <option>TGM 5</option>
+
+                            <option>TGM 6</option>
+
+                            <option>TGM 7</option>
+
+                            <option>ALL</option>   
+
+                      </select>
+
+                            </div>
+
+                            <!-- /.form-group -->
+
+        </div>
+
+        <!-- /.form-group -->
+
+      </div>
+
+      <!-- /.col -->
+
+      <div class="col-md-3 col-12">
+
+        <div class="form-group">
+
+        <label>Action</label>
+
+          <div>
+
+                    <button class="btn btn-nblue btn-outline" href="#"><i class="ti-upload"></i> Upload</button>
+
+                  </div>
+
+                            <!-- /.form-group -->
+
+        </div>
+
+        <!-- /.form-group -->
+
+      </div>
+
+      <!-- /.col -->
+
+      </div>
+
+      <div class="row">
+
+              <div class="flexbox align-items-center p-15">
+
+      <div class="flexbox align-items-center">
+
+      <div class="dropdown d-none d-sm-block">
+
+        <button class="btn btn-outline btn-default dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Sort by</button>
+
+        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; top: 0px; left: 0px; will-change: transform; transform: translate3d(0px, 30px, 0px);">
+
+          <a class="dropdown-item" href="#">Date</a>
+
+          <a class="dropdown-item" href="#">Name</a>
+
+          <a class="dropdown-item" href="#">Group</a>
+
+          <a class="dropdown-item" href="#">Popular</a>
+
+        </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div>
+
+        <div class="lookup">
+
+        <input  type="text" data-provide="media-search">
+
+        </div>
+
+      </div>
+
+      </div>
+
+                           </div>
+
+      <!-- /.row -->
+
+                          </div>
+
+                          <div class="box-body">
+
+                              <div class="form-body neev-inner-content-div">
+
+<!--
+
+                                 <div class="form-group">
+
+                                  <label>Sort By:</label>
+
+
+
+                                  <div class="input-group">
+
+                                    <button type="button" class="btn btn-nblue btn-outline pull-right" id="daterange-btn">
+
+                                      <span>
+
+                                        <i class="fa fa-calendar"></i> Datewise
+
+                                      </span>
+
+                                      <i class="fa fa-caret-down"></i>
+
+                                    </button>
+
+                                  </div>
+
+                                </div>
+
+-->
+
+                                  <!-- /row -->
+
+                                  <!-- Nav tabs -->
+
+                                  <ul class="nav nav-tabs" role="tablist">
+
+
+
+                                      <li class="nav-item">
+
+                                          <a class="nav-link active" data-toggle="tab" href="#imagegallery" role="tab"><span><i class="fa fa-image"></i> Images</span></a>
+
+                                      </li>
+
+                                      <li class="nav-item">
+
+                                          <a class="nav-link" data-toggle="tab" href="#videos" role="tab"><span><i class="fa fa-file-video-o"></i> Videos</span></a>
+
+                                      </li>
+
+
+
+                                      <li class="nav-item">
+
+                                          <a class="nav-link" data-toggle="tab" href="#docs" role="tab"><span><i class="fa  fa-file-o"></i> Documents</span></a>
+
+                                      </li>
+
+                                  </ul>
+
+
+
+                                  <!-- Tab panes -->
+
+                                  <div class="tab-content tabcontent-border">
+
+
+
+                                  <div class="tab-pane active show" id="imagegallery" role="tabpanel">
+
+                                      <div class="pad">
+
+
+
+                                          <div id="image-popups" class="row">
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../images/gallery/thumb/10.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="">
+
+                                      <br>Image 1</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../images/gallery/thumb/11.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/11.jpg" class="img-responsive" alt="">
+
+                                      <br>Image 2</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../images/gallery/thumb/12.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/12.jpg" class="img-responsive" alt="">
+
+                                      <br>Image 3</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../images/gallery/thumb/13.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/13.jpg" class="img-responsive" alt="">
+
+                                      <br>Image 4</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../images/gallery/thumb/14.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/14.jpg" class="img-responsive" alt="">
+
+                                      <br>Image 5</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../images/gallery/thumb/15.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/15.jpg" class="img-responsive" alt="">
+
+                                      <br>Image 6</a>
+
+                                              </div>
+
+                                          </div>
+
+                                      </div>
+
+
+
+                                  </div>
+
+                                      <div class="tab-pane show" id="videos" role="tabpanel">
+
+                                          <div class="pad">
+
+                                              <div class="row">
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../video/video.mp4" class="popup-youtube"><img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 1</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/11.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 2</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/12.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 3</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/13.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 4</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/14.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 5</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/15.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 6</a>
+
+                                              </div>
+
+                                          </div>  
+
+                                          
+
+                                      </div>
+
+                                      </div>
+
+                                      <div class="tab-pane show" id="docs" role="tabpanel">
+
+                                          <div class="pad">
+
+                                               <div class="row">
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="">
+
+                                      <br>Document 1</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                 <a href="../" class="popup"><img src="../images/gallery/thumb/11.jpg" class="img-responsive" alt="">
+
+                                      <br>Document 2</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/12.jpg" class="img-responsive" alt="">
+
+                                      <br>Document 3</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/13.jpg" class="img-responsive" alt="">
+
+                                      <br>Document 4</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/14.jpg" class="img-responsive" alt="">
+
+                                      <br>Document 5</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/15.jpg" class="img-responsive" alt="">
+
+                                      <br>Document 6</a>
+
+                                              </div>
+
+                                          </div>
+
+                                          </div>
+
+                                      </div>
+
+                                  </div>
+
+
+
+
+
+
+
+                              </div>
+
+
+
+                          </div>
+
+                      </div>
+
+
+
+
+
+                  </div>
+
+              </div>
+
+              <!-- Default box -->
+
+          </section>
+
+          <!-- /.content -->

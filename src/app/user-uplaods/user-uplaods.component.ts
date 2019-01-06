@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserUploadService } from '../services/user-upload.service';
 
 @Component({
   selector: 'app-user-uplaods',
@@ -12,9 +13,21 @@ export class UserUplaodsComponent implements OnInit {
   successMessage;
   errorMessage;
 
-  constructor() { }
+  imagesUpload:any;
+
+  constructor(private userUploadService: UserUploadService) { }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+  loadData(){
+    this.userUploadService.getUploads(0,1).subscribe(
+      (response:any) => {
+          this.imagesUpload =response.data;
+          console.log(this.imagesUpload);
+      }
+    );
   }
 
 }

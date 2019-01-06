@@ -94,4 +94,22 @@ export class UserListComponent implements OnInit {
     );
   }
 
+
+  showOnlyTSM(){
+    this.allUserData = this.tsmUsers;
+  }
+
+
+  
+  showOnlyTGM(){
+    this.allUserData = this.tgmUsers;
+  }
+
+  
+  showAll(){
+    this.allUserData = this.tgmUsers.concat(this.tsmUsers);
+  }
+
+
+
 }

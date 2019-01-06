@@ -75,6 +75,10 @@ export const CONFIGS = {
       "send" : "/notification/add",
       "list" : "/notification/list",
       "delete" : "/notification/delete"
+    },
+
+    "user_uploads" :{
+      "get" : "/user/upload/get"
     }
     
   }
