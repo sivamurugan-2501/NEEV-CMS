@@ -35,28 +35,20 @@
          <div class="box-body">
            <div class="row">
              <div class="col">
-           <form (submit)="saveFAQ()" method="post" #faqForm="ngForm">
+           <form (submit)="importUser()" method="post" #faqForm="ngForm">
            <div class="row">
            <div class="col-12">	
             
-            <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+          <!--   <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
             </app-action-message>
   
             <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
               </app-action-message>
-
-              <div class="form-group">
-                <label class="text-info">Language<span class="text-danger">*</span></label>
-                  <div class="controls">
-                    <select name="language" id="language" #language="ngModel"  required class="form-control" [(ngModel)]="faqData.language">
-                        <option  value="0">Select Language</option>
-                        <option *ngFor="let l of languages" value="{{l.id}}">{{l.name}}</option>
-                    </select>
-                  </div>
-                </div>
+ -->
+              
   
              <div class="form-group">
-              <label class="text-info">Question <span class="text-danger">*</span></label>
+              <label class="text-info">Select file <span class="text-danger">*</span></label>
                <div class="controls">
                  
                  <input type="file" class="form-control" required #importFile="ngModel" [(ngModel)]="userImport.file">

@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserImportComponent implements OnInit {
 
+  userImport = {
+    file:null
+  }
   constructor() { }
 
   ngOnInit() {
+  }
+
+  importUser(){
+    
   }
 
 }
