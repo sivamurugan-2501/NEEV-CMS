@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserUploadService } from '../services/user-upload.service';
+import { Lightbox, IAlbum } from 'ngx-lightbox';
+
 
 @Component({
   selector: 'app-user-uplaods',
@@ -18,7 +20,9 @@ export class UserUplaodsComponent implements OnInit {
   docUploads:any;
   baseURL;
 
-  constructor(private userUploadService: UserUploadService) { }
+  image_list;
+
+  constructor(private userUploadService: UserUploadService, private _lightbox:Lightbox) { }
 
   ngOnInit() {
     this.loadData();
@@ -50,6 +54,12 @@ export class UserUplaodsComponent implements OnInit {
       }
     );
 
+  }
+
+  popImage(image, index){
+
+    const album:IAlbum[]= [ {"src": image, "caption": "Test", "thumb":image} ];
+    this._lightbox.open(album , 0)
   }
 
 }

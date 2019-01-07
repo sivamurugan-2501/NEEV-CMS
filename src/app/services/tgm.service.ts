@@ -45,4 +45,10 @@ export class TgmService {
     return this.http.delete(url+"/"+userid );
   }
 
+  importUser(userDatas){
+    
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["user"]["import"];
+    return this.http.post(url,userDatas );
+
+  }
 }

@@ -296,7 +296,7 @@
 
                                               <div class="col-sm-2" *ngFor="let imageUpload of imagesUpload">
 
-                                                  <a href="{{baseURL}}{{imageUpload.upload_path}}" data-effect="mfp-zoom-in"><img src="{{baseURL}}{{imageUpload.upload_path}}" class="img-responsive" alt="">
+                                                  <a href="javascript:void(0)" (click)="popImage(baseURL+imageUpload.upload_path, 0)" data-effect="mfp-zoom-in"><img src="{{baseURL}}{{imageUpload.upload_path}}" class="img-responsive" alt="">
 
                                                     <br>{{imageUpload.title}}</a>
 

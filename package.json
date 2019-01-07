@@ -34,6 +34,7 @@
     "ngx-cookie-service": "^2.1.0",
     "ngx-dropzone-wrapper": "^7.1.0",
     "ngx-editor": "^4.1.0",
+    "ngx-lightbox": "^1.2.0",
     "path": "^0.12.7",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

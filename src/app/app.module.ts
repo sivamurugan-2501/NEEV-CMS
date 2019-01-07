@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
+import { LightboxModule } from 'ngx-lightbox';
 
 
 import { NgxEditorModule } from 'ngx-editor';
@@ -160,6 +161,10 @@ const routes: Routes =[
               component : UserListComponent
             },
             {
+              path: "user-import",
+              component : UserImportComponent
+            },
+            {
               path : "add-dealer",
               component : DealerAddComponent
             },
@@ -204,7 +209,6 @@ const routes: Routes =[
     FaqEditComponent,
     UserEditComponent,
     UserImportComponent
-    
   ],
   imports: [
     BrowserModule,
@@ -212,6 +216,7 @@ const routes: Routes =[
     FormsModule,
     DropzoneModule,
     NgxEditorModule,
+    LightboxModule,
    // BsDatepickerModule.forRoot(),
     DatepickerModule.forRoot(),
     NgbModule,

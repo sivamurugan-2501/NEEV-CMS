@@ -60,7 +60,8 @@ export const CONFIGS = {
       "list" : "/other_user/list",
       "get" : "/other_user",
       "update" : "/other_user/update",
-      "delete" : "/other_user/delete"
+      "delete" : "/other_user/delete",
+      "import" : "/other_user/import"
     },
 
     "event":{
