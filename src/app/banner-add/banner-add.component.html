@@ -101,7 +101,7 @@
                       <code *ngIf="bannerfile.errors.required">Missing banner image</code>
                    </div>
 
-                   imageError
+                   
                    <div class="form-control-feedback" *ngIf="imageError && (bannerfile.dirty || bannerfile.touched)">
                     <code *ngIf="imageError">{{imageError}}</code>
                  </div>
@@ -118,7 +118,7 @@
 
             </div>
 
-           <div class="form-group">
+           <!--div class="form-group">
               <label class="text-info">Link To <span class="text-danger">*</span></label>
               <div class="controls">
                 <fieldset>
@@ -134,7 +134,73 @@
                     <label for="linkTo3">Image</label>
                   </fieldset>
               </div>
-            </div>
+            </div-->
+
+            <div class="form-group">
+
+                <label class="text-info">Link to banner<span class="text-danger">*</span></label>
+
+                <div class="row">
+
+                  <div class="col-md-6">
+
+                  <div class="form-group">
+
+                    <label class="text-info">Type</label>
+
+                    <select class="form-control" name="hasLink" #hasLink="ngModel" [(ngModel)]="bannerData.hasLink" (change)="loadItems()" >
+                       <option value=0>None</option>
+                      <option value=1>Product</option>
+                      <option value=2> Video</option>
+                      <option value=3>Event/Notice</option>
+                    </select>
+
+                  </div>
+
+                  </div>
+
+                  <div class="col-md-6" *ngIf="bannerData.hasLink>0">
+
+                  <div class="form-group">
+
+                  <label class="text-info">ID <span class="text-danger">*</span></label>
+
+                    <select class="form-control" name="linkedTo" *ngIf="bannerData.hasLink==1" #linkedTo="ngModel" [(ngModel)]="bannerData.linkedTo">
+                        <option value=0>Select</option>
+                       <option *ngFor="let prod of productList" value={{prod.id}} >
+                         {{prod.title}}
+                       </option>
+
+                    </select>
+
+                    <select class="form-control" name="linkedTo" *ngIf="bannerData.hasLink==2" #linkedTo="ngModel" [(ngModel)]="bannerData.linkedTo">
+                        <option value=0>Select</option>
+                       <option *ngFor="let video of videoList" value={{video.id}} >
+                         {{video.title}}
+                       </option>
+                    </select>
+
+                    <select class="form-control" name="linkedTo" *ngIf="bannerData.hasLink==3" #linkedTo="ngModel" [(ngModel)]="bannerData.linkedTo">
+                        <option value=0>Select</option>
+                       <option *ngFor="let event of eventList" value={{event.id}} >
+                         {{event.title}}
+                       </option>
+
+                    </select>
+
+                    <div class="form-control-feedback" *ngIf="bannerData.hasLink>0 && !bannerData.linkedTo">
+                        <code *ngIf="!bannerData.linkedTo  && bannerData.hasLink==1">Please select a product to link</code>
+                        <code *ngIf="!bannerData.linkedTo  && bannerData.hasLink==2">Please select a video to link</code>
+                        <code *ngIf="!bannerData.linkedTo  && bannerData.hasLink==3">Please select a event to link</code>
+                     </div>
+
+                  </div>
+
+                  </div>
+
+                </div>
+
+                            </div>
 
             
 

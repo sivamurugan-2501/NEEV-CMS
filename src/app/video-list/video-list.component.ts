@@ -14,11 +14,12 @@ export class VideoListComponent implements OnInit {
   userData;
   userId;
   serverBaseURL;
-  payload : BannerlistRequest = {
+  payload : any = {
     requestor : null,
     maximum : null,
     source :null,
-    status : null
+    status : null,
+    fields : null
   };
 
   noRecordMessage = "No video(s) found."
@@ -45,6 +46,7 @@ export class VideoListComponent implements OnInit {
     this.payload.source =1;
     this.payload.maximum = null;
     this.payload.status = 1;
+    this.payload.fields = null;
 
     this.videoService.getVideoList(this.payload).subscribe( (response: any) => {
         if(response.status == 200){

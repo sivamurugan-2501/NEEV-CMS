@@ -7,6 +7,10 @@ import { timeout } from 'q';
 import { Router, ActivatedRoute } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 
+import { ProductService } from '../services/product.service';
+import { VideoService } from '../services/video.service';
+import { EventService } from '../services/event.service';
+
 @Component({
   selector: 'app-banner-edit',
   templateUrl: './banner-edit.component.html',
@@ -62,7 +66,11 @@ export class BannerEditComponent implements OnInit {
   regions;
   languages;
 
-  constructor(private storageService: StorageService, private bannerService : BannerServiceService, private titleService: Title, private route: Router, private aRoute: ActivatedRoute) { }
+  productList:any;
+  eventList:any;
+  videoList:any;
+
+  constructor(private newsBoardService: EventService ,private videoService: VideoService, private productService: ProductService , private storageService: StorageService, private bannerService : BannerServiceService, private titleService: Title, private route: Router, private aRoute: ActivatedRoute) { }
 
   ngOnInit() {
 
@@ -102,6 +110,7 @@ export class BannerEditComponent implements OnInit {
         if(response.status == 200){
             this.bannerData = response.data;
             this.createPreview(response["baseURL"]);
+            this.loadItems();
         }
       } 
     );
@@ -191,6 +200,57 @@ export class BannerEditComponent implements OnInit {
     this.imageRemoved=0;
     this.file_to_delete.pop();
     this.bannerData.file_id = this.file_id;
+  }
+
+  loadItems(){
+
+    const hasLinkof = this.bannerData.hasLink;
+
+    if(hasLinkof>0){
+
+       if(hasLinkof==1){
+
+          if(!this.productList){
+              this.productService.getProducts("id,title").subscribe(
+                (response:any) => {
+                    if( response.status==200 && response.products ){
+                      this.productList = response.products;
+                    }
+                }
+              );
+          }
+          
+        }else if(hasLinkof==2){
+
+          if(!this.videoList){
+              const payload = { requestor:1, source:1, maximum:null, status:1, fields: "id,title"};
+              
+              this.videoService.getVideoList(payload).subscribe(
+                (response:any) => {
+                    if( response.status==200 && response.videos ){
+                      this.videoList = response.videos;
+                    }
+                }
+              );
+          }
+          
+      }else if(hasLinkof==3){
+
+        if(!this.eventList){
+            
+            
+            this.newsBoardService.getEvents().subscribe(
+              (response:any) => {
+                  if( response.status==200 && response.newsBoard ){
+                    this.eventList = response.newsBoard;
+                  }
+              }
+            );
+        }
+        
+    }
+    }
+
   }
 
 

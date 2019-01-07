@@ -713,6 +713,10 @@ export class ProductAddComponent implements OnInit {
 
   }
 
+  removeFeature(index){
+    this.productData_feature.splice(index,1);
+  }
+
 
 }
 

@@ -52,6 +52,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationEditComponent } from './notification-edit/notification-edit.component';
 import { FaqEditComponent } from './faq-edit/faq-edit.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserImportComponent } from './user-import/user-import.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -201,7 +202,8 @@ const routes: Routes =[
     NgbdModalComponent,
     NotificationEditComponent,
     FaqEditComponent,
-    UserEditComponent
+    UserEditComponent,
+    UserImportComponent
     
   ],
   imports: [

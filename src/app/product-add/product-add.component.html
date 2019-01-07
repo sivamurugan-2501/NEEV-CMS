@@ -284,6 +284,16 @@
                                                                                     <code *ngIf="featureDesc.errors.minlength || featureTitle.errors.maxlength"> Feature Description should be minimum 4 letters</code>
                                                                                   </div>
                                                                             </div>
+                                                                            <div class="col-md-12" *ngIf="productData_feature.length>1 && productData_feature[i] && i>0">
+                                                                                    <div class="form-group">
+                                                                                            <div class="">
+                                                                                                <span class="input-group-btn">
+                                                                                                        <button type="button" class="btn btn-md btn-danger my-10 pull-right" (click)="removeFeature(i)"> Remove Feature</button>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                
+                                                                                    </div>
+                                                                                </div>
                                                                         </div>
                                                                 </div>
                                                             </div>

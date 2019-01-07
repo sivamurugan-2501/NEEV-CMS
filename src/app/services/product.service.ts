@@ -18,9 +18,15 @@ export class ProductService {
     }
   }
 
-  getProducts(){
+  getProducts(fields?:any){
 
-    return this.http.get(CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["list"]);
+    var queryString = "";
+
+    if(fields){
+      queryString="?fields="+fields;
+    }
+    
+    return this.http.get(CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["list"]+queryString );
     
   }
 

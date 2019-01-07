@@ -1,0 +1,92 @@
+
+  <!-- Content Wrapper. Contains page content -->
+  
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="d-flex align-items-center">
+          <div class="mr-auto">
+            <h3 class="page-title">FAQ</h3>
+            <div class="d-inline-block align-items-center">
+              <nav>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                  <li class="breadcrumb-item" aria-current="page">User</li>
+                  <li class="breadcrumb-item active" aria-current="page">Import</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+  <section class="content">
+       
+      <!-- Basic Forms -->
+       <div class="box">
+        
+          <!-- /.box-header -->
+          <div class="box-header with-border">
+  
+            <h4 class="box-title">Import User</h4>
+  
+          </div>
+           <!-- /.box-header -->
+  
+  
+         <div class="box-body">
+           <div class="row">
+             <div class="col">
+           <form (submit)="saveFAQ()" method="post" #faqForm="ngForm">
+           <div class="row">
+           <div class="col-12">	
+            
+            <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+            </app-action-message>
+  
+            <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+              </app-action-message>
+
+              <div class="form-group">
+                <label class="text-info">Language<span class="text-danger">*</span></label>
+                  <div class="controls">
+                    <select name="language" id="language" #language="ngModel"  required class="form-control" [(ngModel)]="faqData.language">
+                        <option  value="0">Select Language</option>
+                        <option *ngFor="let l of languages" value="{{l.id}}">{{l.name}}</option>
+                    </select>
+                  </div>
+                </div>
+  
+             <div class="form-group">
+              <label class="text-info">Question <span class="text-danger">*</span></label>
+               <div class="controls">
+                 
+                 <input type="file" class="form-control" required #importFile="ngModel" [(ngModel)]="userImport.file">
+                 </div>
+                  
+                 <div class="form-control-feedback">
+                    <code *ngIf="importFile.errors.required">Missing question</code>
+                   
+                 </div>
+              </div>
+
+              
+  
+            </div>
+          </div>
+           
+           <div class="text-xs-right">
+            <button type="submit" class="btn btn-info" [disabled]="!faqForm.valid" >Submit</button>
+           </div>
+         </form>
+               
+             </div>
+             <!-- /.col -->
+           </div>
+           <!-- /.row -->
+         </div>
+         <!-- /.box-body -->
+       </div>
+       <!-- /.box -->
+       
+     </section>
+     <!-- /.content -->
+  

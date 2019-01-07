@@ -294,51 +294,11 @@
 
                                           <div id="image-popups" class="row">
 
-                                              <div class="col-sm-2">
+                                              <div class="col-sm-2" *ngFor="let imageUpload of imagesUpload">
 
-                                                  <a href="../images/gallery/thumb/10.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="">
+                                                  <a href="{{baseURL}}{{imageUpload.upload_path}}" data-effect="mfp-zoom-in"><img src="{{baseURL}}{{imageUpload.upload_path}}" class="img-responsive" alt="">
 
-                                      <br>Image 1</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../images/gallery/thumb/11.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/11.jpg" class="img-responsive" alt="">
-
-                                      <br>Image 2</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../images/gallery/thumb/12.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/12.jpg" class="img-responsive" alt="">
-
-                                      <br>Image 3</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../images/gallery/thumb/13.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/13.jpg" class="img-responsive" alt="">
-
-                                      <br>Image 4</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../images/gallery/thumb/14.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/14.jpg" class="img-responsive" alt="">
-
-                                      <br>Image 5</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../images/gallery/thumb/15.jpg" data-effect="mfp-zoom-in"><img src="../images/gallery/thumb/15.jpg" class="img-responsive" alt="">
-
-                                      <br>Image 6</a>
+                                                    <br>{{imageUpload.title}}</a>
 
                                               </div>
 
@@ -356,15 +316,16 @@
 
                                               <div class="row">
 
-                                              <div class="col-sm-2">
+                                              <div class="col-sm-2" *ngFor="let video of videoUploads">
 
-                                                  <a href="../video/video.mp4" class="popup-youtube"><img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="">
+                                                  <a href="{{baseURL}}{{video.upload_path}}" class="popup-youtube">
+                                                      <!--img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="" -->
 
-                                      <br>Video 1</a>
+                                                  <br>{{video.actual_name}}</a>
 
                                               </div>
 
-                                              <div class="col-sm-2">
+                                              <!-- div class="col-sm-2">
 
                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/11.jpg" class="img-responsive" alt="">
 
@@ -402,7 +363,7 @@
 
                                       <br>Video 6</a>
 
-                                              </div>
+                                              </div> -->
 
                                           </div>  
 
@@ -418,11 +379,11 @@
 
                                                <div class="row">
 
-                                              <div class="col-sm-2">
+                                              <div class="col-sm-2" *ngFor="let doc of docUploads">
 
-                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="">
+                                                  <a href="{{baseURL}}{{doc.upload_path}}" class="popup"><!--img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="">-->
 
-                                      <br>Document 1</a>
+                                      <br>{{doc.actual_name}}</a>
 
                                               </div>
 
