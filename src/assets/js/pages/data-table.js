@@ -167,16 +167,14 @@ $(function () {
 
     } );
     
-
+    //alert("updated");
     $('.as-data-table-2').DataTable( {
 
-		dom: 'Bfrtip',
+      dom: 'Bfrtip',
 
-		buttons: [
-
-			
-
-		]
+      buttons: [
+        'copy'
+      ]
 
 	} );
 

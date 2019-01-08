@@ -83,7 +83,7 @@
           <table id="example" *ngIf="products && products.length>0" class="as-data-table-2 table table-bordered table-hover display nowrap margin-top-10 w-p100">
           <thead>
             <tr class="bg-secondary">
-              <th>#</th>
+              <th>Product Id</th>
               <th>Logo</th>
               <th>Name</th>
               <th>Category</th>
@@ -111,7 +111,7 @@
                   <a href="javascript:void(0)" class="btn btn-icon-circle btn-nblue" data-toggle="tooltip" data-original-title="Edit" (click)="editVideo(data.id, i)"> 
                       <i class="ti-marker-alt"></i>
                   </a>
-                  <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger" data-original-title="Delete" data-toggle="tooltip" (click)="deletVideo(data.id, i)">
+                  <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger" data-original-title="Delete" data-toggle="tooltip" (click)="deleteThis(data.id, i)">
                       <i class="ti-trash"></i>
                   </a>
               </td>

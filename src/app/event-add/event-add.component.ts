@@ -24,7 +24,8 @@ export class EventAddComponent implements OnInit {
     description : null,
     thumbnail : null,
     images : null,
-    videos: null
+    videos: null,
+    notify : 0
   }
 
   imageError: any=null;
@@ -93,7 +94,11 @@ export class EventAddComponent implements OnInit {
     for(let i=0;i<keys.length;i++){
       //alert(this.bannerData[keys[i]]);
       if(keys[i] == "thumbnail"){
+        if(this.eventData.thumbnail){
           event.append(keys[i], this.eventData.thumbnail, this.eventData.thumbnail["name"]);
+        }else{
+          event.append(keys[i],null);
+        }
       }else{
         event.append(keys[i], this.eventData[keys[i]]);
       }
@@ -103,7 +108,7 @@ export class EventAddComponent implements OnInit {
     this.eventService.addEvent(event).subscribe(
       response => {
         this.actionStatus=1;
-        this.successMessage = "New event added successfully";
+        this.successMessage = "New notice added successfully";
         const redirect = function(){ __this.route.navigate(["main", "event-list"]); };
         setTimeout(function(){
           redirect();

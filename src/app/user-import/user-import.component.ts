@@ -12,6 +12,7 @@ export class UserImportComponent implements OnInit {
     data: new Array(),
     headers : null
   }
+  file;
 
 
   constructor(private userService: TgmService) { }

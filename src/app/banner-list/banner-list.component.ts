@@ -120,8 +120,7 @@ export class BannerListComponent implements OnInit {
 
   // used as callback function in custompopup component
   delete(id, index, __this){
-    alert(id);
-    alert(index);
+  
     __this.bannerService.deleteBanner(id).subscribe(
       (response:Response) => {  
         if(response.status == 200){
@@ -165,6 +164,22 @@ export class BannerListComponent implements OnInit {
     }
 
   }
+
+
+  linkedToText(linkedTo){
+
+    if(linkedTo==1){
+      return "Product";
+    }else if(linkedTo==2){
+      return "Videos";
+    }else if(linkedTo==3){
+      return "Event";
+    }else{
+      return "-";
+    }
+
+  }
+
 
 }
 

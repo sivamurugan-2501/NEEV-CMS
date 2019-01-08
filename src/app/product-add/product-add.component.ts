@@ -5,8 +5,10 @@ import { ConfigsDataService } from '../services/configs-data.service';
 import { ProductService } from '../services/product.service';
 import { ConstantsData } from '../constants-data';
 import { StorageService } from '../services/storage.service';
-import { Route, Router, ActivatedRoute } from '@angular/router';
-import { Action } from 'ngx-bootstrap';
+import {  Router, ActivatedRoute } from '@angular/router';
+
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/custom-popups.component';
 
 import { ProductEdit } from './product-edit';
 
@@ -117,7 +119,11 @@ export class ProductAddComponent implements OnInit {
   logoImage=null;
   logoId=0;
 
-  constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService) { }
+  popUpObject : NgbdModalComponent;
+
+  constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal) {
+    this.popUpObject = new NgbdModalComponent(modalService);
+   }
 
   ngOnInit() {
 
@@ -206,38 +212,17 @@ export class ProductAddComponent implements OnInit {
     this.logoError=null;
     this.featureImageError = null;
 
-    var fileReader = new FileReader();
-
-    const this_c =this;
     
-    fileReader.addEventListener("load", function(){
-      
-      const image_data = fileReader.result;
 
-      // 1 logo image, 2 Feature image, 3 gallery images
-      if(from ==1){
-
-        this_c.imagePreview.push(image_data);
-        //console.log(this_c.imagePreview);
-
-      }else if(from == 2){
-
-        this_c.featureImagePreview.push(image_data);
-        //console.log(this_c.imagePreview);
-
-      }else if(from ==3){
-
-        this_c.galleryImagesPreview.push(image_data);
-        //console.log(this_c.imagePreview);
-      }
-     
-    });
+    const __this = this;
     
     //this.imagePreview = fileReader.readAsDataURL(event.target.files[0]);
     
     //alert(files.length);
     for(let i=0;i<files.length; i++){
 
+      const fileReader = new FileReader();
+     // alert(1);
       const file = files[i];
 
       const validFile = this.checkExtension(file, this.IMAGE_EXTENSTIONS_ALLOWED);
@@ -256,16 +241,45 @@ export class ProductAddComponent implements OnInit {
         this.galleryImages.push(file);
       }
 
+      fileReader.addEventListener("load", function(){
+        __this.createPreview(from, fileReader);
+      }); 
       if(file){
-        fileReader.readAsDataURL(file);
+        setTimeout(()=>{
+          fileReader.readAsDataURL(file);
+        }, 1000);
+       
       }
 
     }
 
   }
 
-  createPreview(){
+  createPreview(from, fileReader){
+    const this_c =this;
+    
+    //fileReader.addEventListener("load", function(){
+      alert(1)
+      const image_data = fileReader.result;
 
+      // 1 logo image, 2 Feature image, 3 gallery images
+      if(from ==1){
+
+        this_c.imagePreview.push(image_data);
+        //console.log(this_c.imagePreview);
+
+      }else if(from == 2){
+
+        this_c.featureImagePreview.push(image_data);
+        //console.log(this_c.imagePreview);
+
+      }else if(from ==3){
+        
+        this_c.galleryImagesPreview.push(image_data);
+        //console.log(this_c.imagePreview);
+      }
+     
+   // });
   }
 
   removeFile(i, from ){
@@ -697,6 +711,12 @@ export class ProductAddComponent implements OnInit {
   }
 
   removeColumn(category,index){
+    this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.DELETE_PRODUCT_SPEC, {
+      "callback" : this.removeColumn_do,
+      "params" : [category,index,this]});
+  }
+
+  removeColumn_do(category,index, __this){
 
       const categoryList =[
         "engine", "clutch", "suspension", "steering", "tyres"
@@ -705,17 +725,28 @@ export class ProductAddComponent implements OnInit {
       const categroy_name = categoryList[category];
       //alert(categroy_name);
 
-      if(categroy_name!==undefined && this.productData_specification[categroy_name].length <= this.max_specs_columns ){
+      if(categroy_name!==undefined && __this.productData_specification[categroy_name].length <= __this.max_specs_columns ){
 
-        this.productData_specification[categroy_name].splice(index,1)
+        __this.productData_specification[categroy_name].splice(index,1)
       
       }
 
   }
 
   removeFeature(index){
-    this.productData_feature.splice(index,1);
+
+
+    this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.DELETE_PRODUCT_FEATURE, {
+      "callback" : this.removeFeature_do,
+      "params" : [this, index]});
   }
+
+  removeFeature_do(__this,index){
+    __this.productData_feature.splice(index,1);
+  }
+
+    
+  
 
 
 }

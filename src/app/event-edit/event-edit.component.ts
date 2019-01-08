@@ -24,7 +24,8 @@ export class EventEditComponent implements OnInit {
     description : null,
     thumbnail : null,
     images : null,
-    videos: null
+    videos: null,
+    notify:0
   }
 
   imageError: any=null;
@@ -112,12 +113,19 @@ export class EventEditComponent implements OnInit {
         for(let i=0;i<keys.length;i++){
           //alert(this.eventData[keys[i]]);
           if(keys[i] == "thumbnail"){
-              event.append(keys[i], this.eventData.thumbnail, this.eventData.thumbnail["name"]);
+
+              if(this.eventData.thumbnail){
+                event.append(keys[i], this.eventData.thumbnail, this.eventData.thumbnail["name"]);
+              }else{
+                event.append(keys[i],null);
+              }
+
           }else if(keys[i]!="thumbnail_id" && keys[i]!="created_by" && keys[i]!="id" && keys[i]!="city" ){
             event.append(keys[i], this.eventData[keys[i]]);
           }          
         }
-
+        event.append("videos",null);
+        event.append("images", null);
         event.append("filesToDelete", ( (this.file_to_delete && this.file_to_delete[0]) ? this.file_to_delete[0] : null ) );
 
         const __this = this;
@@ -125,7 +133,7 @@ export class EventEditComponent implements OnInit {
             response => {
               window.scroll(0,0);
               this.actionStatus=1;
-              this.successMessage = "Event updated successfully";
+              this.successMessage = "Notice updated successfully";
               const redirect = function(){ __this.route.navigate(["main", "event-list"]); };
               
               setTimeout(function(){

@@ -3,6 +3,9 @@ import { ProductService } from './../services/product.service';
 import { ConstantsData } from '../constants-data';
 import { Router } from '@angular/router';
 
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/custom-popups.component';
+
 declare function setDataTable():any;
 
 @Component({
@@ -20,7 +23,11 @@ export class ProductListComponent implements OnInit {
   actionStatus;
   category_selected=0;
 
-  constructor(private productService: ProductService, private route :Router) { }
+  popUpObject : NgbdModalComponent;
+
+  constructor(private productService: ProductService, private route :Router, private modalService: NgbModal) { 
+    this.popUpObject = new NgbdModalComponent(modalService);
+  }
 
   ngOnInit() {
       this.load();
@@ -59,4 +66,33 @@ export class ProductListComponent implements OnInit {
       this.products = this.products_actuals;
     }
   }
+
+
+  deleteThis(id, index){
+    const response = this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.DELETE_PRODUCT_CONFIRMATION, {
+      "callback" : this.delete,
+      "params" : [id, index, this]});
+  }
+
+
+  // used as callback function in custompopup component
+  delete(id, index, __this){
+   
+    __this.productService.deleteProduct(id).subscribe(
+      (response:Response) => {  
+        if(response.status == 200){
+          __this.actionStatus=1;
+          __this.successMessage = "Product deleted successfully";
+          __this.products.splice(index,1);
+        }
+      },
+      (error) => {
+        __this.actionStatus = 2;
+        __this.errorMessage = "Something went wrong";
+      }
+    );
+  }
+  
+
+
 }

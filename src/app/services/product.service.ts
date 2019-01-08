@@ -65,10 +65,14 @@ export class ProductService {
 
   updateVideo(product_id, video_data){
 
-    alert("Video upload");
     const url= CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["video"]+"/"+product_id;
     return this.http.post(url, video_data);
 
+  }
+
+  deleteProduct(product_id){
+    const url= CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["delete"]+"/"+product_id;
+    return this.http.delete(url);
   }
 
 }

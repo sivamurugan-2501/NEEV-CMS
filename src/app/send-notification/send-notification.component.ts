@@ -16,9 +16,9 @@ export class SendNotificationComponent implements OnInit {
     message: null,
     recipient_group: 1,
     recipients : [],
-    language: 1
+    region: 1
   };
-  languages : any;
+  regions : any;
 
   tgmList:any = new Array();
 
@@ -29,11 +29,11 @@ export class SendNotificationComponent implements OnInit {
   constructor(private route: Router, private tgmService: TgmService, private notificationService: NotificationService, private storageService: StorageService) { }
 
   ngOnInit() {
-    const languages = this.storageService.getCustomData("LANGUAGES");
+    const regions = this.storageService.getCustomData("REGIONS");
     try{
-      this.languages = JSON.parse(languages);
+      this.regions = JSON.parse(regions);
     }catch(e){
-      this.languages= languages;
+      this.regions= regions;
     }  
 
     this.loadTGM();

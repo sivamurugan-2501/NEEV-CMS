@@ -46,7 +46,7 @@
 
       <div class="box-header with-border">
 
-          <h3 class="box-title">Edit Event</h3>
+          <h3 class="box-title">Edit Notice</h3>
 
       </div>
 
@@ -64,7 +64,7 @@
           
           <div class="form-group">
 
-              <label class="text-info">Event Title<span class="text-danger">*</span></label>
+              <label class="text-info">Notice Title<span class="text-danger">*</span></label>
 
               <input type="text" class="form-control" name="title" placeholder="Enter Title" required minlength=4 maxlength=300 #title="ngModel" [(ngModel)]="eventData.title"  />
 
@@ -76,7 +76,7 @@
 
 
 
-          <div class="form-group">
+          <!--div class="form-group">
 
               <label class="text-info">Event Date:<span class="text-danger">*</span></label>
 
@@ -116,7 +116,7 @@
 
               </div>
 
-          </div>
+          </div-->
 
 
 
@@ -124,17 +124,17 @@
 
           <div class="form-group" *ngIf="!eventData.thumbnail_id || imageRemoved==1" >
 
-              <label class="text-info">Event Thumbnail<span class="text-danger">*</span></label>
+              <label class="text-info">Notice Thumbnail</label>
 
               <div class="controls">
 
-                  <input type="file" name="thumbnail" class="form-control" required="" aria-invalid="false" required minlength=4 maxlength=300 #image="ngModel" [(ngModel)]="eventData.thumbnail" (change)="onFileChange($event)">
+                  <input type="file" name="thumbnail" class="form-control" #image="ngModel" [(ngModel)]="eventData.thumbnail" (change)="onFileChange($event)">
 
                   <p class="help-block text-red">Optimized image with proper size and extension.</p>
 
                   <div class="help-block"></div>
                   <div class="form-control-feedback" *ngIf="image.invalid">
-                    <code *ngIf="image.errors.required">Image required</code>
+                    <!--code *ngIf="image.errors.required">Image required</code-->
                     <code *ngIf="imageError">{{imageError}}</code>
                  </div>
 
@@ -143,7 +143,7 @@
           </div>
 
           <div *ngIf="eventData.thumbnail_id>0 && imageRemoved==0" class="form-group">
-              <label class="text-info">Uploaded Thumbnail<span class="text-danger">*</span></label>
+              <label class="text-info">Uploaded Thumbnail</label>
               <div *ngIf="previewImage" class="col-md-2">
                   <div>
                     <img src="{{previewImage}}" style="width:100%"> 
@@ -154,7 +154,7 @@
 
 
           <div class="form-group">
-            <label class="text-info">Edit Event Description<span class="text-danger">*</span></label>
+            <label class="text-info">Notice Description<span class="text-danger">*</span></label>
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Wrapper. Contains page content -->
             <textarea rows="4" class="form-control" name="description" placeholder="Edit Event Description" required minlength=4 maxlength=300 #desc="ngModel" [(ngModel)]="eventData.description"></textarea>
@@ -164,13 +164,13 @@
           </div>
 
 
-          <div class="form-group">
+          <!---div class="form-group">
 
               <label class="text-info">Venue</label>
 
               <input type="text" class="form-control" name="venue" placeholder="Edit Event Address" minlength=4 maxlength=300 #venue="ngModel" [(ngModel)]="eventData.venue" />
 
-          </div>
+          </div-->
 
           
           <div class="form-group">
@@ -191,7 +191,7 @@
 
         </div>
 
-          <div class="form-group">
+          <!--div class="form-group">
 
             <label>State</label>
 
@@ -205,10 +205,16 @@
            <div class="form-control-feedback" *ngIf="state.invalid && (state.dirty || state.touched)">
                 <code *ngIf="state.errors.required">Missing state</code>
             </div>
+        </div-->
+
+
+        <div class="form-group">
+
+            <input type="checkbox" name="notify" id="notify" [checked] = "eventData.notify==1" [(ngModel)]="eventData.notify">
+            <label class="text-info" for="notify">
+                Send Notification
+            </label>
         </div>
-
-
-
       
 
       </div>

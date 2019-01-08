@@ -79,9 +79,10 @@
 				  <table *ngIf="bannerData && bannerData.length>0" id="example" class="as-data-table table table-hover no-wrap product-order" >
 					<thead>
 						<tr  class="bg-secondary">
-              <th> #</th>
+              <th>Banner ID</th>
               <th>Image</th>
               <th>Caption</th>
+              <th>Linked To</th>
 							<th>Date</th>
 							<th>Action</th>
 						</tr>
@@ -93,6 +94,9 @@
               <td *ngIf="data.type==2"> <img src='{{data.path}}' style="width:75px;"> </td>
 
               <td>{{data.caption}}</td>
+
+              <td>{{linkedToText(data.has_link)}} </td>
+
               <td>{{data.created_at | date : medium}}</td>
               <!-- <td *ngIf="data.type==1"> File </td>
               <td *ngIf="data.type==2"> URL </td> -->

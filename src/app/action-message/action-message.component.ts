@@ -14,6 +14,7 @@ export class ActionMessageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.hide =0;
     const __this = this; 
     setTimeout(function(){
       __this.hide =1;

@@ -65,7 +65,15 @@
                     <span class="fa fa-times">&nbsp;</span> {{errorMessage}}
                   </div>
                </div>
-               
+               <div class="form-group">
+                  <h5>Category<span class="text-danger">*</span></h5>
+                  <div class="controls">
+                    <select name="category" id="category" required class="form-control" [(ngModel)]="videoData.category" >
+                        <option *ngFor="let t of categoryOptions" value="{{t.value}}">{{t.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                
                <div class="form-group">
                   <h5>Language<span class="text-danger">*</span></h5>
                   <div class="controls">
@@ -82,6 +90,9 @@
                     </div>
                 </div>
 
+                
+                
+
                <div class="form-group">
                  <h5>Title <span class="text-danger">*</span></h5>
                  <div class="controls">
@@ -91,14 +102,6 @@
                 </div>
   
   
-                <div class="form-group">
-                  <h5>Category<span class="text-danger">*</span></h5>
-                  <div class="controls">
-                    <select name="category" id="category" required class="form-control" [(ngModel)]="videoData.category" >
-                        <option *ngFor="let t of categoryOptions" value="{{t.value}}">{{t.name}}</option>
-                    </select>
-                  </div>
-                </div>
     
                 <div class="form-group">
                     <h5>Upload Type<span class="text-danger">*</span></h5>

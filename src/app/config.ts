@@ -31,7 +31,8 @@ export const CONFIGS = {
       "gallery" : "/product/update/gallery",
       "brochure" : "/product/update/brochure",
       "video" : "/product/update/video",
-      "get" : "/product"
+      "get" : "/product",
+      "delete" : "/product/delete"
    },
     "authenticate" : "/authenticate",
     "configs" : {
