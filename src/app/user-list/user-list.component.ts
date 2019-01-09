@@ -113,6 +113,9 @@ export class UserListComponent implements OnInit {
     this.allUserData = this.tgmUsers.concat(this.tsmUsers);
   }
 
+  importUsers(){
+      this.route.navigate(["main","user-import"]);
+  } 
 
 
 }
