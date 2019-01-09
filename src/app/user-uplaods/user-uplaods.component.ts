@@ -22,7 +22,7 @@ export class UserUplaodsComponent implements OnInit {
 
   image_list;
 
-  constructor(private userUploadService: UserUploadService, private _lightbox:Lightbox) { }
+  constructor(private userUploadService: UserUploadService) { }
 
   ngOnInit() {
     this.loadData();
@@ -58,8 +58,10 @@ export class UserUplaodsComponent implements OnInit {
 
   popImage(image, index){
 
-    const album:IAlbum[]= [ {"src": image, "caption": "Test", "thumb":image} ];
-    this._lightbox.open(album , 0)
+  }
+
+  deleteUpload(id, index){
+
   }
 
 }

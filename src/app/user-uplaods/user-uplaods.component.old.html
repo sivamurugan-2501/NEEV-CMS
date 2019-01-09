@@ -32,69 +32,187 @@
 
                           <div class="box-header">
 
+                           
+
                             <div class="row">
 
-                                    <div class="col-md-6 col-12">
+      <div class="col-md-3 col-12">
 
-                                        <div class="form-group">
+        <div class="form-group">
 
-                                            <label class="text-info">Select TGM</label>
+        <label>Select Files</label>
 
-                                            <div class="form-group">
+        <div>
 
-                                                <select class="form-control select2" multiple="multiple"
+        <a href="#" class="btn btn-nblue btn-outline">
 
-                                                    data-placeholder="Select a TGM">
+                                          <i class="ti-plus"></i> Add Media
 
-                                                    <option>TGM 2</option>
+                                      </a>
 
-                                                    <option>TGM 3</option>
+                  </div>
 
-                                                    <option>TGM 4</option>
+        </div>
 
-                                                    <option>TGM 5</option>
+        <!-- /.form-group -->
 
-                                                    <option>TGM 6</option>
+      </div>
 
-                                                    <option>TGM 7</option>
+      <!-- /.col -->
 
-                                                </select>
+      <div class="col-md-3 col-12">
 
-                                            </div>
+        <div class="form-group">
 
-                                            <!-- /.form-group -->
+        <label>Select Type</label>
 
-                                        </div>
+        <div class="dropdown">
 
-                                        <!-- /.form-group -->
+          <button class="btn btn-nblue btn-outline dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">Type</button>
 
-                                    </div>
+          <div class="dropdown-menu">
 
-                                    <!-- /.col -->
+          <a class="dropdown-item" href="#">
 
-                                    <div class="col-md-6 col-12">
+            <span class="icon fa fa-image"></span>
 
-                                        <div class="form-group pull-right">
+            <span class="title">Images</span>
 
-                                            <label class="text-info">Search</label>
+          </a>
 
-                                            <div class="form-group lookup">
+          <a class="dropdown-item" href="#">
 
-                                                <div>
+            <span class="icon fa fa-play"></span>
 
-                                                    <input type="text" data-provide="media-search">
+            <span class="title">Video</span>
 
-                                                </div>
+          </a>
 
-                                            </div>
+          <a class="dropdown-item" href="#">
 
-                                        </div>
+            <span class="icon fa fa-folder"></span>
 
-                                    </div>
+            <span class="title">Documents</span>
 
-                                    <!-- /.col -->
+          </a>
 
-                                </div>
+          </div>
+
+        </div>
+
+        </div>
+
+        <!-- /.form-group -->
+
+      </div>
+
+      <!-- /.col -->
+
+      <div class="col-md-3 col-12">
+
+        <div class="form-group">
+
+        <label>Select TGM</label>
+
+        <div class="form-group">
+
+                      <select class="form-control select2" multiple="multiple" data-placeholder="Select a TGM">
+
+                            <option>TGM 2</option>
+
+                            <option>TGM 3</option>
+
+                            <option>TGM 4</option>
+
+                            <option>TGM 5</option>
+
+                            <option>TGM 6</option>
+
+                            <option>TGM 7</option>
+
+                            <option>ALL</option>   
+
+                      </select>
+
+                            </div>
+
+                            <!-- /.form-group -->
+
+        </div>
+
+        <!-- /.form-group -->
+
+      </div>
+
+      <!-- /.col -->
+
+      <div class="col-md-3 col-12">
+
+        <div class="form-group">
+
+        <label>Action</label>
+
+          <div>
+
+                    <button class="btn btn-nblue btn-outline" href="#"><i class="ti-upload"></i> Upload</button>
+
+                  </div>
+
+                            <!-- /.form-group -->
+
+        </div>
+
+        <!-- /.form-group -->
+
+      </div>
+
+      <!-- /.col -->
+
+      </div>
+
+      <div class="row">
+
+              <div class="flexbox align-items-center p-15">
+
+      <div class="flexbox align-items-center">
+
+      <div class="dropdown d-none d-sm-block">
+
+        <button class="btn btn-outline btn-default dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">Sort by</button>
+
+        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; top: 0px; left: 0px; will-change: transform; transform: translate3d(0px, 30px, 0px);">
+
+          <a class="dropdown-item" href="#">Date</a>
+
+          <a class="dropdown-item" href="#">Name</a>
+
+          <a class="dropdown-item" href="#">Group</a>
+
+          <a class="dropdown-item" href="#">Popular</a>
+
+        </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div>
+
+        <div class="lookup">
+
+        <input  type="text" data-provide="media-search">
+
+        </div>
+
+      </div>
+
+      </div>
+
+                           </div>
+
+      <!-- /.row -->
 
                           </div>
 
@@ -102,6 +220,37 @@
 
                               <div class="form-body neev-inner-content-div">
 
+<!--
+
+                                 <div class="form-group">
+
+                                  <label>Sort By:</label>
+
+
+
+                                  <div class="input-group">
+
+                                    <button type="button" class="btn btn-nblue btn-outline pull-right" id="daterange-btn">
+
+                                      <span>
+
+                                        <i class="fa fa-calendar"></i> Datewise
+
+                                      </span>
+
+                                      <i class="fa fa-caret-down"></i>
+
+                                    </button>
+
+                                  </div>
+
+                                </div>
+
+-->
+
+                                  <!-- /row -->
+
+                                  <!-- Nav tabs -->
 
                                   <ul class="nav nav-tabs" role="tablist">
 
@@ -145,43 +294,13 @@
 
                                           <div id="image-popups" class="row">
 
-                                              <!--div class="col-sm-2" *ngFor="let imageUpload of imagesUpload">
+                                              <div class="col-sm-2" *ngFor="let imageUpload of imagesUpload">
 
                                                   <a href="javascript:void(0)" (click)="popImage(baseURL+imageUpload.upload_path, 0)" data-effect="mfp-zoom-in"><img src="{{baseURL}}{{imageUpload.upload_path}}" class="img-responsive" alt="">
 
                                                     <br>{{imageUpload.title}}</a>
 
-                                              </div-->
-                                              <table class="as-data-table table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                                    <thead>
-                                                        <tr class="bg-secondary">
-                                                            <th>TGM ID</th>
-                                                            <th>File</th>
-                                                            <th>Uploaded By</th>
-                                                            <th>Date</th>
-                                                            <th>Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                
-                                                    <tbody>
-                                                
-                                                        <tr *ngFor="let imageUpload of imagesUpload; let i = index">
-                                                            <td>{{imageUpload.tgmId}}</td>
-                                                            <td>
-                                                                <img src="{{baseURL}}{{imageUpload.upload_path}}" class="img-responsive" alt="">
-                                                            </td>
-                                                            <td>{{imageUpload.first_name}} {{imageUpload.last_name}}</td>
-                                                            <td>{{imageUpload.created_at | date:medium}}</td>
-                                                
-                                                            <td>
-                                                                <div class="media-right gap-items">
-                                                                    
-                                                                    <a href="javascript:void(0)" class="btn btn-outline btn-nblue" data-original-title="Delete" data-toggle="tooltip" (click) = "deleteUpload(imageUpload.id, i)" ><i class="ti-trash"></i></a>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                              </div>
 
                                           </div>
 
@@ -201,8 +320,50 @@
 
                                                   <a href="{{baseURL}}{{video.upload_path}}" class="popup-youtube">
                                                       <!--img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="" -->
+
                                                   <br>{{video.actual_name}}</a>
+
                                               </div>
+
+                                              <!-- div class="col-sm-2">
+
+                                                  <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/11.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 2</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/12.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 3</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/13.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 4</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/14.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 5</a>
+
+                                              </div>
+
+                                              <div class="col-sm-2">
+
+                                                   <a href="../video/" class="popup-youtube"><img src="../images/gallery/thumb/15.jpg" class="img-responsive" alt="">
+
+                                      <br>Video 6</a>
+
+                                              </div> -->
 
                                           </div>  
 

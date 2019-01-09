@@ -14,6 +14,10 @@ export class UserImportComponent implements OnInit {
   }
   file;
   response;
+  uploaded;
+  actionStatus=0;
+  successMessage=null;
+  errorMessage=null;
 
 
   constructor(private userService: TgmService) { }
@@ -36,7 +40,7 @@ export class UserImportComponent implements OnInit {
     if(extension == "csv" && typeText == "vnd.ms-excel" ){
         const fileReader = new FileReader();
         fileReader.addEventListener("load", () =>{
-            const content = fileReader.result;
+            const content:any = fileReader.result;
             if(content){
                 let split_into_rows = content.split("\n");
                 this.userImport.headers = split_into_rows[0];
@@ -45,7 +49,7 @@ export class UserImportComponent implements OnInit {
                   this.userImport.data.push(split_into_rows[i].split(","));
                 }
                 //alert(JSON.stringify(this.userImport));
-                this.importUser();
+               //this.
             }
         });
 
@@ -57,10 +61,22 @@ export class UserImportComponent implements OnInit {
 
   importUser(){
       this.userService.importUser(this.userImport).subscribe(
-        (response) => {
-            this.response = response;
+        (response:any) => {
+            this.response = response.data;
+            this.actionStatus=1;
+            this.uploaded=1;
+            this.successMessage= "User(s) imported succesfully";
+        },
+        (error)=>{
+          this.actionStatus=2;
+          this.errorMessage= "Sorry, User import failed";
         }
       );
+  }
+
+  showForm(){
+    this.uploaded=0;
+    this.response = null;
   }
 
 }

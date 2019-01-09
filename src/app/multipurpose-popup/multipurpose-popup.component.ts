@@ -41,7 +41,10 @@ export class NgbdModalComponent2 {
   modalRef;
   open(contentType:number, source:string) {
 
+    
+
     this.modalRef  = this.modalService.open(MultipurposePopupComponent, { centered: true });
+
     this.modalRef.componentInstance.contentType=contentType;
     if(contentType==1){
       this.modalRef.componentInstance.imageSource = source;
