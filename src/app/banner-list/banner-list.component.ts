@@ -7,8 +7,9 @@ import {ConstantsData} from './../constants-data';
 import { Route, Router } from '@angular/router';
 
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import {  NgbdModalComponent } from '../custom-popups/custom-popups.component';
 import { StorageService } from '../services/storage.service';
+import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
 
 declare function setDataTable():any;
 
@@ -38,6 +39,7 @@ export class BannerListComponent implements OnInit {
   noRecordMessage = ConstantsData.noBannerMessage;
 
   popUpObject : NgbdModalComponent;
+  multipPopup : NgbdModalComponent2;
 
   regions: any=0;
   region_selected = 0;
@@ -45,6 +47,7 @@ export class BannerListComponent implements OnInit {
   constructor(private storageService: StorageService, private authService:AuthService, private bannerService: BannerServiceService, private route:Router,config: NgbModalConfig, private modalService: NgbModal) { 
 
     this.popUpObject = new NgbdModalComponent(modalService);
+    this.multipPopup = new NgbdModalComponent2(modalService);
 
     this.userData  = authService.loginUserData();
 
@@ -178,6 +181,11 @@ export class BannerListComponent implements OnInit {
       return "-";
     }
 
+  }
+
+
+  viewImage(imageSource){
+      this.multipPopup.open(1, imageSource);
   }
 
 

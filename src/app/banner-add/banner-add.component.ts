@@ -10,6 +10,9 @@ import { ProductService } from '../services/product.service';
 import { VideoService } from '../services/video.service';
 import { EventService } from '../services/event.service';
 
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
+
 
 @Component({
   selector: 'app-banner-add',
@@ -58,7 +61,11 @@ export class BannerAddComponent implements OnInit {
   eventList:any;
   videoList:any;
 
-  constructor( private newsBoardService: EventService ,private videoService: VideoService, private productService: ProductService , private storageService: StorageService , private bannerService : BannerServiceService, private titleService: Title, private route: Router) { }
+  popUpObject : NgbdModalComponent2;
+
+  constructor(modalService : NgbModal , private newsBoardService: EventService ,private videoService: VideoService, private productService: ProductService , private storageService: StorageService , private bannerService : BannerServiceService, private titleService: Title, private route: Router) { 
+      this.popUpObject = new NgbdModalComponent2(modalService)
+  }
 
   ngOnInit() {
 
@@ -103,8 +110,11 @@ export class BannerAddComponent implements OnInit {
         
       }
       const __this = this;
+
+      this.popUpObject.open(3,null);
       this.bannerService.postNewBanner(banner).subscribe(
         response => {
+          this.popUpObject.dismissModal();
           this.actionStatus=1;
           this.successMessage = "New banner added successfully";
           const redirect = function(){ __this.route.navigate(["main", "banner-list"]); };
@@ -113,6 +123,7 @@ export class BannerAddComponent implements OnInit {
           }, 4000);
         },
         error => {
+          this.popUpObject.dismissModal();
           this.actionStatus = 2;
           this.errorMessage = "Something went wrong";
         }

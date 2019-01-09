@@ -23,5 +23,6 @@ export class ConstantsData{
     static DELETE_PRODUCT_FEATURE = "You want to delete this feature";
     static LOGOUT_CONFIRMATION = "You will be logged out of this sesssion"
     static No_FAQ_MESSAGE = "Seems you have not yet added any FAQ(s)";
-    static DELETE_NOTICE_CONFIRMATION = "You want to delete this notice"
+    static DELETE_NOTICE_CONFIRMATION = "You want to delete this notice";
+    static DELETE_VIDEO_CONFIRMATION = "You want to delete this video";
 }

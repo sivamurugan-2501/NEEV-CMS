@@ -54,6 +54,7 @@ import { NotificationEditComponent } from './notification-edit/notification-edit
 import { FaqEditComponent } from './faq-edit/faq-edit.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserImportComponent } from './user-import/user-import.component';
+import { MultipurposePopupComponent, NgbdModalComponent2 } from './multipurpose-popup/multipurpose-popup.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -205,10 +206,12 @@ const routes: Routes =[
     ProductListComponent, BannerEditComponent, FaqAddComponent, UserUplaodsComponent, PageNotFoundComponent, FaqListComponent, UserAddComponent, UserListComponent, TgmAddComponent, DealerAddComponent, TgmListComponent, SendNotificationComponent, EventAddComponent, NotificationListComponent, EventListComponent, VideoEditComponent, EventEditComponent, 
     CustomPopupsComponent,
     NgbdModalComponent,
+    NgbdModalComponent2,
     NotificationEditComponent,
     FaqEditComponent,
     UserEditComponent,
-    UserImportComponent
+    UserImportComponent,
+    MultipurposePopupComponent
   ],
   imports: [
     BrowserModule,
@@ -232,7 +235,7 @@ const routes: Routes =[
       useValue: DEFAULT_DROPZONE_CONFIG
     }
   ],
-  entryComponents : [CustomPopupsComponent],
+  entryComponents : [CustomPopupsComponent, MultipurposePopupComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

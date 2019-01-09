@@ -4,6 +4,9 @@ import {Response} from './../model/response';
 import { StorageService } from '../services/storage.service';
 import { Router } from '@angular/router';
 
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
+
 @Component({
   selector: 'app-video-add',
   templateUrl: './video-add.component.html',
@@ -46,7 +49,11 @@ successMessage:String = "Success";
 errorMessage = "Something went wrong.";
 languages:any;
 
-  constructor(private storageService:StorageService, private videoService : VideoService, private route:Router) { }
+popUpObject : NgbdModalComponent2;
+
+  constructor(modalService : NgbModal, private storageService:StorageService, private videoService : VideoService, private route:Router) {
+    this.popUpObject = new NgbdModalComponent2(modalService);
+  }
 
   ngOnInit() {
       
@@ -85,10 +92,13 @@ languages:any;
         }
         
       }
+
+      this.popUpObject.open(3,null);
       this.videoService.postVideo(video).subscribe(
         //on success
         (response:Response)  => {
-          alert(response);
+          this.popUpObject.dismissModal();
+          //alert(response);
           this.actionStatus = 1;
           this.successMessage = response.message;
           const __this= this;
@@ -98,6 +108,7 @@ languages:any;
         },
         // on error
         errorResponse => {
+          this.popUpObject.dismissModal();
           this.actionStatus = 2;
           console.log(errorResponse.error);
         }

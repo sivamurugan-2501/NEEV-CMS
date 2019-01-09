@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { NgbModalConfig, NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventEmitter } from 'events';
 

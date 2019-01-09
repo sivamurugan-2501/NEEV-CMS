@@ -11,6 +11,9 @@ import { ProductService } from '../services/product.service';
 import { VideoService } from '../services/video.service';
 import { EventService } from '../services/event.service';
 
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
+
 @Component({
   selector: 'app-banner-edit',
   templateUrl: './banner-edit.component.html',
@@ -70,7 +73,11 @@ export class BannerEditComponent implements OnInit {
   eventList:any;
   videoList:any;
 
-  constructor(private newsBoardService: EventService ,private videoService: VideoService, private productService: ProductService , private storageService: StorageService, private bannerService : BannerServiceService, private titleService: Title, private route: Router, private aRoute: ActivatedRoute) { }
+  popUpObject : NgbdModalComponent2;
+
+  constructor(modalService : NgbModal,private newsBoardService: EventService ,private videoService: VideoService, private productService: ProductService , private storageService: StorageService, private bannerService : BannerServiceService, private titleService: Title, private route: Router, private aRoute: ActivatedRoute) {
+    this.popUpObject = new NgbdModalComponent2(modalService);
+   }
 
   ngOnInit() {
 
@@ -143,12 +150,12 @@ export class BannerEditComponent implements OnInit {
       }
       const file_del_id: any = (this.file_to_delete[0]) ? this.file_to_delete[0] :null ;
       banner.append("file_to_delete", file_del_id);
-      //console.log(banner);
-
-      //return false;
+      
+      this.popUpObject.open(3,null);
       const __this = this;
       this.bannerService.editBanner(banner, this.instanceId).subscribe(
         response => {
+          this.popUpObject.dismissModal();
           this.actionStatus=1;
           this.successMessage = "Banner updated successfully";
           const redirect = function(){ __this.route.navigate(["main", "banner-list"]); };
@@ -157,6 +164,7 @@ export class BannerEditComponent implements OnInit {
           }, 1000);
         },
         error => {
+          this.popUpObject.dismissModal();
           this.actionStatus = 2;
           this.errorMessage = "Something went wrong";
         }

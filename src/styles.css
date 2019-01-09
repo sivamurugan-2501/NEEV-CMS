@@ -18,3 +18,8 @@
     border: 1px solid #a8bfff;
 }
 
+
+.modal-content{
+    background: transparent !important;
+    box-shadow: none !important;
+}

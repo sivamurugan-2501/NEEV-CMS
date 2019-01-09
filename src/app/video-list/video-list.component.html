@@ -73,7 +73,7 @@
                 <td *ngIf="data.category==1" >TV Commercial</td>
                 <td *ngIf="data.category==2" >Others</td>
 
-                <td *ngIf="data.thumbnailFile"> <img src="{{serverBaseURL}}{{data.thumbnailFile}}" alt="Not Found" width="80">  </td>
+                <td *ngIf="data.thumbnailFile"> <img src="{{serverBaseURL}}{{data.thumbnailFile}}" alt="Not Found" width="80" style="cursor: pointe;" (click)="videoPreview(serverBaseURL+data.videoPath)">  </td>
                 <td *ngIf="!data.thumbnailFile">Not Available</td>
 
                 <td *ngIf="data.type==2"> {{data.url}} </td>

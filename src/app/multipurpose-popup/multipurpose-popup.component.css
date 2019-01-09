@@ -1,0 +1,15 @@
+.preloader{
+    background: transparent;
+    text-align: center;
+}
+
+.modal-content{
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+
+.close:not(:disabled):not(.disabled) {
+    cursor: pointer;
+    outline: none !important;
+}

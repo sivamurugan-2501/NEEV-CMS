@@ -4,6 +4,10 @@ import { Response } from '../model/response';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 
+
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
+
 @Component({
   selector: 'app-video-edit',
   templateUrl: './video-edit.component.html',
@@ -55,8 +59,11 @@ videoRemoved=0;
 imageError=null;
 
 file_to_delete:Array<Object> = new Array();
+popUpObject : NgbdModalComponent2;
 
-  constructor(private storageService:StorageService, private videoService: VideoService, private aRoute: ActivatedRoute, private route: Router) { }
+  constructor(modalService : NgbModal,private storageService:StorageService, private videoService: VideoService, private aRoute: ActivatedRoute, private route: Router) { 
+    this.popUpObject = new NgbdModalComponent2(modalService);
+  }
 
   ngOnInit() {
 
@@ -138,9 +145,12 @@ file_to_delete:Array<Object> = new Array();
       });
      
 
+      this.popUpObject.open(3,null);
       this.videoService.updateVideo(this.instanceId ,video).subscribe(
         //on success
         (response:Response)  => {
+
+          this.popUpObject.dismissModal();
           //alert(response);
           this.actionStatus = 1;
           this.successMessage = response.message;
@@ -152,8 +162,11 @@ file_to_delete:Array<Object> = new Array();
         },
         // on error
         errorResponse => {
+          
+          this.popUpObject.dismissModal();
           this.actionStatus = 2;
           console.log(errorResponse.error);
+          
         }
       );
       return false;

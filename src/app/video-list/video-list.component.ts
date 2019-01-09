@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { BannerlistRequest } from '../model/bannerlist-request';
+//import { BannerlistRequest } from '../model/bannerlist-request';
 import { VideoService } from '../services/video.service';
 import { Router } from '@angular/router';
+//import { StorageService } from '../services/storage.service';
+
+import {  NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
+import { ConstantsData } from '../constants-data';
 
 @Component({
   selector: 'app-video-list',
@@ -27,8 +33,15 @@ export class VideoListComponent implements OnInit {
   videoData :Array<Object>;
   actionStatus;
   successMessage;
+
+  popUpObject : NgbdModalComponent;
+  multipPopup : NgbdModalComponent2;
   
-  constructor(private authService:AuthService, private videoService: VideoService, private route: Router) {
+  constructor(private authService:AuthService, private videoService: VideoService, private route: Router,  private modalService: NgbModal) {
+    
+    this.popUpObject = new NgbdModalComponent(modalService);
+    this.multipPopup = new NgbdModalComponent2(modalService);
+    
     this.userData  = authService.loginUserData();
 
     try{
@@ -63,27 +76,40 @@ export class VideoListComponent implements OnInit {
 
   deletVideo(id, index){
 
-    const confirmation = confirm("Are you sure, that you want to delete this video ?");
+    this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.DELETE_VIDEO_CONFIRMATION,{
+      "callback" : this.delete,
+      "params" : [id, index, this]});
 
-    if(confirmation){
-      this.videoService.deleteVideo(id).subscribe(
+  }
+  
+  delete(id, index, __this){
+
+    //const confirmation = confirm("Are you sure, that you want to delete this video ?");
+
+    //if(confirmation){
+      __this.videoService.deleteVideo(id).subscribe(
         (response:Response) => {
 
           if(response.status==200){
-              this.actionStatus =1;
-              this.successMessage = "Video deleted successfully.";
-              this.videoData.splice(index,1);
+            __this.actionStatus =1;
+            __this.successMessage = "Video deleted successfully.";
+            __this.videoData.splice(index,1);
           }
 
         }
       );
-    }
+    //}
   }
 
   editVideo(id:number,i){
     if(id>0){
       this.route.navigate(["main", "edit-video"], {queryParams : {"id" : id}});
     }
+  }
+
+  videoPreview(videoLink){
+    //alert(videoLink);
+    this.multipPopup.open(2, videoLink);
   }
 
 }
