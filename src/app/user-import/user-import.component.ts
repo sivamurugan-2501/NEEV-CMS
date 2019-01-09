@@ -13,6 +13,7 @@ export class UserImportComponent implements OnInit {
     headers : null
   }
   file;
+  response;
 
 
   constructor(private userService: TgmService) { }
@@ -30,7 +31,7 @@ export class UserImportComponent implements OnInit {
 
     const extension = file.name.split(".")[1];
     const typeText = file.type.split("/")[1];
-    alert("type =" + typeText);
+    //alert("type =" + typeText);
 
     if(extension == "csv" && typeText == "vnd.ms-excel" ){
         const fileReader = new FileReader();
@@ -43,7 +44,7 @@ export class UserImportComponent implements OnInit {
                 for(let i=1;i<split_into_rows.length;i++){
                   this.userImport.data.push(split_into_rows[i].split(","));
                 }
-                alert(JSON.stringify(this.userImport));
+                //alert(JSON.stringify(this.userImport));
                 this.importUser();
             }
         });
@@ -57,7 +58,7 @@ export class UserImportComponent implements OnInit {
   importUser(){
       this.userService.importUser(this.userImport).subscribe(
         (response) => {
-
+            this.response = response;
         }
       );
   }
