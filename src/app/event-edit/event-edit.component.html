@@ -157,7 +157,7 @@
             <label class="text-info">Notice Description<span class="text-danger">*</span></label>
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Wrapper. Contains page content -->
-            <textarea rows="4" class="form-control" name="description" placeholder="Edit Event Description" required minlength=4 maxlength=300 #desc="ngModel" [(ngModel)]="eventData.description"></textarea>
+            <textarea rows="4" class="form-control" name="description" placeholder="Edit Notice Description" required minlength=4 maxlength=300 #desc="ngModel" [(ngModel)]="eventData.description"></textarea>
             <div class="form-control-feedback" *ngIf="desc.invalid && (desc.dirty || desc.touched)">
                 <code *ngIf="desc.errors.required">Missing description</code>      
             </div>

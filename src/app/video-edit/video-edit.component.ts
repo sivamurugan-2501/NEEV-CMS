@@ -42,7 +42,8 @@ export class VideoEditComponent implements OnInit {
    event:0,
    thumbnailImage : null,
    file_to_delete: null,
-   videoLink: null
+   videoLink: null,
+   notify:0
  };
 
 actionStatus = 0;
@@ -60,6 +61,8 @@ imageError=null;
 
 file_to_delete:Array<Object> = new Array();
 popUpObject : NgbdModalComponent2;
+
+thumbnailImage;
 
   constructor(modalService : NgbModal,private storageService:StorageService, private videoService: VideoService, private aRoute: ActivatedRoute, private route: Router) { 
     this.popUpObject = new NgbdModalComponent2(modalService);
@@ -130,7 +133,13 @@ popUpObject : NgbdModalComponent2;
         else if(keys[i]=="thumbnailImage"){
 
           let file = this.videoData[keys[i]];
-          video.append(keys[i], file, file["name"]);
+          if( isNaN(file) &&  file["name"]){
+            video.append(keys[i], file, file["name"]);
+          }else{
+            video.append(keys[i], file);
+          }
+         
+          
         
         }
         else if(keys[i]!="id" && keys[i]!="thumbnailId" && keys[i]!="videoId"){
@@ -139,7 +148,7 @@ popUpObject : NgbdModalComponent2;
         
       }
       const file_del_id: Array<any> = (this.file_to_delete) ? this.file_to_delete :null ;
-
+      video.append("file_to_delete[]", null);
       file_del_id.forEach((element) =>{
         video.append("file_to_delete[]", element);
       });
@@ -176,8 +185,12 @@ popUpObject : NgbdModalComponent2;
 
 
   createThumbnail(baseURL){
-    const image = baseURL+""+ this.videoData.thumbnailImage;
-    this.previewImage = image;
+    if(this.videoData.thumbnailImage){
+      const image = baseURL+""+ this.videoData.thumbnailImage;
+      this.previewImage = image;
+      this.thumbnailImage = baseURL+""+ this.videoData.thumbnailImage;
+      this.videoData.thumbnailImage = this.videoData.thumbnailId;
+    }
     //alert(image);
   }
 

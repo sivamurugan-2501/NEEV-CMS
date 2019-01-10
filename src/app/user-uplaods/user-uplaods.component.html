@@ -139,11 +139,15 @@
 
                                   <div class="tab-pane active show" id="imagegallery" role="tabpanel">
 
+                                    <div *ngIf="!imageUploads || imageUploads.length==0">
+                                            {{noImageUploads}}
+                                        </div>
                                       <div class="pad">
 
 
 
                                           <div id="image-popups" class="row">
+                                              
 
                                               <!--div class="col-sm-2" *ngFor="let imageUpload of imagesUpload">
 
@@ -193,82 +197,77 @@
 
                                       <div class="tab-pane show" id="videos" role="tabpanel">
 
-                                          <div class="pad">
-
-                                              <div class="row">
-
-                                              <div class="col-sm-2" *ngFor="let video of videoUploads">
-
-                                                  <a href="{{baseURL}}{{video.upload_path}}" class="popup-youtube">
-                                                      <!--img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="" -->
-                                                  <br>{{video.actual_name}}</a>
-                                              </div>
-
-                                          </div>  
-
-                                          
-
-                                      </div>
+                                        <div *ngIf="!videoUploads || videoUploads.length==0">
+                                            {{noVideoUploads}}
+                                        </div>
+                                        <table class="as-data-table table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                            <thead>
+                                                <tr class="bg-secondary">
+                                                    <th>TGM ID</th>
+                                                    <th>File</th>
+                                                    <th>Uploaded By</th>
+                                                    <th>Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                        
+                                            <tbody>
+                                        
+                                                <tr *ngFor="let video of videoUploads; let i = index">
+                                                    <td>{{video.tgmId}}</td>
+                                                    <td>
+                                                       <a href="{{baseURL}}{{video.upload_path}}">{{video.actual_name}}</a>
+                                                    </td>
+                                                    <td>{{video.first_name}} {{video.last_name}}</td>
+                                                    <td>{{video.created_at | date:medium}}</td>
+                                        
+                                                    <td>
+                                                        <div class="media-right gap-items">
+                                                            
+                                                            <a href="javascript:void(0)" class="btn btn-outline btn-nblue" data-original-title="Delete" data-toggle="tooltip" (click) = "deleteUpload(imageUpload.id, i)" ><i class="ti-trash"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
                                       </div>
 
                                       <div class="tab-pane show" id="docs" role="tabpanel">
 
-                                          <div class="pad">
-
-                                               <div class="row">
-
-                                              <div class="col-sm-2" *ngFor="let doc of docUploads">
-
-                                                  <a href="{{baseURL}}{{doc.upload_path}}" class="popup"><!--img src="../images/gallery/thumb/10.jpg" class="img-responsive" alt="">-->
-
-                                      <br>{{doc.actual_name}}</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                 <a href="../" class="popup"><img src="../images/gallery/thumb/11.jpg" class="img-responsive" alt="">
-
-                                      <br>Document 2</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/12.jpg" class="img-responsive" alt="">
-
-                                      <br>Document 3</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/13.jpg" class="img-responsive" alt="">
-
-                                      <br>Document 4</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/14.jpg" class="img-responsive" alt="">
-
-                                      <br>Document 5</a>
-
-                                              </div>
-
-                                              <div class="col-sm-2">
-
-                                                  <a href="../" class="popup"><img src="../images/gallery/thumb/15.jpg" class="img-responsive" alt="">
-
-                                      <br>Document 6</a>
-
-                                              </div>
-
-                                          </div>
-
-                                          </div>
+                                        <div *ngIf="!docUploads || docUploads.length==0">
+                                                {{noDocUploads}}
+                                        </div>
+                                        <table class="as-data-table table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                            <thead>
+                                                <tr class="bg-secondary">
+                                                    <th>TGM ID</th>
+                                                    <th>File</th>
+                                                    <th>Uploaded By</th>
+                                                    <th>Date</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                        
+                                            <tbody>
+                                        
+                                                <tr *ngFor="let doc of docUploads; let i = index">
+                                                    <td>{{doc.tgmId}}</td>
+                                                    <td>
+                                                       <a href="{{baseURL}}{{doc.upload_path}}">{{doc.actual_name}}</a>
+                                                    </td>
+                                                    <td>{{doc.first_name}} {{imageUpload.last_name}}</td>
+                                                    <td>{{doc.created_at | date:medium}}</td>
+                                        
+                                                    <td>
+                                                        <div class="media-right gap-items">
+                                                            
+                                                            <a href="javascript:void(0)" class="btn btn-outline btn-nblue" data-original-title="Delete" data-toggle="tooltip" (click) = "deleteUpload(imageUpload.id, i)" ><i class="ti-trash"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
 
                                       </div>
 

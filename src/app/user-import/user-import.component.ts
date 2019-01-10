@@ -77,6 +77,7 @@ export class UserImportComponent implements OnInit {
   showForm(){
     this.uploaded=0;
     this.response = null;
+    this.file = null;
   }
 
 }

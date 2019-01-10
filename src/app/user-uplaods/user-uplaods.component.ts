@@ -22,6 +22,10 @@ export class UserUplaodsComponent implements OnInit {
 
   image_list;
 
+  noImageUploads = "No image upload(s) available";
+  noVideoUploads = "No video upload(s) available";
+  noDocUploads = "No document upload(s) available";
+
   constructor(private userUploadService: UserUploadService) { }
 
   ngOnInit() {

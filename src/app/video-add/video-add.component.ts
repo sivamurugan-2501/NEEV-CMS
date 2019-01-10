@@ -39,7 +39,8 @@ export class VideoAddComponent implements OnInit {
    url: null,
    product: 0,
    event: 0,
-   thumbnailImage: null
+   thumbnailImage: null,
+   notify:0
  }
 
  imageError;
