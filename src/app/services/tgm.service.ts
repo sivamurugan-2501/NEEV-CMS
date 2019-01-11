@@ -27,6 +27,22 @@ export class TgmService {
 
   }
 
+  getUsers_1(role, fields){
+
+    let queryString="";
+    if(role!==undefined && role!="" && role!=null ){
+      queryString = "?role="+role;
+    }
+
+    if(fields!==undefined && fields!="" && fields!=null ){
+      queryString+= "&fields="+fields;
+    }
+
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["user"]["list"];
+    return this.http.get(url+queryString);
+
+  }
+
   getUserById(userid){
     const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["user"]["get"];
     return this.http.get(url+"/"+userid);

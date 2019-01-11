@@ -154,7 +154,7 @@ $(function () {
 
  */
   function setDataTable(){
-      
+      window.onload = function(){
     $('.as-data-table').DataTable( {
 
 		dom: 'Bfrtip',
@@ -177,5 +177,13 @@ $(function () {
       ]
 
 	} );
+}
+  }
 
+
+  function select2Fn(){
+    window.onload = function(){
+      //alert(";load");
+      $('.select2').select2();
+    }
   }

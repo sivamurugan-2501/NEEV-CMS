@@ -120,7 +120,48 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="form-group" *ngIf="!instanceId && !productImage_1" >
+                    
+                    <label class="text-info">Upload Product Image<span class="text-danger">*</span></label>
+                    <div class="controls">
+                        <input type="file"  name="file" #productImage="ngModel"  class="form-control" [(ngModel)]="productData_1.productImage" required (change)="onImageSelect($event, false, 4)"> 
+                        
+                        <div class="form-control-feedback" *ngIf="productImage.invalid && (productImage.dirty || productImage.touched)">
+                            <code *ngIf="!productData_1.productImage">Missing product image</code>
+                            <code *ngIf="productImageError">{{productImageError}}</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div *ngIf="productImagePreview" class="row imagePreview">
+                        <div *ngFor="let dataUrl of productImagePreview; let i = index" class="col-md-2 thumbnail">
+                        
+                        <img src='{{dataUrl}}' style="width:100px; height:100px;">
+                        <div class="remove" (click)="removeFile(i,1)"> <code> Remove </code></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                        <label class="text-info">Product Image Uploaded<span class="text-danger">*</span></label>
+                        <div *ngIf="productImage_1" class="row imagePreview">
+                            <div class="col-md-2 thumbnail">
+                            
+                            <img src='{{productImage_1}}' style="width:100px; height:100px;">
+                            <div class="remove" (click)="removeFile(0,1)"> <code> Remove </code></div>
+                            </div>
+                        </div>
+                    </div>
   
+                 <div class="form-group">
+
+                    <input type="checkbox" name="notify" id="notify" value=1  [checked] = "productData_1.notify==1" [(ngModel)]="productData_1.notify">
+                    <label class="text-info" for="notify">
+                        Send Notification
+                    </label>
+                </div>   
                 <!-- <div class="form-group">
                   <h5>Upload Brochure</h5>
                   <div class="controls">
@@ -226,7 +267,7 @@
 
                                                                             <div class="form-group">
 
-                                                                                <label class="text-info">Feature {{i+1}} Image<span class="text-danger">*</span></label>
+                                                                                <label class="text-info">Feature {{i+1}} Image<span class="text-danger"></span></label>
 
                                                                                 <div class="input-group input-group-sm">
                                                                                   
@@ -238,9 +279,9 @@
 
                                                                                     </span-->
 
-                                                                                    <div class="form-control-feedback" *ngIf="featureimage.invalid && (featureimage.dirty || featureimage.touched)">
+                                                                                    <!--div class="form-control-feedback" *ngIf="featureimage.invalid && (featureimage.dirty || featureimage.touched)">
                                                                                         <code *ngIf="productData_feature[i].image">Missing Feature image</code>
-                                                                                     </div>
+                                                                                     </div-->
                                                               
                                                                                      <div class="form-control-feedback" *ngIf="(featureimage.dirty || featureimage.touched)">
                                                                                         <code *ngIf="imageError[2]">{{imageError[2]}}</code>
@@ -251,8 +292,8 @@
                                                                             
                                                                         
 
-                                                                            <div class="form-group">
-                                                                                    <div *ngIf="featureImagePreview[i] && featureImagePreview[i]!==undefined" class=" imagePreview">
+                                                                            <div class="form-group" *ngIf="featureImagePreview[i] && featureImagePreview[i]!==undefined">
+                                                                                    <div  class=" imagePreview">
                                                                                         <div  class="col-md-2 thumbnail">
                                                                                         
                                                                                         <img src='{{featureImagePreview[i]}}' style="width:100px; height:100px;">
@@ -260,6 +301,16 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            
+                                                                                <div class="form-group" *ngIf="productData_feature[i].imagePath && featureImagePreview[i].imagePath!==undefined">
+                                                                                        <div  class=" imagePreview">
+                                                                                            <div  class="col-md-2 thumbnail">
+                                                                                            
+                                                                                            <img src='{{productData_feature[i].imagePath}}' style="width:100px; height:100px;">
+                                                                                            <div class="remove" (click)="removeFile(i,2)"> <code> Remove </code></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
 
                                                                             <div class="form-group">
 
@@ -357,7 +408,7 @@
 
                                                                             <div class="form-group">
 
-                                                                                <label class="text-info">Product Images.<span class="text-danger">*</span></label>
+                                                                                <label class="text-info">Product Images<span class="text-danger">*</span></label>
 
                                                                                 <div class="input-group input-group-sm">
 
@@ -374,8 +425,8 @@
                                                                                      </div>
 
                                                                                 </div>
-
                                                                             </div>
+
                                                                             <div class="form-group">
                                                                                 <div class="form-control-feedback" >
                                                                                     <code>Maximum image size is 20 MB.</code>
@@ -383,14 +434,14 @@
                                                                                 </div>
 
                                                                             <div class="form-group">
-                                                                            <div *ngIf="galleryImagesPreview" class="imagePreview row">
+                                                                                <div *ngIf="galleryImagesPreview" class="imagePreview row">
                                                                                     <div *ngFor="let dataUrl of galleryImagesPreview; let i = index" class="col-md-2 thumbnail">
                                                                                       
                                                                                       <img src='{{dataUrl}}' style="width:100px; height:100px;">
                                                                                       <div class="remove" (click)="removeFile(i,3)"> <code> Remove </code></div>
                                                                                     </div>
-                                                                                  </div>
                                                                                 </div>
+                                                                            </div>
                                                                         </div>
 
                                                                     
@@ -663,7 +714,7 @@
             
                                                                                         <div class="input-group input-group-sm">
             
-                                                                                            <input type="text" placeholder="Description" minlength=5 maxlength="200" class="form-control" name="engine_specs_name_engine{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['engine'][i]['value']"  >
+                                                                                            <input type="text" placeholder="Description" minlength=5 maxlength="200" class="form-control" name="engine_specs_value_engine{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['engine'][i]['value']"  >
             
                                                                                         </div>
             
@@ -887,7 +938,7 @@
                     
                                                                                                 <div class="input-group input-group-sm">
                     
-                                                                                                    <input type="text" placeholder="Name text" minlength=5 maxlength="50" class="form-control" name="engine_specs_value_suspension{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['suspension'][i]['name']"  >
+                                                                                                    <input type="text" placeholder="Name text" minlength=5 maxlength="50" class="form-control" name="engine_specs_name_suspension{{i}}" required #engine_specs="ngModel" [(ngModel)] = "productData_specification['suspension'][i]['name']"  >
                     
                                                                                                 </div>
                     

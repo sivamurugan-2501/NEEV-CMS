@@ -57,7 +57,7 @@ export class ProductService {
 
   updateBrochure(product_id, brochure_data){
 
-    alert("brochure upload");
+    //alert("brochure upload");
     const url= CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["brochure"]+"/"+product_id;
     return this.http.post(url, brochure_data);
 

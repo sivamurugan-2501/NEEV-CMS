@@ -42,22 +42,8 @@
 
                                             <div class="form-group">
 
-                                                <select class="form-control select2" multiple="multiple"
-
-                                                    data-placeholder="Select a TGM">
-
-                                                    <option>TGM 2</option>
-
-                                                    <option>TGM 3</option>
-
-                                                    <option>TGM 4</option>
-
-                                                    <option>TGM 5</option>
-
-                                                    <option>TGM 6</option>
-
-                                                    <option>TGM 7</option>
-
+                                                <select class="form-control select2" multiple="multiple" data-placeholder="Select a TGM">
+                                                    <option *ngFor="let user of tgmList" value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
                                                 </select>
 
                                             </div>
@@ -172,9 +158,11 @@
                                                         <tr *ngFor="let imageUpload of imagesUpload; let i = index">
                                                             <td>{{imageUpload.tgmId}}</td>
                                                             <td>
-                                                                <img src="{{baseURL}}{{imageUpload.upload_path}}" class="img-responsive" alt="">
+                                                                <a href="javscript:void(0)" (click)="showPopUp(1,baseURL+imageUpload.upload_path )" >
+                                                                    <img src="{{baseURL}}{{imageUpload.upload_path}}" class="img-responsive" alt="">
+                                                                </a>
                                                             </td>
-                                                            <td>{{imageUpload.first_name}} {{imageUpload.last_name}}</td>
+                                                            <td>{{ getTgmName(imageUpload.tgmId) }}</td>
                                                             <td>{{imageUpload.created_at | date:medium}}</td>
                                                 
                                                             <td>
@@ -216,9 +204,11 @@
                                                 <tr *ngFor="let video of videoUploads; let i = index">
                                                     <td>{{video.tgmId}}</td>
                                                     <td>
-                                                       <a href="{{baseURL}}{{video.upload_path}}">{{video.actual_name}}</a>
+                                                            <a href="javscript:void(0)" (click)="showPopUp(2,baseURL+video.upload_path)" > 
+                                                                {{video.actual_name}}
+                                                            </a>
                                                     </td>
-                                                    <td>{{video.first_name}} {{video.last_name}}</td>
+                                                    <td>{{ getTgmName(video.tgmId) }}</td>
                                                     <td>{{video.created_at | date:medium}}</td>
                                         
                                                     <td>
@@ -256,7 +246,7 @@
                                                     <td>
                                                        <a href="{{baseURL}}{{doc.upload_path}}">{{doc.actual_name}}</a>
                                                     </td>
-                                                    <td>{{doc.first_name}} {{imageUpload.last_name}}</td>
+                                                    <td>{{ getTgmName(doc.tgmId) }}</td>
                                                     <td>{{doc.created_at | date:medium}}</td>
                                         
                                                     <td>

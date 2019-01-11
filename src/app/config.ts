@@ -32,7 +32,8 @@ export const CONFIGS = {
       "brochure" : "/product/update/brochure",
       "video" : "/product/update/video",
       "get" : "/product",
-      "delete" : "/product/delete"
+      "delete" : "/product/delete",
+      "update" : "/product/update"
    },
     "authenticate" : "/authenticate",
     "configs" : {

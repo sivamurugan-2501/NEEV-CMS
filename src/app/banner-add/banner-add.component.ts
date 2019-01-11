@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { BannerServiceService } from './../services/banner-service.service';
 import { Title } from '@angular/platform-browser';
-import { elementStyleProp } from '@angular/core/src/render3/instructions';
 import { timeout } from 'q';
 import { Router, Event } from '@angular/router';
 import { StorageService } from '../services/storage.service';

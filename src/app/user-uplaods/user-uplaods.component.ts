@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserUploadService } from '../services/user-upload.service';
-import { Lightbox, IAlbum } from 'ngx-lightbox';
+import { TgmService } from '../services/tgm.service';
 
+import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import { StorageService } from '../services/storage.service';
+import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
+declare function select2Fn():any;
 
 @Component({
   selector: 'app-user-uplaods',
@@ -26,10 +31,17 @@ export class UserUplaodsComponent implements OnInit {
   noVideoUploads = "No video upload(s) available";
   noDocUploads = "No document upload(s) available";
 
-  constructor(private userUploadService: UserUploadService) { }
+  tgmList : Array<Object> = null;
+  multipPopup : NgbdModalComponent2;
+
+  constructor(private userUploadService: UserUploadService, private tgmService: TgmService, config: NgbModalConfig, private modalService: NgbModal) { 
+    this.multipPopup = new NgbdModalComponent2(modalService);
+  }
 
   ngOnInit() {
+    this.loadTGMs();
     this.loadData();
+    select2Fn();
   }
 
   loadData(){
@@ -66,6 +78,39 @@ export class UserUplaodsComponent implements OnInit {
 
   deleteUpload(id, index){
 
+  }
+
+  loadTGMs(){
+    this.tgmService.getUsers_1("TGM", "id, first_name, last_name").subscribe(
+      (response:any) => {
+          if(response.status==200){
+            this.tgmList = response.data;
+          }
+      },
+      (error:any) =>{
+
+      }
+    );
+  }
+
+  getTgmName(tgmId){
+    if(this.tgmList){
+      
+       var data:any= null;
+       for(let i=0;i<this.tgmList.length;i++){
+          data = this.tgmList[i];
+          if(data.id == tgmId){
+              break;
+          }
+       }
+       const first_name = (data.first_name && data.first_name!=null) ? data.first_name : "";
+       const last_name = (data.last_name && data.last_name!=null) ? data.last_name : "";
+       return first_name+" "+last_name;
+    }
+  }
+
+  showPopUp(type, source){
+    this.multipPopup.open(type, source);
   }
 
 }

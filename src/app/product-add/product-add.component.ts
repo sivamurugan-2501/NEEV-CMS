@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {ViewChild, ElementRef} from '@angular/core';
-import { DropzoneDirective, DropzoneComponent, DropzoneModule } from 'ngx-dropzone-wrapper';
 import { ConfigsDataService } from '../services/configs-data.service';
 import { ProductService } from '../services/product.service';
 import { ConstantsData } from '../constants-data';
@@ -9,6 +7,8 @@ import {  Router, ActivatedRoute } from '@angular/router';
 
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/custom-popups.component';
+
+import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
 
 import { ProductEdit } from './product-edit';
 
@@ -35,14 +35,13 @@ export class ProductAddComponent implements OnInit {
 
   languages :any;
 
-  productData_1 = {
+  productData_1:any = {
     title : null,
     logo: null,
-    //brochureFile : null,
     category :1,
     language: 0,
-    //specification : null,
-   // features : null
+    productImage: null,
+    notify: 0
   }
 
   feature_json =  {
@@ -100,6 +99,7 @@ export class ProductAddComponent implements OnInit {
   max_specs_arr = new Array(this.max_specs_columns);
 
   product_specc_property_schema = {
+    id : null,
     name : null,
     value : null
   };
@@ -117,12 +117,17 @@ export class ProductAddComponent implements OnInit {
   baseURL = "";
 
   logoImage=null;
+  productImage_1=null;
+  productImage:Array<Object>=new Array();;
+  productImagePreview:Array<Object>= new Array();
   logoId=0;
 
   popUpObject : NgbdModalComponent;
+  mpPopup : NgbdModalComponent2;
 
   constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal) {
     this.popUpObject = new NgbdModalComponent(modalService);
+    this.mpPopup = new NgbdModalComponent2(modalService);
    }
 
   ngOnInit() {
@@ -136,7 +141,12 @@ export class ProductAddComponent implements OnInit {
 
     this.loadLanguageList();
     this.addNewFeature();
-    this.addSpecColumn(0);
+
+    
+    if(this.productData_specification.engine.length ==0){
+      this.addSpecColumn(0);
+    }
+
     this.addSpecColumn(1);
     this.addSpecColumn(2);
     this.addSpecColumn(3);
@@ -152,14 +162,28 @@ export class ProductAddComponent implements OnInit {
                 const baseURL = this.baseURL = response.baseURL;
                 const productDetails = this.productDetails = response.products;
                 this.productData_1 = productDetails.basicData;
-                this.productData_gallery.title = productDetails.basicData.gallery_title;
+                this.productData_gallery.title =baseURL+productDetails.basicData.gallery_title;
+
+                for(let i=0;i<productDetails.galleryImages.length;i++){
+                  this.galleryImagesPreview.push(productDetails.galleryImages[i]["image"]);
+                }
+                
                 this.logoId = productDetails.basicData.logoId;
                 if(productDetails.basicData.logo){
                     const logoImage = this.logoImage = baseURL+"/"+productDetails.basicData.logo;
                     //this.imagePreview.push(logoImage);
                 }
 
-                this.productData_feature = productDetails.features;
+                if(productDetails.basicData.productImage){
+                  const productImage = this.productImage_1 = baseURL+"/"+productDetails.basicData.productImage;
+                  //this.imagePreview.push(logoImage);
+                }
+
+
+                console.log(productDetails.specifications);
+                if(productDetails.features.length>0){
+                  this.productData_feature = productDetails.features;
+                }
 
                 for(let i=0; i< productDetails.specifications.length; i++){
 
@@ -169,21 +193,42 @@ export class ProductAddComponent implements OnInit {
 
                   if(specs["specification"]==1){
                     this.productData_specification.engine.push(spec);
+                 
                   }else if(specs["specification"]==2){
                     this.productData_specification.clutch.push(spec);
                   }else if(specs["specification"]==3){
                     this.productData_specification.suspension.push(spec);
-                  }else if(specs["specification"]==4){
-                    this.productData_specification.steering.push(spec);
                   }else if(specs["specification"]==5){
+                    this.productData_specification.steering.push(spec);
+                  }else if(specs["specification"]==4){
                     this.productData_specification.tyres.push(spec);
                   }
 
                 }
-                console.log( this.productData_specification);
                 
-                this.productData_brochure = productDetails.brochures;
+                if(this.productData_specification.engine.length >1){
+                  this.productData_specification.engine.splice(0,1);
+                }
 
+                if(this.productData_specification.clutch.length >1){
+                  this.productData_specification.clutch.splice(0,1);
+                }
+
+                if(this.productData_specification.suspension.length >1){
+                  this.productData_specification.suspension.splice(0,1);
+                }
+
+                if(this.productData_specification.steering.length >1){
+                  this.productData_specification.steering.splice(0,1);
+                }
+
+                if(this.productData_specification.tyres.length >1){
+                  this.productData_specification.tyres.splice(0,1);
+                }
+                console.log(this.productData_specification.engine);
+                if(productDetails.brochures){
+                  this.productData_brochure = productDetails.brochures;
+                }
             }
         }
     );
@@ -215,10 +260,6 @@ export class ProductAddComponent implements OnInit {
     
 
     const __this = this;
-    
-    //this.imagePreview = fileReader.readAsDataURL(event.target.files[0]);
-    
-    //alert(files.length);
     for(let i=0;i<files.length; i++){
 
       const fileReader = new FileReader();
@@ -239,6 +280,8 @@ export class ProductAddComponent implements OnInit {
         //alert(JSON.stringify(this.featureImage));
       }else if(from==3){
         this.galleryImages.push(file);
+      }else if(from==4){
+        this.productImage.push(file);
       }
 
       fileReader.addEventListener("load", function(){
@@ -259,7 +302,7 @@ export class ProductAddComponent implements OnInit {
     const this_c =this;
     
     //fileReader.addEventListener("load", function(){
-      alert(1)
+     // alert(1)
       const image_data = fileReader.result;
 
       // 1 logo image, 2 Feature image, 3 gallery images
@@ -276,6 +319,10 @@ export class ProductAddComponent implements OnInit {
       }else if(from ==3){
         
         this_c.galleryImagesPreview.push(image_data);
+        //console.log(this_c.imagePreview);
+      }else if(from ==4){
+        
+        this_c.productImagePreview.push(image_data);
         //console.log(this_c.imagePreview);
       }
      
@@ -376,6 +423,7 @@ export class ProductAddComponent implements OnInit {
       } */
       //alert(this.featureImage);
     
+      this.mpPopup.open(3, null);
       const product = this.generateProductBasicData();
       this.productService.addProduct(product, this.instanceId).subscribe(
         (response:any) => {
@@ -388,23 +436,23 @@ export class ProductAddComponent implements OnInit {
             this.successMessages[0]= "Product created successfully.";
 
 
-            const id = this.instanceId = response.id;
+            const productid = this.instanceId = response.id;
 
             const productFeaturesPayload = this.generateProductFeatureData();
-            this.updateFeatures(id, productFeaturesPayload);
+            this.updateFeatures(productid, productFeaturesPayload);
 
             const productSpecsPayload = this.generateProductSpecsData();
-            this.updateSpecs(id, productSpecsPayload);
+            this.updateSpecs(productid, productSpecsPayload);
 
             const productGalleryPayload = this.generateProductGalleryData();
-            this.updateGallery(id, productGalleryPayload);
+            this.updateGallery(productid, productGalleryPayload);
 
             const productVideoPayload = this.generateProductVideoData();
-            this.updateVideo(id, productVideoPayload);
+            this.updateVideo(productid, productVideoPayload);
 
             const productBrochurePayload = this.generateProductBrochureData();
-            this.updateBrochure(id, productBrochurePayload);
-
+            this.updateBrochure(productid, productBrochurePayload);
+            this.mpPopup.dismissModal();
             setTimeout(() => {
               this.route.navigate(["main","product-list"]);
             }, 2000);
@@ -561,12 +609,27 @@ export class ProductAddComponent implements OnInit {
 
         this.allImageList.forEach(function(file, index){
           const keyName = keys[i];//+"["+index+"]";
-          product.append( keyName, file, file["nam  e"]);
+          product.append( keyName, file, file["name"]);
         });
 
-      }else{
+      }else if(keys[i] == "productImage"){
+
+        this.productImage.forEach(function(file:any, index){
+          const keyName = keys[i];//+"["+index+"]";
+          product.append( keyName, file, file["name"]);
+        });
+
+      }else if(keys[i]!="galleryImages" && keys[i]!="gallery_title" && keys[i]!="brochure_file" && keys[i]!="logoId" && keys[i]!="productImageId" ){
          product.append(keys[i], this.productData_1[keys[i]]);
-      }
+      }else if(keys[i]=="logoId"){
+          if(!product.get("logo")){
+            product.append( "logo", this.productData_1.logoId);
+          }
+      }else if(keys[i]=="productImageId"){
+        if(!product.get("productImage")){
+          product.append( "productImage", this.productData_1.productImageId);
+        }
+    }
       
     }
     return product;
@@ -588,7 +651,10 @@ export class ProductAddComponent implements OnInit {
           keys.forEach(function(k:string){
 
             console.log(__this.featureImage);
-            const file= (__this.featureImage[0]) ? __this.featureImage[0] : null;
+            const file = (__this.featureImage[0]) ? __this.featureImage[0] : null;
+
+          
+
             console.log(file);
 
            
@@ -597,6 +663,8 @@ export class ProductAddComponent implements OnInit {
               if(file && file!=null && file!=undefined){
                 const file_name = (file && file["name"]) ? file["name"] : k;
                 productFeatures.append( k+"[]", file, file_name);
+              }else{
+                productFeatures.append(k+"[]", feature[k]);
               }
             }else{
               productFeatures.append(k+"[]", feature[k]);
