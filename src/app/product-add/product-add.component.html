@@ -144,9 +144,9 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" *ngIf="productImage_1">
                         <label class="text-info">Product Image Uploaded<span class="text-danger">*</span></label>
-                        <div *ngIf="productImage_1" class="row imagePreview">
+                        <div  class="row imagePreview">
                             <div class="col-md-2 thumbnail">
                             
                             <img src='{{productImage_1}}' style="width:100px; height:100px;">
@@ -684,13 +684,13 @@
 
                                                                         </div> -->
 
-                                                                        <div class="form-group">
+                                                                        <!--div class="form-group">
 
                                                                             <label class="text-info">Engine Specification</label>
 
                                                                             <input type="text" readonly class="form-control" name="spec_name_1" placeholder="Specification Name" value="Engine" />
 
-                                                                        </div>
+                                                                        </div-->
 
                                                                         <div class="row" *ngFor="let d of max_specs_arr; let i=index" >
                                                                             <div class="col-md-6" *ngIf="productData_specification['engine'][i]">
@@ -768,28 +768,10 @@
 
                                                                     </div>
 
-                                                                    <div class="col-12">
+                                                                    <!-- Specification commented -->
+                                                                    <!--div class="col-12">
 
-                                                                       <!--  <div class="form-group">
-
-                                                                            <label class="text-info">Specification List</label>
-
-                                                                            <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
-
-                                                                                <option value="Specification 1">Specification 1 </option>
-
-                                                                                <option value="Specification 2">Specification 2</option>
-
-                                                                                <option value="Specification 3">Specification 3</option>
-
-                                                                                <option value="Specification n">Specification n</option>
-
-                                                                            </select>
-
-
-
-                                                                        </div> -->
-
+                                                                       <
                                                                         <div class="form-group">
 
                                                                             <label class="text-info">Clutch Specification</label>
@@ -849,57 +831,9 @@
                                                                                 </div>
 
 
-
-                                                                        <!-- <div class="form-group">
-
-                                                                            <label class="text-info">Specification icon<span class="text-danger">*</span></label>
-
-                                                                            <div class="input-group input-group-sm">
-
-                                                                                <input type="file" class="form-control">
-
-                                                                                <span class="input-group-btn">
-
-                                                                                    <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
-
-                                                                                </span>
-
-                                                                            </div>
-
-                                                                        </div> -->
-<!-- 
-                                                                        <div class="form-group">
-
-                                                                            <textarea name="specs[]" rows="10" cols="120" name="specs[]" placeholder="&#x0a;Enter Clutch specification here in muliple lines, separated by : (collon) e.g 
-                                                                            &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
-                                                                            &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_clutch="ngModel" [(ngModel)]="productData_specification.clutch" ></textarea>
-
-                                                                        </div> -->
-
                                                                     </div>
 
                                                                     <div class="col-12">
-
-                                                                            <!--  <div class="form-group">
-     
-                                                                                 <label class="text-info">Specification List</label>
-     
-                                                                                 <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
-     
-                                                                                     <option value="Specification 1">Specification 1 </option>
-     
-                                                                                     <option value="Specification 2">Specification 2</option>
-     
-                                                                                     <option value="Specification 3">Specification 3</option>
-     
-                                                                                     <option value="Specification n">Specification n</option>
-     
-                                                                                 </select>
-     
-     
-     
-                                                                             </div> -->
-     
                                                                              <div class="form-group">
      
                                                                                  <label class="text-info">Suspension Specification</label>
@@ -907,28 +841,6 @@
                                                                                  <input type="text" readonly class="form-control" name="spec_name_2" placeholder="Specification Name" value="Suspension" />
      
                                                                              </div>
-     
-     
-     
-     
-     
-                                                                             <!-- <div class="form-group">
-     
-                                                                                 <label class="text-info">Specification icon<span class="text-danger">*</span></label>
-     
-                                                                                 <div class="input-group input-group-sm">
-     
-                                                                                     <input type="file" class="form-control">
-     
-                                                                                     <span class="input-group-btn">
-     
-                                                                                         <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
-     
-                                                                                     </span>
-     
-                                                                                 </div>
-     
-                                                                             </div> -->
 
                                                                              <div class="row" *ngFor="let d of max_specs_arr; let i=index" >
                                                                                     <div class="col-md-6" *ngIf="productData_specification['suspension'][i]">
@@ -978,39 +890,10 @@
                                                                                             </span>
                                                                                     </div>
                                                                                 </div>
-     
-                                                                             <!-- <div class="form-group">
-     
-                                                                                 <textarea name="specs[]" rows="10" cols="120" placeholder="&#x0a;Enter Suspension specification here in muliple lines, separated by : (collon) e.g 
-                                                                                 &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
-                                                                                 &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_suspension="ngModel" [(ngModel)]="productData_specification.suspension" ></textarea>
-     
-                                                                             </div> -->
-     
                                                                          </div>
 
                                                                          <div class="col-12">
 
-                                                                                <!--  <div class="form-group">
-         
-                                                                                     <label class="text-info">Specification List</label>
-         
-                                                                                     <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
-         
-                                                                                         <option value="Specification 1">Specification 1 </option>
-         
-                                                                                         <option value="Specification 2">Specification 2</option>
-         
-                                                                                         <option value="Specification 3">Specification 3</option>
-         
-                                                                                         <option value="Specification n">Specification n</option>
-         
-                                                                                     </select>
-         
-         
-         
-                                                                                 </div> -->
-         
                                                                                  <div class="form-group">
          
                                                                                      <label class="text-info">Tyres Specification</label>
@@ -1070,55 +953,10 @@
                                                                                         </div>
          
          
-                                                                                 <!-- <div class="form-group">
-         
-                                                                                     <label class="text-info">Specification icon<span class="text-danger">*</span></label>
-         
-                                                                                     <div class="input-group input-group-sm">
-         
-                                                                                         <input type="file" class="form-control">
-         
-                                                                                         <span class="input-group-btn">
-         
-                                                                                             <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
-         
-                                                                                         </span>
-         
-                                                                                     </div>
-         
-                                                                                 </div> -->
-         
-                                                                                <!--  <div class="form-group">
-         
-                                                                                     <textarea  name="specs[]" rows="10" cols="120" name="specs" placeholder="&#x0a;Enter tyres specification here in muliple lines, separated by : (collon) e.g 
-                                                                                     &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
-                                                                                     &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_tyres="ngModel" [(ngModel)]="productData_specification.tyres" ></textarea>
-         
-                                                                                 </div> -->
-         
                                                                              </div>
 
                                                                              <div class="col-12">
 
-                                                                                    <!--  <div class="form-group">
-             
-                                                                                         <label class="text-info">Specification List</label>
-             
-                                                                                         <select class="form-control" data-placeholder="Choose a Specification" tabindex="1">
-             
-                                                                                             <option value="Specification 1">Specification 1 </option>
-             
-                                                                                             <option value="Specification 2">Specification 2</option>
-             
-                                                                                             <option value="Specification 3">Specification 3</option>
-             
-                                                                                             <option value="Specification n">Specification n</option>
-             
-                                                                                         </select>
-             
-             
-             
-                                                                                     </div> -->
              
                                                                                      <div class="form-group">
              
@@ -1178,38 +1016,9 @@
                                                                                                         </span>
                                                                                                 </div>
                                                                                             </div>
-             
-             
-             
-                                                                                     <!-- <div class="form-group">
-             
-                                                                                         <label class="text-info">Specification icon<span class="text-danger">*</span></label>
-             
-                                                                                         <div class="input-group input-group-sm">
-             
-                                                                                             <input type="file" class="form-control">
-             
-                                                                                             <span class="input-group-btn">
-             
-                                                                                                 <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
-             
-                                                                                             </span>
-             
-                                                                                         </div>
-             
-                                                                                     </div> -->
-             
-   <!--                                                                                   <div class="form-group">
-             
-                                                                                         <textarea name="specs[]" rows="10" cols="120" placeholder="&#x0a;Enter steering specification here in muliple lines, separated by : (collon) e.g 
-                                                                                         &#x0a; Type     :   2 Cylinder, 702 cm3 IDI Engine 
-                                                                                         &#x0a; Max. output  :    11.6kW@3200 RPM" #specification_steering="ngModel" [(ngModel)]="productData_specification.steering" ></textarea>
-             
-                                                                                     </div> -->
-             
-                                                                                 </div>
-
-
+    
+                                                                                 </div-->
+                                                                                 <!-- Specification commented -->
 
                                                                 </div>
 
@@ -1255,58 +1064,13 @@
 
                                                                                 <input type="file" class="form-control" name="brochure_file" #brochure_file="ngModel" [(ngModel)]="productData_brochure.brochureFile" (change)="validateBrochure($event)" >
 
-                                                                                <!--  <span class="input-group-btn">
-
-                                                                                    <button type="button" class="btn btn-default fa fa-upload"> Upload</button>
-
-                                                                                </span> -->
-
                                                                             </div>
-
-                                                                        </div>
-
-
-
-
-
-                                                                    </div>
-
-                                                                </form>
-
-                                                               <!--  <div class="row fx-element-overlay">
-
-                                                                    <div class="form-group">
-
-                                                                        <div class="media">
-
-                                                                            <div class="fx-card-item pb-0">
-
-                                                                                <div class="fx-card-avatar fx-overlay-1 mb-0"> <img class="align-self-start w-160" src="../images/music/a-1.jpg" alt="user">
-
-                                                                                    <div class="fx-overlay">
-
-                                                                                        <ul class="fx-info">
-
-                                                                                            <li><a class="btn default btn-outline" href="#"><i class="fa fa-file-pdf-o"></i></a></li>
-
-                                                                                        </ul>
-
-                                                                                    </div>
-
-                                                                                </div>
-
-                                                                            </div>
-
-                                                                          
 
                                                                         </div>
 
                                                                     </div>
 
-                                                                </div> -->
-
-
-
+                                                                </form>
                                                             </div>
 
                                                         </div>

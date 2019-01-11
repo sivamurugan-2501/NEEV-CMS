@@ -143,14 +143,13 @@ export class ProductAddComponent implements OnInit {
     this.addNewFeature();
 
     
-    if(this.productData_specification.engine.length ==0){
-      this.addSpecColumn(0);
-    }
-
+   // if(this.productData_specification.engine.length ==0){
+    this.addSpecColumn(0);
+    /*
     this.addSpecColumn(1);
     this.addSpecColumn(2);
     this.addSpecColumn(3);
-    this.addSpecColumn(4);
+    this.addSpecColumn(4);*/
   }
 
 
@@ -194,7 +193,8 @@ export class ProductAddComponent implements OnInit {
                   if(specs["specification"]==1){
                     this.productData_specification.engine.push(spec);
                  
-                  }else if(specs["specification"]==2){
+                  }
+                  /*else if(specs["specification"]==2){
                     this.productData_specification.clutch.push(spec);
                   }else if(specs["specification"]==3){
                     this.productData_specification.suspension.push(spec);
@@ -202,7 +202,7 @@ export class ProductAddComponent implements OnInit {
                     this.productData_specification.steering.push(spec);
                   }else if(specs["specification"]==4){
                     this.productData_specification.tyres.push(spec);
-                  }
+                  }*/
 
                 }
                 
@@ -210,7 +210,7 @@ export class ProductAddComponent implements OnInit {
                   this.productData_specification.engine.splice(0,1);
                 }
 
-                if(this.productData_specification.clutch.length >1){
+                /*if(this.productData_specification.clutch.length >1){
                   this.productData_specification.clutch.splice(0,1);
                 }
 
@@ -224,7 +224,7 @@ export class ProductAddComponent implements OnInit {
 
                 if(this.productData_specification.tyres.length >1){
                   this.productData_specification.tyres.splice(0,1);
-                }
+                }*/
                 console.log(this.productData_specification.engine);
                 if(productDetails.brochures){
                   this.productData_brochure = productDetails.brochures;
@@ -461,8 +461,10 @@ export class ProductAddComponent implements OnInit {
           }
         },
         error => {
+          this.mpPopup.dismissModal();
           this.actionStatus[0] = 2;
           this.errorMessages[0] = "Something went wrong. Product creation failed..";
+          
         }
       
       );
