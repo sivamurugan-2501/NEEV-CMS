@@ -150,7 +150,7 @@ export class EventEditComponent implements OnInit {
 
 
     createPreview(baseURL){
-      const image = baseURL+""+ this.eventData.thumbnail;
+      const image = this.eventData.thumbnail;
       this.previewImage = image;
     }
   

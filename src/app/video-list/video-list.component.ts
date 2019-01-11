@@ -19,7 +19,7 @@ export class VideoListComponent implements OnInit {
 
   userData;
   userId;
-  serverBaseURL;
+  serverBaseURL="";
   payload : any = {
     requestor : null,
     maximum : null,
@@ -63,7 +63,7 @@ export class VideoListComponent implements OnInit {
 
     this.videoService.getVideoList(this.payload).subscribe( (response: any) => {
         if(response.status == 200){
-          this.serverBaseURL =  response.baseURL;
+          //this.serverBaseURL =  response.baseURL;
           this.videoData = response.videos;
         }
     });

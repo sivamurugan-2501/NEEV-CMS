@@ -158,23 +158,28 @@ export class ProductAddComponent implements OnInit {
     this.productService.getProductById(productId).subscribe(
         (response:any) => {
             if(response.status == 200 && response.products){
-                const baseURL = this.baseURL = response.baseURL;
+                const baseURL = ""; //this.baseURL = response.baseURL;
                 const productDetails = this.productDetails = response.products;
                 this.productData_1 = productDetails.basicData;
                 this.productData_gallery.title =baseURL+productDetails.basicData.gallery_title;
 
+                if(productDetails.galleryImages){
                 for(let i=0;i<productDetails.galleryImages.length;i++){
                   this.galleryImagesPreview.push(productDetails.galleryImages[i]["image"]);
                 }
+              }
                 
                 this.logoId = productDetails.basicData.logoId;
+                //alert(productDetails.basicData.logo);
                 if(productDetails.basicData.logo){
-                    const logoImage = this.logoImage = baseURL+"/"+productDetails.basicData.logo;
+                    //const logoImage = this.logoImage = baseURL+"/"+productDetails.basicData.logo;
+                    const logoImage = this.logoImage = productDetails.basicData.logo;
+                   // alert(logoImage);
                     //this.imagePreview.push(logoImage);
                 }
 
                 if(productDetails.basicData.productImage){
-                  const productImage = this.productImage_1 = baseURL+"/"+productDetails.basicData.productImage;
+                  const productImage = this.productImage_1 = productDetails.basicData.productImage;
                   //this.imagePreview.push(logoImage);
                 }
 

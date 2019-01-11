@@ -186,9 +186,9 @@ thumbnailImage;
 
   createThumbnail(baseURL){
     if(this.videoData.thumbnailImage){
-      const image = baseURL+""+ this.videoData.thumbnailImage;
+      const image = this.videoData.thumbnailImage;
       this.previewImage = image;
-      this.thumbnailImage = baseURL+""+ this.videoData.thumbnailImage;
+      this.thumbnailImage = this.videoData.thumbnailImage;
       this.videoData.thumbnailImage = this.videoData.thumbnailId;
     }
     //alert(image);
@@ -210,7 +210,7 @@ thumbnailImage;
   }
 
   createVideoLink(baseURL){
-    const videoLink = baseURL+""+ this.videoData.videoFile;
+    const videoLink =  this.videoData.videoFile;
     this.videoLink = videoLink;
   }
 

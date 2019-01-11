@@ -18,7 +18,7 @@ export class ProductListComponent implements OnInit {
   products:any;
   products_actuals:any;
   loading =0;
-  serverBaseURL;
+  serverBaseURL="";
   noRecordMessage = ConstantsData.noBannerMessage;
   actionStatus;
   category_selected=0;
@@ -44,7 +44,7 @@ export class ProductListComponent implements OnInit {
         if(response.status == 200){
             
             this.products = this.products_actuals =response.products;
-            this.serverBaseURL = response.baseURL;
+            //this.serverBaseURL = response.baseURL;
         }
       }  
     );
