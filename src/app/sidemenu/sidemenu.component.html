@@ -81,6 +81,13 @@
         </li> -->
 
 
+        <li>
+            <a href="javascript:void()" [routerLink]="['dashboard']" >
+              <i><img src="../assets/images/dashboard.svg" alt="FAQ's" width="23px"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
 
         <li class="treeview">
 
@@ -370,7 +377,7 @@
 
             <li>
 
-              <a href="javascript:void(0)"
+              <a href="javascript:void(0)"  [routerLink]="['add-vas']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>Add VAS</a
 
@@ -380,7 +387,7 @@
 
             <li>
 
-              <a href="javascript:void(0)"
+              <a href="javascript:void(0)"  [routerLink]="['vas-list']"
 
                 ><i class="mdi mdi-toggle-switch-off"></i>View VAS</a
 
@@ -448,15 +455,44 @@
 
 
 
-         <li>
+         <li class="treeview">
 
-          <a href="javascript:void(0)" [routerLink]="['create-notification']">
+          <a href="javascript:void(0)" >
 
             <i><img src="../assets/images/notification.svg" alt="Send Notifications" width="23px"/></i>
 
-            <span>Send Notifications</span>
+            <span> Notifications</span>
+
+            <span class="pull-right-container">
+
+              <i class="fa fa-angle-right pull-right"></i>
+
+            </span>
 
           </a>
+          <ul class="treeview-menu">
+
+            <li>
+
+              <a href="javascript:void(0)" [routerLink]="['create-notification']"
+
+                ><i class="mdi mdi-toggle-switch-off"></i>Add Notification</a
+
+              >
+
+            </li>
+
+            <li>
+
+              <a href="javascript:void(0)" [routerLink]="['notification-list']"
+
+                ><i class="mdi mdi-toggle-switch-off"></i>View Notification</a
+
+              >
+
+            </li>
+
+          </ul>
 
         </li>
 
@@ -530,7 +566,7 @@
 
               <li>
 
-                  <a href="javascript:void(0)"><i class="mdi mdi-toggle-switch-off"></i>View Application Enquiries</a>
+                  <a href="javascript:void(0)" [routerLink]="['application-enquiries']"><i class="mdi mdi-toggle-switch-off"></i>View Application Enquiries</a>
 
               </li>
 

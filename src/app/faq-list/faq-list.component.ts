@@ -3,6 +3,8 @@ import { FaqService } from '../services/faq.service';
 import { ConfigsDataService } from 'replace/app/services/configs-data.service';
 import { ConstantsData } from '../constants-data';
 import { Router } from '@angular/router';
+import { NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-faq-list',
@@ -20,7 +22,11 @@ export class FaqListComponent implements OnInit {
   noRecordMessage = ConstantsData.No_FAQ_MESSAGE;
   answerCol;
 
-  constructor(private faqService : FaqService, private configService: ConfigsDataService, private route: Router) { }
+  popupObject : NgbdModalComponent;
+
+  constructor(private faqService : FaqService, private configService: ConfigsDataService, private route: Router, private modalService: NgbModal) { 
+      this.popupObject = new NgbdModalComponent(modalService);
+  }
 
   ngOnInit() {
     this.load();
@@ -45,20 +51,29 @@ export class FaqListComponent implements OnInit {
     );
   }
 
+
   deleteFAQ(id, index){
 
-    const confirmation= confirm("Are you sure that you want to delete this FAQ ?");
+    this.popupObject.open(ConstantsData.ARE_YOU_SURE, "You won't be able to access this FAQ", {
+      "callback" : this.delete,
+      "params" : [id, index, this]
+    });
+  }
 
-    if(confirmation){
-      this.faqService.deleteById(id).subscribe(
+  delete(id, index, __this){
+
+    //const confirmation= confirm("Are you sure that you want to delete this FAQ ?");
+
+   // if(confirmation){
+    __this.faqService.deleteById(id).subscribe(
         (response:any) => {
             if(response.status == 200){
-              this.actionStatus = 1;
-              this.faqs.splice(index,1);
+              __this.actionStatus = 1;
+              __this.faqs.splice(index,1);
             }
         }
       );
-    }
+    //}
     
   }
 

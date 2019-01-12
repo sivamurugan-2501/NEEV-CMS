@@ -66,9 +66,12 @@ thumbnailImage;
 
   constructor(modalService : NgbModal,private storageService:StorageService, private videoService: VideoService, private aRoute: ActivatedRoute, private route: Router) { 
     this.popUpObject = new NgbdModalComponent2(modalService);
+    
   }
 
   ngOnInit() {
+    
+    
 
     const languages = this.storageService.getCustomData("LANGUAGES");
 

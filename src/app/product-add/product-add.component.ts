@@ -11,6 +11,7 @@ import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/cust
 import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
 
 import { ProductEdit } from './product-edit';
+import { VideoService } from '../services/video.service';
 
 @Component({
   selector: 'app-product-add',
@@ -23,9 +24,15 @@ export class ProductAddComponent implements OnInit {
   featureImagePreview: Array<Object>= new Array();
   galleryImagesPreview: Array<Object> = new Array();
 
+
+
   allImageList: Array<File>= new Array();
   featureImage: Array<File>= new Array();
   galleryImages: Array<File>= new Array();
+
+  featureImage_loaded: Array<File>= new Array();
+  galleryImages_loaded: Array<File>= new Array();
+
 
   imageError =["", "", ""];
   brochureError= null;
@@ -79,7 +86,9 @@ export class ProductAddComponent implements OnInit {
     language : this.productData_1.language,
     thumbnailImage : null,
     downloadable : 0,
-    category :  1
+    category :  1,
+    notify:0,
+    product : 0
   }
 
   videoUploadTypeOptions = [
@@ -125,7 +134,20 @@ export class ProductAddComponent implements OnInit {
   popUpObject : NgbdModalComponent;
   mpPopup : NgbdModalComponent2;
 
-  constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal) {
+  brochureId=0;
+  brochureName = "";
+
+  doc_remove:Array<Object> = new Array();
+  docRemoved =0;
+
+  logo_delete:Array<Object> = new Array();
+  logoRemoved =0;
+
+  productImage_delete:Array<Object> = new Array();
+  productImageId=0;
+  productImageRemoved=0;
+
+  constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal, private videoService: VideoService) {
     this.popUpObject = new NgbdModalComponent(modalService);
     this.mpPopup = new NgbdModalComponent2(modalService);
    }
@@ -164,10 +186,10 @@ export class ProductAddComponent implements OnInit {
                 this.productData_gallery.title =baseURL+productDetails.basicData.gallery_title;
 
                 if(productDetails.galleryImages){
-                for(let i=0;i<productDetails.galleryImages.length;i++){
-                  this.galleryImagesPreview.push(productDetails.galleryImages[i]["image"]);
+                  for(let i=0;i<productDetails.galleryImages.length;i++){
+                    this.galleryImagesPreview.push(productDetails.galleryImages[i]["image"]);
+                  }
                 }
-              }
                 
                 this.logoId = productDetails.basicData.logoId;
                 //alert(productDetails.basicData.logo);
@@ -180,6 +202,7 @@ export class ProductAddComponent implements OnInit {
 
                 if(productDetails.basicData.productImage){
                   const productImage = this.productImage_1 = productDetails.basicData.productImage;
+                  this.productImageId = productDetails.basicData.productImageId;
                   //this.imagePreview.push(logoImage);
                 }
 
@@ -197,7 +220,6 @@ export class ProductAddComponent implements OnInit {
 
                   if(specs["specification"]==1){
                     this.productData_specification.engine.push(spec);
-                 
                   }
                   /*else if(specs["specification"]==2){
                     this.productData_specification.clutch.push(spec);
@@ -231,8 +253,15 @@ export class ProductAddComponent implements OnInit {
                   this.productData_specification.tyres.splice(0,1);
                 }*/
                 console.log(this.productData_specification.engine);
+                
+                this.productData_brochure.title = this.productData_1.brochure_title;
+                //alert(this.productData_brochure.title);
                 if(productDetails.brochures){
-                  this.productData_brochure = productDetails.brochures;
+                  this.productData_brochure.brochureFile = productDetails.brochures[0]["brochureFile"];
+                  this.brochureId = productDetails.brochures[0]["brochureFile"];
+                 
+                  this.brochureName = productDetails.brochures[0]["actual_name"];
+                 // alert( this.brochureName);
                 }
             }
         }
@@ -443,6 +472,11 @@ export class ProductAddComponent implements OnInit {
 
             const productid = this.instanceId = response.id;
 
+           // setTimeout(() => {
+              const productVideoPayload = this.generateProductVideoData();
+              this.updateVideo(productid, productVideoPayload);
+           // }, 4000);
+
             const productFeaturesPayload = this.generateProductFeatureData();
             this.updateFeatures(productid, productFeaturesPayload);
 
@@ -452,14 +486,14 @@ export class ProductAddComponent implements OnInit {
             const productGalleryPayload = this.generateProductGalleryData();
             this.updateGallery(productid, productGalleryPayload);
 
-            const productVideoPayload = this.generateProductVideoData();
-            this.updateVideo(productid, productVideoPayload);
+          
+           
 
             const productBrochurePayload = this.generateProductBrochureData();
             this.updateBrochure(productid, productBrochurePayload);
             this.mpPopup.dismissModal();
             setTimeout(() => {
-              this.route.navigate(["main","product-list"]);
+            //  this.route.navigate(["main","product-list"]);
             }, 2000);
            
 
@@ -528,7 +562,11 @@ export class ProductAddComponent implements OnInit {
   }
 
   updateVideo(id, product_video_payload){
-    this.productService.updateVideo(id, product_video_payload).subscribe(
+
+    product_video_payload.product =id;
+    
+    //this.productService.updateVideo(id, product_video_payload)
+    this.videoService.postVideo(product_video_payload).subscribe(
       (response:any) => {
         this.actionStatus[4] = 1;
         this.successMessages[4]= "Video uploaded successfully.";
@@ -745,7 +783,8 @@ export class ProductAddComponent implements OnInit {
 
               const file = __this.productData_video.videoFile;
               const file_name = (file["name"]) ? file["name"] : k;
-              productVideo.append( k, file, file_name);
+              //alert(file_name);
+              productVideo.append(k, file, file_name);
             }else{
               productVideo.append(k, __this.productData_video[k]);
             }
@@ -765,7 +804,8 @@ export class ProductAddComponent implements OnInit {
   videoHandler(event){
 
       const file:File = event.target.files[0];
-      //alert(file.type);
+
+      
       const extension = file.type.split("/")[1];
       //alert(extension);
       //alert(["mp4", "mp3","avi"].indexOf(extension));
@@ -781,8 +821,28 @@ export class ProductAddComponent implements OnInit {
   }
 
 
-  removeFiles(fileId){
+  removeLogo(logoId){
+    this.logo_delete.push(logoId);
+    this.productData_1.logo = null;
+    this.logoRemoved =1;
+  }
 
+  undoLogo(){
+    this.logo_delete.pop();
+    this.productData_1.logoId = this.logoId;
+    this.logoRemoved =0;
+  }
+
+  removeProductImage(){
+    this.productImage_delete.push(this.productImageId);
+    this.productData_1.productImage=null;
+    this.productImageRemoved=1;
+  }
+
+  undoProductImage(){
+    this.productImage_delete.pop();
+    this.productData_1.productImage=this.productImageId;
+    this.productImageRemoved=0;
   }
 
   removeColumn(category,index){
@@ -820,6 +880,25 @@ export class ProductAddComponent implements OnInit {
     __this.productData_feature.splice(index,1);
   }
 
+  videoPreview(videoLink){
+    if(videoLink){
+
+    }
+  }
+
+  removeDoc(){
+     this.productData_brochure.brochureFile = null;
+     this.doc_remove.push(this.brochureId); 
+     this.docRemoved =1;
+  }
+
+  undoDoc(){
+    this.doc_remove.pop();
+    this.docRemoved =0;
+    this.productData_brochure.brochureFile = this.brochureId;
+  
+
+  }
     
   
 

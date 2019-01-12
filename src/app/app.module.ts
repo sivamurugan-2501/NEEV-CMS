@@ -8,7 +8,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { DropzoneModule } from 'ngx-dropzone-wrapper';
 import { DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { DropzoneConfigInterface } from 'ngx-dropzone-wrapper';
-import { LightboxModule } from 'ngx-lightbox';
 
 
 import { NgxEditorModule } from 'ngx-editor';
@@ -57,6 +56,14 @@ import { UserImportComponent } from './user-import/user-import.component';
 import { MultipurposePopupComponent, NgbdModalComponent2 } from './multipurpose-popup/multipurpose-popup.component';
 import { BusinessOpporAddComponent } from './business-oppor-add/business-oppor-add.component';
 import { BusinessOpporListComponent } from './business-oppor-list/business-oppor-list.component';
+import { BusinessoppEditComponent } from './businessopp-edit/businessopp-edit.component';
+
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { VasAddComponent } from './vas-add/vas-add.component';
+import { VasListComponent } from './vas-list/vas-list.component';
+import { VasEditComponent } from './vas-edit/vas-edit.component';
+import { ApplicationEnquiriesComponent } from './application-enquiries/application-enquiries.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -189,6 +196,29 @@ const routes: Routes =[
             {
               path : 'business-oppportunit-list',
               component: BusinessOpporListComponent
+            },
+            {
+              path : 'edit-business-opportunity',
+              component: BusinessoppEditComponent
+            },{
+              path: 'add-vas',
+              component: VasAddComponent
+            },
+            {
+              path : 'vas-list',
+              component : VasListComponent
+            },
+            {
+              path : 'edit-vas',
+              component : VasEditComponent
+            },
+            {
+              path : 'application-enquiries',
+              component : ApplicationEnquiriesComponent
+            },
+            {
+              path : 'dashboard',
+              component : DashboardComponent
             }
           ]
         },
@@ -222,7 +252,13 @@ const routes: Routes =[
     UserImportComponent,
     MultipurposePopupComponent,
     BusinessOpporAddComponent,
-    BusinessOpporListComponent
+    BusinessOpporListComponent,
+    BusinessoppEditComponent,
+    VasAddComponent,
+    VasListComponent,
+    VasEditComponent,
+    ApplicationEnquiriesComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -230,8 +266,7 @@ const routes: Routes =[
     FormsModule,
     DropzoneModule,
     NgxEditorModule,
-    LightboxModule,
-   // BsDatepickerModule.forRoot(),
+    NgxSpinnerModule,
     DatepickerModule.forRoot(),
     NgbModule,
     RouterModule.forRoot(

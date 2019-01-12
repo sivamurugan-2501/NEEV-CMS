@@ -1,0 +1,90 @@
+<div class="content-header">
+    <div class="d-flex align-items-center">
+      <div class="mr-auto">
+        <h3 class="page-title">Application Enquiries</h3>
+        <div class="d-inline-block align-items-center">
+          <!--<nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+              <li class="breadcrumb-item" aria-current="page">Business Opportunities</li>
+              <li class="breadcrumb-item active" aria-current="page">List</li>
+            </ol>
+          </nav>-->
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-12">
+          <div class="box">
+            
+              <!-- /.box-header -->
+              <div class="box-header with-border">
+  
+                <h4 class="box-title">Manage Application Enquiries 
+                  </h4>
+  
+                <h6 class="box-subtitle">List of Application Enquiries  uploaded by NEEV Mitra</h6>
+  
+                <span class="box-controls pull-right">
+  
+                  <a href="javascript:void()" [routerLink]="['../add-vas']" class="btn btn-md btn-nblue btn-block my-10">
+  
+                    <i class="ti-plus"></i> Back to dashboard
+
+  
+                  </a>
+  
+                </span>
+  
+              </div>
+               <!-- /.box-header -->
+            <div class="box-body">
+  
+          <div class="table-responsive">
+            
+            <table *ngIf="appEnqData && appEnqData.length>0" id="example" class="as-data-table table table-hover no-wrap product-order" >
+            <thead>
+              <tr  class="bg-secondary">
+                <th>TGM Id</th>
+                <th>Application Name</th>
+                <th>Recording</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of this.appEnqData; let i=index">
+                <td> {{i+1}} </td>
+              
+                <td>{{data.name}}</td>
+                <td> 
+                    <audio src="{{data.upload_path}}" controls=""> 
+                    </audio>
+                </td>
+                <td>{{data.created_at | date : medium}}</td>
+              </tr>
+            </tbody>				  
+    <!-- 				<tfoot>
+              <tr>
+                  <th>Caption</th>
+                  <th>Type</th>
+                  <th>Image</th>
+                  <th>Action</th>
+                </tr>
+            </tfoot> -->
+          </table>
+          </div>              
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->  
+      </div>
+    </div>
+  </section>
+  
+  
+  

@@ -193,5 +193,5 @@ $(function () {
 
 
   function fixSize(){
-    document.body.style.height =auto;
+    document.body.style.height ='auto';
   }

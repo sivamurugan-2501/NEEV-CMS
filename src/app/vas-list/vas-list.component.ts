@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { BusinessOppService } from '../services/business-opp.service';
 import { NgbdModalComponent } from '../custom-popups/custom-popups.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ConstantsData } from '../constants-data';
 import { Route, Router } from '@angular/router';
+import { VasService } from '../services/vas.service';
 
 @Component({
-  selector: 'app-business-oppor-list',
-  templateUrl: './business-oppor-list.component.html',
-  styleUrls: ['./business-oppor-list.component.css']
+  selector: 'app-vas-list',
+  templateUrl: './vas-list.component.html',
+  styleUrls: ['./vas-list.component.css']
 })
-export class BusinessOpporListComponent implements OnInit {
+export class VasListComponent implements OnInit {
 
-  businessOppData=null;
-
+  vasData:any;
   popUpObject : NgbdModalComponent;
   multipPopup : NgbdModalComponent;
 
@@ -21,11 +20,12 @@ export class BusinessOpporListComponent implements OnInit {
   successMessage = "Business opportunity deleted successfully";
   errorMessage= "Something went wrong";
 
-  constructor( modalService: NgbModal, private businessService: BusinessOppService, private route : Router){
-        this.popUpObject = new NgbdModalComponent(modalService);
-       this.multipPopup =  new NgbdModalComponent(modalService);
-  }
+  noRecordMessage = "It seems you have not added any VAS yet.";
 
+  constructor(modalService: NgbModal, private vasService: VasService, private route : Router) { 
+    this.popUpObject = new NgbdModalComponent(modalService);
+    this.multipPopup =  new NgbdModalComponent(modalService);
+  }
 
   ngOnInit() {
       this.load();
@@ -33,10 +33,10 @@ export class BusinessOpporListComponent implements OnInit {
 
 
   load(){
-    this.businessService.get().subscribe(
+    this.vasService.get().subscribe(
       (response:any) => {
           if(response.status == 200){
-              this.businessOppData = response.data;
+              this.vasData = response.data;
           }
       }
     );
@@ -44,22 +44,22 @@ export class BusinessOpporListComponent implements OnInit {
 
   delete(id, index){
 
-    this.popUpObject.open(ConstantsData.ARE_YOU_SURE, " You wont be able to access this business opportunity", {
-      "callback" : this.deleteBusi,
+    this.popUpObject.open(ConstantsData.ARE_YOU_SURE, " You wont be able to access this VAS", {
+      "callback" : this.deleteVas,
       "params" : [id, index, this]
     });
   }
 
-  deleteBusi(id, index, __this){
+  deleteVas(id, index, __this){
 
     //alert(__this.businessService);
     //__this.actionStatus =-1;
     
-    __this.businessService.delete(id).subscribe(
+    __this.vasService.delete(id).subscribe(
 
           (response:any) => {
             if(response.status == 200){
-                __this.businessOppData.splice(index,1);
+                __this.vasData.splice(index,1);
                 __this.actionStatus =1;
             }
           },
@@ -72,7 +72,7 @@ export class BusinessOpporListComponent implements OnInit {
 
 
 editThis(id){
-    this.route.navigate(["main", "edit-business-opportunity"], {"queryParams" : {"id": id} });
+    this.route.navigate(["main", "edit-vas"], {"queryParams" : {"id": id} });
 }
 
 }

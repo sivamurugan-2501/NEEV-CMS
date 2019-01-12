@@ -1,0 +1,132 @@
+
+  <!-- Content Wrapper. Contains page content -->
+  
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="d-flex align-items-center">`
+          <div class="mr-auto">
+            <h3 class="page-title">Business Opportunities</h3>
+            <div class="d-inline-block align-items-center">
+              <!--nav>
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+                  <li class="breadcrumb-item" aria-current="page">Business Opportunities</li>
+                  <li class="breadcrumb-item active" aria-current="page">Add</li>
+                </ol>
+              </nav-->
+            </div>
+          </div>
+        </div>
+      </div>
+  <section class="content">
+       
+      <!-- Basic Forms -->
+       <div class="box">
+        
+          <!-- /.box-header -->
+          <div class="box-header with-border">
+  
+            <h4 class="box-title">Edit Business Opportunity</h4>
+  
+          </div>
+           <!-- /.box-header -->
+  
+  
+         <div class="box-body">
+           <div class="row">
+             <div class="col">
+           <form (submit)="saveBusinessOpportunities()" enctype="multipart/form-data" method="post" #bussOppForm="ngForm">
+           <div class="row">
+            <div class="col-12">	
+              
+              <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+              </app-action-message>
+    
+              <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+                </app-action-message>
+
+                <div class="form-group">
+                    <label>Language</label>
+                    <div class="controls">
+                      <select class="form-control"  name="language" id="language" #language="ngModel" [(ngModel)]= "bussOppData.language" required>
+                              <option value=0>Select language</option>
+                              <option *ngFor="let lg of languages" value={{lg.id}}>{{lg.name}}</option>
+                      </select>
+                      <div class="form-control-feedback" *ngIf="language.invalid && (language.dirty || language.touched)">
+                          <code *ngIf="language.errors.required">Missing language</code>
+                      </div>
+                    </div>
+                </div>
+    
+              <div class="form-group">
+                <label class="text-info">Busineess Opportunity Name <span class="text-danger">*</span></label>
+                <div class="controls">
+                  
+                  <input type="text" name="name" #name="ngModel" minlength="4" maxlength="50"  [(ngModel)]="bussOppData.name" class="form-control" required data-validation-required-message="This field is required"> </div>
+      
+                  <div class="form-control-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">
+                      <code *ngIf="name.errors.required">Missing name field</code>
+                    <code *ngIf="name.errors.minlength || name.errors.maxlength">Invalid name maxlength:4, minlength:50</code>
+                  </div>
+                
+                </div>
+    
+          
+                
+                  <div class="form-group" *ngIf="!bussOppData.thumbnail || imageRemoved==1">
+                    <label class="text-info">Busineess Opportunity Thumbnail<span class="text-danger">*</span></label>
+                    <div class="controls">
+                      <input type="file" name="file" #bannerfile="ngModel" class="form-control" [(ngModel)]="bussOppData.thumbnail" required (change)="onFileChange($event)"> </div>
+                      <p class="help-block text-red">Optimized image with proper size and extension.</p>
+                      <div class="form-control-feedback" *ngIf="bannerfile.invalid && (bannerfile.dirty || bannerfile.touched)">
+                          <code *ngIf="bannerfile.errors.required">Missing thumbnail</code>
+                      </div>
+    
+                      
+                      <div class="form-control-feedback" *ngIf="imageError && (bannerfile.dirty || bannerfile.touched)">
+                        <code *ngIf="imageError">{{imageError}}</code>
+                    </div>
+                  </div>
+
+                  <div *ngIf="bussOppData.thumbnail  && thumbnailImage && imageRemoved==0" class="form-group">
+                    <label class="text-info">Uploaded Thumbnail<span class="text-danger">*</span></label>
+                    <div class="col-md-2">
+                        <div>
+                          <img src="{{thumbnailImage}}" style="width:100%"> 
+                          <div class="remove" (click)="removeFile()"> <code> Remove </code></div>
+                        </div>
+                     </div>
+                </div>
+
+                  <!---div class="form-group">
+                    <label class="text-info">Description<span class="text-danger">*</span></label>
+                
+                    <div class="controls">
+                        <textarea description="description" #description="ngModel" minlength="4" maxlength="50"  [(ngModel)]="bussOppData.description" class="form-control" required></textarea>
+                    </div>
+                        
+                    <div class="form-control-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
+                        <code *ngIf="description.errors.required">Missing description field</code>
+                        <code *ngIf="description.errors.minlength || description.errors.maxlength">Invalid description maxlength:4, minlength:50</code>
+                    </div>
+                </div-->
+              </div>
+          </div>
+           
+           <div class="text-xs-right">
+              <button type="submit" class="btn btn-outline btn-info mr-10" [disabled]="!bussOppForm.valid || !bussOppData.thumbnail" ><i class="fa fa-check"></i> Submit</button>
+           </div>
+         </form>
+               
+             </div>
+             <!-- /.col -->
+           </div>
+           <!-- /.row -->
+         </div>
+         <!-- /.box-body -->
+       </div>
+       <!-- /.box -->
+       
+     </section>
+     <!-- /.content -->
+  

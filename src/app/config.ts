@@ -87,7 +87,16 @@ export const CONFIGS = {
     "business_opp" :{
       "add" : "/business_opp/add",
       "list" : "/business_opp/list",
-      "delete" : "/business_opp/delete"
+      "delete" : "/business_opp/delete",
+      "get" : "/business_opp",
+      "update" : "/business_opp/update"
+    },
+    "vas" :{
+      "add" : "/vas/add",
+      "list" : "/vas/list",
+      "delete" : "/vas/delete",
+      "get" : "/vas/get",
+      "update" : "/vas/update"
     }
     
   }

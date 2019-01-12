@@ -25,9 +25,25 @@ export class BusinessOppService {
 
   delete(id){
     
-    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["bus"]["delete"]+"/"+id; 
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["business_opp"]["delete"]+"/"+id; 
     return this.http.delete(url);
 
   }
+
+  getById(id){
+
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["business_opp"]["get"]+"/"+id; 
+    return this.http.get(url);
+
+  }
+
+
+  edit(businessData, id){
+
+    const url =CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["business_opp"]["update"]+"/"+id; 
+    return this.http.post(url,businessData);
+  
+  }
+
 
 }

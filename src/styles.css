@@ -23,3 +23,7 @@
     background: transparent !important;
     box-shadow: none !important;
 }
+
+.remove{
+    cursor: pointer;
+}

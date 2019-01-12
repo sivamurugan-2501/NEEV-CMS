@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { NgbModalConfig, NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-multipurpose-popup',
@@ -16,7 +17,7 @@ export class MultipurposePopupComponent implements OnInit {
 
   dismissOption=true;
 
-  constructor(config: NgbModalConfig, public activeModal: NgbActiveModal) { 
+  constructor(config: NgbModalConfig, public activeModal: NgbActiveModal,  private spinner: NgxSpinnerService) { 
     config.backdrop = 'static';
     config.keyboard = false;
   }
@@ -26,6 +27,10 @@ export class MultipurposePopupComponent implements OnInit {
 
   dismissModal(){
     this.activeModal.close();
+  }
+
+  showSpinner(){
+    this.spinner.show();
   }
 
 }
@@ -51,6 +56,7 @@ export class NgbdModalComponent2 {
     }else if(contentType==2){
       this.modalRef.componentInstance.videoLink = source;
     }else if(contentType==3){
+      // this.modalRef.componentInstance.showSpinner();
       this.modalRef.componentInstance.dismissOption = false;
     }
 
@@ -62,5 +68,6 @@ export class NgbdModalComponent2 {
 
   dismissModal(){
     this.modalRef.componentInstance.dismissModal();
+    
   }
 }

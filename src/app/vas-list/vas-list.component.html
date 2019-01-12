@@ -1,7 +1,7 @@
 <div class="content-header">
     <div class="d-flex align-items-center">
       <div class="mr-auto">
-        <h3 class="page-title">Business Opportunities</h3>
+        <h3 class="page-title">Value Added Services</h3>
         <div class="d-inline-block align-items-center">
           <!--<nav>
             <ol class="breadcrumb">
@@ -25,16 +25,16 @@
               <!-- /.box-header -->
               <div class="box-header with-border">
   
-                <h4 class="box-title">Manage Business Opportunities
+                <h4 class="box-title">Manage VAS
                   </h4>
   
-                <h6 class="box-subtitle">List of Business Opportunities uploaded by NEEV Mitra</h6>
+                <h6 class="box-subtitle">List of VAS uploaded by NEEV Mitra</h6>
   
                 <span class="box-controls pull-right">
   
-                  <a href="javascript:void()" [routerLink]="['../add-business-opportunity']" class="btn btn-md btn-nblue btn-block my-10">
+                  <a href="javascript:void()" [routerLink]="['../add-vas']" class="btn btn-md btn-nblue btn-block my-10">
   
-                    <i class="ti-plus"></i> Add Business Opportunity
+                    <i class="ti-plus"></i> Add VAS
 
   
                   </a>
@@ -52,9 +52,9 @@
                 <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
                   </app-action-message>
   
-                  <app-action-message *ngIf="!businessOppData || businessOppData.length==0" [type]="3" [message]="noRecordMessage" >
+                  <app-action-message *ngIf="!vasData || vasData.length==0" [type]="3" [message]="noRecordMessage" >
                   </app-action-message>
-            <table *ngIf="businessOppData && businessOppData.length>0" id="example" class="as-data-table table table-hover no-wrap product-order" >
+            <table *ngIf="vasData && vasData.length>0" id="example" class="as-data-table table table-hover no-wrap product-order" >
             <thead>
               <tr  class="bg-secondary">
                 <th>ID</th>
@@ -65,7 +65,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let data of this.businessOppData; let i=index">
+              <tr *ngFor="let data of this.vasData; let i=index">
                 <td> {{i+1}} </td>
                 <td> <img src='{{data.thumbnailImage}}' style="width:75px;"> </td>
   

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import { ConstantsData } from '../constants-data';
+import { NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare function setDataTable():any;
 
@@ -16,15 +18,19 @@ export class NotificationListComponent implements OnInit {
   successMessage= ConstantsData.EVENT_DELETE_SUCCESS;
   errorMessage = ConstantsData.ERROR_MESSAGE;
   loaded=0;
+
+  popUpObject : NgbdModalComponent;
   
-  constructor(private notificationService: NotificationService) { }
+  constructor(private notificationService: NotificationService, modalService: NgbModal) { 
+    this.popUpObject = new NgbdModalComponent(modalService);
+  }
 
   ngOnInit() {
     this.loadData();
 
     setTimeout(()=>{
       setDataTable();
-    }, 200);
+    }, 2000);
   }
 
   loadData(){
@@ -38,18 +44,26 @@ export class NotificationListComponent implements OnInit {
     );
   }
 
+
   deleteNotification(id, index){
-      this.notificationService.deleteNotification(id).subscribe(
+    this.popUpObject.open(ConstantsData.ARE_YOU_SURE, "You won't be able to access this notification", {
+      callback : this.delete,
+      params : [id, index, this]
+    });
+  }
+
+  delete(id, index, __this){
+    __this.notificationService.deleteNotification(id).subscribe(
         (response:any) => {
            if(response.status == 200){
-              this.actionStatus =1;
-              this.notifications.splice(index, 1);
+            __this.actionStatus =1;
+            __this.notifications.splice(index, 1);
            }else{
-             this.actionStatus =2;
+            __this.actionStatus =2;
            }
         },
         (error) => {
-            this.actionStatus =2;
+          __this.actionStatus =2;
         }
       );
   }
