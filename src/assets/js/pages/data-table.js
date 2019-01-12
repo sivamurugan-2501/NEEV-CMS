@@ -192,6 +192,6 @@ $(function () {
   }
 
 
-  fixSize(){
+  function fixSize(){
     document.body.style.height =auto;
   }

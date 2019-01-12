@@ -76,7 +76,7 @@
                   <div class="form-group">
                     <label class="text-info">Busineess Opportunity Thumbnail<span class="text-danger">*</span></label>
                     <div class="controls">
-                      <input type="file" name="file" #bannerfile="ngModel" class="form-control" [(ngModel)]="bussOppData.file" required (change)="onFileChange($event)"> </div>
+                      <input type="file" name="file" #bannerfile="ngModel" class="form-control" [(ngModel)]="bussOppData.thumbnail" required (change)="onFileChange($event)"> </div>
                       <p class="help-block text-red">Optimized image with proper size and extension.</p>
                       <div class="form-control-feedback" *ngIf="bannerfile.invalid && (bannerfile.dirty || bannerfile.touched)">
                           <code *ngIf="bannerfile.errors.required">Missing thumbnail</code>
