@@ -188,7 +188,7 @@ $(function () {
     //window.onload = function(){
       //alert(";load");
       $('.select2').select2();
-    //}
+   // }
   }
 
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 declare function fixSize():any;
 
@@ -10,12 +11,16 @@ declare function fixSize():any;
 export class MainPageComponent implements OnInit {
 
   
-  constructor() { }
+  constructor(private aroute : ActivatedRoute) { }
 
   ngOnInit() {
-      setTimeout(()=>{
-        fixSize();
-      },2000);
+    this.aroute.url.subscribe(
+      (u)=>{
+          setTimeout(
+            () => {
+              fixSize();
+            }
+          );
+       });
   }
-
 }

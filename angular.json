@@ -26,6 +26,7 @@
               "src/styles.css",
             ],
             "scripts": [
+              "src/assets/js/pages/data-table.js" 
             ]
           },
           "configurations": {
