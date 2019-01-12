@@ -82,6 +82,12 @@ export const CONFIGS = {
 
     "user_uploads" :{
       "get" : "/user/upload/get"
+    },
+
+    "business_opp" :{
+      "add" : "/business_opp/add",
+      "list" : "/business_opp/list",
+      "delete" : "/business_opp/delete"
     }
     
   }

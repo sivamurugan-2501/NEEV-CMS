@@ -1,0 +1,119 @@
+<div class="content-header">
+    <div class="d-flex align-items-center">
+      <div class="mr-auto">
+        <h3 class="page-title">Banners</h3>
+        <div class="d-inline-block align-items-center">
+          <nav>
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#"><i class="mdi mdi-home-outline"></i></a></li>
+              <li class="breadcrumb-item" aria-current="page">Banner</li>
+              <li class="breadcrumb-item active" aria-current="page">List</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-12">
+          <div class="box">
+            
+              <!-- /.box-header -->
+              <div class="box-header with-border">
+  
+                <h4 class="box-title">Manage Business Opportunities
+                  </h4>
+  
+                <h6 class="box-subtitle">List of Business Opportunities uploaded by NEEV Mitra</h6>
+  
+                <span class="box-controls pull-right">
+  
+                  <a href="javascript:void()" [routerLink]="['../add-business-opportunity']" class="btn btn-md btn-nblue btn-block my-10">
+  
+                    <i class="ti-plus"></i> Add Business Opportunity
+
+  
+                  </a>
+  
+                </span>
+  
+              </div>
+               <!-- /.box-header -->
+            <div class="box-body">
+  
+          <div class="table-responsive">
+              <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="successMessage" >
+                </app-action-message>
+      
+                <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
+                  </app-action-message>
+  
+                  <app-action-message *ngIf="!businessOppData || businessOppData.length==0" [type]="3" [message]="noRecordMessage" >
+                  </app-action-message>
+            <table *ngIf="businessOppData && businessOppData.length>0" id="example" class="as-data-table table table-hover no-wrap product-order" >
+            <thead>
+              <tr  class="bg-secondary">
+                <th>ID</th>
+                <th>Thumbnail</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of this.businessOppData; let i=index">
+                <td> {{i+1}} </td>
+                <td> <img src='{{data.thumbnailImage}}' style="width:75px;"> </td>
+  
+                <td>{{data.name}}</td>
+  
+                <td>{{data.created_at | date : medium}}</td>
+                <!-- <td *ngIf="data.type==1"> File </td>
+                <td *ngIf="data.type==2"> URL </td> -->
+  
+               
+  
+                <td>
+                  <!-- <span class="action-icon edit fa fa-edit" alt="Edit" title="Edit" (click)="editThis(data.id, i)"> </span>
+                  <span class="action-icon delete fa fa-trash-o" alt="Delete" title="Delete" (click)="deleteThis(data.id, i)"> </span> -->
+  
+                  <a href="javascript:void(0)" class="btn btn-icon-circle btn-nblue" data-toggle="tooltip" data-original-title="Edit" (click)="editThis(data.id, i)">
+                    <i class="ti-marker-alt"></i>
+                  </a>
+  
+                  <a href="javascript:void(0)" class="btn btn-icon-circle btn-danger" data-original-title="Delete" data-toggle="tooltip" (click)="delete(data.id, i)">
+                      <i class="ti-trash"></i>
+                  </a>
+  
+                  <a href="javascript:void(0)" (click)="viewImage(data.upload_path)" target="_blank" class="btn btn-icon-circle btn-nblue" data-original-title="View" data-toggle="tooltip" >
+                      <i class="ti-eye"></i>
+                  </a>
+  
+                </td>
+  
+              </tr>
+            </tbody>				  
+    <!-- 				<tfoot>
+              <tr>
+                  <th>Caption</th>
+                  <th>Type</th>
+                  <th>Image</th>
+                  <th>Action</th>
+                </tr>
+            </tfoot> -->
+          </table>
+          </div>              
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->  
+      </div>
+    </div>
+  </section>
+  
+  
+  

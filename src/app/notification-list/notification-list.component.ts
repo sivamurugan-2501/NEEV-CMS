@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import { ConstantsData } from '../constants-data';
 
+declare function setDataTable():any;
+
 @Component({
   selector: 'app-notification-list',
   templateUrl: './notification-list.component.html',
@@ -19,6 +21,10 @@ export class NotificationListComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+
+    setTimeout(()=>{
+      setDataTable();
+    }, 200);
   }
 
   loadData(){

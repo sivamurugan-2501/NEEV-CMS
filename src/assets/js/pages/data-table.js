@@ -137,8 +137,8 @@ $(function () {
 	
 
 	//---------------Form inputs
-
 	var table = $('#example6').DataTable();
+
 
     
 
@@ -154,7 +154,8 @@ $(function () {
 
  */
   function setDataTable(){
-      window.onload = function(){
+    //alert("hi");
+      //window.onload = function(){
     $('.as-data-table').DataTable( {
 
 		dom: 'Bfrtip',
@@ -165,7 +166,7 @@ $(function () {
 
 		]
 
-    } );
+    });
     
     //alert("updated");
     $('.as-data-table-2').DataTable( {
@@ -176,14 +177,21 @@ $(function () {
         'copy'
       ]
 
-	} );
-}
+  } );
+   
+
+//}
   }
 
 
   function select2Fn(){
-    window.onload = function(){
+    //window.onload = function(){
       //alert(";load");
       $('.select2').select2();
-    }
+    //}
+  }
+
+
+  fixSize(){
+    document.body.style.height =auto;
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-declare function setDataTable():any;
+declare function fixSize():any;
 
 @Component({
   selector: 'app-main-page',
@@ -13,7 +13,9 @@ export class MainPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
+      setTimeout(()=>{
+        fixSize();
+      },2000);
   }
 
 }

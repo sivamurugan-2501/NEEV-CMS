@@ -8,6 +8,8 @@ import { StorageService } from '../services/storage.service';
 import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
 declare function select2Fn():any;
 
+declare function setDataTable():any;
+
 @Component({
   selector: 'app-user-uplaods',
   templateUrl: './user-uplaods.component.html',
@@ -41,7 +43,12 @@ export class UserUplaodsComponent implements OnInit {
   ngOnInit() {
     this.loadTGMs();
     this.loadData();
-    select2Fn();
+   
+
+    setTimeout( ()=>{
+      select2Fn();
+      setDataTable();
+    },2000);
   }
 
   loadData(){

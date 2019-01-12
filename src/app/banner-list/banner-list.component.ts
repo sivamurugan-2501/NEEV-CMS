@@ -72,7 +72,9 @@ export class BannerListComponent implements OnInit {
       this.regions = regions;
     }
     
-    setDataTable();
+    setTimeout( ()=>{
+      setDataTable();
+    },2000)
   }
 
   loadData(){

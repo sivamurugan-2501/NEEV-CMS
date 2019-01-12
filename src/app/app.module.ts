@@ -55,6 +55,8 @@ import { FaqEditComponent } from './faq-edit/faq-edit.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserImportComponent } from './user-import/user-import.component';
 import { MultipurposePopupComponent, NgbdModalComponent2 } from './multipurpose-popup/multipurpose-popup.component';
+import { BusinessOpporAddComponent } from './business-oppor-add/business-oppor-add.component';
+import { BusinessOpporListComponent } from './business-oppor-list/business-oppor-list.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -180,6 +182,13 @@ const routes: Routes =[
             {
               path : 'notification-list',
               component : NotificationListComponent
+            },{
+              path: 'add-business-opportunity',
+              component : BusinessOpporAddComponent
+            },
+            {
+              path : 'business-oppportunit-list',
+              component: BusinessOpporListComponent
             }
           ]
         },
@@ -211,7 +220,9 @@ const routes: Routes =[
     FaqEditComponent,
     UserEditComponent,
     UserImportComponent,
-    MultipurposePopupComponent
+    MultipurposePopupComponent,
+    BusinessOpporAddComponent,
+    BusinessOpporListComponent
   ],
   imports: [
     BrowserModule,

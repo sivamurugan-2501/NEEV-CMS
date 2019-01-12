@@ -10,6 +10,8 @@ import {  NgbdModalComponent } from '../custom-popups/custom-popups.component';
 import { NgbdModalComponent2 } from '../multipurpose-popup/multipurpose-popup.component';
 import { ConstantsData } from '../constants-data';
 
+declare function setDataTable():any;
+
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.component.html',
@@ -72,6 +74,9 @@ export class VideoListComponent implements OnInit {
 
   ngOnInit() {
     this.loadData();
+    setTimeout( ()=>{
+      setDataTable();
+    },2000)
   }
 
   deletVideo(id, index){

@@ -26,7 +26,9 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
      this.load();
-     setDataTable();
+     setTimeout(()=>{
+      setDataTable();
+    }, 200);
   }
 
   load(){

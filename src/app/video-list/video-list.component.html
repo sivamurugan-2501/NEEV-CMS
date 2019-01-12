@@ -52,9 +52,9 @@
                   <app-action-message *ngIf="!videoData || videoData.length==0" [type]="3" [message]="noRecordMessage" >
                   </app-action-message>
 
-            <table id="example" *ngIf="videoData && videoData.length>0" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+            <table id="example" *ngIf="videoData && videoData.length>0" class="as-data-table table table-bordered table-hover display nowrap margin-top-10 w-p100">
             <thead>
-              <tr>
+              <tr class="bg-secondary">
                 <th>#</th>
                 <th>Title</th>
                 <th>Category</th>
@@ -73,8 +73,8 @@
                 <td *ngIf="data.category==1" >TV Commercial</td>
                 <td *ngIf="data.category==2" >Others</td>
 
-                <td *ngIf="data.thumbnailFile"> <img src="{{serverBaseURL}}{{data.thumbnailFile}}" alt="Not Found" width="80" style="cursor: pointe;" (click)="videoPreview(serverBaseURL+data.videoPath)">  </td>
-                <td *ngIf="!data.thumbnailFile" (click)="videoPreview(serverBaseURL+data.videoPath)" title="Click to preview" >Not Available</td>
+                <td *ngIf="data.thumbnailFile"> <img src="{{data.thumbnailFile}}" alt="Not Found" width="80" style="cursor: pointe;" (click)="videoPreview(serverBaseURL+data.videoPath)">  </td>
+                <td *ngIf="!data.thumbnailFile" (click)="videoPreview(data.videoPath)" title="Click to preview" >Not Available</td>
 
                 <td *ngIf="data.type==2"> {{data.url}} </td>
                 <td *ngIf="data.type==1"> 
