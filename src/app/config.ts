@@ -97,6 +97,9 @@ export const CONFIGS = {
       "delete" : "/vas/delete",
       "get" : "/vas/get",
       "update" : "/vas/update"
+    },
+    "dashboard" : {
+      "stats" : "/stats"
     }
     
   }

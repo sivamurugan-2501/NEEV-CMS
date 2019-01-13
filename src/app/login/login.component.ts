@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
               this.successMessage = response.message;
               //this.route.navigate(["main", "add-banner"]);
               
-               window.location.href = "/main/add-banner";
+               window.location.href = "/main/dashboard";
 
           }else if(response.authentication == false){
 
