@@ -100,6 +100,9 @@ export const CONFIGS = {
     },
     "dashboard" : {
       "stats" : "/stats"
+    },
+    "app_enq" :{
+      "list" : "/application_enquiries/list"
     }
     
   }

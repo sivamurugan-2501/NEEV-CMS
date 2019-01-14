@@ -17,6 +17,10 @@ export class VideoService {
     return this.http.post(CONFIGS.apiBaseURL+CONFIGS.apiURLs["video"]["add"], videoData);
   }
 
+  postProductVideo(videoData, productId){
+    return this.http.post(CONFIGS.apiBaseURL+CONFIGS.apiURLs["video"]["add"]+"/"+productId, videoData);
+  }
+
   getVideoList(payload){
     return this.http.post(CONFIGS.apiBaseURL+CONFIGS.apiURLs["video"]["list"],payload);
   }

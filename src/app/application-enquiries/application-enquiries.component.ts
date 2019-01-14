@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppEnquiriesService } from '../services/app-enquiries.service';
 
 @Component({
   selector: 'app-application-enquiries',
@@ -9,9 +10,20 @@ export class ApplicationEnquiriesComponent implements OnInit {
 
   appEnqData;
   
-  constructor() { }
+  constructor(private applService: AppEnquiriesService) { }
 
   ngOnInit() {
+    this.load();
+  }
+
+  load(){
+    this.applService.get().subscribe(
+       (response:any) => {
+          if(response.status == 200){
+             this.appEnqData = response.data;
+          }
+       }
+    );
   }
 
 }

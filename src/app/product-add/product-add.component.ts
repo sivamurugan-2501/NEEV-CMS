@@ -62,7 +62,8 @@ export class ProductAddComponent implements OnInit {
 
   productData_gallery = {
     title : null,
-    images : null
+    images : null,
+    existing_images : new Array()
   };
 
   productData_brochure = {
@@ -187,7 +188,9 @@ export class ProductAddComponent implements OnInit {
 
                 if(productDetails.galleryImages){
                   for(let i=0;i<productDetails.galleryImages.length;i++){
-                    this.galleryImagesPreview.push(productDetails.galleryImages[i]["image"]);
+                    //this.galleryImagesPreview.push(productDetails.galleryImages[i]["image"]);
+                    this.galleryImages_loaded.push(productDetails.galleryImages[i]["image"]);
+                    this.productData_gallery.existing_images.push(this.galleryImages[i]["imageid"]);
                   }
                 }
                 
@@ -459,6 +462,9 @@ export class ProductAddComponent implements OnInit {
     
       this.mpPopup.open(3, null);
       const product = this.generateProductBasicData();
+
+     
+
       this.productService.addProduct(product, this.instanceId).subscribe(
         (response:any) => {
           //this.actionStatus=1;
@@ -472,10 +478,10 @@ export class ProductAddComponent implements OnInit {
 
             const productid = this.instanceId = response.id;
 
-           // setTimeout(() => {
+           //setTimeout(() => {
               const productVideoPayload = this.generateProductVideoData();
               this.updateVideo(productid, productVideoPayload);
-           // }, 4000);
+           //}, 8000);
 
             const productFeaturesPayload = this.generateProductFeatureData();
             this.updateFeatures(productid, productFeaturesPayload);
@@ -493,8 +499,8 @@ export class ProductAddComponent implements OnInit {
             this.updateBrochure(productid, productBrochurePayload);
             this.mpPopup.dismissModal();
             setTimeout(() => {
-            //  this.route.navigate(["main","product-list"]);
-            }, 2000);
+                this.route.navigate(["main","product-list"]);
+            }, 3000);
            
 
           }
@@ -566,7 +572,7 @@ export class ProductAddComponent implements OnInit {
     product_video_payload.product =id;
     
     //this.productService.updateVideo(id, product_video_payload)
-    this.videoService.postVideo(product_video_payload).subscribe(
+    this.videoService.postProductVideo(product_video_payload, id).subscribe(
       (response:any) => {
         this.actionStatus[4] = 1;
         this.successMessages[4]= "Video uploaded successfully.";
@@ -740,10 +746,12 @@ export class ProductAddComponent implements OnInit {
       if(keys[i] == "images"){
 
         if(this.galleryImages.length>0){
-        this.galleryImages.forEach(function(file, index){
-          const keyName = keys[i]+"[]";
-          product.append( keyName, file, file["name"]);
-        });
+          this.galleryImages.forEach(function(file, index){
+            const keyName = keys[i]+"[]";
+            product.append( keyName, file, file["name"]);
+          });
+        }else{
+          product.append( keys[i],null );
         }
       }else{
          product.append(keys[i], this.productData_gallery["title"] );
@@ -783,7 +791,7 @@ export class ProductAddComponent implements OnInit {
 
               const file = __this.productData_video.videoFile;
               const file_name = (file["name"]) ? file["name"] : k;
-              //alert(file_name);
+              //alert(file);
               productVideo.append(k, file, file_name);
             }else{
               productVideo.append(k, __this.productData_video[k]);
