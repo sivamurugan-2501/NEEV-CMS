@@ -17,7 +17,7 @@ export class VasListComponent implements OnInit {
   multipPopup : NgbdModalComponent;
 
   actionStatus =-1;
-  successMessage = "Business opportunity deleted successfully";
+  successMessage = "VAS deleted successfully";
   errorMessage= "Something went wrong";
 
   noRecordMessage = "It seems you have not added any VAS yet.";

@@ -101,9 +101,9 @@
                     <div class="controls">
                       <input type="file"  name="file" #logo="ngModel"  class="form-control" [(ngModel)]="productData_1.logo" required (change)="onImageSelect($event, false, 1)"> 
                       
-                      <div class="form-control-feedback" *ngIf="logo.invalid && (logo.dirty || logo.touched)">
+                      <div class="form-control-feedback" *ngIf="imageError[1] || !productData_1.logo">
                           <code *ngIf="!productData_1.logo">Missing product logo</code>
-                          <code *ngIf="logoError">{{logoError}}</code>
+                          <code *ngIf="logoError || imageError[1]">{{imageError[1]}}</code>
                        </div>
                     </div>
 
@@ -138,9 +138,9 @@
                     <div class="controls">
                         <input type="file"  name="file" #productImage="ngModel"  class="form-control" [(ngModel)]="productData_1.productImage" required (change)="onImageSelect($event, false, 4)"> 
                         
-                        <div class="form-control-feedback" *ngIf="productImage.invalid && (productImage.dirty || productImage.touched)">
+                        <div class="form-control-feedback" *ngIf="imageError[4] || !productData_1.productImage">
                             <code *ngIf="!productData_1.productImage">Missing product image</code>
-                            <code *ngIf="productImageError">{{productImageError}}</code>
+                            <code *ngIf="imageError[4]">{{productImageError}}</code>
                         </div>
                         
                     </div>

@@ -147,6 +147,7 @@ export class ProductAddComponent implements OnInit {
   productImage_delete:Array<Object> = new Array();
   productImageId=0;
   productImageRemoved=0;
+  productImageError=null;
 
   constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal, private videoService: VideoService) {
     this.popUpObject = new NgbdModalComponent(modalService);
