@@ -191,7 +191,7 @@ export class ProductAddComponent implements OnInit {
                   for(let i=0;i<productDetails.galleryImages.length;i++){
                     //this.galleryImagesPreview.push(productDetails.galleryImages[i]["image"]);
                     this.galleryImages_loaded.push(productDetails.galleryImages[i]["image"]);
-                    this.productData_gallery.existing_images.push(this.galleryImages[i]["imageid"]);
+                    this.productData_gallery.existing_images.push(productDetails.galleryImages[i]["imageid"]);
                   }
                 }
                 
