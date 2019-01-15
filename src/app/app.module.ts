@@ -64,6 +64,7 @@ import { VasListComponent } from './vas-list/vas-list.component';
 import { VasEditComponent } from './vas-edit/vas-edit.component';
 import { ApplicationEnquiriesComponent } from './application-enquiries/application-enquiries.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SafeURLPipe } from './pipes/safe-url.pipe';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -258,7 +259,8 @@ const routes: Routes =[
     VasListComponent,
     VasEditComponent,
     ApplicationEnquiriesComponent,
-    DashboardComponent
+    DashboardComponent,
+    SafeURLPipe
   ],
   imports: [
     BrowserModule,

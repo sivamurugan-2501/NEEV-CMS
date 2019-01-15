@@ -42,7 +42,7 @@ export class VideoEditComponent implements OnInit {
    event:0,
    thumbnailImage : null,
    file_to_delete: null,
-   notify:0
+   notify:0,
  };
 
 actionStatus = 0;
