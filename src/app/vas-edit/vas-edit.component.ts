@@ -64,7 +64,7 @@ export class VasEditComponent implements OnInit {
              this.vasData.name = data.name;
              this.vasData.language = data.language;
              this.vasData.notify = data.notify;
-             this.vasData.description = data.description;
+             this.vasData.description = (data.description && data.description!="null") ? data.description : "";
              this.vasData.thumbnail = this.thumbnailId = data.thumbnail;
              this.thumbnailImage = data.thumbnailImage;
             // alert(this.thumbnailImage);
