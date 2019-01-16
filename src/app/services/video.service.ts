@@ -36,6 +36,7 @@ export class VideoService {
   }
 
   updateVideo(id:number, videoData){
+    
     return this.http.post(CONFIGS.apiBaseURL+CONFIGS.apiURLs["video"]["update"]+"/"+id, videoData);
   }
 

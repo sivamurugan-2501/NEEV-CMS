@@ -624,10 +624,11 @@ export class ProductAddComponent implements OnInit {
   }
 
 
-  updateVideo(id, product_video_payload){
+  updateVideo(id, product_video_payload:FormData){
 
-    product_video_payload.product =id;
-    product_video_payload.file_to_delete = null;
+    product_video_payload.append("product",id);
+    product_video_payload.append("files_to_delete",null);
+    //product_video_payload.files_to_delete = null;
 
     //this.productService.updateVideo(id, product_video_payload)
     this.videoService.updateVideo( this.productData_video.videoFile, product_video_payload).subscribe(
