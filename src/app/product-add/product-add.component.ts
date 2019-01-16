@@ -60,6 +60,8 @@ export class ProductAddComponent implements OnInit {
 
   productData_feature:Array<Object> =  new Array(); 
 
+  productData_feature_images:Array<Object> = new Array();
+
   productData_gallery = {
     title : null,
     images : null,
@@ -148,6 +150,7 @@ export class ProductAddComponent implements OnInit {
   productImageId=0;
   productImageRemoved=0;
   productImageError=null;
+  feature_image_to_delete:Array<Object> = new Array();
 
   constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal, private videoService: VideoService) {
     this.popUpObject = new NgbdModalComponent(modalService);
@@ -214,6 +217,11 @@ export class ProductAddComponent implements OnInit {
                 console.log(productDetails.specifications);
                 if(productDetails.features.length>0){
                   this.productData_feature = productDetails.features;
+
+                   for(let i=0; i < productDetails.features.length; i++){
+                     this.productData_feature_images[i] = { "id" :productDetails.features[i]["image"], "image" : productDetails.features[i]["imagePath"]  }
+                   } 
+                  //alert(JSON.stringify(this.productData_feature));
                 }
 
                 for(let i=0; i< productDetails.specifications.length; i++){
@@ -905,8 +913,14 @@ export class ProductAddComponent implements OnInit {
     this.doc_remove.pop();
     this.docRemoved =0;
     this.productData_brochure.brochureFile = this.brochureId;
-  
+  }
 
+
+  removeFeatureImage(index){
+     
+     this.productData_feature[index]["imagePath"] = null;
+     this.feature_image_to_delete.push( this.productData_feature[index]["image"]);
+     this.productData_feature[index]["image"] = null;
   }
     
   

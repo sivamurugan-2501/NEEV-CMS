@@ -289,17 +289,6 @@
                                                                                 <div class="input-group input-group-sm">
                                                                                   
                                                                                     <input type="file" class="form-control" #featureimage="ngModel" name="feautre_images_{{i}}"  class="form-control" [(ngModel)]="productData_feature[i].image" required (change)="onImageSelect($event, false, 2)"> 
-
-                                                                                    <!--span class="input-group-btn">
-
-                                                                                        <button type="button" class="btn btn-default fa fa-plus" (click)= "addNewFeature()"> Add</button>
-
-                                                                                    </span-->
-
-                                                                                    <!--div class="form-control-feedback" *ngIf="featureimage.invalid && (featureimage.dirty || featureimage.touched)">
-                                                                                        <code *ngIf="productData_feature[i].image">Missing Feature image</code>
-                                                                                     </div-->
-                                                              
                                                                                      <div class="form-control-feedback" *ngIf="(featureimage.dirty || featureimage.touched)">
                                                                                         <code *ngIf="imageError[2]">{{imageError[2]}}</code>
                                                                                      </div>
@@ -319,19 +308,19 @@
                                                                                     </div>
                                                                                 </div>
                                                                             
-                                                                                <div class="form-group" *ngIf="productData_feature[i].imagePath && featureImagePreview[i].imagePath!==undefined">
+                                                                                <div class="form-group" *ngIf="productData_feature[i] && productData_feature[i].imagePath">
                                                                                         <div  class=" imagePreview">
                                                                                             <div  class="col-md-2 thumbnail">
                                                                                             
                                                                                             <img src='{{productData_feature[i].imagePath}}' style="width:100px; height:100px;">
-                                                                                            <div class="remove" (click)="removeFile(i,2)"> <code> Remove </code></div>
+                                                                                            <div class="remove" (click)="removeFeatureImage(i)"> <code> Remove </code></div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
 
                                                                             <div class="form-group">
 
-                                                                                <label class="text-info"> Feature {{i+1}}</label>
+                                                                                <label class="text-info"> Feature {{i+1}} <span class="text-danger">*</span> </label>
                                                                                
                                                                                 <input type="text" name="feature_title_{{i}}" class="form-control" placeholder="Title" minlength="4" maxlength="255" #featureTitle="ngModel" [(ngModel)]="productData_feature[i].title" required />
                                                                                  <div class="form-control-feedback" *ngIf="featureTitle.invalid && (featureTitle.dirty || featureTitle.touched)">
@@ -344,7 +333,7 @@
 
                                                                             <div class="form-group">
 
-                                                                                <label>Add Description</label>
+                                                                                <label>Add Description <span class="text-danger">*</span></label>
 
                                                                                 <textarea name="featureDesc_{{i}}" class="form-control" rows="3" minlength="4" maxlength="500" placeholder="Enter ..." #featureDesc="ngModel" [(ngModel)]="productData_feature[i].description" required></textarea>
                                                                                 <div class="form-control-feedback" *ngIf="featureDesc.invalid && (featureDesc.dirty || featureDesc.touched)">
