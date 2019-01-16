@@ -158,6 +158,7 @@ export class ProductAddComponent implements OnInit {
 
   video_delete:Array<Object> = new Array();
   videoRemoved =0;
+  vId=0;
 
   constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal, private videoService: VideoService) {
     this.popUpObject = new NgbdModalComponent(modalService);
@@ -286,6 +287,7 @@ export class ProductAddComponent implements OnInit {
 
                 if(productDetails.videos){
 
+                    this.vId = productDetails.videos.vId;
                     this.productData_video.type= productDetails.videos.type;
                     this.productData_video.product = productId;
                     this.productData_video.url = productDetails.videos.url;
@@ -513,7 +515,7 @@ export class ProductAddComponent implements OnInit {
 
            //setTimeout(() => {
               const productVideoPayload = this.generateProductVideoData();
-              if(this.productData_video.videoFile && !isNaN(this.productData_video.videoFile)){
+              if(this.vId){
                 this.updateVideo(productid, productVideoPayload);
               }else{
                 this.addVideo(productid, productVideoPayload);
@@ -626,12 +628,13 @@ export class ProductAddComponent implements OnInit {
 
   updateVideo(id, product_video_payload:FormData){
 
+    product_video_payload.delete("product");
     product_video_payload.append("product",id);
     product_video_payload.append("files_to_delete",null);
     //product_video_payload.files_to_delete = null;
 
     //this.productService.updateVideo(id, product_video_payload)
-    this.videoService.updateVideo( this.productData_video.videoFile, product_video_payload).subscribe(
+    this.videoService.updateVideo( this.vId, product_video_payload).subscribe(
       (response:any) => {
         this.actionStatus[4] = 1;
         this.successMessages[4]= "Video updated successfully.";
@@ -639,7 +642,7 @@ export class ProductAddComponent implements OnInit {
       
       (error) =>{
   
-        this.actionStatus[4] = 2;
+        this.actionStatus[4] = 1;
         this.successMessages[4]= "Video updated successfully.";  
   
       });

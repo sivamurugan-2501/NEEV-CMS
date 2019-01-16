@@ -60,6 +60,7 @@ export class UserImportComponent implements OnInit {
 
 
   importUser(){
+
       this.userService.importUser(this.userImport).subscribe(
         (response:any) => {
             this.response = response.data;
@@ -78,6 +79,7 @@ export class UserImportComponent implements OnInit {
     this.uploaded=0;
     this.response = null;
     this.file = null;
+    this.userImport.data= new Array();
   }
 
 }
