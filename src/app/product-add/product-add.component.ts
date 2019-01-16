@@ -69,6 +69,7 @@ export class ProductAddComponent implements OnInit {
   };
 
   productData_brochure = {
+    id: null,
     title: null,
     brochureFile : null
   }
@@ -151,6 +152,12 @@ export class ProductAddComponent implements OnInit {
   productImageRemoved=0;
   productImageError=null;
   feature_image_to_delete:Array<Object> = new Array();
+  videoFilePath =null;
+  videoFileId:any = null;
+  videoFileName:any = null;
+
+  video_delete:Array<Object> = new Array();
+  videoRemoved =0;
 
   constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal, private videoService: VideoService) {
     this.popUpObject = new NgbdModalComponent(modalService);
@@ -269,12 +276,26 @@ export class ProductAddComponent implements OnInit {
                 this.productData_brochure.title = this.productData_1.brochure_title;
                 //alert(this.productData_brochure.title);
                 if(productDetails.brochures){
+                  this.productData_brochure.id = this.productDetails.basicData.brochure_file;
                   this.productData_brochure.brochureFile = productDetails.brochures[0]["brochureFile"];
                   this.brochureId = productDetails.brochures[0]["brochureFile"];
                  
                   this.brochureName = productDetails.brochures[0]["actual_name"];
                  // alert( this.brochureName);
                 }
+
+                if(productDetails.videos){
+
+                    this.productData_video.type= productDetails.videos.type;
+                    this.productData_video.product = productId;
+                    this.productData_video.url = productDetails.videos.url;
+                    this.productData_video.videoFile = productDetails.videos.videoFile;
+
+                    this.videoFilePath = productDetails.videos.videoPath;
+                    this.videoFileId = productDetails.videos.videoFile;
+                    this.videoFileName = productDetails.videos.actual_name;
+                }
+
             }
         }
     );
@@ -482,14 +503,21 @@ export class ProductAddComponent implements OnInit {
           if(response.status==200 && response.id){
 
             this.actionStatus[0] = 1;
-            this.successMessages[0]= "Product created successfully.";
-
+            if(this.instanceId){
+              this.successMessages[0]= "Product updated successfully.";
+            }else{
+              this.successMessages[0]= "Product created successfully.";
+            }
 
             const productid = this.instanceId = response.id;
 
            //setTimeout(() => {
               const productVideoPayload = this.generateProductVideoData();
-              this.updateVideo(productid, productVideoPayload);
+              if(this.productData_video.videoFile && !isNaN(this.productData_video.videoFile)){
+                this.updateVideo(productid, productVideoPayload);
+              }else{
+                this.addVideo(productid, productVideoPayload);
+              }
            //}, 8000);
 
             const productFeaturesPayload = this.generateProductFeatureData();
@@ -576,7 +604,7 @@ export class ProductAddComponent implements OnInit {
       });
   }
 
-  updateVideo(id, product_video_payload){
+  addVideo(id, product_video_payload){
 
     product_video_payload.product =id;
     
@@ -594,6 +622,28 @@ export class ProductAddComponent implements OnInit {
   
       });
   }
+
+
+  updateVideo(id, product_video_payload){
+
+    product_video_payload.product =id;
+    product_video_payload.file_to_delete = null;
+
+    //this.productService.updateVideo(id, product_video_payload)
+    this.videoService.updateVideo( this.productData_video.videoFile, product_video_payload).subscribe(
+      (response:any) => {
+        this.actionStatus[4] = 1;
+        this.successMessages[4]= "Video updated successfully.";
+      },
+      
+      (error) =>{
+  
+        this.actionStatus[4] = 2;
+        this.successMessages[4]= "Video updated successfully.";  
+  
+      });
+  }
+
 
   updateBrochure(id, product_brochure_payload){
     this.productService.updateBrochure(id, product_brochure_payload).subscribe(
@@ -762,8 +812,21 @@ export class ProductAddComponent implements OnInit {
         }else{
           product.append( keys[i],null );
         }
+
+        if(this.productData_gallery.existing_images && this.productData_gallery.existing_images.length>0){
+           product.delete(keys[i]);
+           for(let i=0; i< this.productData_gallery.existing_images.length; i++){
+              const keyName = keys[i]+"[]";
+              product.append(keyName, this.productData_gallery.existing_images[i]);
+           }
+        }
+
+
+
+      }else if(keys[i] == "title"){
+        product.append("title", null);
       }else{
-         product.append(keys[i], this.productData_gallery["title"] );
+         product.append(keys[i]+"[]", this.productData_gallery[keys[i]] );
       }
       
     }
@@ -776,9 +839,12 @@ export class ProductAddComponent implements OnInit {
       //alert(this.productData_brochure.file);
       var brochureData = new FormData();
 
+      brochureData.append("id", this.productData_brochure.id);
       brochureData.append("title", this.productData_brochure.title);
-      if(this.productData_brochure.brochureFile && this.productData_brochure.brochureFile!==undefined){
+      if(this.productData_brochure.brochureFile && this.productData_brochure.brochureFile!==undefined && isNaN(this.productData_brochure.brochureFile) ){
         brochureData.append("brochureFile", this.productData_brochure.brochureFile, this.productData_brochure.brochureFile["name"]);
+      }else{
+        brochureData.append("brochureFile",this.productData_brochure.brochureFile);
       }
       return brochureData;
   }
@@ -799,7 +865,7 @@ export class ProductAddComponent implements OnInit {
             if(k == "videoFile"){
 
               const file = __this.productData_video.videoFile;
-              const file_name = (file["name"]) ? file["name"] : k;
+              const file_name = (file["name"]) ? file["name"] : file;
               //alert(file);
               productVideo.append(k, file, file_name);
             }else{
@@ -923,7 +989,13 @@ export class ProductAddComponent implements OnInit {
      this.productData_feature[index]["image"] = null;
   }
     
-  
+  removeVideo(){
+
+    this.productData_video.videoFile = null;
+    this.video_delete.push(this.brochureId); 
+    this.videoRemoved =1;
+
+  }  
 
 
 }
