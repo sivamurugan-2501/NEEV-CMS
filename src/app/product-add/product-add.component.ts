@@ -31,7 +31,7 @@ export class ProductAddComponent implements OnInit {
   galleryImages: Array<File>= new Array();
 
   featureImage_loaded: Array<File>= new Array();
-  galleryImages_loaded: Array<File>= new Array();
+  galleryImages_loaded: Array<any>= new Array();
 
 
   imageError =["", "", ""];
@@ -65,7 +65,7 @@ export class ProductAddComponent implements OnInit {
   productData_gallery = {
     title : null,
     images : null,
-    existing_images : new Array()
+    //existing_images : new Array()
   };
 
   productData_brochure = {
@@ -144,10 +144,10 @@ export class ProductAddComponent implements OnInit {
   doc_remove:Array<Object> = new Array();
   docRemoved =0;
 
-  logo_delete:Array<Object> = new Array();
+  logo_delete:Array<any> = new Array();
   logoRemoved =0;
 
-  productImage_delete:Array<Object> = new Array();
+  productImage_delete:Array<any> = new Array();
   productImageId=0;
   productImageRemoved=0;
   productImageError=null;
@@ -156,9 +156,11 @@ export class ProductAddComponent implements OnInit {
   videoFileId:any = null;
   videoFileName:any = null;
 
-  video_delete:Array<Object> = new Array();
+  video_delete:Array<any> = new Array();
   videoRemoved =0;
   vId=0;
+
+  gallertImages_to_delete: Array<Object> = new Array();
 
   constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal, private videoService: VideoService) {
     this.popUpObject = new NgbdModalComponent(modalService);
@@ -201,8 +203,9 @@ export class ProductAddComponent implements OnInit {
                 if(productDetails.galleryImages){
                   for(let i=0;i<productDetails.galleryImages.length;i++){
                     //this.galleryImagesPreview.push(productDetails.galleryImages[i]["image"]);
-                    this.galleryImages_loaded.push(productDetails.galleryImages[i]["image"]);
-                    this.productData_gallery.existing_images.push(productDetails.galleryImages[i]["imageid"]);
+                    productDetails.galleryImages[i].remove=0;
+                    this.galleryImages_loaded.push(productDetails.galleryImages[i]);
+                    //this.productData_gallery.existing_images.push(productDetails.galleryImages[i]["imageid"]);
                   }
                 }
                 
@@ -502,6 +505,8 @@ export class ProductAddComponent implements OnInit {
           //this.actionStatus=1;
          // this.successMessage = "New banner added successfully";
           //alert(response);
+          console.clear();
+          
           if(response.status==200 && response.id){
 
             this.actionStatus[0] = 1;
@@ -531,20 +536,23 @@ export class ProductAddComponent implements OnInit {
             const productGalleryPayload = this.generateProductGalleryData();
             this.updateGallery(productid, productGalleryPayload);
 
-          
-           
-
             const productBrochurePayload = this.generateProductBrochureData();
             this.updateBrochure(productid, productBrochurePayload);
             this.mpPopup.dismissModal();
             setTimeout(() => {
-                this.route.navigate(["main","product-list"]);
+                //this.route.navigate(["main","product-list"]);
             }, 3000);
            
 
+          }else if(response.status == 400){
+              this.mpPopup.dismissModal();
+              this.actionStatus[0] = 2;
+              this.errorMessages[0] = (response.message) ? response.message : "Something went wrong. Product creation failed..";
           }
         },
         error => {
+         
+          console.log(error);
           this.mpPopup.dismissModal();
           this.actionStatus[0] = 2;
           this.errorMessages[0] = "Something went wrong. Product creation failed..";
@@ -567,7 +575,7 @@ export class ProductAddComponent implements OnInit {
     (error) =>{
 
       this.actionStatus[1] = 2;
-      this.successMessages[1]= "Features creation failed.";  
+      this.errorMessages[1]= "Features creation failed.";  
 
     }
 
@@ -584,7 +592,7 @@ export class ProductAddComponent implements OnInit {
       (error) =>{
   
         this.actionStatus[2] = 2;
-        this.successMessages[2]= "Specifications creation failed.";  
+        this.errorMessages[2]= "Specifications creation failed.";  
   
       });
   }
@@ -601,7 +609,7 @@ export class ProductAddComponent implements OnInit {
       (error) =>{
   
         this.actionStatus[3] = 2;
-        this.successMessages[3]= "Product image gallery creation failed.";  
+        this.errorMessages[3]= "Product image gallery creation failed.";  
   
       });
   }
@@ -613,14 +621,19 @@ export class ProductAddComponent implements OnInit {
     //this.productService.updateVideo(id, product_video_payload)
     this.videoService.postProductVideo(product_video_payload, id).subscribe(
       (response:any) => {
-        this.actionStatus[4] = 1;
-        this.successMessages[4]= "Video uploaded successfully.";
+        if(response.status == 200){
+          this.actionStatus[4] = 1;
+          this.successMessages[4]= "Video updated successfully.";
+        }else if(response.status == 400){
+          this.actionStatus[4] = 2;
+          this.errorMessages[4]=  (response.message) ? response.message : "Video upload failed.";  
+        }
       },
       
       (error) =>{
   
         this.actionStatus[4] = 2;
-        this.successMessages[4]= "Video upload failed.";  
+        this.errorMessages[4]= "Video upload failed.";  
   
       });
   }
@@ -630,20 +643,26 @@ export class ProductAddComponent implements OnInit {
 
     product_video_payload.delete("product");
     product_video_payload.append("product",id);
-    product_video_payload.append("files_to_delete",null);
+    product_video_payload.append("file_to_delete", (this.video_delete[0]) ? this.video_delete[0] : null);
+    //product_video_payload.append("files_to_delete",null);
     //product_video_payload.files_to_delete = null;
 
     //this.productService.updateVideo(id, product_video_payload)
     this.videoService.updateVideo( this.vId, product_video_payload).subscribe(
       (response:any) => {
-        this.actionStatus[4] = 1;
-        this.successMessages[4]= "Video updated successfully.";
+        if(response.status == 200){
+          this.actionStatus[4] = 1;
+          this.successMessages[4]= "Video updated successfully.";
+        }else if(response.status == 400){
+          this.actionStatus[4] = 2;
+          this.errorMessages[4]=  (response.message) ? response.message : "Video upload failed.";  
+        }
       },
       
       (error) =>{
   
         this.actionStatus[4] = 1;
-        this.successMessages[4]= "Video updated successfully.";  
+        this.errorMessages[4]= "Video updated successfully.";  
   
       });
   }
@@ -652,14 +671,19 @@ export class ProductAddComponent implements OnInit {
   updateBrochure(id, product_brochure_payload){
     this.productService.updateBrochure(id, product_brochure_payload).subscribe(
       (response:any) => {
-        this.actionStatus[5] = 1;
-        this.successMessages[5]= "Brochure uploaded successfully.";
+        if(response.status == 200){
+          this.actionStatus[5] = 1;
+          this.successMessages[5]= "Brochure uploaded successfully.";
+        }else{
+          this.actionStatus[5] = 2;
+          this.errorMessages[5]=  (response.message) ? response.message : "Brochure upload failed.";  
+        }
       },
       
       (error) =>{
   
         this.actionStatus[5] = 2;
-        this.successMessages[5]= "Brochure upload failed.";  
+        this.errorMessages[5]= "Brochure upload failed.";  
   
       });
   }
@@ -734,17 +758,31 @@ export class ProductAddComponent implements OnInit {
         });
 
       }else if(keys[i]!="galleryImages" && keys[i]!="gallery_title" && keys[i]!="brochure_file" && keys[i]!="logoId" && keys[i]!="productImageId" ){
-         product.append(keys[i], this.productData_1[keys[i]]);
+          product.append(keys[i], this.productData_1[keys[i]]);
       }else if(keys[i]=="logoId"){
-          if(!product.get("logo")){
+          if(!product.get("logo") && this.logo_delete.indexOf(this.productData_1.logoId) <0 ){
             product.append( "logo", this.productData_1.logoId);
+          }else if(this.logo_delete.indexOf(this.productData_1.logoId) >=0){
+            product.append( "logo", null);
           }
-      }else if(keys[i]=="productImageId"){
-        if(!product.get("productImage")){
-          product.append( "productImage", this.productData_1.productImageId);
-        }
-    }
+      }else if(keys[i]=="productImageId"  ){
+          if(!product.get("productImage") && this.productImage_delete.indexOf(this.productData_1.productImageId) <0 ){
+            product.append( "productImage", this.productData_1.productImageId);
+          }else{
+            product.append( "productImage",null);
+          }
+      }
       
+    }
+
+    const files_to_delete = this.productImage_delete.concat(this.logo_delete);
+    //alert(files_to_delete);
+    if(files_to_delete.length>0){
+      for(let i=0; i<files_to_delete.length; i++){
+        product.append("files_to_delete[]", files_to_delete[i]);
+      }
+    }else{
+      product.append("files_to_delete", null);
     }
     return product;
 
@@ -807,33 +845,36 @@ export class ProductAddComponent implements OnInit {
     for(let i=0;i<keys.length;i++){
     
       if(keys[i] == "images"){
-
-        if(this.galleryImages.length>0){
-          this.galleryImages.forEach(function(file, index){
-            const keyName = keys[i]+"[]";
-            product.append( keyName, file, file["name"]);
-          });
-        }else{
-          product.append( keys[i],null );
-        }
-
-        if(this.productData_gallery.existing_images && this.productData_gallery.existing_images.length>0){
-           product.delete(keys[i]);
-           for(let i=0; i< this.productData_gallery.existing_images.length; i++){
+          //alert(this.galleryImages.length);
+          if(this.galleryImages.length>0){
+            this.galleryImages.forEach(function(file, index){
               const keyName = keys[i]+"[]";
-              product.append(keyName, this.productData_gallery.existing_images[i]);
-           }
+              product.append( keyName, file, file["name"]);
+             // product.append( "remove[]", "false");
+            });
+          }else{
+            product.append( keys[i],null );
+          }
+
+      
+          if(this.galleryImages_loaded && this.galleryImages_loaded.length>0){
+            //product.delete(keys[i]);
+            for(let j=0; j< this.galleryImages_loaded.length; j++){
+
+              const keyName = keys[i]+"[]";
+              const image_obj =  this.galleryImages_loaded[j];
+              //product.append(keyName, image_obj["imageid"]);
+              product.append("existing_images[]", image_obj["imageid"]);
+              product.append( "remove[]", image_obj["remove"]);
+
+            }
+        }else{
+          product.append("existing_images", null);
         }
-
-
-
-      }else if(keys[i] == "title"){
-        product.append("title", null);
-      }else{
-         product.append(keys[i]+"[]", this.productData_gallery[keys[i]] );
       }
       
     }
+    product.append("title", null);
     return product;
 
   }
@@ -869,16 +910,19 @@ export class ProductAddComponent implements OnInit {
             if(k == "videoFile"){
 
               const file = __this.productData_video.videoFile;
-              const file_name = (file["name"]) ? file["name"] : file;
-              //alert(file);
-              productVideo.append(k, file, file_name);
+              const file_name = (file && file["name"]) ? file["name"] : file;
+              if(file && file["name"]){
+                productVideo.append(k, file, file_name);
+              }else{
+                productVideo.append(k, file);
+              }
             }else{
               productVideo.append(k, __this.productData_video[k]);
             }
 
           });
         }catch(e){
-          //alert("error : "+e);
+          alert("error : "+e);
         }
     }
 
@@ -996,10 +1040,19 @@ export class ProductAddComponent implements OnInit {
   removeVideo(){
 
     this.productData_video.videoFile = null;
-    this.video_delete.push(this.brochureId); 
+    this.video_delete.push(this.videoFileId); 
     this.videoRemoved =1;
 
   }  
+
+  removeGalleryImages(index, value){
+  
+     
+    this.galleryImages_loaded[index].remove = !this.galleryImages_loaded[index].remove;
+    console.log(this.galleryImages_loaded);
+    
+  }
+
 
 
 }

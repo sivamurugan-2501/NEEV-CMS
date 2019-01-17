@@ -452,10 +452,13 @@
                                                                             <div class="form-group" *ngIf="galleryImages_loaded && galleryImages_loaded.length>0" >
                                                                                 <label class="text-info">Saved Images<span class="text-danger"></span></label>
                                                                                 <div class="imagePreview row">
-                                                                                    <div *ngFor="let dataUrl of galleryImages_loaded; let i = index" class="col-md-2 thumbnail">
+                                                                                    <div *ngFor="let gImage of galleryImages_loaded; let i = index" class="col-md-2 thumbnail">
                                                                                       
-                                                                                      <img src='{{dataUrl}}' style="width:100px; height:100px;">
-                                                                                      <div class="remove" (click)="removeFile(i,3)"> <code> Remove </code></div>
+                                                                                      <img src='{{gImage.image}}' style="width:100px; height:100px;">
+                                                                                      <div class="remove">
+                                                                                          <input type="checkbox" id="remove_g_{{i}}"  (click)="removeGalleryImages(i ,this)">
+                                                                                          <label for="remove_g_{{i}}" >Remove</label>
+                                                                                      </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
