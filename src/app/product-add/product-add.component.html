@@ -322,7 +322,7 @@
 
                                                                                 <label class="text-info"> Feature {{i+1}} <span class="text-danger">*</span> </label>
                                                                                
-                                                                                <input type="text" name="feature_title_{{i}}" class="form-control" placeholder="Title" minlength="4" maxlength="255" #featureTitle="ngModel" [(ngModel)]="productData_feature[i].title" required />
+                                                                                <input type="text" name="feature_title_{{i}}" class="form-control" placeholder="Title"  #featureTitle="ngModel" [(ngModel)]="productData_feature[i].title" required />
                                                                                  <div class="form-control-feedback" *ngIf="featureTitle.invalid && (featureTitle.dirty || featureTitle.touched)">
                                                                                     <code *ngIf="featureTitle.errors.required"> Feature Title missing</code>
                                                                                     <code *ngIf="featureTitle.errors.minlength || featureTitle.errors.maxlength"> Feature title should be minimum 4 letters</code>
@@ -335,7 +335,7 @@
 
                                                                                 <label>Add Description <span class="text-danger">*</span></label>
 
-                                                                                <textarea name="featureDesc_{{i}}" class="form-control" rows="3" minlength="4" maxlength="500" placeholder="Enter ..." #featureDesc="ngModel" [(ngModel)]="productData_feature[i].description" required></textarea>
+                                                                                <textarea name="featureDesc_{{i}}" class="form-control" rows="3"  placeholder="Enter ..." #featureDesc="ngModel" [(ngModel)]="productData_feature[i].description" required></textarea>
                                                                                 <div class="form-control-feedback" *ngIf="featureDesc.invalid && (featureDesc.dirty || featureDesc.touched)">
                                                                                     <code *ngIf="featureDesc.errors.required"> Provide feature description</code>
                                                                                     <code *ngIf="featureDesc.errors.minlength || featureTitle.errors.maxlength"> Feature Description should be minimum 4 letters</code>
