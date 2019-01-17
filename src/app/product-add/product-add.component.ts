@@ -540,8 +540,10 @@ export class ProductAddComponent implements OnInit {
             this.updateBrochure(productid, productBrochurePayload);
             this.mpPopup.dismissModal();
             setTimeout(() => {
-                //this.route.navigate(["main","product-list"]);
-            }, 3000);
+                this.route.navigate(["main","edit-product"], {
+                  queryParams : {"id" : this.instanceId}
+                });
+            }, 5000);
            
 
           }else if(response.status == 400){
