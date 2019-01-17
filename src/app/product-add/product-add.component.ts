@@ -606,9 +606,9 @@ export class ProductAddComponent implements OnInit {
       });
   }
 
-  addVideo(id, product_video_payload){
+  addVideo(id, product_video_payload:FormData){
 
-    product_video_payload.product =id;
+    product_video_payload.append("product", id);
     
     //this.productService.updateVideo(id, product_video_payload)
     this.videoService.postProductVideo(product_video_payload, id).subscribe(
