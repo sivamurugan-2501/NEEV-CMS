@@ -409,6 +409,9 @@ export class ProductAddComponent implements OnInit {
     }else if(from==3){
       this.galleryImagesPreview.splice(i,1);
       this.galleryImages.splice(i,1);
+    }else if(from ==4){
+      this.productImagePreview.splice(i,1);
+      this.productImage.splice(i,1);
     }
   }
 
