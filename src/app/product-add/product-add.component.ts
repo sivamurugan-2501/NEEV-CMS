@@ -928,7 +928,7 @@ export class ProductAddComponent implements OnInit {
 
           });
         }catch(e){
-          alert("error : "+e);
+          //alert("error : "+e);
         }
     }
 
