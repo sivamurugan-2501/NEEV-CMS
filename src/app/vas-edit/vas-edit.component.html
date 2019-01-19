@@ -108,7 +108,7 @@
                           
                       <div class="form-control-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
                           <code *ngIf="description.errors.required">Missing description field</code>
-                          <code *ngIf="description.errors.minlength || description.errors.maxlength">Invalid description maxlength:4, minlength:50</code>
+                          <code *ngIf="description.errors.minlength || description.errors.maxlength">Invalid description minlength:4 expected</code>
                       </div>
 
                       
