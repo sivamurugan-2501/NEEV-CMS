@@ -92,7 +92,7 @@
                     <label class="text-info">Service Description<span class="text-danger">*</span></label>
                 
                     <div class="controls">
-                        <textarea placeholder="Description" name="desc" class="form-control" required #description="ngModel" minlength="4" maxlength="50"  [(ngModel)]="vasData.description" ></textarea>
+                        <textarea placeholder="Description" name="desc" class="form-control" required #description="ngModel" minlength="4"  [(ngModel)]="vasData.description" ></textarea>
                     </div>
                    
                     <div class="form-control-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
