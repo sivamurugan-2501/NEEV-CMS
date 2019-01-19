@@ -65,6 +65,8 @@ import { VasEditComponent } from './vas-edit/vas-edit.component';
 import { ApplicationEnquiriesComponent } from './application-enquiries/application-enquiries.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SafeURLPipe } from './pipes/safe-url.pipe';
+import { OtherUserLoginComponent } from './other-user-login/other-user-login.component';
+import { WithSpecialCharDirective } from './validators/with-special-char.directive';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -260,7 +262,9 @@ const routes: Routes =[
     VasEditComponent,
     ApplicationEnquiriesComponent,
     DashboardComponent,
-    SafeURLPipe
+    SafeURLPipe,
+    OtherUserLoginComponent,
+    WithSpecialCharDirective
   ],
   imports: [
     BrowserModule,

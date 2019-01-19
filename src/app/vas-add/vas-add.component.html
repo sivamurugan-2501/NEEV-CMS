@@ -92,12 +92,17 @@
                     <label class="text-info">Service Description<span class="text-danger">*</span></label>
                 
                     <div class="controls">
-                        <textarea description="description" #description="ngModel" minlength="4" maxlength="50"  [(ngModel)]="vasData.description" class="form-control" required></textarea>
+                        <textarea placeholder="Description" name="desc" class="form-control" required #description="ngModel" minlength="4" maxlength="50"  [(ngModel)]="vasData.description" ></textarea>
                     </div>
-                        
+                   
                     <div class="form-control-feedback" *ngIf="description.invalid && (description.dirty || description.touched)">
                         <code *ngIf="description.errors.required">Missing description field</code>
+                        <code *ngIf="description.errors.invalid">Invalid </code>
                         <code *ngIf="description.errors.minlength || description.errors.maxlength">Invalid description maxlength:4, minlength:50</code>
+                    </div>descError
+
+                    <div class="form-control-feedback" *ngIf="descError">
+                        <code>{{descError}}</code>
                     </div>
                 </div>
 
@@ -111,7 +116,7 @@
           </div>
            
            <div class="text-xs-right">
-              <button type="submit" class="btn btn-outline btn-info mr-10" [disabled]="!vasForm.valid || !vasData.thumbnail" ><i class="fa fa-check"></i> Submit</button>
+              <button type="submit" class="btn btn-outline btn-info mr-10" [disabled]="!vasForm.valid || !vasData.thumbnail || imageError" ><i class="fa fa-check"></i> Submit</button>
            </div>
          </form>
                

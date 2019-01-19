@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../services/storage.service';
 import { VasService } from '../services/vas.service';
+import { load } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-vas-add',
@@ -24,7 +25,13 @@ export class VasAddComponent implements OnInit {
   successMessage=null;
   errorMessage=null;
 
+  imgWidth =0;
+  imgHeight =0;
   
+  allowedImageHeight = 400;
+  allowedImageWidth = 720;
+  allowedImageSixe =0;
+  descError = "";
 
   constructor(private storageService: StorageService, private vasService: VasService) { }
 
@@ -44,10 +51,29 @@ export class VasAddComponent implements OnInit {
     this.imageError = null;
     const file: File  = event.target.files[0];
     const type = file.type;
+    
     try{
       const extension = type.split("/")[1];
       if(["png", "jpeg", "jpg"].indexOf(extension.toLocaleLowerCase()) > -1){
+    
+        const img = new Image();
+        this.getImageDimension(file, img);
+        const __this = this;
         this.vasData.thumbnail = file;
+        setTimeout(()=>{
+          //alert(this.imgWidth+ "x" +this.imgHeight);
+          if(this.imgWidth == this.allowedImageWidth && this.imgHeight== this.allowedImageHeight){
+            
+          }else{
+            this.vasData.thumbnail = null;
+            this.imageError = "Invalid image. Image dimension must be of 720x400";
+          }
+        }, 1000);
+
+       // alert(this.imgWidth+ "x" +this.imgHeight);
+
+        
+
       }else{
         this.imageError = "Invalid image file, only .png, .jpg and  .jpeg are accepted.";
         return false;
@@ -58,10 +84,38 @@ export class VasAddComponent implements OnInit {
   }
 
 
+  getImageDimension(file:File, img){
+
+    var _URL = window.URL;
+    
+    var loaded =0 ;
+    var imgHeight = 0, imgWidth =0;
+  
+    const __this = this;
+
+    img.onload = function(element){
+      
+      __this.imgHeight = imgHeight = img.height;
+      __this.imgWidth = imgWidth = img.width;
+      loaded=1;
+    };
+
+    img.src = _URL.createObjectURL(file);
+
+  }
+
+
   saveVas(){
 
     var vas = new FormData();
     let keys = Object.keys(this.vasData);
+    console.log(this.vasData);
+    //alert(this.vasData["description"]);
+    //alert(this.validateDesc(this.vasData["description"]));
+    if(!this.validateDesc(this.vasData["description"])){
+      // this.descError = "Invalid characters used in description";
+      //return false;
+    }
 
     for(let i=0; i<keys.length;i++){
       if(keys[i] == "thumbnail"){
@@ -89,11 +143,18 @@ export class VasAddComponent implements OnInit {
       
       (error:any) =>{
         this.actionStatus=2;
-        this.errorMessage = "Somethignwent wrong";
+        this.errorMessage = "Something went wrong";
       }
       
     );
 
+}
+
+
+validateDesc(value){
+  var pattern = /^[a-zA-Z0-9  !@#\$%\^\&*\)\(+=._-\s]+$/g
+  var regex = new RegExp(pattern);
+  return regex.test(value);
 }
 
 }

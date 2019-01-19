@@ -31,6 +31,13 @@ export class VasEditComponent implements OnInit {
   instanceId=0;
   thumbnailImage:null;
 
+  imgWidth =0;
+  imgHeight =0;
+  
+  allowedImageHeight = 400;
+  allowedImageWidth = 720;
+  allowedImageSixe =0;
+
   constructor(private storageService: StorageService, private vasService: VasService, private aRoute: ActivatedRoute) { }
 
   ngOnInit() {
@@ -82,7 +89,21 @@ export class VasEditComponent implements OnInit {
     try{
       const extension = type.split("/")[1];
       if(["png", "jpeg", "jpg"].indexOf(extension.toLocaleLowerCase()) > -1){
-        this.vasData.thumbnail = file;
+        
+          const img = new Image();
+          this.getImageDimension(file, img);
+          const __this = this;
+          this.vasData.thumbnail = file;
+          setTimeout(()=>{
+            //alert(this.imgWidth+ "x" +this.imgHeight);
+            if(this.imgWidth == this.allowedImageWidth && this.imgHeight== this.allowedImageHeight){
+              
+            }else{
+              this.vasData.thumbnail = null;
+              this.imageError = "Invalid image. Image dimension must be of 720x400";
+            }
+          }, 1000);
+
       }else{
         this.imageError = "Invalid image file, only .png, .jpg and  .jpeg are accepted.";
         return false;
@@ -90,6 +111,27 @@ export class VasEditComponent implements OnInit {
     }catch(e){
       console.log(e);
     }
+  }
+
+
+  getImageDimension(file:File, img){
+
+    var _URL = window.URL;
+    
+    var loaded =0 ;
+    var imgHeight = 0, imgWidth =0;
+  
+    const __this = this;
+
+    img.onload = function(element){
+      
+      __this.imgHeight = imgHeight = img.height;
+      __this.imgWidth = imgWidth = img.width;
+      loaded=1;
+    };
+
+    img.src = _URL.createObjectURL(file);
+
   }
 
 
