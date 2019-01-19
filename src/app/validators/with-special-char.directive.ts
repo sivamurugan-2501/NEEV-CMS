@@ -13,7 +13,7 @@ function withSpecialChar(control: FormControl) {
   providers :[
     {
       provide : NG_VALIDATORS,
-      useValue : withSpecialChar,
+      useValue : null,
       multi: true
     }
   ]

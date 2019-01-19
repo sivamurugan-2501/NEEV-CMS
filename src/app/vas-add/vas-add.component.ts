@@ -110,11 +110,11 @@ export class VasAddComponent implements OnInit {
     var vas = new FormData();
     let keys = Object.keys(this.vasData);
     console.log(this.vasData);
-    //alert(this.vasData["description"]);
-    //alert(this.validateDesc(this.vasData["description"]));
+   // alert(this.vasData["description"]);
+   // alert(this.validateDesc(this.vasData["description"]));
     if(!this.validateDesc(this.vasData["description"])){
-      // this.descError = "Invalid characters used in description";
-      //return false;
+       this.descError = "Invalid characters used in description";
+       return false;
     }
 
     for(let i=0; i<keys.length;i++){
@@ -151,10 +151,24 @@ export class VasAddComponent implements OnInit {
 }
 
 
-validateDesc(value){
-  var pattern = /^[a-zA-Z0-9  !@#\$%\^\&*\)\(+=._-\s]+$/g
+validateDesc1(value){
+  var pattern = /^[\w  !@#\$%\^\&*\)\(+=._-\s]+$/g
   var regex = new RegExp(pattern);
   return regex.test(value);
 }
+
+validateDesc(value){
+  var valid = true;
+  var notAllowed = ["{", "}", "<", ">"];
+  for(let i=0; i<value.length; i++){
+    if(notAllowed.indexOf(value[i]) > -1 ){
+      valid=false;
+      break;
+    }
+  }
+
+  return valid;
+}
+
 
 }
