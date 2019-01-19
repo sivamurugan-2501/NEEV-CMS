@@ -110,6 +110,11 @@
                           <code *ngIf="description.errors.required">Missing description field</code>
                           <code *ngIf="description.errors.minlength || description.errors.maxlength">Invalid description maxlength:4, minlength:50</code>
                       </div>
+
+                      
+                    <div class="form-control-feedback" *ngIf="descError">
+                        <code>{{descError}}</code>
+                    </div>
                   </div>
   
                   <div class="form-group">

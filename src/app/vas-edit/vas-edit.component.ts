@@ -38,6 +38,8 @@ export class VasEditComponent implements OnInit {
   allowedImageWidth = 720;
   allowedImageSixe =0;
 
+  descError=null;
+
   constructor(private storageService: StorageService, private vasService: VasService, private aRoute: ActivatedRoute) { }
 
   ngOnInit() {
