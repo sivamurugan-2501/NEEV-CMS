@@ -54,6 +54,9 @@ export class UserImportComponent implements OnInit {
         });
 
         fileReader.readAsText(file, "UTF-8");
+    }else{
+       this.file =null;
+        return false;
     }
   }
 
