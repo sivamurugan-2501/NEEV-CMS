@@ -63,7 +63,10 @@ export const CONFIGS = {
       "get" : "/other_user",
       "update" : "/other_user/update",
       "delete" : "/other_user/delete",
-      "import" : "/other_user/import"
+      "import" : "/other_user/import",
+      "login" : "/other_user/login",
+      "validateOTP" : "/otp/validate",
+      "checkRole" : "/user/role"
     },
 
     "event":{

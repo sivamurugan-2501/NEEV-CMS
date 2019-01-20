@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbdModalComponent } from '../custom-popups/custom-popups.component';
 import { ConstantsData } from '../constants-data';
+import { TgmService } from '../services/tgm.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -20,9 +21,13 @@ export class SidemenuComponent implements OnInit {
   user_email;
 
   popUpObject : NgbdModalComponent;
+  userRole : null;
+  roleChecked = 0;
+  roleType = 0;
 
-  constructor(private storageService: StorageService, private authService: AuthService, private route:Router, private modalService: NgbModal) {
+  constructor(private storageService: StorageService, private authService: AuthService, private route:Router, private modalService: NgbModal, private userSerive: TgmService) {
     this.popUpObject = new NgbdModalComponent(modalService);
+    
    }
 
 
@@ -39,6 +44,28 @@ export class SidemenuComponent implements OnInit {
       //alert( this.userData);
     }catch(e){
       this.userData= userData;
+    }
+
+   // alert( this.userData);
+   // const userData:any = this.storageService.getUserData();
+   const forRole = this.userData.role; 
+   const userid = this.userData.id; 
+
+    if(forRole){
+       this.userSerive.checkRole(forRole, userid).subscribe(
+         (response:any) => {
+          
+            if(response.status == 200){
+               const roleGot = response.data.role;
+               if(roleGot == forRole){
+                 this.roleChecked=1;
+                 this.roleType = (roleGot== "SUDO") ? 1 : (( roleGot == "TSM" ) ? 2 :0 );
+               
+               }
+
+            }
+         }
+       );
     }
 
   }

@@ -14,17 +14,31 @@
 
           <p class="auth-msg">TSM Login</p>
 
+          <app-action-message *ngIf="actionStatus==1" [type]="1" [message]="actionMessage" [autoHide] = false>
+            </app-action-message>
+  
+            <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="actionMessage" [autoHide] = false >
+              </app-action-message>
 
-
-          <form action="login-tsm-otp.html" method="post" class="form-element">
+          <form *ngIf="!usernameAuthenticated"  #oLoginForm="ngForm"  method="post" class="form-element" (submit)="authenticate()">
 
               <div class="form-group has-feedback">
 
-                  <input type="tel" class="form-control" placeholder="Phone" />
+                  <input type="text" class="form-control" placeholder="10 Digit Mobile Number" name="mobile" required maxlength="10" #mobile="ngModel" [(ngModel)]="oLoginData.username" />
 
                   <span class="ion ion-ios-telephone form-control-feedback"></span>
 
               </div>
+
+              <div class="form-control-feedback" *ngIf="mobile.invalid">
+                <code class="remove" *ngIf="mobile.errors.required" > Provide mobile number </code>
+                <code class="remove" *ngIf="mobile.errors.maxlength && (mobile.touched || mobile.dirty)" >Invalid mobile number</code>
+                <code class="remove" *ngIf="invalidMobile">Invalid mobile number</code>
+              </div>
+
+              <div class="form-control-feedback" *ngIf="mobile.touched && invalidMobile">
+                  <code class="remove" *ngIf="invalidMobile">Invalid mobile number</code>
+                </div>
 
               <div class="row">
 
@@ -36,7 +50,7 @@
 
                   <div class="col-12 text-center">
 
-                      <button type="submit" class="btn btn-block mt-15 btn-nblue">
+                      <button type="submit" class="btn btn-block mt-15 btn-nblue" [disabled] = "oLoginForm.invalid || !oLoginForm.touched || request_status">
 
                           Enter
 
@@ -49,6 +63,42 @@
               </div>
 
           </form>
+
+
+          <!-- OTP form -->
+          <form *ngIf="usernameAuthenticated" #otpForm="ngForm"  method="post" class="form-element" (submit)="authorizeOTP()">
+
+              <div class="form-group has-feedback">
+
+                  <input type="text" class="form-control" placeholder="4 Digit OTP" name="otp_code" required maxlength="4" #otpCode="ngModel" [(ngModel)]="otpData.user_otp" />
+
+                  <span class="ion ion-ios-telephone form-control-feedback"></span>
+
+              </div>
+
+              <div class="form-control-feedback" *ngIf="otpCode.invalid">
+                <code class="remove" *ngIf="otpCode.errors.required" > Provide otp code sent to your mobile number</code>
+                <code class="remove" *ngIf="otpCode.errors.maxlength && (otpCode.touched || otpCode.dirty)" >Invalid OTP Code</code>
+        
+              </div>
+
+              <div class="form-control-feedback" *ngIf="otpCode.touched && invalidotpCode">
+                  <code class="remove" *ngIf="invalidotpCode">Invalid OTP Code</code>
+                </div>
+              <div class="row">
+                  <!-- /.col -->
+
+                  <!-- /.col -->
+                  <div class="col-12 text-center">
+                      <button type="submit" class="btn btn-block mt-15 btn-nblue" [disabled] = "otpForm.invalid || !otpForm.touched || request_status" >
+                          Enter
+                      </button>
+                  </div>
+                  <!-- /.col -->
+              </div>
+          </form>
+
+
 
       </div>
 

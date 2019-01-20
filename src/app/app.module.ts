@@ -89,6 +89,10 @@ const routes: Routes =[
           component: LoginComponent
         },
         {
+          path : 'tsm-login',
+          component : OtherUserLoginComponent
+        },
+        {
           path : 'forgot-password',
           component: ForgotPasswordComponent
         },
@@ -223,6 +227,7 @@ const routes: Routes =[
               path : 'dashboard',
               component : DashboardComponent
             }
+            
           ]
         },
         {

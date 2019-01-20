@@ -9,16 +9,20 @@ export class ActionMessageComponent implements OnInit {
 
   @Input() type: number;
   @Input() message: String;
+  @Input() autoHide: Boolean = true;
   hide=0;
+
 
   constructor() { }
 
   ngOnInit() {
     this.hide =0;
     const __this = this; 
-    setTimeout(function(){
-      __this.hide =1;
-     },2000);
+    if(this.autoHide){
+      setTimeout(function(){
+        __this.hide =1;
+      },2000);
+    }
   }
 
 }

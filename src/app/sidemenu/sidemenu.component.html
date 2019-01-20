@@ -6,82 +6,10 @@
 
       <!-- sidebar menu -->
 
-      <ul class="sidebar-menu" data-widget="tree">
-
-        <!-- <li class="user-profile treeview">
-
-          <a href="index.html">
-
-            <img src="../assets/images/avatar/7.jpg" alt="user" />
-
-            <span>
-
-              <span class="d-block font-weight-600 font-size-16" style="text-transform: uppercase">
-                {{user_first_name}} {{user_last_name}}
-              </span>
-
-              <span class="email-id" style="">
-                  {{user_email}}
-              </span>
-
-            </span>
-
-            <span class="pull-right-container">
-
-              <i class="fa fa-angle-right pull-right"></i>
-
-            </span>
-
-          </a>
-
-          <ul class="treeview-menu">
-
-            <li>
-
-              <a href="javascript:void(0)"
-
-                ><i class="fa fa-user mr-5"></i>My Profile
-
-              </a>
-
-            </li>
-
-            <li>
-
-              <a href="javascript:void(0)"
-
-                ><i class="fa fa-calendar-check-o mr-5"></i>My Events</a
-
-              >
-
-            </li>
-
-            <li>
-
-              <a href="javascript:void(0)"
-
-                ><i class="fa fa-cog mr-5"></i>Account Setting</a
-
-              >
-
-            </li>
-
-            <li>
-
-              <a href="javascript:void(0)" (click)="logout()"
-
-                ><i class="fa fa-power-off mr-5"></i>Logout</a
-
-              >
-
-            </li>
-
-          </ul>
-
-        </li> -->
+      <ul class="sidebar-menu" data-widget="tree" *ngIf="roleChecked">
 
 
-        <li>
+         <li>
             <a href="javascript:void()" [routerLink]="['dashboard']" >
               <i><img src="../assets/images/dashboard.svg" alt="FAQ's" width="23px"></i>
               <span>Dashboard</span>
@@ -89,7 +17,7 @@
           </li>
 
 
-        <li class="treeview">
+        <li class="treeview" *ngIf="roleType==1" >
 
           <a href="javascript:void(0)" >
 
@@ -137,7 +65,7 @@
 
 
 
-        <li class="treeview">
+        <li class="treeview" *ngIf="roleType==1">
 
           <a href="javascript:void(0)" >
 
@@ -191,7 +119,7 @@
 
 
 
-        <li class="treeview">
+        <li class="treeview" *ngIf="roleType==1">
 
           <a href="javascript:void(0)" >
 
@@ -247,7 +175,7 @@
 
         </li>
 
-        <li class="treeview">
+        <li class="treeview" *ngIf="roleType==1">
 
           <a href="javascript:void(0)" >
 
@@ -295,7 +223,7 @@
 
 
 
-        <li class="treeview">
+        <li class="treeview" *ngIf="roleType==1">
 
           <a href="javascript:void(0)" >
 
@@ -347,7 +275,7 @@
 
         </li>
 
-        <li class="treeview">
+        <li class="treeview" *ngIf="roleType==1">
 
           <a href="javascript:void(0)" >
 
@@ -401,7 +329,7 @@
 
 
 
-        <li class="treeview">
+        <li class="treeview"  *ngIf="roleType==1">
 
           <a href="javascript:void(0)" >
 
@@ -411,7 +339,7 @@
 
                 src="../assets/images/apps.svg"
 
-                alt="User Management"
+                alt="Business Opp"
 
                 width="20px"
 
@@ -455,7 +383,7 @@
 
 
 
-         <li class="treeview">
+         <li class="treeview" *ngIf="roleType==1">
 
           <a href="javascript:void(0)" >
 
@@ -496,7 +424,7 @@
 
         </li>
 
-        <li class="treeview">
+        <li class="treeview" *ngIf="roleType==1">
 
         <a href="javascript:void(0)" [routerLink]="['faq-list']">
 
@@ -546,7 +474,7 @@
 
       </li>
 
-      <li class="treeview">
+      <li class="treeview" *ngIf="roleType==1">
 
           <a href="#">
 
@@ -588,7 +516,7 @@
 
 
 
-        <li>
+        <li >
 
           <a href="javascript:void(0)" (click)="logout()">
 

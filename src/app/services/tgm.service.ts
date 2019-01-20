@@ -67,4 +67,24 @@ export class TgmService {
     return this.http.post(url,userDatas );
 
   }
+
+
+  authenticate(payload){
+ 
+    const url = CONFIGS.apiBaseURL+CONFIGS["apiURLs"]["user"]["login"];
+    return this.http.post(url, payload);
+
+  }
+
+  checkOTP(payload){
+    const url = CONFIGS.apiBaseURL+CONFIGS["apiURLs"]["user"]["validateOTP"];
+    return this.http.post(url, payload);
+  }
+
+  checkRole(forRole, userid){
+
+    const url = CONFIGS.apiBaseURL+CONFIGS["apiURLs"]["user"]["checkRole"]+"/"+userid+"?role="+forRole;
+    return this.http.get(url);
+  }
+
 }
