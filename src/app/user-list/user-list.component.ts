@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TgmService } from '../services/tgm.service';
 import { Router } from '@angular/router';
+import { NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ConstantsData } from '../constants-data';
 
 declare function setDataTable() :any;
 
@@ -22,7 +25,11 @@ export class UserListComponent implements OnInit {
   noRecordMessage = "No user available.";
   loaded=0;
 
-  constructor(private userService: TgmService, private route: Router) { }
+  popUpObject: NgbdModalComponent;
+
+  constructor(private userService: TgmService, private route: Router, modalService : NgbModal) { 
+      this.popUpObject = new NgbdModalComponent(modalService);
+  }
 
   ngOnInit() {
      this.load();
@@ -75,26 +82,35 @@ export class UserListComponent implements OnInit {
 
   deleteUser(id, index){
 
-    const confirmation = window.confirm("Are you sure, you want to delete ?");
+      this.popUpObject.open(ConstantsData.ARE_YOU_SURE, "This user won't be able to access the system", {
+        "callback" : this.delete,
+        "params" : [id, index, this]
+      })
+  }
+
+  delete(id, index, __this){
+
+  /*   const confirmation = window.confirm("Are you sure, you want to delete ?");
 
     if(!confirmation){
       return false;
     }
-
-    this.userService.deleteUser(id).subscribe(
+ */
+    __this.userService.deleteUser(id).subscribe(
       (response:any) => {
         if(response.status == 200){
-            this.actionStatus = 1;
+            __this.actionStatus = 1;
             //alert(index);
             //alert(this.allUserData[index]);
-            this.allUserData[index]["status"] =0;
+            __this.allUserData[index]["status"] =0;
+            __this.allUserData.splice(index,1);
         }else{
-          this.actionStatus = 2;
+          __this.actionStatus = 2;
         }
       },
 
       (error) => {
-          this.actionStatus = 2;
+          __this.actionStatus = 2;
       }
     );
   }
