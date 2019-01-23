@@ -47,7 +47,7 @@
 
              
               <div class="form-group">
-                <label class="text-info">Region<span class="text-danger">*</span></label>
+                <label class="text-info">State<span class="text-danger">*</span></label>
                   <div class="controls">
                     <select name="region" id="region" #region="ngModel"  required class="form-control" [(ngModel)]="notification.region">
                         <option *ngFor="let l of regions" value="{{l.id}}">{{l.name}}</option>

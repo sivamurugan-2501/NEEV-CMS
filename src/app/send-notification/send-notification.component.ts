@@ -29,7 +29,7 @@ export class SendNotificationComponent implements OnInit {
   constructor(private route: Router, private tgmService: TgmService, private notificationService: NotificationService, private storageService: StorageService) { }
 
   ngOnInit() {
-    const regions = this.storageService.getCustomData("REGIONS");
+    const regions = this.storageService.getCustomData("STATES");
     try{
       this.regions = JSON.parse(regions);
     }catch(e){
