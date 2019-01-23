@@ -81,7 +81,7 @@
                    </div>
                 </div>
 
-                <div class="form-group">
+                <!--div class="form-group">
                   <label class="text-info">Send to<span class="text-danger">*</span></label>
                     <div class="controls">
                       <select name="send_to" id="send_to" #send_to="ngModel"  required class="form-control" [(ngModel)]="notification.recipient_group">
@@ -89,7 +89,7 @@
                           <option value="2">Selected TSMs</option>
                       </select>
                     </div>
-                  </div>
+                  </div-->
 
                   <div class="form-group" *ngIf="notification.recipient_group==2" >
                     <label class="text-info">Select TGMs<span class="text-danger">*</span></label>

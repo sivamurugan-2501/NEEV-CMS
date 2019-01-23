@@ -14,7 +14,7 @@ export class SendNotificationComponent implements OnInit {
   notification:any = {
     title: null,
     message: null,
-    recipient_group: 1,
+    recipient_group: 2,
     recipients : [],
     region: 1
   };

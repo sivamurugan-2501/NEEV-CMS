@@ -36,14 +36,29 @@
 
                                     <div class="col-md-6 col-12">
 
+                                        <div class="form-group" *ngIf="tgmSelected.length!=0 &&  tgmSelected.length!=tgmList.length" >
+                                         
+                                            <input type="checkbox" name="show-all" id="show-all" [checked] = "false" value=1 [(ngModel)]="showAll" (click)="toggleShowAll()"  >
+                                            <label class="text-info" for="show-all">
+                                                Show All
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group" *ngIf="tgmSelected.length==0 || tgmSelected.length==tgmList.length" >
+                                            <input type="checkbox" name="show-all" id="show-all" [checked] = "true" value=1 [(ngModel)]="showAll" (click)="toggleShowAll()" >
+                                            <label class="text-info" for="show-all">
+                                                Show All
+                                            </label>
+                                        </div>
+
                                         <div class="form-group">
 
                                             <label class="text-info">Select TGM</label>
 
                                             <div class="form-group">
-
-                                                <select class="form-control select2" multiple="multiple" data-placeholder="Select a TGM">
-                                                    <option *ngFor="let user of tgmList" value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+                                                <select class="form-control" multiple="multiple" data-placeholder="Select a TGM" [(ngModel)] ="tgmSelected" >
+                                                    
+                                                    <option *ngFor="let user of tgmList" value="{{user.id}}"  >{{user.first_name}} {{user.last_name}}</option>
                                                 </select>
 
                                             </div>
@@ -54,11 +69,17 @@
 
                                         <!-- /.form-group -->
 
+                                        <div class="form-group">
+                                                <button type="button" (click) = "loadData()" class="btn btn-nblue btn-outline mr-1" [disabled] = "tgmSelected_final==tgmSelected " > 
+                                                    <i class="ti-search-alt"></i> Search
+                                                </button>
+                                        </div>
+
                                     </div>
 
                                     <!-- /.col -->
 
-                                    <div class="col-md-6 col-12">
+                                    <!--div class="col-md-6 col-12">
 
                                         <div class="form-group pull-right">
 
@@ -76,7 +97,7 @@
 
                                         </div>
 
-                                    </div>
+                                    </div-->
 
                                     <!-- /.col -->
 

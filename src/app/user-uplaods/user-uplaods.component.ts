@@ -36,6 +36,13 @@ export class UserUplaodsComponent implements OnInit {
   tgmList : Array<Object> = null;
   multipPopup : NgbdModalComponent2;
 
+  tgmSelected : any = new Array();
+
+  tgmSelected_final : any = new Array();
+
+  showAll= true;
+  
+
   constructor(private userUploadService: UserUploadService, private tgmService: TgmService, config: NgbModalConfig, private modalService: NgbModal) { 
     this.multipPopup = new NgbdModalComponent2(modalService);
   }
@@ -46,13 +53,19 @@ export class UserUplaodsComponent implements OnInit {
    
 
     setTimeout( ()=>{
-      select2Fn();
+      //select2Fn();
       setDataTable();
     },2000);
   }
 
   loadData(){
-    this.userUploadService.getUploads(0,1).subscribe(
+
+    this.imagesUpload = null;
+    this.docUploads = null;
+    this.videoUploads = null;
+    this.tgmSelected_final = (this.tgmSelected) ? this.tgmSelected : 0;
+
+    this.userUploadService.getUploads(this.tgmSelected_final, 1).subscribe(
       (response:any) => {
           this.imagesUpload =response.data;
           this.baseURL = response.baseURL;
@@ -60,7 +73,7 @@ export class UserUplaodsComponent implements OnInit {
       }
     );
 
-    this.userUploadService.getUploads(0,2).subscribe(
+    this.userUploadService.getUploads(this.tgmSelected_final, 2).subscribe(
       (response:any) => {
           this.videoUploads =response.data;
           this.baseURL = response.baseURL;
@@ -69,7 +82,7 @@ export class UserUplaodsComponent implements OnInit {
     );
 
 
-    this.userUploadService.getUploads(0,3).subscribe(
+    this.userUploadService.getUploads(this.tgmSelected_final, 3).subscribe(
       (response:any) => {
           this.docUploads =response.data;
           this.baseURL = response.baseURL;
@@ -119,5 +132,13 @@ export class UserUplaodsComponent implements OnInit {
   showPopUp(type, source){
     this.multipPopup.open(type, source);
   }
+
+
+  toggleShowAll(){
+    if(this.showAll){
+      this.tgmSelected = new Array();
+    }
+  }
+
 
 }
