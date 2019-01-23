@@ -107,7 +107,7 @@
              
 
               <div class="form-group">
-                  <label class="text-info">Upload Thumbnail Image<span class="text-danger">*</span></label>
+                  <label class="text-info">Upload Thumbnail Image<span class="text-danger">* Maximum image size is 20 MB</span></label>
                   <div class="controls">
                     <input type="file" name="file" #thumbnailFile="ngModel" class="form-control" [(ngModel)]="videoData.thumbnailImage" required (change)="onImageChange($event)"> </div>
                     <div class="form-control-feedback" *ngIf="thumbnailFile.invalid && (thumbnailFile.dirty || thumbnailFile.touched)">
@@ -129,7 +129,7 @@
                 </div>
               
                 <div *ngIf="videoData.type==1" class="form-group">
-                    <label class="text-info">Upload File<span class="text-danger">*</span></label>
+                    <label class="text-info">Upload File<span class="text-danger">* Maximum video file size is 200 MB</span></label>
                   <div class="controls">
                     <input type="file" name="videFile" class="form-control" required (change)="onFileChange($event)"> </div>
                 </div>

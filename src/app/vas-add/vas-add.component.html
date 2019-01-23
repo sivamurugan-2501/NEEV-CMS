@@ -74,7 +74,7 @@
           
                 
                   <div class="form-group">
-                    <label class="text-info">VAS Thumbnail<span class="text-danger">*</span></label>
+                    <label class="text-info">VAS Thumbnail<span class="text-danger">* Maximum image size is 20 MB</span></label>
                     <div class="controls">
                       <input type="file" name="file" #bannerfile="ngModel" class="form-control" [(ngModel)]="vasData.thumbnail" required (change)="onFileChange($event)"> </div>
                       <p class="help-block text-red">Optimized image with proper size and extension.</p>

@@ -27,3 +27,9 @@
 .remove{
     cursor: pointer;
 }
+
+.imagePreview img{
+    width : 80% !important;
+    height: auto !important ;
+    margin-bottom: 10px !important;
+}

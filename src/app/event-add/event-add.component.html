@@ -124,13 +124,13 @@
 
                         <div class="form-group">
 
-                            <label class="text-info">Notice Thumbnail</label>
+                            <label class="text-info">Notice Thumbnail <span class="danger">Maximum image size is 20MB</span></label>
 
                             <div class="controls">
 
                                 <input type="file" name="thumbnail" class="form-control"  #image="ngModel" [(ngModel)]="eventData.thumbnail" (change)="onFileChange($event)">
 
-                                <p class="help-block text-red">Optimized image with proper size and extension.</p>
+                                <!--p class="help-block text-red">Optimized image with proper size and extension.</p-->
 
                                 <div class="help-block"></div>
                                 <div class="form-control-feedback" *ngIf="(image.dirty || image.touched)">

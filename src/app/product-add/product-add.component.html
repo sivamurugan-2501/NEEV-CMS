@@ -97,7 +97,7 @@
               
                 <div class="form-group" *ngIf="!logoImage || !instanceId || logoRemoved">
                     
-                    <label class="text-info">Upload Logo<span class="text-danger">*</span></label>
+                    <label class="text-info">Upload Logo<span class="text-danger">* Maximum image size is 20MB</span></label>
                     <div class="controls">
                       <input type="file"  name="file" #logo="ngModel"  class="form-control" [(ngModel)]="productData_1.logo" required (change)="onImageSelect($event, false, 1)"> 
                       
@@ -134,7 +134,7 @@
 
                 <div class="form-group" *ngIf="!instanceId || !productImage_1 || productImageRemoved" >
                     
-                    <label class="text-info">Upload Product Image<span class="text-danger">*</span></label>
+                    <label class="text-info">Upload Product Image<span class="text-danger">* Maximum image size is 20MB</span></label>
                     <div class="controls">
                         <input type="file"  name="file" #productImage="ngModel"  class="form-control" [(ngModel)]="productData_1.productImage" required (change)="onImageSelect($event, false, 4)"> 
                         
@@ -284,7 +284,7 @@
 
                                                                             <div class="form-group">
 
-                                                                                <label class="text-info">Feature {{i+1}} Image<span class="text-danger"></span></label>
+                                                                                <label class="text-info">Feature {{i+1}} Image<span class="text-danger">Maximum image size is 20MB</span></label>
 
                                                                                 <div class="input-group input-group-sm">
                                                                                   
@@ -331,7 +331,7 @@
 
                                                                             <!-- textarea -->
 
-                                                                            <div class="form-group">
+                                                                        <!--div class="form-group">
 
                                                                                 <label>Add Description <span class="text-danger">*</span></label>
 
@@ -340,7 +340,7 @@
                                                                                     <code *ngIf="featureDesc.errors.required"> Provide feature description</code>
                                                                                     <code *ngIf="featureDesc.errors.minlength || featureTitle.errors.maxlength"> Feature Description should be minimum 4 letters</code>
                                                                                   </div>
-                                                                            </div>
+                                                                            </div-->
                                                                             <div class="col-md-12" *ngIf="productData_feature.length>1 && productData_feature[i] && i>0">
                                                                                     <div class="form-group">
                                                                                             <div class="">
@@ -414,7 +414,7 @@
 
                                                                             <div class="form-group">
 
-                                                                                <label class="text-info">Product Images<span class="text-danger">*</span></label>
+                                                                                <label class="text-info">Product Images<span class="text-danger">* Maximum image size is 20MB</span></label>
 
                                                                                 <div class="input-group input-group-sm">
 
@@ -525,7 +525,7 @@
 
                                                                 <div class="box-header with-border">
 
-                                                                    <h4 class="box-title">Upload videos<span class="text-danger">*</span></h4>
+                                                                    <h4 class="box-title">Upload videos<span class="text-danger">* Maximum video size is 200MB</span></h4>
 
                                                                 </div>
 
@@ -728,7 +728,7 @@
                                                                             <div class="col-md-6" *ngIf="productData_specification['engine'][i]">
                                                                                 <div class="form-group">
 
-                                                                                        <label class="text-info">Name<span class="text-danger">*</span></label>
+                                                                                        <label class="text-info">Specification Title<span class="text-danger">*</span></label>
             
                                                                                         <div class="input-group input-group-sm">
             
@@ -1090,7 +1090,7 @@
 
                                                                         <div class="form-group" *ngIf="!brochureId || docRemoved">
 
-                                                                            <label class="text-info">Document File.<span class="text-danger">*</span></label>
+                                                                            <label class="text-info">Document File.<span class="text-danger">*Maximum file size is 20MB</span></label>
 
                                                                             <div class="input-group input-group-sm">
 

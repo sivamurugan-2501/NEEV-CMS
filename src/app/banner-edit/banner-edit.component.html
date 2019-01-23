@@ -94,7 +94,7 @@
                 </div>
               
                 <div *ngIf="(bannerData.type==1 && !bannerData.file_id) || imageRemoved==1" class="form-group">
-                  <label class="text-info">Upload File<span class="text-danger">*</span></label>
+                  <label class="text-info">Upload File<span class="text-danger">* Maximum image size allowed 20 MB</span></label>
                   <div class="controls">
                     <input type="file" name="file" #bannerfile="ngModel" class="form-control" [(ngModel)]="bannerData.file" required (change)="onFileChange($event)"> </div>
                     <div class="form-control-feedback" *ngIf="bannerfile.invalid && (bannerfile.dirty || bannerfile.touched)">
