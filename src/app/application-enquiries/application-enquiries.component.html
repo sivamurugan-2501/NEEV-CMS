@@ -51,7 +51,7 @@
             <thead>
               <tr  class="bg-secondary">
                 <th>TGM Id</th>
-                <th>Application Name</th>
+                <th>Business Name</th>
                 <th>Recording</th>
                 <th>Date</th>
               </tr>
@@ -60,7 +60,7 @@
               <tr *ngFor="let data of this.appEnqData; let i=index">
                 <td> {{i+1}} </td>
               
-                <td>{{data.name}}</td>
+                <td>{{data.business_name}}</td>
                 <td> 
                     <audio src="{{data.recording}}" controls=""> 
                     </audio>
