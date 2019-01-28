@@ -32,7 +32,23 @@
                 <h4 class="box-title" *ngIf="instanceId">Edit Product</h4>
             </div>
 
-         <div class="box-body">
+        <div class="box-body" *ngIf="master==false">
+            <div class="row">
+                <div class="col-12">	
+                    <div class="form-group">
+                        <label class="text-info">Select Master<span class="text-danger">*</span></label>
+                        <div class="controls">
+                            <select name="master_product" id="master_product" required class="form-control" #master_product="ngModel" [(ngModel)]="productData_1.master_id" (change) = "changeMode()" >
+                                <option value="0">Select</option>
+                                <option *ngFor="let p of productsDD" value="{{p.id}}">{{p.title}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+             </div>   
+        </div>
+
+         <div class="box-body" *ngIf="master || masterID  || instanceId">
            <div class="row">
              <div class="col">
           <form (submit)="saveProduct()" enctype="multipart/form-data" method="post" name="productForm" #productForm="ngForm">
@@ -222,13 +238,13 @@
 
                                             </li>
 
-                                            <li class="nav-item">
+                                            <li class="nav-item" *ngIf="isMaster && masterID==0">
 
                                                 <a class="nav-link" data-toggle="tab" href="#gallery" role="tab"><span><i class="fa fa-file-image-o"></i> Gallery</span></a>
 
                                             </li>
 
-                                            <li class="nav-item">
+                                            <li class="nav-item" *ngIf="isMaster && masterID==0">
 
                                                 <a class="nav-link" data-toggle="tab" href="#videos" role="tab"><span><i class="fa fa-file-video-o"></i> Videos</span></a>
 
@@ -242,7 +258,7 @@
 
                                             </li>
 
-                                            <li class="nav-item">
+                                            <li class="nav-item" *ngIf="isMaster && masterID==0">
 
                                                 <a class="nav-link" data-toggle="tab" href="#brochure" role="tab"><span><i class="fa  fa-file-pdf-o"></i> Brochure</span></a>
 
@@ -375,7 +391,7 @@
 
                                             </div>
 
-                                            <div class="tab-pane show" id="gallery" role="tabpanel">
+                                            <div class="tab-pane show" id="gallery" role="tabpanel" *ngIf="isMaster && masterID==0">
 
                                                 <div class="pad">
 
@@ -513,7 +529,7 @@
 
                                             </div>
 
-                                            <div class="tab-pane show" id="videos" role="tabpanel">
+                                            <div class="tab-pane show" id="videos" role="tabpanel" *ngIf="isMaster && masterID==0">
 
                                                 <div class="pad">
 
@@ -1064,7 +1080,7 @@
 
                                             </div>
 
-                                            <div class="tab-pane show" id="brochure" role="tabpanel">
+                                            <div class="tab-pane show" id="brochure" role="tabpanel" *ngIf="isMaster && masterID==0">
 
                                                 <div class="pad">
 

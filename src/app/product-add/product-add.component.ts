@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ConfigsDataService } from '../services/configs-data.service';
 import { ProductService } from '../services/product.service';
 import { ConstantsData } from '../constants-data';
@@ -19,6 +19,9 @@ import { VideoService } from '../services/video.service';
   styleUrls: ['./product-add.component.css']
 })
 export class ProductAddComponent implements OnInit {
+
+
+  @Input()  master: Boolean= false;
 
   imagePreview: Array<Object>= new Array();
   featureImagePreview: Array<Object>= new Array();
@@ -48,7 +51,9 @@ export class ProductAddComponent implements OnInit {
     category :1,
     language: 0,
     productImage: null,
-    notify: 0
+    notify: 0,
+    is_master : (this.master) ? 1 : 0,
+    master_id : 0
   }
 
   feature_json =  {
@@ -160,6 +165,10 @@ export class ProductAddComponent implements OnInit {
   videoRemoved =0;
   vId=0;
 
+  productsDD:any =null;
+  masterID = 0;
+  isMaster =0 ;
+
   gallertImages_to_delete: Array<Object> = new Array();
 
   constructor(private route : Router, private aRoute: ActivatedRoute , private configService: ConfigsDataService, private productService: ProductService, private storageService: StorageService, private modalService: NgbModal, private videoService: VideoService) {
@@ -169,11 +178,28 @@ export class ProductAddComponent implements OnInit {
 
   ngOnInit() {
 
+    alert(this.master);
     this.aRoute.queryParams.subscribe( (q) => {
       if(q && q.id){
         this.instanceId = q.id;
         this.loadProductData(this.instanceId);
       }
+
+      if(q && q.master_id && !isNaN(q.master_id)){
+
+          this.masterID  = q.master_id;
+          this.loadProductData(this.masterID);
+
+          setTimeout(
+            ()=> {
+              this.productData_1.master_id = q.master_id;
+              this.productData_1.is_master = this.isMaster = 0;
+            }, 3000
+          );
+          
+
+      }
+
     });
 
     this.loadLanguageList();
@@ -187,6 +213,10 @@ export class ProductAddComponent implements OnInit {
     this.addSpecColumn(2);
     this.addSpecColumn(3);
     this.addSpecColumn(4);*/
+
+    if(this.master == false){
+      this.getProductsDD();
+    }
   }
 
 
@@ -199,6 +229,12 @@ export class ProductAddComponent implements OnInit {
                 const productDetails = this.productDetails = response.products;
                 this.productData_1 = productDetails.basicData;
                 this.productData_gallery.title =baseURL+productDetails.basicData.gallery_title;
+               
+                if(this.productData_1.is_master == 1){
+                   this.isMaster = this.productData_1.is_master;
+                   this.masterID = this.productData_1.master_id;
+                  // alert(this.isMaster+" : "+this.masterID);
+                }
 
                 if(productDetails.galleryImages){
                   for(let i=0;i<productDetails.galleryImages.length;i++){
@@ -522,12 +558,7 @@ export class ProductAddComponent implements OnInit {
             const productid = this.instanceId = response.id;
 
            //setTimeout(() => {
-              const productVideoPayload = this.generateProductVideoData();
-              if(this.vId){
-                this.updateVideo(productid, productVideoPayload);
-              }else{
-                this.addVideo(productid, productVideoPayload);
-              }
+            
            //}, 8000);
 
             const productFeaturesPayload = this.generateProductFeatureData();
@@ -536,17 +567,31 @@ export class ProductAddComponent implements OnInit {
             const productSpecsPayload = this.generateProductSpecsData();
             this.updateSpecs(productid, productSpecsPayload);
 
-            const productGalleryPayload = this.generateProductGalleryData();
-            this.updateGallery(productid, productGalleryPayload);
+            // add/update gallery images, video, brochure only if product is a master product
+            if(this.isMaster && this.masterID && this.masterID>0){
 
-            const productBrochurePayload = this.generateProductBrochureData();
-            this.updateBrochure(productid, productBrochurePayload);
+                const productGalleryPayload = this.generateProductGalleryData();
+                this.updateGallery(productid, productGalleryPayload);
+
+                const productBrochurePayload = this.generateProductBrochureData();
+                this.updateBrochure(productid, productBrochurePayload);
+
+                const productVideoPayload = this.generateProductVideoData();
+                if(this.vId){
+                  this.updateVideo(productid, productVideoPayload);
+                }else{
+                  this.addVideo(productid, productVideoPayload);
+                }
+          }
+
+
+
             this.mpPopup.dismissModal();
             setTimeout(() => {
                /*  this.route.navigate(["main","edit-product"], {
                   queryParams : {"id" : this.instanceId}
                 }); */
-                window.location.reload();
+              //  window.location.reload();
             }, 5000);
            
 
@@ -1057,6 +1102,26 @@ export class ProductAddComponent implements OnInit {
     this.galleryImages_loaded[index].remove = !this.galleryImages_loaded[index].remove;
     console.log(this.galleryImages_loaded);
     
+  }
+
+
+ getProductsDD(){
+    this.productService.getProducts("id, title").subscribe(
+      (response :any) => {
+          if(response.status == 200){
+              this.productsDD = response.products;
+          }
+      }
+    );
+  }
+
+
+  changeMode(){
+    this.route.navigate(["main","add-product"], {
+       queryParams : {
+        master_id : this.productData_1.master_id
+       }
+    });
   }
 
 

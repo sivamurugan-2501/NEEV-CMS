@@ -67,6 +67,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SafeURLPipe } from './pipes/safe-url.pipe';
 import { OtherUserLoginComponent } from './other-user-login/other-user-login.component';
 import { WithSpecialCharDirective } from './validators/with-special-char.directive';
+import { ProductMasterComponent } from './product-master/product-master.component';
+import { ProductClonerComponent } from './product-cloner/product-cloner.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -125,8 +127,12 @@ const routes: Routes =[
               component : VideoEditComponent
             },
             {
+              path : "add-master-product",
+              component : ProductMasterComponent
+            },
+            {
               path : "add-product",
-              component : ProductAddComponent
+              component : ProductClonerComponent
             },
             {
               path : "product-list",
@@ -269,7 +275,9 @@ const routes: Routes =[
     DashboardComponent,
     SafeURLPipe,
     OtherUserLoginComponent,
-    WithSpecialCharDirective
+    WithSpecialCharDirective,
+    ProductMasterComponent,
+    ProductClonerComponent
   ],
   imports: [
     BrowserModule,
