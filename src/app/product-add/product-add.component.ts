@@ -167,7 +167,7 @@ export class ProductAddComponent implements OnInit {
 
   productsDD:any =null;
   masterID = 0;
-  isMaster =0 ;
+  isMaster:any =0 ;
 
   gallertImages_to_delete: Array<Object> = new Array();
 
@@ -178,7 +178,8 @@ export class ProductAddComponent implements OnInit {
 
   ngOnInit() {
 
-    alert(this.master);
+    this.isMaster = this.master ;
+    alert(this.isMaster+ ":" +this.masterID);
     this.aRoute.queryParams.subscribe( (q) => {
       if(q && q.id){
         this.instanceId = q.id;
@@ -568,7 +569,7 @@ export class ProductAddComponent implements OnInit {
             this.updateSpecs(productid, productSpecsPayload);
 
             // add/update gallery images, video, brochure only if product is a master product
-            if(this.isMaster && this.masterID && this.masterID>0){
+            if(this.isMaster /* && this.masterID && this.masterID>0 */){
 
                 const productGalleryPayload = this.generateProductGalleryData();
                 this.updateGallery(productid, productGalleryPayload);
@@ -921,6 +922,7 @@ export class ProductAddComponent implements OnInit {
             }
         }else{
           product.append("existing_images", null);
+          product.append("remove", null);
         }
       }
       
