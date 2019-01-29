@@ -32,7 +32,7 @@
                 <h4 class="box-title" *ngIf="instanceId">Edit Product</h4>
             </div>
 
-        <div class="box-body" *ngIf="master==false">
+        <div class="box-body" *ngIf="master==false && !productData_1.is_master && !instanceId">
             <div class="row">
                 <div class="col-12">	
                     <div class="form-group">
@@ -111,7 +111,7 @@
   
             
               
-                <div class="form-group" *ngIf="!logoImage || !instanceId || logoRemoved">
+                <div class="form-group" *ngIf="(!logoImage || !instanceId || logoRemoved) && isMaster  ">
                     
                     <label class="text-info">Upload Logo<span class="text-danger">* Maximum image size is 20MB</span></label>
                     <div class="controls">
@@ -123,7 +123,7 @@
                        </div>
                     </div>
 
-                    <div class="controls" *ngIf="logoRemoved"> 
+                    <div class="controls" *ngIf="logoRemoved "> 
                             <div class="remove" (click)="undoLogo()"> <code> Undo Removed </code></div>
                     </div>
                 </div>
@@ -143,12 +143,12 @@
                     <div class="row imagePreview">
                         <div  class="col-md-2 thumbnail">
                         <img src='{{logoImage}}' style="width:100px; height:100px;">
-                        <div class="remove" (click)="removeLogo(logoId)"> <code> Remove </code></div>
+                        <div *ngIf="isMaster" class="remove" (click)="removeLogo(logoId)"> <code> Remove </code></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="form-group" *ngIf="!instanceId || !productImage_1 || productImageRemoved" >
+                <div class="form-group" *ngIf=" (!instanceId || !productImage_1 || productImageRemoved) && isMaster " >
                     
                     <label class="text-info">Upload Product Image<span class="text-danger">* Maximum image size is 20MB</span></label>
                     <div class="controls">
@@ -183,7 +183,7 @@
                             <div class="col-md-2 thumbnail">
                             
                             <img src='{{productImage_1}}' style="width:100px; height:100px;">
-                            <div class="remove" (click)="removeProductImage()"> <code> Remove </code></div>
+                            <div *ngIf="isMaster" class="remove" (click)="removeProductImage()"> <code> Remove </code></div>
                             </div>
                         </div>
                     </div>
@@ -298,7 +298,7 @@
 
                                                                             <!-- /row -->
 
-                                                                            <div class="form-group">
+                                                                            <div class="form-group" >
 
                                                                                 <label class="text-info">Feature {{i+1}} Image<span class="text-danger">Maximum image size is 20MB</span></label>
 
@@ -1122,7 +1122,7 @@
                                                                             <div class="imagePreview row">
                                                                                     <div  class="col-md-12">
                                                                                         <p>
-                                                                                            <img src='../assets/images/user-upload.svg' style="width:23px;">
+                                                                                            <img src='../assets/images/user-upload.svg' style="width:23px !important;">
                                                                                             {{brochureName}}
                                                                                         </p>
                                                                                         <div class="remove" (click)="removeDoc()"> <code> Remove </code></div>

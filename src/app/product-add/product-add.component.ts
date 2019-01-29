@@ -179,7 +179,10 @@ export class ProductAddComponent implements OnInit {
   ngOnInit() {
 
     this.isMaster = this.master ;
-    alert(this.isMaster+ ":" +this.masterID);
+    this.productData_1.is_master = this.isMaster;
+
+
+    //alert(this.isMaster+ ":" +this.masterID);
     this.aRoute.queryParams.subscribe( (q) => {
       if(q && q.id){
         this.instanceId = q.id;
@@ -231,7 +234,7 @@ export class ProductAddComponent implements OnInit {
                 this.productData_1 = productDetails.basicData;
                 this.productData_gallery.title =baseURL+productDetails.basicData.gallery_title;
                
-                if(this.productData_1.is_master == 1){
+                if(this.productData_1.is_master == 1 && !this.masterID){
                    this.isMaster = this.productData_1.is_master;
                    this.masterID = this.productData_1.master_id;
                   // alert(this.isMaster+" : "+this.masterID);
@@ -264,7 +267,31 @@ export class ProductAddComponent implements OnInit {
 
                 console.log(productDetails.specifications);
                 if(productDetails.features.length>0){
-                  this.productData_feature = productDetails.features;
+                    
+                    
+                    
+                    // when not in edit mode, but in master selected mode
+                    if(!this.instanceId){
+
+                      let productData_feature= new Array();
+                      for(let i=0;i<productDetails.features.length;i++){
+                        
+                        const feature = productDetails.features[i];
+                        productData_feature.push({
+                          "id" : 0,
+                          "image" : feature.image,
+                          "imagePath" : feature.imagePath,
+                          "title" : "",
+                          "description" : ""
+                        });
+
+                      }
+                      this.productData_feature = productData_feature;
+
+
+                    }else{
+                      this.productData_feature = productDetails.features;
+                    }
 
                    for(let i=0; i < productDetails.features.length; i++){
                      this.productData_feature_images[i] = { "id" :productDetails.features[i]["image"], "image" : productDetails.features[i]["imagePath"]  }
@@ -592,7 +619,7 @@ export class ProductAddComponent implements OnInit {
                /*  this.route.navigate(["main","edit-product"], {
                   queryParams : {"id" : this.instanceId}
                 }); */
-              //  window.location.reload();
+               window.location.reload();
             }, 5000);
            
 
@@ -668,6 +695,7 @@ export class ProductAddComponent implements OnInit {
 
   addVideo(id, product_video_payload:FormData){
 
+    product_video_payload.delete("product");
     product_video_payload.append("product", id);
     
     //this.productService.updateVideo(id, product_video_payload)
@@ -1108,10 +1136,16 @@ export class ProductAddComponent implements OnInit {
 
 
  getProductsDD(){
-    this.productService.getProducts("id, title").subscribe(
+    this.productService.getProducts("id,title,is_master").subscribe(
       (response :any) => {
           if(response.status == 200){
               this.productsDD = response.products;
+
+              this.productsDD = this.productsDD.filter(
+                (data:any) => {
+                   return (data.is_master)
+                }
+              );
           }
       }
     );
