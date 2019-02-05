@@ -69,6 +69,7 @@ import { OtherUserLoginComponent } from './other-user-login/other-user-login.com
 import { WithSpecialCharDirective } from './validators/with-special-char.directive';
 import { ProductMasterComponent } from './product-master/product-master.component';
 import { ProductClonerComponent } from './product-cloner/product-cloner.component';
+import { ProductMasterListComponent } from './product-master-list/product-master-list.component';
 
 //import {LocalStorageModule} from 'angular-local-storage';
 
@@ -137,6 +138,10 @@ const routes: Routes =[
             {
               path : "product-list",
               component : ProductListComponent
+            },
+            {
+              path : "master-product-list",
+              component: ProductMasterListComponent
             },
             {
               path : "edit-product",
@@ -277,7 +282,8 @@ const routes: Routes =[
     OtherUserLoginComponent,
     WithSpecialCharDirective,
     ProductMasterComponent,
-    ProductClonerComponent
+    ProductClonerComponent,
+    ProductMasterListComponent
   ],
   imports: [
     BrowserModule,

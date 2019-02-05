@@ -18,15 +18,18 @@ export class ProductService {
     }
   }
 
-  getProducts(fields?:any){
+  getProducts(fields?:any, is_master?:any){
 
+    if(!is_master){
+      is_master=0;
+    }
     var queryString = "";
 
     if(fields){
       queryString="?fields="+fields;
     }
     
-    return this.http.get(CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["list"]+queryString );
+    return this.http.get(CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["product"]["list"]+"/"+is_master+queryString );
     
   }
 

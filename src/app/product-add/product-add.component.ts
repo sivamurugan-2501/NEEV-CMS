@@ -179,7 +179,7 @@ export class ProductAddComponent implements OnInit {
   ngOnInit() {
 
     this.isMaster = this.master ;
-    this.productData_1.is_master = this.isMaster;
+    this.productData_1.is_master = (this.isMaster ? 1 : 0 );
 
 
     //alert(this.isMaster+ ":" +this.masterID);
@@ -235,7 +235,7 @@ export class ProductAddComponent implements OnInit {
                 this.productData_gallery.title =baseURL+productDetails.basicData.gallery_title;
                
                 if(this.productData_1.is_master == 1 && !this.masterID){
-                   this.isMaster = this.productData_1.is_master;
+                   this.isMaster  = this.productData_1.is_master;
                    this.masterID = this.productData_1.master_id;
                   // alert(this.isMaster+" : "+this.masterID);
                 }
@@ -589,14 +589,16 @@ export class ProductAddComponent implements OnInit {
             
            //}, 8000);
 
-            const productFeaturesPayload = this.generateProductFeatureData();
-            this.updateFeatures(productid, productFeaturesPayload);
+           
 
-            const productSpecsPayload = this.generateProductSpecsData();
-            this.updateSpecs(productid, productSpecsPayload);
+            // add/update gallery images, video, brochure  if product is not a master product
+            if(!this.isMaster /* && this.masterID && this.masterID>0 */){
 
-            // add/update gallery images, video, brochure only if product is a master product
-            if(this.isMaster /* && this.masterID && this.masterID>0 */){
+                const productFeaturesPayload = this.generateProductFeatureData();
+                this.updateFeatures(productid, productFeaturesPayload);
+    
+                const productSpecsPayload = this.generateProductSpecsData();
+                this.updateSpecs(productid, productSpecsPayload);
 
                 const productGalleryPayload = this.generateProductGalleryData();
                 this.updateGallery(productid, productGalleryPayload);
@@ -619,7 +621,7 @@ export class ProductAddComponent implements OnInit {
                /*  this.route.navigate(["main","edit-product"], {
                   queryParams : {"id" : this.instanceId}
                 }); */
-               window.location.reload();
+               //window.location.reload();
             }, 5000);
            
 
@@ -1136,7 +1138,7 @@ export class ProductAddComponent implements OnInit {
 
 
  getProductsDD(){
-    this.productService.getProducts("id,title,is_master").subscribe(
+    this.productService.getProducts("id,title,is_master", 1).subscribe(
       (response :any) => {
           if(response.status == 200){
               this.productsDD = response.products;

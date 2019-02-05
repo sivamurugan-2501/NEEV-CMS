@@ -28,27 +28,15 @@
          <!-- /.box-header -->
 
          <div class="box-header with-border">
-                <h4 class="box-title" *ngIf="!instanceId">Add Product</h4>
-                <h4 class="box-title" *ngIf="instanceId">Edit Product</h4>
+                <h4 class="box-title" *ngIf="!instanceId && isMaster">Add Master Product</h4>
+                <h4 class="box-title" *ngIf="instanceId && isMaster">Edit Master Product</h4>
+                <h4 class="box-title" *ngIf="!instanceId && !isMaster">Add Product</h4>
+                <h4 class="box-title" *ngIf="instanceId && !isMaster">Edit Product</h4>
             </div>
 
-        <div class="box-body" *ngIf="master==false && !productData_1.is_master && !instanceId">
-            <div class="row">
-                <div class="col-12">	
-                    <div class="form-group">
-                        <label class="text-info">Select Master<span class="text-danger">*</span></label>
-                        <div class="controls">
-                            <select name="master_product" id="master_product" required class="form-control" #master_product="ngModel" [(ngModel)]="productData_1.master_id" (change) = "changeMode()" >
-                                <option value="0">Select</option>
-                                <option *ngFor="let p of productsDD" value="{{p.id}}">{{p.title}}</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-             </div>   
-        </div>
 
-         <div class="box-body" *ngIf="master || masterID  || instanceId">
+         <!-- *ngIf="master || masterID  || instanceId" -->
+         <div class="box-body" >
            <div class="row">
              <div class="col">
           <form (submit)="saveProduct()" enctype="multipart/form-data" method="post" name="productForm" #productForm="ngForm">
@@ -68,7 +56,8 @@
                     </div>
                 </div>
              </div>
-             <div class="form-group">
+            
+             <div class="form-group" *ngIf="!isMaster">
                 <label class="text-info">Language<span class="text-danger">*</span></label>
                 <div class="controls">
                   <select name="language" id="language" required class="form-control" #language="ngModel" [(ngModel)]="productData_1.language" >
@@ -84,7 +73,17 @@
                   </div>
               </div>
 
-             <div class="form-group">
+              <div class="form-group" *ngIf="!isMaster && !productData_1.is_master ">
+                    <label class="text-info">Product<span class="text-danger">*</span></label>
+                    <div class="controls">
+                        <select name="master_product" id="master_product" required class="form-control" #master_product="ngModel" [(ngModel)]="productData_1.master_id" (change) = "changeMode()" >
+                            <option value="0">Select</option>
+                            <option *ngFor="let p of productsDD" value="{{p.id}}">{{p.title}}</option>
+                        </select>
+                    </div>
+                </div>
+
+             <div class="form-group" *ngIf="isMaster">
                 <label class="text-info">Product Name<span class="text-danger">*</span></label>
                <div class="controls">
                  <input type="text" name="title" maxlength="100" #prodTitle="ngModel"  [(ngModel)]="productData_1.title" class="form-control" required data-validation-required-message="This field is required"> 
@@ -183,12 +182,12 @@
                             <div class="col-md-2 thumbnail">
                             
                             <img src='{{productImage_1}}' style="width:100px; height:100px;">
-                            <div *ngIf="isMaster" class="remove" (click)="removeProductImage()"> <code> Remove </code></div>
+                            <div *ngIf="isisMaster" class="remove" (click)="removeProductImage()"> <code> Remove </code></div>
                             </div>
                         </div>
                     </div>
   
-                 <div class="form-group">
+                 <div class="form-group" *ngIf="!isMaster">
 
                     <input type="checkbox" name="notify" id="notify" value=1  [checked] = "productData_1.notify==1" [(ngModel)]="productData_1.notify">
                     <label class="text-info" for="notify">
@@ -223,7 +222,7 @@
                     <app-ngx-editor [placeholder]="" [spellcheck]="true" name="features" [(ngModel)]="productData_1.features"></app-ngx-editor>
                     </div>
                   </div> -->
-
+                  <div *ngIf="!isMaster">
                   <hr />
 
                                         <h4 class="box-title mb-15">Product Description</h4>
@@ -238,13 +237,13 @@
 
                                             </li>
 
-                                            <li class="nav-item" *ngIf="isMaster && masterID==0">
+                                            <li class="nav-item">
 
                                                 <a class="nav-link" data-toggle="tab" href="#gallery" role="tab"><span><i class="fa fa-file-image-o"></i> Gallery</span></a>
 
                                             </li>
 
-                                            <li class="nav-item" *ngIf="isMaster && masterID==0">
+                                            <li class="nav-item">
 
                                                 <a class="nav-link" data-toggle="tab" href="#videos" role="tab"><span><i class="fa fa-file-video-o"></i> Videos</span></a>
 
@@ -258,7 +257,7 @@
 
                                             </li>
 
-                                            <li class="nav-item" *ngIf="isMaster && masterID==0">
+                                            <li class="nav-item">
 
                                                 <a class="nav-link" data-toggle="tab" href="#brochure" role="tab"><span><i class="fa  fa-file-pdf-o"></i> Brochure</span></a>
 
@@ -391,7 +390,7 @@
 
                                             </div>
 
-                                            <div class="tab-pane show" id="gallery" role="tabpanel" *ngIf="isMaster && masterID==0">
+                                            <div class="tab-pane show" id="gallery" role="tabpanel" >
 
                                                 <div class="pad">
 
@@ -529,7 +528,7 @@
 
                                             </div>
 
-                                            <div class="tab-pane show" id="videos" role="tabpanel" *ngIf="isMaster && masterID==0">
+                                            <div class="tab-pane show" id="videos" role="tabpanel" >
 
                                                 <div class="pad">
 
@@ -1080,7 +1079,7 @@
 
                                             </div>
 
-                                            <div class="tab-pane show" id="brochure" role="tabpanel" *ngIf="isMaster && masterID==0">
+                                            <div class="tab-pane show" id="brochure" role="tabpanel" >
 
                                                 <div class="pad">
 
@@ -1098,15 +1097,15 @@
 
                                                                         <div class="form-group">
 
-                                                                            <label class="text-info">Brochure Title</label>
+                                                                            <label class="text-info">Brochure Title<span class="text-danger">*</span></label>
 
-                                                                            <input type="text" class="form-control" placeholder="Brochure Name" name="brochure_title" #brochure_title="ngModel" [(ngModel)]="productData_brochure.title" />
+                                                                            <input type="text" class="form-control" required placeholder="Brochure Name" name="brochure_title" #brochure_title="ngModel" [(ngModel)]="productData_brochure.title" />
 
                                                                         </div>
 
                                                                         <div class="form-group" *ngIf="!brochureId || docRemoved">
 
-                                                                            <label class="text-info">Document File.<span class="text-danger">*Maximum file size is 20MB</span></label>
+                                                                            <label class="text-info">Document File<span class="text-danger">*Maximum file size is 20MB</span></label>
 
                                                                             <div class="input-group input-group-sm">
 
@@ -1144,7 +1143,8 @@
                                             </div>
 
                                         </div>
-
+                                    </div>
+                                    <!-- Product Description wrapper ends -->
 
              
             </div>
