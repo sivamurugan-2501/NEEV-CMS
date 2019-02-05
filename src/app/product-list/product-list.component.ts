@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from './../services/product.service';
 import { ConstantsData } from '../constants-data';
 import { Router } from '@angular/router';
@@ -23,6 +23,8 @@ export class ProductListComponent implements OnInit {
   actionStatus;
   category_selected=0;
 
+  @Input() master: Boolean= false;
+
   popUpObject : NgbdModalComponent;
 
   constructor(private productService: ProductService, private route :Router, private modalService: NgbModal) { 
@@ -38,7 +40,7 @@ export class ProductListComponent implements OnInit {
   }
 
   load(){
-    this.productService.getProducts().subscribe(
+    this.productService.getProducts(null, (this.master ? 1 : 0) ).subscribe(
       (response:any) =>  {
         this.loading=1;
         if(response.status == 200){

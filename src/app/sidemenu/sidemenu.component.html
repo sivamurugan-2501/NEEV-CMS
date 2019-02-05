@@ -92,15 +92,7 @@
           </a>
 
           <ul class="treeview-menu">
-            <li>
-
-              <a href="javascript:void(0)" [routerLink]="['add-master-product']"
-
-                ><i class="mdi mdi-toggle-switch-off"></i>Add  Master Product</a
-
-              >
-
-            </li>
+           
             <li>
 
               <a href="javascript:void(0)" [routerLink]="['add-product']"
@@ -124,6 +116,54 @@
           </ul>
 
         </li>
+
+
+
+        <li class="treeview" *ngIf="roleType==1">
+
+            <a href="javascript:void(0)" >
+  
+              <i><img  src="../assets/images/pm.svg" alt="Product Management" 
+  
+                   width="28px"
+  
+              /></i>
+  
+              <span>Master Product Management</span>
+  
+              <span class="pull-right-container">
+  
+                <i class="fa fa-angle-right pull-right"></i>
+  
+              </span>
+  
+            </a>
+  
+            <ul class="treeview-menu">
+              <li>
+  
+                <a href="javascript:void(0)" [routerLink]="['add-master-product']"
+  
+                  ><i class="mdi mdi-toggle-switch-off"></i>Add  Master Product</a
+  
+                >
+  
+              </li>
+     
+  
+              <li>
+  
+                <a href="javascript:void(0)" [routerLink]="['master-product-list']"
+  
+                  ><i class="mdi mdi-toggle-switch-off"></i>View Master Products</a
+  
+                >
+  
+              </li>
+  
+            </ul>
+  
+          </li>
 
 
 
