@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomPopupsComponent, NgbdModalComponent } from '../custom-popups/custom-popups.component';
+import { StorageService } from '../services/storage.service';
 
 declare function setDataTable():any;
 
@@ -27,7 +28,9 @@ export class ProductListComponent implements OnInit {
 
   popUpObject : NgbdModalComponent;
 
-  constructor(private productService: ProductService, private route :Router, private modalService: NgbModal) { 
+  languages:any;
+
+  constructor(private productService: ProductService, private route :Router, private modalService: NgbModal, private storageService: StorageService) { 
     this.popUpObject = new NgbdModalComponent(modalService);
   }
 
@@ -36,7 +39,17 @@ export class ProductListComponent implements OnInit {
 
       setTimeout( ()=>{
         setDataTable();
-      },2000)
+      },2000);
+
+      const languages = this.storageService.getCustomData("LANGUAGES");
+
+      try{
+        this.languages = JSON.parse(languages);
+      }catch(e){
+        this.languages = languages;
+      }
+
+      this.getLanguageText(1);
   }
 
   load(){
@@ -71,7 +84,10 @@ export class ProductListComponent implements OnInit {
 
 
   deleteThis(id, index){
-    const response = this.popUpObject.open(ConstantsData.ARE_YOU_SURE, ConstantsData.DELETE_PRODUCT_CONFIRMATION, {
+
+    const deleteConfirmation = (this.master) ? "This master product and it's related product won't be accessible once deleted" : ConstantsData.DELETE_PRODUCT_CONFIRMATION;
+
+    const response = this.popUpObject.open(ConstantsData.ARE_YOU_SURE, deleteConfirmation, {
       "callback" : this.delete,
       "params" : [id, index, this]});
   }
@@ -94,7 +110,17 @@ export class ProductListComponent implements OnInit {
       }
     );
   }
+
   
+  getLanguageText(langId){
+    const langText =  this.languages.filter(
+      (element) => {
+          return (element.id == langId);
+      }
+    );
+    console.log(langText);
+    return (langText && langText[0] && langText[0]["name"]) ? langText[0]["name"] : "-";
+  }
 
 
 }

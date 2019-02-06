@@ -198,11 +198,15 @@ export class ProductAddComponent implements OnInit {
             ()=> {
               this.productData_1.master_id = q.master_id;
               this.productData_1.is_master = this.isMaster = 0;
+              if(q && q.lang){
+                // alert(q.lang);
+                 this.productData_1.language = q.lang;
+             }
             }, 3000
           );
-          
-
       }
+
+     
 
     });
 
@@ -621,7 +625,7 @@ export class ProductAddComponent implements OnInit {
                /*  this.route.navigate(["main","edit-product"], {
                   queryParams : {"id" : this.instanceId}
                 }); */
-               //window.location.reload();
+               window.location.reload();
             }, 5000);
            
 
@@ -1157,7 +1161,8 @@ export class ProductAddComponent implements OnInit {
   changeMode(){
     this.route.navigate(["main","add-product"], {
        queryParams : {
-        master_id : this.productData_1.master_id
+        master_id : this.productData_1.master_id,
+        lang : this.productData_1.language
        }
     });
   }
