@@ -621,7 +621,7 @@ export class ProductAddComponent implements OnInit {
                /*  this.route.navigate(["main","edit-product"], {
                   queryParams : {"id" : this.instanceId}
                 }); */
-               //window.location.reload();
+               window.location.reload();
             }, 5000);
            
 
