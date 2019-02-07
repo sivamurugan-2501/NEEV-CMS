@@ -1,6 +1,7 @@
 export class ConstantsData{
     static noBannerMessage = "Seems you have not yet added any banner(s)";
     static noProductMessage = "Seems you have not yet added any product(s)";
+    static noProductMasterMessage = "Seems you have not yet added any master product(s)";
     static noEventsMessage = "Seems you have not yet added any notice(s)";
     static EVENT_DELETE_SUCCESS = "Notice deleted successfully.";
     static ERROR_MESSAGE = "Sorry! Something went wrong.";

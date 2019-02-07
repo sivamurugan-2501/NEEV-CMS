@@ -20,18 +20,19 @@ export class ProductListComponent implements OnInit {
   products_actuals:any;
   loading =0;
   serverBaseURL="";
-  noRecordMessage = ConstantsData.noBannerMessage;
+
   actionStatus;
   category_selected=0;
 
   @Input() master: Boolean= false;
-
+  noRecordMessage = ConstantsData.noProductMessage ; 
   popUpObject : NgbdModalComponent;
 
   languages:any;
 
   constructor(private productService: ProductService, private route :Router, private modalService: NgbModal, private storageService: StorageService) { 
     this.popUpObject = new NgbdModalComponent(modalService);
+    this.noRecordMessage = (this.master) ? ConstantsData.noProductMessage : ConstantsData.noProductMasterMessage;
   }
 
   ngOnInit() {

@@ -192,7 +192,7 @@ export class ProductAddComponent implements OnInit {
       if(q && q.master_id && !isNaN(q.master_id)){
 
           this.masterID  = q.master_id;
-          this.loadProductData(this.masterID);
+          this.loadMasterProductData(this.masterID);
 
           setTimeout(
             ()=> {
@@ -227,6 +227,18 @@ export class ProductAddComponent implements OnInit {
     }
   }
 
+  loadMasterProductData(productId){
+    
+    this.productService.getProductById(productId).subscribe(
+        (response:any) => {
+            if(response.status == 200 && response.products){
+                const baseURL = ""; //this.baseURL = response.baseURL;
+                const productDetails = this.productDetails = response.products;
+                this.productData_1 = productDetails.basicData;
+            }
+          }
+        )
+  }
 
   loadProductData(productId){
     
