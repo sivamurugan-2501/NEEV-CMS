@@ -26,13 +26,14 @@ export class ProductListComponent implements OnInit {
 
   @Input() master: Boolean= false;
   noRecordMessage = ConstantsData.noProductMessage ; 
+  noRecordMessage2 = ConstantsData.noProductMasterMessage ; 
   popUpObject : NgbdModalComponent;
 
   languages:any;
 
   constructor(private productService: ProductService, private route :Router, private modalService: NgbModal, private storageService: StorageService) { 
     this.popUpObject = new NgbdModalComponent(modalService);
-    this.noRecordMessage = (this.master) ? ConstantsData.noProductMessage : ConstantsData.noProductMasterMessage;
+    //this.noRecordMessage = (!this.master) ? ConstantsData.noProductMessage : ConstantsData.noProductMasterMessage;
   }
 
   ngOnInit() {

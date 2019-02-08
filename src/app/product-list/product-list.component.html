@@ -78,7 +78,11 @@
               <app-action-message *ngIf="actionStatus==2" [type]="2" [message]="errorMessage" >
                 </app-action-message>
 
-                <app-action-message *ngIf="loading==1 && (!products || products.length==0)" [type]="3" [message]="noRecordMessage" >
+                <app-action-message *ngIf="!master && loading==1 && (!products || products.length==0)" [type]="3" [message]="noRecordMessage" >
+                </app-action-message>
+
+                
+                <app-action-message *ngIf="master && loading==1 && (!products || products.length==0)" [type]="3" [message]="noRecordMessage2" >
                 </app-action-message>
 
           <table id="example" *ngIf="products && products.length>0" class="as-data-table-2 table table-bordered table-hover display nowrap margin-top-10 w-p100">
