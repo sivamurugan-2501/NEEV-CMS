@@ -253,6 +253,7 @@ export class ProductAddComponent implements OnInit {
                 if(this.productData_1.is_master == 1 && !this.masterID){
                    this.isMaster  = this.productData_1.is_master;
                    this.masterID = this.productData_1.master_id;
+                  delete this.productData_1.brochure_title;
                   // alert(this.isMaster+" : "+this.masterID);
                 }
 

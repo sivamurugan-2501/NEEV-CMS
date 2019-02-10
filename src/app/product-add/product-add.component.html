@@ -99,7 +99,7 @@
             </div>
 
 
-              <div class="form-group">
+              <div class="form-group" *ngIf="isMaster">
                 <label class="text-info">Select Category<span class="text-danger">*</span></label>
                 <div class="controls">
                   <select name="category" id="category"  data-placeholder="Choose a Category" required class="form-control" [(ngModel)]="productData_1.category" >
@@ -182,7 +182,7 @@
                             <div class="col-md-2 thumbnail">
                             
                             <img src='{{productImage_1}}' style="width:100px; height:100px;">
-                            <div *ngIf="isisMaster" class="remove" (click)="removeProductImage()"> <code> Remove </code></div>
+                            <div *ngIf="isMaster" class="remove" (click)="removeProductImage()"> <code> Remove </code></div>
                             </div>
                         </div>
                     </div>
