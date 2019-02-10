@@ -192,7 +192,7 @@ export class ProductAddComponent implements OnInit {
       if(q && q.master_id && !isNaN(q.master_id)){
 
           this.masterID  = q.master_id;
-          this.loadMasterProductData(this.masterID);
+          this.loadProductData(this.masterID);
 
           setTimeout(
             ()=> {
