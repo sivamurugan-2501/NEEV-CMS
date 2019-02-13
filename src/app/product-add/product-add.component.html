@@ -107,6 +107,15 @@
                   </select>
                 </div>
               </div>
+
+              <div class="form-group" *ngIf="!isMaster">
+                <label class="text-info">Select Category<span class="text-danger">*</span></label>
+                <div class="controls">
+                  <select disabled name="category" id="category"  data-placeholder="Choose a Category" required class="form-control" [(ngModel)]="productData_1.category" >
+                      <option *ngFor="let t of CATEGORY_OPTIONS;" value="{{t.value}}">{{t.name}}</option>
+                  </select>
+                </div>
+              </div>
   
             
               
