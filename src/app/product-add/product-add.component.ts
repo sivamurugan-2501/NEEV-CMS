@@ -110,7 +110,7 @@ export class ProductAddComponent implements OnInit {
   errorMessage = "Error";
 
   featureImageError = null;
-  max_features =5;
+  max_features =10;
   max_features_arr = new Array(this.max_features);
 
   max_specs_columns = 10;
