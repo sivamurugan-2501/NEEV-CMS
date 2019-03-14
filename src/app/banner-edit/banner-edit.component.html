@@ -46,14 +46,14 @@
               </app-action-message>
   
               <div class="form-group">
-                  <label>Region</label>
+                  <label>State</label>
                   <div class="controls">
                     <select class="form-control"  name="region" id="region" #region="ngModel" [(ngModel)]= "bannerData.region" required>
-                            <option value=0>Select Region</option>
+                            <option value=0>Select State</option>
                             <option *ngFor="let rg of regions" value={{rg.id}}>{{rg.name}}</option>
                     </select>
                     <div class="form-control-feedback" *ngIf="region.invalid && (region.dirty || region.touched)">
-                        <code *ngIf="region.errors.required">Missing region</code>
+                        <code *ngIf="region.errors.required">Missing state</code>
                     </div>
                   </div>
               </div>
@@ -66,7 +66,7 @@
                             <option *ngFor="let lg of languages" value={{lg.id}}>{{lg.name}}</option>
                     </select>
                     <div class="form-control-feedback" *ngIf="language.invalid && (language.dirty || language.touched)">
-                        <code *ngIf="language.errors.required">Missing region</code>
+                        <code *ngIf="language.errors.required">Missing language</code>
                     </div>
                   </div>
               </div>

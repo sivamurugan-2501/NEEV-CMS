@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StatsService } from '../services/stats.service';
 
+declare function setDataTable():any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -14,6 +16,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.load();
+    setDataTable();
   }
 
   load(){

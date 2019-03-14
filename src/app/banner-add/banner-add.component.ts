@@ -68,7 +68,7 @@ export class BannerAddComponent implements OnInit {
 
   ngOnInit() {
 
-    const region = this.storageService.getCustomData("REGIONS");
+    const region = this.storageService.getCustomData("STATES");
 
     try{
       this.regions = JSON.parse(region);
