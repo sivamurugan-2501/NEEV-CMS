@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.load();
-    setDataTable();
+    
   }
 
   load(){
@@ -26,6 +26,11 @@ export class DashboardComponent implements OnInit {
               const data = response.data;
               this.totalUsers = data.totalUsers;
               this.totaAppEnq = data.totalAppEnq;
+              setTimeout( ()=>{
+                //select2Fn();
+                setDataTable();
+                //alert("loadedd");
+              },2000);
           }
        } 
     );

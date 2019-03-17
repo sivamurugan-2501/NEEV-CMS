@@ -1,0 +1,14 @@
+div.dataTables_wrapper div.dataTables_paginate{
+    display: none !important;
+    background:red !important;
+}
+
+.dataTables_info{
+    display: none !important;
+}
+
+.dataTables_filter{
+    display: none !important;
+}
+
+

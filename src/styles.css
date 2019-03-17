@@ -33,3 +33,25 @@
     height: auto !important ;
     margin-bottom: 10px !important;
 }
+
+
+
+
+
+#dashboard_cont div.dataTables_wrapper div.dataTables_paginate{
+    display: none !important;
+}
+
+#dashboard_cont .dataTables_info{
+    display: none !important;
+}
+
+#dashboard_cont .dataTables_filter{
+    display: none !important;
+}
+
+#dashboard_cont #example_wrapper{
+    padding-left : 0 !important;
+}
+
+
