@@ -2,6 +2,16 @@
     <div class="d-flex align-items-center">
         <div class="mr-auto">
             <h3 class="page-title">Dashboard</h3>
+
+            <div class="form-group">
+                <label class="text-info">Filter  By State</label>
+                <div class="controls">
+                    <select class="form-control"  name="state" id="state" #region="ngModel" [(ngModel)]= "filter.state" (change)="filteronState()" required>
+                        <option value=0>All States</option>
+                        <option *ngFor="let rg of states" value={{rg.id}}>{{rg.name}}</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -9,10 +9,13 @@ export class StatsService {
 
   constructor(private http:HttpClient) { }
 
-  getStats(){
-     
+  getStats(state){
+    let queryString = "";
+    if(state>0){
+      queryString = "?state="+state;
+    }
     const url = CONFIGS["apiBaseURL"]+CONFIGS["apiURLs"]["dashboard"]["stats"];
-    return this.http.get(url);
+    return this.http.get(url + queryString );
 
   }
 

@@ -152,11 +152,15 @@ $(function () {
 
   }); // End of use strict
 
+  
  */
+
+  var dataTable;
+  var dataTable2;
   function setDataTable(){
     //alert("hi");
       //window.onload = function(){
-    $('.as-data-table').DataTable( {
+    dataTable = $('.as-data-table').DataTable( {
 
 		dom: 'Bfrtip',
 
@@ -169,7 +173,7 @@ $(function () {
     });
     
     //alert("updated");
-    $('.as-data-table-2').DataTable( {
+    dataTable2=  $('.as-data-table-2').DataTable( {
 
       dom: 'Bfrtip',
 
@@ -178,7 +182,6 @@ $(function () {
       ]
 
   } );
-   
 
 //}
   }
@@ -194,4 +197,10 @@ $(function () {
 
   function fixSize(){
     document.body.style.height ='auto';
+  }
+
+  function reInitializeDB(){
+      //console.log(dataTable);
+      dataTable.destroy();
+      //setDataTable();
   }
